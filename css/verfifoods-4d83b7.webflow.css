@@ -1,0 +1,1832 @@
+:root {
+  --background-color: #fffcf8;
+  --verfi-blue: #100e79;
+  --darkest-blue: #050527;
+  --brown: #c18732;
+  --white: #fff;
+  --dark-blue: #090945;
+  --semi-grey: #c1bdbd;
+  --darker-background: #fcf3e7;
+}
+
+.body {
+  background-color: var(--background-color);
+  color: var(--verfi-blue);
+  font-family: brandon-grotesque, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: brandon-grotesque, sans-serif;
+}
+
+.hero-section {
+  background-image: linear-gradient(180deg, #00000080 62%, var(--darkest-blue)), url('../images/hero-bg.jpg');
+  color: var(--background-color);
+  background-position: 0 0, 50% 100%;
+  background-size: auto, cover;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 60px;
+  display: flex;
+  position: relative;
+}
+
+.contain-hero-content {
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  display: flex;
+}
+
+.contain-hero-content.down {
+  width: 360px;
+  padding-bottom: 20px;
+  position: absolute;
+  inset: auto 0% 0% 10%;
+}
+
+.headingonbluebig {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-size: 66px;
+  font-weight: 900;
+  line-height: 88px;
+}
+
+.button {
+  background-color: var(--brown);
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 10px;
+  min-width: 300px;
+  padding: 12px 50px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.button:hover {
+  background-image: linear-gradient(90deg, var(--brown), #d3a950);
+}
+
+.button.intypeholder {
+  border-radius: 5px;
+  min-width: 0;
+  padding: 5px 12px;
+  font-size: 12px;
+  position: absolute;
+  inset: auto 10px 10px auto;
+}
+
+.button.intypeholder.notabs {
+  position: static;
+}
+
+.brownundertitle {
+  color: var(--brown);
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.brownundertitle.white {
+  color: var(--background-color);
+}
+
+.brownundertitle.blue {
+  color: var(--verfi-blue);
+}
+
+.brownundertitle.blue.italic {
+  font-style: italic;
+}
+
+.brownundertitle.smaller {
+  font-size: 12px;
+}
+
+.holderthumbnailproduct {
+  color: var(--verfi-blue);
+  text-align: right;
+  cursor: pointer;
+  background-image: linear-gradient(135deg, #fff0 36%, #fff), url('../images/27053.jpg');
+  background-position: 0 0, 50%;
+  background-size: auto, cover;
+  border-radius: 10px;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 300px;
+  height: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 100px;
+  padding-right: 10px;
+  text-decoration: none;
+  display: flex;
+  position: relative;
+}
+
+.holderthumbnailproduct:hover {
+  background-image: url('../images/27053.jpg');
+  background-position: 50%;
+  background-size: cover;
+}
+
+.holderthumbnailproduct.hero {
+  background-color: var(--white);
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+.brown-text {
+  color: var(--brown);
+}
+
+.mediumbold-text {
+  font-weight: 500;
+}
+
+.shoppingcartbtn {
+  background-color: var(--brown);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  display: flex;
+  position: absolute;
+  inset: -25px -25px auto auto;
+}
+
+.section-doublepart {
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
+}
+
+.section-doublepart.minfullheight {
+  min-height: 95vh;
+}
+
+.containcenter {
+  width: 80vw;
+}
+
+.containcenter.doubleparts {
+  display: flex;
+}
+
+.containcenter.centered {
+  flex-flow: column;
+  display: flex;
+}
+
+.containcenter.dashboard {
+  width: 90vw;
+}
+
+.section-blue-parent {
+  justify-content: center;
+  align-items: stretch;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  display: flex;
+}
+
+.bluesection {
+  background-image: linear-gradient(315deg, var(--darkest-blue), var(--dark-blue));
+  color: var(--background-color);
+  border-radius: 20px;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  min-height: 90vh;
+  padding: 40px;
+  display: flex;
+}
+
+.bluesection.menusneak {
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 0;
+  padding: 40px;
+}
+
+.bluesection.footer {
+  min-height: 0;
+  padding-top: 100px;
+  position: relative;
+}
+
+.headingonwhite {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 48px;
+}
+
+.headingonwhite.onblue {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.headingonwhite._70 {
+  max-width: 70%;
+}
+
+.doublepartsside {
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  display: flex;
+}
+
+.doublepartsside.right {
+  border-left: 1px solid var(--brown);
+  align-items: flex-start;
+  min-height: 50vh;
+  padding: 20px 60px;
+}
+
+.doublepartsside.right.centered {
+  align-items: center;
+}
+
+.doublepartsside.centered {
+  text-align: center;
+}
+
+.doublepartsside.left {
+  align-items: flex-start;
+}
+
+.small-text {
+  opacity: .75;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.small-text.extrasmall {
+  font-size: 10px;
+}
+
+.centered-text100 {
+  text-align: center;
+  width: 100%;
+}
+
+.spacer10px {
+  height: 10px;
+}
+
+.socialmediaholder {
+  justify-content: space-between;
+  align-items: stretch;
+  max-width: 1000px;
+  display: flex;
+}
+
+.holder-instagram-phones {
+  justify-content: space-between;
+  width: 350px;
+  display: flex;
+}
+
+.holder-phone {
+  position: relative;
+}
+
+.time {
+  z-index: 5;
+  color: #000;
+  background-color: #fff;
+  padding: 2px 6px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 12px;
+  position: absolute;
+  inset: 6px auto auto 14px;
+}
+
+.phone-image {
+  border: 2px solid #fff;
+  border-radius: 10px;
+  width: 160px;
+  overflow: hidden;
+}
+
+.phone-image.black {
+  background-color: #000;
+  border-color: #000;
+}
+
+.holdermenusneaktitlefilters {
+  justify-content: space-between;
+  align-items: flex-start;
+  display: flex;
+}
+
+.titlemenusneakmaxwidth {
+  max-width: 30%;
+}
+
+.filtermenusneakholder {
+  flex-flow: wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  display: flex;
+}
+
+.filtermenusneak {
+  text-transform: uppercase;
+  background-color: #fffcf840;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.filtermenusneak.active {
+  background-color: var(--background-color);
+  color: var(--darkest-blue);
+}
+
+.holderproductsneakpeaks {
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  display: flex;
+}
+
+.holder100widthrightalignphonecenterphone {
+  justify-content: flex-end;
+  width: 100%;
+  display: flex;
+}
+
+.holdertitleandsocialmedialinks {
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  display: flex;
+}
+
+.socialmedialink {
+  color: var(--semi-grey);
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+}
+
+.socialmediaicon {
+  margin-right: 10px;
+}
+
+.socialmediaicon.spec {
+  max-height: 30px;
+  margin-right: 20px;
+}
+
+.alwaysflexhorizontal {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+}
+
+.alwaysflexhorizontal.top {
+  align-items: flex-start;
+}
+
+.teammemberimage {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+.flexhorizontalwrap {
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
+
+.flexhorizontalwrap.left {
+  flex-flow: row;
+  align-items: flex-start;
+}
+
+.aanbodtypeholder {
+  background-color: var(--background-color);
+  border-radius: 10px;
+  width: 22vw;
+  height: 22vw;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  position: relative;
+  inset: auto 0% 0% auto;
+}
+
+.aanbodtypeimagediv {
+  text-align: center;
+  text-transform: uppercase;
+  background-image: linear-gradient(#0006, #0006), url('../images/Brood-Type-Aanbod.jpg');
+  background-position: 0 0, 50%;
+  background-size: auto, cover;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  padding: 10px;
+  font-weight: 700;
+  display: flex;
+}
+
+.aanbodtypeimagediv.viennoiserie {
+  background-image: linear-gradient(#0006, #0006), url('../images/Viennoiserie-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
+.aanbodtypeimagediv.stokbrood {
+  background-image: linear-gradient(#0006, #0006), url('../images/Stokbrood2-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
+.aanbodtypeimagediv.gebak {
+  background-image: linear-gradient(#0006, #0006), url('../images/Gebak-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
+.aanbodtypeimagediv.smoothies {
+  background-image: linear-gradient(#0006, #0006), url('../images/Smoothies-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
+.aanbodtypeimagediv.ijs {
+  background-image: linear-gradient(#0006, #0006), url('../images/icecreamTypeAnbod.jpg');
+}
+
+.holderdeliveryinfo {
+  border: 1px solid var(--brown);
+  background-color: var(--white);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+
+.holderdeliveryinfo.specs {
+  min-width: 80px;
+  padding: 5px 10px;
+  display: flex;
+}
+
+.holderdeliveryinfo.prodpag {
+  width: 45%;
+}
+
+.holderdeliveryinfo.winkemanditem {
+  margin-right: 0;
+}
+
+._50widthlarge100phone {
+  width: 50%;
+}
+
+._50widthlarge100phone.imagemap {
+  margin-top: -40px;
+  margin-left: 20px;
+  margin-right: -10px;
+}
+
+.lottie-animation {
+  width: 120px;
+}
+
+.lottie-animation.bigger {
+  width: 200px;
+}
+
+.logosolo {
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  display: flex;
+}
+
+.sectionherosmoothies {
+  border-bottom: 2px solid var(--brown);
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+.circlesmoothies {
+  border: .5px solid var(--brown);
+  border-radius: 50%;
+  width: 80vw;
+  min-height: 150vh;
+  margin-bottom: -75vh;
+  position: relative;
+}
+
+.circlesmoothies.ices {
+  border-style: none;
+}
+
+.smoothiebtn {
+  z-index: 1;
+  background-color: var(--white);
+  border: .5px solid var(--white);
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 8px 14px;
+  position: absolute;
+  inset: auto auto 55% -5vw;
+  cursor: pointer;
+  border: .5px solid var(--brown);
+}
+
+.smoothiebtn:hover {
+  border: 1px solid var(--brown);
+}
+
+.smoothiebtn.active {
+  background-color: var(--brown);
+  color: var(--background-color);
+}
+
+.smoothiebtn.kwart {
+  bottom: 80%;
+  left: 0;
+}
+
+.smoothiebtn.top {
+  bottom: 97%;
+  left: 32vw;
+}
+
+.smoothiebtn.last {
+  inset: auto -5vw 55% auto;
+}
+
+.smoothiebtn.lastkwart {
+  inset: auto 0% 80% auto;
+}
+
+.restpagesmoothies {
+  z-index: 10;
+  background-color: var(--background-color);
+  min-height: 75vh;
+  position: relative;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(15deg) rotateY(0deg);  /* Starting from 15 degrees on Z-axis and 0 degrees on Y-axis */
+  }
+  50% {
+    transform: rotate(15deg) rotateY(180deg); /* Mid-point: 15 degrees on Z-axis, halfway (180deg) on Y-axis */
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(15deg) rotateY(360deg); /* End: 15 degrees on Z-axis, full 360deg rotation on Y-axis */
+    opacity: 1;
+  }
+}
+
+.smoothieimage {
+  z-index: 5;
+  width: 20vw;
+  transition: all 0.5s;
+  position: absolute;
+  inset: auto 0% 42% 30vw;
+  transform: rotate(15deg); /* Default rotation of 15 degrees */
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+.rotate {
+  animation: rotate 0.6s ease-in-out;
+}
+
+.smoothieimage.ijs {
+  width: 20vw;
+  left: 30vw;
+}
+
+.ingredientssmoothieimage {
+  width: 15vw;
+  position: absolute;
+  inset: -3vw auto auto -5vw;
+}
+
+.ingredientssmoothieimage.ijs {
+  top: 15vw;
+}
+
+.smoothieingredientsholder {
+  text-align: right;
+  position: absolute;
+  inset: -2vw -5vw auto auto;
+}
+
+.smoothieingredientsholder.ijs {
+  max-width: 20vw;
+  top: 15vw;
+}
+
+.footercontentholder {
+  justify-content: space-around;
+  align-items: flex-start;
+  display: flex;
+}
+
+.footerpart {
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 20px;
+  display: flex;
+}
+
+.link-footer {
+  padding-right: 5px;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.link-footer:hover {
+  padding-left: 5px;
+  padding-right: 0;
+}
+
+.holderlogofooter {
+  background-color: var(--background-color);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 10vw;
+  display: flex;
+  position: absolute;
+  inset: -5vw auto auto 35vw;
+}
+
+.holderlogofooter.nav {
+  position: absolute;
+  inset: auto auto -3vw 40vw;
+}
+
+.logofooter {
+  width: 50%;
+  max-width: 250px;
+}
+
+.logofooter.nav {
+  min-height: 0;
+}
+
+.google-maps {
+  background-image: url('../images/maps.jpeg');
+  background-position: 0 0;
+  background-size: auto;
+  border-radius: 100px;
+  align-self: auto;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.mapslink {
+  cursor: pointer;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  display: flex;
+}
+
+.mapslink.google {
+  border: 1px solid var(--semi-grey);
+  background-color: var(--white);
+  color: var(--verfi-blue);
+  border-radius: 10px;
+  padding: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 14px;
+}
+
+.mapslink._10down {
+  margin-bottom: 10px;
+}
+
+._100-widthcenter {
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.leftalignflexvert {
+  flex-flow: column;
+  align-items: flex-start;
+  display: flex;
+}
+
+.text-field {
+  min-width: 250px;
+}
+
+.holderoflines {
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 10px;
+  display: flex;
+}
+
+.line {
+  background-color: var(--brown);
+  width: 100px;
+  height: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.nav {
+  background-color: var(--background-color);
+  justify-content: center;
+  min-height: 80px;
+  display: flex;
+  position: relative;
+}
+
+.navlinksholder {
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+.navlink {
+  color: var(--darkest-blue);
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navlink:hover {
+  color: var(--brown);
+}
+
+.spaceholdercentralnav {
+  width: 20vw;
+}
+
+.holdernavheros {
+  position: absolute;
+  inset: 0% 0% auto;
+}
+
+.logorightside {
+  width: 200px;
+}
+
+.holdertopdashboard {
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  display: flex;
+}
+
+.flexhorizontalspaced {
+  justify-content: space-between;
+  display: flex;
+}
+
+.holderdashboardcontent {
+  margin-top: 20px;
+  display: flex;
+}
+
+.holderlinksdashboard {
+  width: 25%;
+  height: 75vh;
+  min-height: 400px;
+  position: sticky;
+  top: 40px;
+}
+
+.typefoodicon {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+.holderappdashboard {
+  background-color: var(--darker-background);
+  border-radius: 10px;
+  width: 75%;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.holderapptop {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.holderappresults {
+  background-color: var(--background-color);
+  border-radius: 5px;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80%;
+  margin-top: 10px;
+  padding: 20px;
+  display: flex;
+}
+
+.menuitem {
+  border: 1px solid var(--brown);
+  background-color: var(--white);
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 360px;
+  min-height: 125px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  display: flex;
+}
+
+.menuitemimage {
+  width: 30%;
+}
+
+.productinfoinmenu {
+  width: 65%;
+}
+
+.price {
+  color: var(--brown);
+  margin-right: 20px;
+  font-weight: 700;
+}
+
+.holderqtyandaddbtn {
+  flex-flow: wrap;
+  align-items: center;
+  display: flex;
+}
+
+.qtycontrols {
+  border: 1px solid var(--semi-grey);
+  border-radius: 10px;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  font-size: 12px;
+  display: flex;
+}
+
+.qtyhandlers {
+  text-align: center;
+  width: 30%;
+}
+
+.qtyamount {
+  border-right: 1px solid var(--semi-grey);
+  border-left: 1px solid var(--semi-grey);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 100%;
+  display: flex;
+}
+
+.linktextmenuitem {
+  color: var(--verfi-blue);
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.linktextmenuitem:hover {
+  color: var(--brown);
+}
+
+.holdersocialhandles {
+  margin-top: 20px;
+}
+
+.menuicon {
+  display: none;
+}
+
+.section-product {
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  display: flex;
+}
+
+.contentproductpage {
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.imageproductpage {
+  border: 1px solid var(--brown);
+  border-radius: 20px;
+  width: 35%;
+}
+
+.productinfo {
+  width: 60%;
+}
+
+.holderlinkpath {
+  flex-flow: wrap;
+  display: flex;
+}
+
+.linkpath {
+  color: var(--dark-blue);
+  margin-right: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.linkpath:hover {
+  color: var(--brown);
+}
+
+.linkpath.nonhover:hover {
+  color: var(--dark-blue);
+}
+
+.producttitle {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.linkcolor {
+  color: var(--dark-blue);
+}
+
+.linkcolor.hoverable:hover {
+  color: var(--brown);
+}
+
+.holderspecs {
+  flex-flow: wrap;
+  padding-top: 10px;
+  display: flex;
+}
+
+.downpartleftsidemenuphone {
+  font-size: 14px;
+  display: none;
+  position: absolute;
+  inset: auto 0% 0% auto;
+}
+
+.productcartimage {
+  width: 25%;
+}
+
+.select-field {
+  color: var(--dark-blue);
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+.deletebtn {
+  margin-left: 10px;
+}
+
+.deletebtn:hover {
+  color: #ff1b1f;
+}
+
+.winkelmanditem {
+  justify-content: space-between;
+  display: flex;
+}
+
+.winkelmanditeminfo {
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 25%;
+  display: flex;
+}
+
+.winkelmanditempriceholder {
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+  display: flex;
+}
+
+.checkoutdivcart {
+  background-color: var(--darker-background);
+  border-radius: 10px;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 400px;
+  min-height: 120px;
+  margin-bottom: 60px;
+  padding: 20px;
+  display: flex;
+  position: relative;
+}
+
+.imagetypeproducthero {
+  width: 200px;
+}
+
+.imagetypeproducthero.rounded {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 200px;
+}
+
+.colorsourcesmoothies {
+  background-image: radial-gradient(circle farthest-corner at 50% 100%, #d75064, var(--background-color) 53%);
+  width: 60%;
+  height: 300px;
+  position: absolute;
+  inset: auto 0% 50% 20%;
+}
+
+.holderphonesmoothienameandcontrollers {
+  display: none;
+}
+
+.holderphonesmoothienameandcontrollers.allscreens {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.prevnextbtn {
+  background-color: var(--darker-background);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+}
+
+.holdernextprevious {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: none;
+}
+
+.previousnextbtn {
+  background-color: var(--darker-background);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+}
+
+.holdernextprevtitle {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.holdernextprevtitle:hover {
+  color: var(--brown);
+}
+
+.langholder {
+  z-index: 10;
+  color: var(--semi-grey);
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  position: absolute;
+  inset: auto 20px 20px auto;
+}
+
+.langholder:hover {
+  font-weight: 700;
+}
+
+.langholder.menu {
+  width: 120px;
+  position: absolute;
+  inset: auto auto 0% 0%;
+}
+
+.flag {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.rotatedtext {
+  margin-left: 10px;
+  transform: rotate(90deg);
+}
+
+.popupholder {
+  z-index: 100;
+  opacity: 0;
+  background-image: linear-gradient(#00000080, #00000080);
+  justify-content: center;
+  align-items: center;
+  transition: opacity .75s;
+  display: none;
+  position: fixed;
+  inset: 0%;
+  visibility: hidden;
+  display: flex;
+}
+
+.popupholder.vis {
+  opacity: 1;
+  display: flex;
+}
+
+.popupcontainer {
+  background-color: var(--darker-background);
+  opacity: 0;
+  border-radius: 20px;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  max-width: 85vw;
+  padding: 20px 40px;
+  transition: opacity .25s;
+  display: flex;
+  position: relative;
+}
+
+.langchoice {
+  color: var(--dark-blue);
+  text-transform: uppercase;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  cursor: pointer;
+}
+
+.langchoice:hover {
+  color: var(--brown);
+}
+
+.closebtn {
+  background-color: var(--brown);
+  color: var(--white);
+  cursor: pointer;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  position: absolute;
+  inset: -15px -15px auto auto;
+}
+
+@media screen and (max-width: 991px) {
+  .body {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .contain-hero-content {
+    width: 90%;
+  }
+
+  .contain-hero-content.down {
+    left: 5%;
+  }
+
+  .headingonbluebig {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  .button {
+    min-width: 0;
+    padding: 9px 24px;
+  }
+
+  .button.intypeholder {
+    bottom: 5px;
+  }
+
+  .brownundertitle {
+    font-size: 14px;
+  }
+
+  .holderthumbnailproduct {
+    width: 240px;
+    height: 240px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 80px;
+  }
+
+  .shoppingcartbtn {
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    top: -20px;
+    right: -20px;
+  }
+
+  .containcenter.doubleparts {
+    width: 90vw;
+  }
+
+  .headingonwhite {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .aanbodtypeholder {
+    width: 180px;
+    height: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .smoothieimage.ijs {
+    width: 30vw;
+    left: 25vw;
+  }
+
+  .logofooter.nav {
+    width: 60%;
+  }
+
+  .google-maps {
+    align-self: auto;
+    width: 50px;
+    height: 50px;
+  }
+
+  .navlink {
+    font-size: 14px;
+  }
+
+  .holderlinksdashboard {
+    width: 30%;
+  }
+
+  .holderappdashboard {
+    width: 70%;
+  }
+
+  .imageproductpage {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .holderthumbnailproduct {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+  }
+
+  .section-doublepart.minfullheight.firsection, .section-doublepart.firstsection {
+    padding-top: 40px;
+  }
+
+  .containcenter {
+    width: 90%;
+  }
+
+  .containcenter.doubleparts {
+    flex-flow: column;
+  }
+
+  .bluesection, .bluesection.menusneak {
+    padding: 20px 0;
+  }
+
+  .headingonwhite {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .doublepartsside {
+    width: 100%;
+    padding-bottom: 40px;
+  }
+
+  .doublepartsside.right {
+    border-top: 1px solid var(--brown);
+    border-left-style: none;
+    min-height: 200px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .socialmediaholder {
+    flex-flow: column;
+  }
+
+  .holder-instagram-phones {
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .holdermenusneaktitlefilters {
+    flex-flow: column;
+  }
+
+  .titlemenusneakmaxwidth {
+    max-width: none;
+    margin-bottom: 20px;
+  }
+
+  .filtermenusneakholder {
+    justify-content: flex-start;
+  }
+
+  .filtermenusneak {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  .holderproductsneakpeaks {
+    flex-flow: wrap;
+  }
+
+  .holder100widthrightalignphonecenterphone {
+    justify-content: center;
+  }
+
+  .holdertitleandsocialmedialinks {
+    flex-flow: row;
+    align-items: center;
+  }
+
+  .socialmedialink {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .flexhorizontalwrap.left {
+    flex-flow: wrap;
+  }
+
+  .holderdeliveryinfo {
+    margin-right: 0;
+  }
+
+  .holderdeliveryinfo.specs {
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .holderdeliveryinfo.prodpag, ._50widthlarge100phone {
+    width: 100%;
+  }
+
+  ._50widthlarge100phone.imagemap {
+    margin: 20px;
+  }
+
+  .footercontentholder {
+    flex-flow: wrap;
+    justify-content: space-between;
+  }
+
+  .holderlogofooter {
+    width: 40%;
+    height: 100px;
+    top: -50px;
+    left: 30%;
+  }
+
+  .holderlogofooter.nav {
+    justify-content: space-between;
+    width: 100%;
+    height: 80px;
+    padding: 10px 5%;
+    bottom: 0;
+    left: 0;
+  }
+
+  .logofooter.nav {
+    width: 120px;
+    min-height: 0;
+  }
+
+  .google-maps {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navlinksholder {
+    z-index: 10;
+    background-color: var(--darker-background);
+    flex-flow: column;
+    justify-content: center;
+    height: 0;
+    transition: height 1s;
+    display: flex;
+    position: fixed;
+    inset: 80px 0% 0%;
+    overflow: hidden;
+  }
+
+  .navlink {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .spaceholdercentralnav {
+    display: none;
+  }
+
+  .holderlinksdashboard {
+    width: 100%;
+    transition: all .2s;
+    display: none;
+    position: relative;
+    overflow: scroll;
+  }
+
+  .holderappdashboard {
+    width: 100%;
+    transition: all .2s;
+  }
+
+  .holdersocialhandles {
+    margin-top: 0;
+  }
+
+  .menuicon {
+    width: 30px;
+    display: block;
+  }
+
+  .downpartleftsidemenuphone {
+    display: block;
+    position: fixed;
+    inset: auto 10px 10px auto;
+  }
+
+  .colorsourcesmoothies {
+    width: 40%;
+    height: 150px;
+    left: 30%;
+  }
+
+  .holdernextprevious {
+    display: flex;
+  }
+
+  .langholder {
+    width: auto;
+    height: 80px;
+    inset: 0% 100px auto auto;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .hero-section {
+    min-height: 90vh;
+  }
+
+  .contain-hero-content {
+    flex-flow: column;
+    align-items: flex-start;
+  }
+
+  .contain-hero-content.down {
+    width: auto;
+  }
+
+  .holderthumbnailproduct {
+    width: 100%;
+  }
+
+  .holderthumbnailproduct.hero {
+    width: 90%;
+    margin-bottom: 20px;
+    margin-left: 0;
+  }
+
+  .section-doublepart.minfullheight.firsection, .section-doublepart.firstsection {
+    padding-top: 20px;
+  }
+
+  .bluesection.menusneak {
+    width: 95%;
+    padding: 30px 10px;
+  }
+
+  .headingonwhite._70 {
+    max-width: 100%;
+  }
+
+  .holder-instagram-phones {
+    flex-direction: row;
+  }
+
+  .holder-phone {
+    width: 45%;
+  }
+
+  .phone-image.black {
+    width: 100%;
+  }
+
+  .filtermenusneak {
+    margin-right: 5px;
+  }
+
+  .holderproductsneakpeaks {
+    justify-content: flex-start;
+  }
+
+  .holdertitleandsocialmedialinks {
+    text-align: center;
+    flex-flow: column;
+  }
+
+  .aanbodtypeholder {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .holderdeliveryinfo.winkemanditem {
+    padding: 10px;
+  }
+
+  .sectionherosmoothies {
+    min-height: 90vh;
+  }
+
+  .circlesmoothies {
+    border-style: none;
+    border-radius: 0%;
+    width: 90vw;
+    min-height: 80vh;
+    margin-bottom: 0;
+    padding-top: 60px;
+  }
+
+  .smoothiebtn {
+    display: none;
+  }
+
+  .smoothieimage {
+    width: 50%;
+    bottom: -10%;
+    left: 25%;
+  }
+
+  .smoothieimage.ijs {
+    width: 45vw;
+    left: 22.5vw;
+  }
+
+  .ingredientssmoothieimage {
+    width: 25vw;
+    position: static;
+  }
+
+  .smoothieingredientsholder {
+    position: static;
+  }
+
+  .smoothieingredientsholder.ijs {
+    max-width: 40vw;
+  }
+
+  .holderlogofooter {
+    width: 50%;
+    left: 25%;
+  }
+
+  .logofooter.nav {
+    width: 100px;
+  }
+
+  ._100-widthcenter.leftphone {
+    align-items: flex-start;
+  }
+
+  .holderlinksdashboard {
+    height: 70vh;
+    min-height: 0;
+  }
+
+  .holderappresults {
+    padding: 10px;
+  }
+
+  .menuitem {
+    flex-flow: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .menuitemimage {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+
+  .productinfoinmenu {
+    width: 100%;
+  }
+
+  .holdertexthero {
+    margin-bottom: 40px;
+  }
+
+  .holdersocialhandles {
+    margin-top: 20px;
+  }
+
+  .contentproductpage {
+    flex-flow: column;
+  }
+
+  .imageproductpage {
+    width: 75%;
+    margin-bottom: 20px;
+  }
+
+  .productinfo {
+    width: 100%;
+  }
+
+  .holderlinkpath {
+    display: none;
+  }
+
+  .productcartimage {
+    width: 50%;
+  }
+
+  .winkelmanditem {
+    flex-flow: wrap;
+  }
+
+  .winkelmanditeminfo {
+    width: 50%;
+  }
+
+  .winkelmanditempriceholder {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .checkoutdivcart {
+    width: 100%;
+    min-height: 100px;
+  }
+
+  .colorsourcesmoothies {
+    width: 100%;
+    height: 170px;
+    bottom: 0%;
+    left: 0%;
+  }
+
+  .holderphonesmoothienameandcontrollers {
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    display: flex;
+  }
+
+  .holderphonesmoothienameandcontrollers.allscreens {
+    text-align: center;
+  }
+
+  .prevnextbtn {
+    background-color: var(--darker-background);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+  }
+
+  .holderingredientssmoothiephone {
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
+  }
+
+  .previousnextbtn {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .holdernextprevtitle.left {
+    text-align: right;
+  }
+
+  .langholder {
+    font-size: 12px;
+    right: 60px;
+  }
+
+  .langholder.menu {
+    justify-content: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
