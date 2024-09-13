@@ -58,7 +58,8 @@ function navigateProducts(direction) {
     updateProductDetails(nextProduct.name);
 }
 
-
+document.body.addEventListener('click', function (event) {
+const productElement = event.target;
     // Handle previous button click
     if (productElement.hasAttribute('prevbtn')) {
         navigateProducts('prev');
@@ -68,3 +69,4 @@ function navigateProducts(direction) {
     if (productElement.hasAttribute('nextbtn')) {
         navigateProducts('next');
     }
+});
