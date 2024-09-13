@@ -1,0 +1,1 @@
+/product/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getProductPage?id=:id  200
