@@ -1,5 +1,18 @@
 let currentProductIndex = 0;  // Track the current product index
 
+function preloadImages() {
+    products.forEach(product => {
+        const smoothieImage = new Image();
+        smoothieImage.src = product.image;
+
+        const ingredientImage = new Image();
+        ingredientImage.src = product.ingredientImage;
+    });
+}
+
+// Call this function right when the script is read
+preloadImages();
+
 // Function to update product details
 function updateProductDetails(productName) {
     const product = products.find(p => p.name === productName);
