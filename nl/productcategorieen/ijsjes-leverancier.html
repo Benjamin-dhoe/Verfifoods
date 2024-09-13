@@ -1,12 +1,11 @@
-<!DOCTYPE html><!--  This site was created in Webflow. https://webflow.com  --><!--  Last Published: Fri Sep 13 2024 08:50:43 GMT+0000 (Coordinated Universal Time)  -->
-<html data-wf-page="66e3e94e4fb450df01dda556" data-wf-site="66d843f7aa41c71a1134cb81">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
   <title>Ijsjes leverancier</title>
   <meta content="Ijsjes leverancier" property="og:title">
   <meta content="Ijsjes leverancier" property="twitter:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Webflow" name="generator">
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
   <link href="/css/webflow.css" rel="stylesheet" type="text/css">
   <link href="/css/verfifoods-4d83b7.webflow.css" rel="stylesheet" type="text/css">
@@ -44,15 +43,15 @@
     <div class="circlesmoothies ices">
       <div class="holderingredientssmoothiephone"><img src="/images/il-primo.png" loading="lazy" width="208" alt="" class="ingredientssmoothieimage ijs">
         <div class="smoothieingredientsholder ijs">
-          <div class="brownundertitle blue italic">Il primo oneshot cone aardbei</div>
+          <div class="brownundertitle blue italic" currentLongTitle>Il primo oneshot cone aardbei</div>
           <div class="spacer10px"></div>
           <a href="#" class="button intypeholder notabs w-button">Bestel nu</a>
         </div>
       </div><img src="/images/Il-Primo-Oneshot-Cone-Aardbei-int-HR.png" loading="lazy" width="275" alt="" class="smoothieimage ijs">
       <div class="holderphonesmoothienameandcontrollers allscreens">
-        <div class="prevnextbtn">&lt;</div>
-        <div class="brownundertitle">Oneshot aardbei</div>
-        <div class="prevnextbtn">&gt;</div>
+        <div class="prevnextbtn" prevbtn>&lt;</div>
+        <div class="brownundertitle" currentTitle>Oneshot aardbei</div>
+        <div class="prevnextbtn" nextbtn>&gt;</div>
       </div>
       <div class="colorsourcesmoothies"></div>
     </div>
@@ -190,5 +189,83 @@
     const urlEN = "/en/product-categories/ice-cream-supplier.html";
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
+  <script>
+    const products = [
+        {
+            name: 'Oneshot aardbei',
+            longname: 'Il primo Oneshot hoorntje aardbei',
+            image: '/images/Il Primo Oneshot Cone Aardbei int HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot brownie vanille',
+            longname: 'Il primo Oneshot hoorntje brownie vanille',
+            image: '/images/Il Primo Oneshot Cone Brownie Vanille int HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot cappucino',
+            longname: 'Il primo Oneshot hoorntje cappucino',
+            image: '/images/Il Primo Oneshot Cone Cappuccino intHR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot chocolade',
+            longname: 'Il primo Oneshot hoorntje chocolade',
+            image: '/images/Il Primo Oneshot Cone Chocolade int HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot vanille',
+            longname: 'Il primo Oneshot hoorntje vanille',
+            image: '/images/Il Primo Oneshot Cone Vanille int HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot bosvruchten',
+            longname: 'Il primo Oneshot hoorntje bosvruchten',
+            image: '/images/Il Primo Oneshot frozen yoghurt Cone Bosvruchten int HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot naturel',
+            longname: 'Il primo Oneshot hoorntje naturel',
+            image: '/images/Il Primo Oneshot frozen yoghurt Cone Naturel HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot aardbei vanille',
+            longname: 'Il primo Oneshot hoorntje aardbei vanille',
+            image: '/images/Il Primo Oneshot hoorntje Aardbeien Vanille HR 150.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot aardbei',
+            longname: 'Il primo Oneshot hoorntje aardbei',
+            image: '/images/Il-Primo-Oneshot-Cone-Aardbei-int-HR.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot banaan',
+            longname: 'Il primo Oneshot hoorntje banaan',
+            image: '/images/Il Primo Oneshot hoorntje Banaan HR 150.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot chocolade vanille',
+            longname: 'Il primo Oneshot hoorntje chocolade vanille',
+            image: '/images/Il Primo Oneshot hoorntje Chocolade Vanille HR 150.png',
+            colour: 'b85864'
+        },
+        {
+            name: 'Oneshot pistache',
+            longname: 'Il primo Oneshot hoorntje pistache',
+            image: '/images/Il Primo Oneshot hoorntje Pistache HR 150.png',
+            colour: 'b85864'
+        }
+      
+    ];
+  </script>
+  <script src="/js/prodshwic.js" type="text/javascript"></script>
 </body>
 </html>
