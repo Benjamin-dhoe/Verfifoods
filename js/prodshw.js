@@ -1,3 +1,6 @@
+let currentProductIndex = 0;  // Track the current product index
+
+// Function to update product details
 function updateProductDetails(productName) {
     const product = products.find(p => p.name === productName);
 
@@ -35,6 +38,12 @@ function updateProductDetails(productName) {
             const gradientColor = `#${product.colour}`;
             colorSourceElement.style.backgroundImage = `radial-gradient(circle farthest-corner at 50% 100%, ${gradientColor}, #fffcf8 53%)`;
         }
+
+        // Update the current product title
+        const currentTitleElement = document.querySelector('[currentTitle]');
+        if (currentTitleElement) {
+            currentTitleElement.textContent = product.name;
+        }
     }
 }
 
@@ -49,15 +58,38 @@ function handleActiveClass(productElement) {
     productElement.classList.add('active');
 }
 
+// Function to navigate to the next or previous product
+function navigateProducts(direction) {
+    if (direction === 'next') {
+        currentProductIndex = (currentProductIndex + 1) % products.length; // Loop back to the first product
+    } else if (direction === 'prev') {
+        currentProductIndex = (currentProductIndex - 1 + products.length) % products.length; // Loop to the last product
+    }
+    const nextProduct = products[currentProductIndex];
+    updateProductDetails(nextProduct.name);
+}
+
 // Event delegation to handle clicks on product elements
 document.body.addEventListener('click', function (event) {
     const productElement = event.target;
 
+    // Handle product click
     if (productElement.hasAttribute('product')) {
         const productName = productElement.getAttribute('product');
+        currentProductIndex = products.findIndex(p => p.name === productName); // Update the current index
         updateProductDetails(productName);
 
         // Handle the 'active' class toggle
         handleActiveClass(productElement);
+    }
+
+    // Handle previous button click
+    if (productElement.hasAttribute('prevbtn')) {
+        navigateProducts('prev');
+    }
+
+    // Handle next button click
+    if (productElement.hasAttribute('nextbtn')) {
+        navigateProducts('next');
     }
 });
