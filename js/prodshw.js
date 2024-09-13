@@ -28,8 +28,10 @@ function updateProductDetails(productName) {
             // Update smoothie image
             smoothieImage.src = product.image;
 
+            setTimeout(() => {
             // Remove the rotation class after animation completes to reset it
             smoothieImage.classList.remove('rotate');
+            }, 300);  
         }, 300);  // Half of the animation time (to switch image mid-rotation)
 
         // Update ingredients image
