@@ -68,4 +68,3 @@ function navigateProducts(direction) {
     if (productElement.hasAttribute('nextbtn')) {
         navigateProducts('next');
     }
-});
