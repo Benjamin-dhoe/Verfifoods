@@ -51,12 +51,12 @@
       </div>
       <div class="doublepartsside right centered">
         <div class="w-form">
-          <form id="email-form" name="email-form" data-name="Email Form" method="get" class="leftalignflexvert" data-wf-page-id="66e05a19ac7b06c88d86aed9" data-wf-element-id="2872464f-7ba1-bf45-5809-341728b8ace9"><label for="Email" class="brownundertitle">Adresse e-mail</label><input class="text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="" type="email" id="Email"><label for="Paswoord" class="brownundertitle">Mot de passe</label><input class="w-input" maxlength="256" name="Paswoord" data-name="Paswoord" placeholder="" type="password" id="Paswoord" required=""><input type="submit" data-wait="Please wait..." class="button intypeholder notabs w-button" value="Se connecter"></form>
+          <form id="email-form" name="email-form" data-name="Email Form" method="get" class="leftalignflexvert"><label for="Email" class="brownundertitle">Adresse e-mail</label><input class="text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="" type="email" id="Email"><label for="Paswoord" class="brownundertitle">Mot de passe</label><input class="w-input" maxlength="256" name="Paswoord" data-name="Paswoord" placeholder="" type="password" id="Password" required=""><input type="submit" data-wait="Please wait..." class="button intypeholder notabs w-button" value="Se connecter"></form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
           </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
+          <div class="w-form-fail" id="error-message">
+            <div></div>
           </div>
         </div>
         <div class="holderoflines">
@@ -148,5 +148,65 @@
     const urlEN = "/en/login.html";
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
+  <script type="module">
+  // Import the Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+    authDomain: "test-9efbe.firebaseapp.com",
+    projectId: "test-9efbe",
+    storageBucket: "test-9efbe.appspot.com",
+    messagingSenderId: "218327249026",
+    appId: "1:218327249026:web:0d48fa588ac45ef557049b",
+    measurementId: "G-2ZTZCL27TE"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Function to log in a user
+  window.login = function() {
+    // Get email and password from input fields
+    const email = document.getElementById('Email').value;
+    const password = document.getElementById('Password').value;
+    const errorMessageEl = document.getElementById('error-message');
+
+    // Clear any previous error messages
+    errorMessageEl.textContent = "";
+
+    // Use Firebase Auth version 9 method to sign in the user
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Get the ID token (JWT)
+        return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
+      })
+      .then(({ idToken, userId }) => {
+        // Redirect the user to their dashboard, passing the token in the Authorization header
+        const userUrl = `/users/${userId}`;
+        
+        return fetch(userUrl, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${idToken}`, // Send ID token in Authorization header
+          }
+        });
+      })
+      .then(response => response.text())
+      .then(htmlContent => {
+        // Insert the returned HTML content into the page
+        document.body.innerHTML = htmlContent;
+      })
+      .catch((error) => {
+        console.error("Login or dashboard fetch error:", error);
+        errorMessageEl.textContent = "Error: " + error.message;
+      });
+  }
+</script>
 </body>
 </html>
