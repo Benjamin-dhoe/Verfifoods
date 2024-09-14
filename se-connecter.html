@@ -45,13 +45,17 @@
       </div>
       <div class="doublepartsside right centered">
         <div class="w-form">
-          <form id="email-form" name="email-form" data-name="Email Form" class="leftalignflexvert"><label for="Email" class="brownundertitle">Adresse e-mail</label><input class="text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="" type="email" id="Email"><label for="Paswoord" class="brownundertitle">Mot de passe</label><input class="w-input" maxlength="256" name="Paswoord" data-name="Paswoord" placeholder="" type="password" id="Password" required=""><input type="submit" data-wait="Please wait..." class="button intypeholder notabs w-button" value="Se connecter"></form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail" id="error-message">
-            <div></div>
-          </div>
+          <form id="email-form" name="email-form" class="leftalignflexvert">
+            <label for="Email" class="brownundertitle">Adresse e-mail</label>
+            <input class="text-field w-input" maxlength="256" name="Email" type="email" id="Email" required>
+            
+            <label for="Password" class="brownundertitle">Mot de passe</label>
+            <input class="w-input" maxlength="256" name="Password" type="password" id="Password" required>
+        
+            <input type="submit" class="button intypeholder notabs w-button" value="Se connecter">
+          </form>
+        
+          <div class="w-form-fail" id="error-message"></div>
         </div>
         <div class="holderoflines">
           <div class="line"></div>
@@ -163,7 +167,9 @@
   const auth = getAuth(app);
 
   // Function to log in a user
-  window.login = function() {
+  function login(event) {
+    event.preventDefault();  // Prevent the default form submission
+
     // Get email and password from input fields
     const email = document.getElementById('Email').value;
     const password = document.getElementById('Password').value;
@@ -172,7 +178,6 @@
     // Clear any previous error messages
     errorMessageEl.textContent = "";
 
-    // Use Firebase Auth version 9 method to sign in the user
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -201,6 +206,9 @@
         errorMessageEl.textContent = "Error: " + error.message;
       });
   }
+
+  // Attach event listener to the form
+  document.getElementById('email-form').addEventListener('submit', login);
 </script>
 </body>
 </html>
