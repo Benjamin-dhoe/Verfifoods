@@ -167,45 +167,37 @@
   const auth = getAuth(app);
 
   // Function to log in a user
-  function login(event) {
-    event.preventDefault();  // Prevent the default form submission
+  // Function to log in a user
+function login(event) {
+  event.preventDefault();  // Prevent the default form submission
 
-    // Get email and password from input fields
-    const email = document.getElementById('Email').value;
-    const password = document.getElementById('Password').value;
-    const errorMessageEl = document.getElementById('error-message');
+  // Get email and password from input fields
+  const email = document.getElementById('Email').value;
+  const password = document.getElementById('Password').value;
+  const errorMessageEl = document.getElementById('error-message');
 
-    // Clear any previous error messages
-    errorMessageEl.textContent = "";
+  // Clear any previous error messages
+  errorMessageEl.textContent = "";
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
 
-        // Get the ID token (JWT)
-        return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
-      })
-      .then(({ idToken, userId }) => {
-        // Redirect the user to their dashboard, passing the token in the Authorization header
-        const userUrl = `/users/${userId}`;
-        
-        return fetch(userUrl, {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${idToken}`, // Send ID token in Authorization header
-          }
-        });
-      })
-      .then(response => response.text())
-      .then(htmlContent => {
-        // Insert the returned HTML content into the page
-        document.body.innerHTML = htmlContent;
-      })
-      .catch((error) => {
-        console.error("Login or dashboard fetch error:", error);
-        errorMessageEl.textContent = "Error: " + error.message;
-      });
-  }
+      // Get the ID token (JWT)
+      return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
+    })
+    .then(({ idToken, userId }) => {
+      // Set the token as a cookie (for backend validation)
+      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+
+      // Redirect the user to their dashboard
+      window.location.href = `/users/${userId}`;
+    })
+    .catch((error) => {
+      console.error("Login or redirect error:", error);
+      errorMessageEl.textContent = "Error: " + error.message;
+    });
+}
 
   // Attach event listener to the form
   document.getElementById('email-form').addEventListener('submit', login);
