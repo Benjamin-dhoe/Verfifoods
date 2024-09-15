@@ -920,6 +920,7 @@
   width: 40px;
   height: 40px;
   margin-right: 20px;
+  background-color: var(--brown);
 }
 
 .typefoodicon.dash {
@@ -1306,6 +1307,10 @@
   transition: opacity .25s;
   display: flex;
   position: relative;
+}
+
+.popupcontainer.vis {
+  opacity: 100;
 }
 
 .langchoice {
