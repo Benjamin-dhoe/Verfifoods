@@ -146,6 +146,10 @@
   position: static;
 }
 
+.button.intypeholder.notabs.delete {
+  background-color: #990000;
+}
+
 .brownundertitle {
   color: var(--brown);
   text-transform: uppercase;
