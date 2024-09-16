@@ -17,7 +17,7 @@
 </head>
 <body class="body">
   <div id="popupdeletesupplier" class="popupholder">
-    <div class="popupcontainer">
+    <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupdeletesupplier">X</div>
         <div class="leftalignflexvert" id="confirmDeleteBox">
 
@@ -296,6 +296,11 @@
             document.body.removeChild(confirmBox); // Remove the confirmation box
         };
 
+      document.getElementById('closepopupdeletesupplier').onclick = function() {
+            document.getElementById('popupdeletesupplier').style.opacity = 0;
+            document.getElementById('popupdeletesupplier').style.visibility = "hidden";
+        };
+
     };
 
     // Function to delete supplier
@@ -394,10 +399,7 @@
             document.getElementById('popupeditsupplier').style.visibility = "hidden";
         };
 
-        document.getElementById('closepopupdeletesupplier').onclick = function() {
-            document.getElementById('popupdeletesupplier').style.opacity = 0;
-            document.getElementById('popupdeletesupplier').style.visibility = "hidden";
-        };
+        
     };
 </script>
 
