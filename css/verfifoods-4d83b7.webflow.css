@@ -9,6 +9,10 @@
   --darker-background: #fcf3e7;
 }
 
+.loading {
+  width: 30px;
+}
+
 .body {
   background-color: var(--background-color);
   color: var(--verfi-blue);
