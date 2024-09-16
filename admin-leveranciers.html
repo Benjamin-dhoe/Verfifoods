@@ -24,6 +24,7 @@
               width: 90%;
               padding-bottom: 20px;
           ">
+            <img id="currentImage" src="" style="width: 100px; margin-top: 10px; display: none;">
             <button id="supplieraddformbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier toevoegen</button>
             
             <div class="loading" id="supplieraddloading">
@@ -123,7 +124,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
     import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-    import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     // Your Firebase configuration (replace with your own config)
     const firebaseConfig = {
@@ -259,17 +260,10 @@
         document.getElementById('naameditleverancier').value = name;
         const fileEditInput = document.getElementById('fileEditInput');
         
-        // Display the current image
+        // Update current image
         const currentImage = document.getElementById('currentImage');
-        if (currentImage) {
-            currentImage.src = logo;
-        } else {
-            const newImage = document.createElement('img');
-            newImage.id = 'currentImage';
-            newImage.src = logo;
-            newImage.style.width = '100px'; // Adjust size as needed
-            document.getElementById('popupeditsupplier').insertBefore(newImage, fileEditInput);
-        }
+        currentImage.src = logo;
+        currentImage.style.display = 'block'; // Ensure the image is visible
 
         // Show popup
         const popupEditSupplier = document.getElementById('popupeditsupplier');
@@ -277,7 +271,7 @@
         popupEditSupplier.style.visibility = 'visible';
 
         // Handle save changes
-        document.getElementById('supplieraddformbtn').onclick = async function() {
+        document.getElementById('suppliereditformbtn').onclick = async function() {
             const file = fileEditInput.files[0];
             const newSupplierName = document.getElementById('naameditleverancier').value;
 
@@ -339,6 +333,7 @@
         };
     };
 </script>
+
 
 
 
