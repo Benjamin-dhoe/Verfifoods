@@ -61,7 +61,7 @@
               <div class="brownundertitle bold-text">Leveranciers</div>
             </div><img src="images/filterIcon.svg" loading="lazy" alt="" class="menuicon">
           </div>
-          <div class="holderappresults">
+          <div class="holderappresults" id="holderSuppliers">
             <div class="holderthumbnailproduct dashboard newadd" id="addsupplierbtn">
               <div class="button intypeholder w-button">Nieuwe leverancier </div>
               <div class="plussign">+</div>
@@ -89,13 +89,13 @@
           popupAddSupplier.style.visibility = "hidden";
     });
     </script>
-  <script type="module">
+<script type="module">
     // Import Firebase functions
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
     import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
     // Your Firebase configuration (replace with your own config)
     const firebaseConfig = {
         apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
@@ -114,21 +114,24 @@
     const auth = getAuth(app);
 
     function checkAuth() {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          console.log("User is logged in:", user);
-        } else {
-          console.log("No user is logged in");
-        }
-      });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is logged in:", user);
+            } else {
+                console.log("No user is logged in");
+            }
+        });
     }
-  
-    window.onload = checkAuth;
-    
-    // Upload Image function, now attached to the window object to be accessible globally
+
+    window.onload = function() {
+        checkAuth();
+        displaySuppliers(); // Fetch and display suppliers on page load
+    };
+
+    // Function to upload image and add supplier
     window.uploadImage = function uploadImage() {
-        document.getElementById('supplieraddformbtn').style.display ="none";
-        document.getElementById('supplieraddloading').style.display ="block";
+        document.getElementById('supplieraddformbtn').style.display = "none";
+        document.getElementById('supplieraddloading').style.display = "block";
         const fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
 
@@ -141,8 +144,8 @@
 
         if (!supplierName) {
             alert("Please enter the supplier name.");
-            document.getElementById('supplieraddformbtn').style.display ="block";
-            document.getElementById('supplieraddloading').style.display ="none";
+            document.getElementById('supplieraddformbtn').style.display = "block";
+            document.getElementById('supplieraddloading').style.display = "none";
             return;
         }
 
@@ -166,8 +169,8 @@
             (error) => {
                 console.error('Upload failed', error);
                 alert('Upload failed: ' + error.message);
-                document.getElementById('supplieraddformbtn').style.display ="block";
-                document.getElementById('supplieraddloading').style.display ="none";
+                document.getElementById('supplieraddformbtn').style.display = "block";
+                document.getElementById('supplieraddloading').style.display = "none";
             },
             () => {
                 // Upload completed successfully, get the download URL
@@ -181,20 +184,51 @@
                     }).then(() => {
                         alert('Leverancier toegevoegd met succes! URL: ' + downloadURL);
                         progressText.innerHTML = 'Leverancier toegevoegd';
-                        document.getElementById('supplieraddformbtn').style.display ="block";
-                        document.getElementById('supplieraddloading').style.display ="none";
+                        document.getElementById('supplieraddformbtn').style.display = "block";
+                        document.getElementById('supplieraddloading').style.display = "none";
                         document.getElementById('naamleverancier').value = '';
                         document.getElementById('fileInput').value = '';
+                        displaySuppliers(); // Refresh the suppliers list
                     }).catch((error) => {
                         console.error('Error adding document to Firestore: ', error);
                         alert('Error adding document: ' + error.message);
-                        document.getElementById('addsupplierbtn').style.display ="block";
-                        document.getElementById('addsupplierloading').style.display ="none";
+                        document.getElementById('supplieraddformbtn').style.display = "block";
+                        document.getElementById('supplieraddloading').style.display = "none";
                     });
                 });
             }
         );
     };
+
+    // Function to display suppliers
+    async function displaySuppliers() {
+        const holderSuppliers = document.getElementById('holderSuppliers');
+
+        try {
+            const querySnapshot = await getDocs(collection(db, "Leveranciers"));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const supplierName = data.Naam;
+                const supplierLogo = data.Logo;
+
+                const supplierDiv = document.createElement('div');
+                supplierDiv.className = 'holderthumbnailproduct dashboard';
+                supplierDiv.innerHTML = `
+                    <div class="shoppingcartbtn smaller" onClick="editSupplier()">
+                        <img src="/images/editicon.svg" loading="lazy" alt="">
+                    </div>
+                    <img src="${supplierLogo}" loading="lazy" alt="" class="thumbproductimage leveranciers">
+                    <div class="thumbproductoverlay">
+                        <div class="mediumbold-text">${supplierName}</div>
+                    </div>
+                `;
+                
+                holderSuppliers.appendChild(supplierDiv);
+            });
+        } catch (error) {
+            console.error('Error fetching documents: ', error);
+        }
+    }
 </script>
 
 
