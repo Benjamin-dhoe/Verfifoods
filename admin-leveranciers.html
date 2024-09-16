@@ -19,7 +19,9 @@
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupaddsupplier">X</div>
           <div class="leftalignflexvert"><label for="naamleverancier" class="brownundertitle">Naam leverancier</label><input class="text-field w-input" maxlength="256" name="naamleverancier" data-name="naamleverancier" placeholder="" type="text" id="naamleverancier" required=""><label for="Aantal" class="brownundertitle">Logo</label>
-          <input type="file" id="fileInput" />  
+          <input type="file" id="fileInput" style="
+              width: 90%;
+          ">
             <div class="alwaysflexhorizontal nextprev">
               <button class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier toevoegen</button>
             </div>
@@ -87,60 +89,60 @@
     });
     </script>
     <script type="module">
-        // Import Firebase functions
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-        // Your Firebase configuration (replace with your own config)
-        const firebaseConfig = {
-          apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
-          authDomain: "test-9efbe.firebaseapp.com",
-          projectId: "test-9efbe",
-          storageBucket: "test-9efbe.appspot.com",
-          messagingSenderId: "218327249026",
-          appId: "1:218327249026:web:0d48fa588ac45ef557049b",
-          measurementId: "G-2ZTZCL27TE"
-        };
+    // Your Firebase configuration (replace with your own config)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+        authDomain: "test-9efbe.firebaseapp.com",
+        projectId: "test-9efbe",
+        storageBucket: "test-9efbe.appspot.com",
+        messagingSenderId: "218327249026",
+        appId: "1:218327249026:web:0d48fa588ac45ef557049b",
+        measurementId: "G-2ZTZCL27TE"
+    };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const storage = getStorage(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
 
-        // Upload Image
-        function uploadImage() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
+    // Upload Image function, now attached to the window object to be accessible globally
+    window.uploadImage = function uploadImage() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
 
-            if (!file) {
-                alert("Please select an image to upload.");
-                return;
-            }
-
-            // Create a storage reference
-            const storageRef = ref(storage, 'uploads/' + file.name);
-
-            // Upload the file
-            const uploadTask = uploadBytesResumable(storageRef, file);
-
-            // Listen for state changes, errors, and completion
-            uploadTask.on('state_changed',
-                (snapshot) => {
-                    // Progress indicator (optional)
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log('Upload is ' + progress + '% done');
-                },
-                (error) => {
-                    console.error('Upload failed', error);
-                },
-                () => {
-                    // Upload completed successfully, get the download URL
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        console.log('File available at', downloadURL);
-                        alert('Image uploaded successfully! URL: ' + downloadURL);
-                    });
-                }
-            );
+        if (!file) {
+            alert("Please select an image to upload.");
+            return;
         }
-    </script>
+
+        // Create a storage reference
+        const storageRef = ref(storage, 'uploads/' + file.name);
+
+        // Upload the file
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        // Listen for state changes, errors, and completion
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                // Progress indicator (optional)
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+                console.error('Upload failed', error);
+            },
+            () => {
+                // Upload completed successfully, get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+                    alert('Image uploaded successfully! URL: ' + downloadURL);
+                });
+            }
+        );
+    };
+</script>
 </body>
 </html>
