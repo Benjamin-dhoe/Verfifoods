@@ -21,8 +21,9 @@
           <div class="leftalignflexvert"><label for="naamleverancier" class="brownundertitle">Naam leverancier</label><input class="text-field w-input" maxlength="256" name="naamleverancier" data-name="naamleverancier" placeholder="" type="text" id="naamleverancier" required=""><label for="Aantal" class="brownundertitle">Logo</label>
           <input type="file" id="fileInput" style="
               width: 90%;
+              padding-bottom: 20px;
           ">
-            <button id="supplieraddbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier toevoegen</button>
+            <button id="supplieraddformbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier toevoegen</button>
             <div class="loading" id="supplieraddloading" data-animation-type="lottie" data-src="/images/loading.json" data-loop="0" data-direction="1" data-autoplay="1" data-is-ix2-target="0" data-renderer="svg" data-default-duration="3.16" data-duration="0"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 150" width="300" height="150" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;"><defs><clipPath id="__lottie_element_2"><rect width="300" height="150" x="0" y="0"></rect></clipPath></defs><g clip-path="url(#__lottie_element_2)"><g transform="matrix(-0.00004245352829457261,-1,1,-0.00004245352829457261,97.00225067138672,128.00225830078125)" opacity="1" style="display: none;"><g opacity="1" transform="matrix(1,0,0,1,53,53)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(193,134,50)" stroke-opacity="1" stroke-width="10" d="M0 0"></path></g></g><g transform="matrix(-0.011605668812990189,-0.9999326467514038,0.9999326467514038,-0.011605668812990189,97.61866760253906,128.6115264892578)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,53,53)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="10" stroke="rgb(193,134,50)" stroke-opacity="1" stroke-width="10" d=" M27.993000030517578,-0.6510000228881836 C27.99799919128418,-0.4350000023841858 28,-0.21799999475479126 28,0"></path></g></g></g></svg></div>
             <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
           </div>
@@ -166,8 +167,8 @@
                     }).then(() => {
                         alert('Leverancier toegevoegd met succes! URL: ' + downloadURL);
                         progressText.innerHTML = 'Leverancier toegevoegd';
-                        document.getElementById('addsupplierbtn').style.display ="block";
-                        document.getElementById('addsupplierloading').style.display ="none";
+                        document.getElementById('supplieraddformbtn').style.display ="block";
+                        document.getElementById('supplieraddloading').style.display ="none";
                         document.getElementById('naamleverancier').value = '';
                         document.getElementById('fileInput').value = '';
                     }).catch((error) => {
