@@ -113,8 +113,8 @@
 
     // Upload Image function, now attached to the window object to be accessible globally
     window.uploadImage = function uploadImage() {
-        document.getElementById('addsupplierbtn').style.display ="none";
-        document.getElementById('addsupplierloading').style.display ="block";
+        document.getElementById('supplieraddformbtn').style.display ="none";
+        document.getElementById('supplieraddloading').style.display ="block";
         const fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
 
@@ -127,8 +127,8 @@
 
         if (!supplierName) {
             alert("Please enter the supplier name.");
-            document.getElementById('addsupplierbtn').style.display ="block";
-            document.getElementById('addsupplierloading').style.display ="none";
+            document.getElementById('supplieraddformbtn').style.display ="block";
+            document.getElementById('supplieraddloading').style.display ="none";
             return;
         }
 
@@ -152,8 +152,8 @@
             (error) => {
                 console.error('Upload failed', error);
                 alert('Upload failed: ' + error.message);
-                document.getElementById('addsupplierbtn').style.display ="block";
-                document.getElementById('addsupplierloading').style.display ="none";
+                document.getElementById('supplieraddformbtn').style.display ="block";
+                document.getElementById('supplieraddloading').style.display ="none";
             },
             () => {
                 // Upload completed successfully, get the download URL
