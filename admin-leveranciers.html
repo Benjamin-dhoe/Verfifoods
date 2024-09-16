@@ -187,16 +187,13 @@
                         Naam: supplierName,
                         Logo: downloadURL
                     }).then(() => {
+                        alert('Leverancier toegevoegd met succes! URL: ' + downloadURL);
                         progressText.innerHTML = 'Leverancier toegevoegd';
                         document.getElementById('supplieraddformbtn').style.display = "block";
                         document.getElementById('supplieraddloading').style.display = "none";
                         document.getElementById('naamleverancier').value = '';
                         document.getElementById('fileInput').value = '';
-                        
                         displaySuppliers(); // Refresh the suppliers list
-                        popupAddSupplier.style.opacity = 0;
-                        popupAddSupplier.style.visibility = "hidden";
-                        progressText.innerHTML = '';
                     }).catch((error) => {
                         console.error('Error adding document to Firestore: ', error);
                         alert('Error adding document: ' + error.message);
@@ -211,6 +208,10 @@
     // Function to display suppliers
     async function displaySuppliers() {
         const holderSuppliers = document.getElementById('holderSuppliers');
+        const addSupplierBtn = document.querySelector('#addsupplierbtn');
+
+        // Create a fragment to hold new supplier elements
+        const fragment = document.createDocumentFragment();
 
         try {
             const querySnapshot = await getDocs(collection(db, "Leveranciers"));
@@ -231,13 +232,21 @@
                     </div>
                 `;
                 
-                holderSuppliers.appendChild(supplierDiv);
+                fragment.appendChild(supplierDiv);
             });
         } catch (error) {
             console.error('Error fetching documents: ', error);
         }
+
+        // Clear existing supplier content except for the button
+        holderSuppliers.innerHTML = '';
+        if (addSupplierBtn) {
+            holderSuppliers.appendChild(addSupplierBtn); // Re-add the button
+        }
+        holderSuppliers.appendChild(fragment); // Add new suppliers
     }
 </script>
+
 
 
 </body>
