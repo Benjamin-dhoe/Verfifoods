@@ -92,9 +92,10 @@
   <script type="module">
     // Import Firebase functions
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
     import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
+    
     // Your Firebase configuration (replace with your own config)
     const firebaseConfig = {
         apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
@@ -105,6 +106,19 @@
         appId: "1:218327249026:web:0d48fa588ac45ef557049b",
         measurementId: "G-2ZTZCL27TE"
     };
+
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, you can access the user object
+        console.log("User is logged in:", user);
+        // You can also show personalized content, like user name or logout button
+      } else {
+        // No user is signed in, show login/sign-up options
+        console.log("No user is logged in");
+      }
+    });
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
