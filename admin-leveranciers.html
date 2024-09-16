@@ -48,7 +48,7 @@
               width: 90%;
               padding-bottom: 20px;
           ">
-            <button id="supplieraddformbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier aanpassen</button>
+            <button id="suppliereditformbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier aanpassen</button>
             
             
             <div class="loading" id="suppliereditloading">
@@ -60,7 +60,7 @@
                 autoplay>
               </lottie-player>
             </div>
-            <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
+            <div id="progressEditText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
           </div>
     </div>
   </div>
@@ -280,9 +280,9 @@
                 return;
             }
 
-            const progressText = document.getElementById('progressText');
-            progressText.style.display = 'block';
-            progressText.innerHTML = '0%';
+            const progressEditText = document.getElementById('progressEditText');
+            progressEditText.style.display = 'block';
+            progressEditText.innerHTML = '0%';
 
             let newLogoUrl = logo;
             if (file) {
@@ -293,7 +293,7 @@
                     uploadTask.on('state_changed',
                         (snapshot) => {
                             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                            progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
+                            progressEditText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
                         },
                         (error) => {
                             console.error('Upload failed', error);
@@ -315,11 +315,11 @@
                     Naam: newSupplierName,
                     Logo: newLogoUrl
                 });
-                progressText.innerHTML = 'Leverancier aangepast';
+                progressEditText.innerHTML = 'Leverancier aangepast';
                 displaySuppliers(); // Refresh the suppliers list
                 document.getElementById('popupeditsupplier').style.opacity = 0;
                 document.getElementById('popupeditsupplier').style.visibility = "hidden";
-                progressText.innerHTML = '';
+                progressEditText.innerHTML = '';
             } catch (error) {
                 console.error('Error updating document: ', error);
                 alert('Error updating document: ' + error.message);
