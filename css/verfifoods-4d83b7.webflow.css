@@ -960,7 +960,7 @@
   background-color: var(--background-color);
   border-radius: 5px;
   flex-flow: wrap;
-  justify-content: center;
+  justify-content: left;
   align-items: flex-start;
   min-height: 80%;
   margin-top: 10px;
