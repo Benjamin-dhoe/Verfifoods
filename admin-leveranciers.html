@@ -39,6 +39,30 @@
           </div>
     </div>
   </div>
+  <div class="popupholder" id="popupeditsupplier">
+    <div class="popupcontainer vis">
+        <div class="closebtn" id="closepopupeditsupplier">X</div>
+          <div class="leftalignflexvert"><label for="naamleverancier" class="brownundertitle">Naam leverancier</label><input class="text-field w-input" maxlength="256" name="naamleverancier" data-name="naamleverancier" placeholder="" type="text" id="naameditleverancier" required=""><label for="Aantal" class="brownundertitle">Logo</label>
+          <input type="file" id="fileEditInput" style="
+              width: 90%;
+              padding-bottom: 20px;
+          ">
+            <button id="supplieraddformbtn" class="button intypeholder notabs w-button" onclick="uploadImage()">Leverancier aanpassen</button>
+            
+            
+            <div class="loading" id="suppliereditloading">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
+            <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
+          </div>
+    </div>
+  </div>
   <div class="_100-widthcenter">
     <div class="containcenter dashboard">
       <div class="holdertopdashboard">
@@ -99,7 +123,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
     import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     // Your Firebase configuration (replace with your own config)
     const firebaseConfig = {
@@ -135,8 +159,6 @@
 
     // Function to upload image and add supplier
     window.uploadImage = function uploadImage() {
-        document.getElementById('supplieraddformbtn').style.display = "none";
-        document.getElementById('supplieraddloading').style.display = "block";
         const fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
 
@@ -149,8 +171,6 @@
 
         if (!supplierName) {
             alert("Please enter the supplier name.");
-            document.getElementById('supplieraddformbtn').style.display = "block";
-            document.getElementById('supplieraddloading').style.display = "none";
             return;
         }
 
@@ -158,27 +178,19 @@
         progressText.style.display = 'block';
         progressText.innerHTML = '0%';
 
-        // Create a storage reference
         const storageRef = ref(storage, 'leveranciers/' + file.name);
-
-        // Upload the file
         const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Listen for state changes, errors, and completion
         uploadTask.on('state_changed',
             (snapshot) => {
-                // Update progress bar
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
             },
             (error) => {
                 console.error('Upload failed', error);
                 alert('Upload failed: ' + error.message);
-                document.getElementById('supplieraddformbtn').style.display = "block";
-                document.getElementById('supplieraddloading').style.display = "none";
             },
             () => {
-                // Upload completed successfully, get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log('File available at', downloadURL);
 
@@ -188,19 +200,14 @@
                         Logo: downloadURL
                     }).then(() => {
                         progressText.innerHTML = 'Leverancier toegevoegd';
-                        document.getElementById('supplieraddformbtn').style.display = "block";
-                        document.getElementById('supplieraddloading').style.display = "none";
-                        document.getElementById('naamleverancier').value = '';
-                        document.getElementById('fileInput').value = '';
                         displaySuppliers(); // Refresh the suppliers list
-                        popupAddSupplier.style.opacity = 0;
-                        popupAddSupplier.style.visibility = "hidden";
-                        progressText.innerHTML = '';
+                        document.getElementById('naamleverancier').value = '';
+                        fileInput.value = '';
+                        document.getElementById('popupAddSupplier').style.opacity = 0;
+                        document.getElementById('popupAddSupplier').style.visibility = "hidden";
                     }).catch((error) => {
                         console.error('Error adding document to Firestore: ', error);
                         alert('Error adding document: ' + error.message);
-                        document.getElementById('supplieraddformbtn').style.display = "block";
-                        document.getElementById('supplieraddloading').style.display = "none";
                     });
                 });
             }
@@ -212,7 +219,6 @@
         const holderSuppliers = document.getElementById('holderSuppliers');
         const addSupplierBtn = document.querySelector('#addsupplierbtn');
 
-        // Create a fragment to hold new supplier elements
         const fragment = document.createDocumentFragment();
 
         try {
@@ -225,7 +231,7 @@
                 const supplierDiv = document.createElement('div');
                 supplierDiv.className = 'holderthumbnailproduct dashboard';
                 supplierDiv.innerHTML = `
-                    <div class="shoppingcartbtn smaller" onClick="editSupplier()">
+                    <div class="shoppingcartbtn smaller" onClick="editSupplier('${doc.id}', '${supplierName}', '${supplierLogo}')">
                         <img src="/images/editicon.svg" loading="lazy" alt="">
                     </div>
                     <img src="${supplierLogo}" loading="lazy" alt="" class="thumbproductimage leveranciers">
@@ -247,7 +253,93 @@
         }
         holderSuppliers.appendChild(fragment); // Add new suppliers
     }
+
+    // Function to handle edit
+    window.editSupplier = async function editSupplier(id, name, logo) {
+        document.getElementById('naameditleverancier').value = name;
+        const fileEditInput = document.getElementById('fileEditInput');
+        
+        // Display the current image
+        const currentImage = document.getElementById('currentImage');
+        if (currentImage) {
+            currentImage.src = logo;
+        } else {
+            const newImage = document.createElement('img');
+            newImage.id = 'currentImage';
+            newImage.src = logo;
+            newImage.style.width = '100px'; // Adjust size as needed
+            document.getElementById('popupeditsupplier').insertBefore(newImage, fileEditInput);
+        }
+
+        // Show popup
+        const popupEditSupplier = document.getElementById('popupeditsupplier');
+        popupEditSupplier.style.opacity = 1;
+        popupEditSupplier.style.visibility = 'visible';
+
+        // Handle save changes
+        document.getElementById('supplieraddformbtn').onclick = async function() {
+            const file = fileEditInput.files[0];
+            const newSupplierName = document.getElementById('naameditleverancier').value;
+
+            if (!newSupplierName) {
+                alert("Please enter the supplier name.");
+                return;
+            }
+
+            const progressText = document.getElementById('progressText');
+            progressText.style.display = 'block';
+            progressText.innerHTML = '0%';
+
+            let newLogoUrl = logo;
+            if (file) {
+                const storageRef = ref(storage, 'leveranciers/' + file.name);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                await new Promise((resolve, reject) => {
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
+                        },
+                        (error) => {
+                            console.error('Upload failed', error);
+                            alert('Upload failed: ' + error.message);
+                            reject(error);
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                newLogoUrl = downloadURL;
+                                resolve();
+                            });
+                        }
+                    );
+                });
+            }
+
+            try {
+                await updateDoc(doc(db, "Leveranciers", id), {
+                    Naam: newSupplierName,
+                    Logo: newLogoUrl
+                });
+                progressText.innerHTML = 'Leverancier aangepast';
+                displaySuppliers(); // Refresh the suppliers list
+                document.getElementById('popupeditsupplier').style.opacity = 0;
+                document.getElementById('popupeditsupplier').style.visibility = "hidden";
+                progressText.innerHTML = '';
+            } catch (error) {
+                console.error('Error updating document: ', error);
+                alert('Error updating document: ' + error.message);
+            }
+        };
+
+        // Close popup
+        document.getElementById('closepopupeditsupplier').onclick = function() {
+            document.getElementById('popupeditsupplier').style.opacity = 0;
+            document.getElementById('popupeditsupplier').style.visibility = "hidden";
+        };
+    };
 </script>
+
 
 
 
