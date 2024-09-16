@@ -187,13 +187,15 @@
                         Naam: supplierName,
                         Logo: downloadURL
                     }).then(() => {
-                        alert('Leverancier toegevoegd met succes! URL: ' + downloadURL);
                         progressText.innerHTML = 'Leverancier toegevoegd';
                         document.getElementById('supplieraddformbtn').style.display = "block";
                         document.getElementById('supplieraddloading').style.display = "none";
                         document.getElementById('naamleverancier').value = '';
                         document.getElementById('fileInput').value = '';
                         displaySuppliers(); // Refresh the suppliers list
+                        popupAddSupplier.style.opacity = 0;
+                        popupAddSupplier.style.visibility = "hidden";
+                        progressText.innerHTML = '';
                     }).catch((error) => {
                         console.error('Error adding document to Firestore: ', error);
                         alert('Error adding document: ' + error.message);
