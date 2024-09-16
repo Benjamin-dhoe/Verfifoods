@@ -144,101 +144,262 @@
 <script type="module">
     // Import Firebase functions
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getStorage, ref, deleteObject } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-    import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+    import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    const storage = getStorage();
-    const db = getFirestore();
+    // Your Firebase configuration (replace with your own config)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+        authDomain: "test-9efbe.firebaseapp.com",
+        projectId: "test-9efbe",
+        storageBucket: "test-9efbe.appspot.com",
+        messagingSenderId: "218327249026",
+        appId: "1:218327249026:web:0d48fa588ac45ef557049b",
+        measurementId: "G-2ZTZCL27TE"
+    };
 
-    let supplierToDelete = null; // To store the supplier ID to be deleted
-    let logoToDelete = null; // To store the supplier logo URL to delete from Firebase Storage
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    // Function to handle supplier deletion
-    window.deleteSupplier = function deleteSupplier(supplierId, logoUrl) {
-        // Store the supplier and logo information
-        supplierToDelete = supplierId;
-        logoToDelete = logoUrl;
+    function checkAuth() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is logged in:", user);
+            } else {
+                console.log("No user is logged in");
+            }
+        });
+    }
 
-        // Show delete confirmation modal
-        const deleteModal = document.getElementById('deleteSupplierModal');
-        deleteModal.style.display = 'block';
+    window.onload = function() {
+        checkAuth();
+        displaySuppliers(); // Fetch and display suppliers on page load
+    };
 
-        // Handle cancel button click
-        document.getElementById('cancelDeleteBtn').onclick = function () {
-            deleteModal.style.display = 'none'; // Close the modal
+    // Function to upload image and add supplier (unchanged)
+    window.uploadImage = function uploadImage() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Please select an image to upload.");
+            return;
+        }
+
+        const supplierName = document.getElementById('naamleverancier').value;
+
+        if (!supplierName) {
+            alert("Please enter the supplier name.");
+            return;
+        }
+
+        const progressText = document.getElementById('progressText');
+        progressText.style.display = 'block';
+        progressText.innerHTML = '0%';
+
+        const storageRef = ref(storage, 'leveranciers/' + file.name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
+            },
+            (error) => {
+                console.error('Upload failed', error);
+                alert('Upload failed: ' + error.message);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+
+                    // Add entry to Firestore "Leveranciers" collection
+                    addDoc(collection(db, "Leveranciers"), {
+                        Naam: supplierName,
+                        Logo: downloadURL
+                    }).then(() => {
+                        progressText.innerHTML = 'Leverancier toegevoegd';
+                        displaySuppliers(); // Refresh the suppliers list
+                        document.getElementById('naamleverancier').value = '';
+                        fileInput.value = '';
+                        document.getElementById('popupaddsupplier').style.opacity = 0;
+                        document.getElementById('popupaddsupplier').style.visibility = "hidden";
+                    }).catch((error) => {
+                        console.error('Error adding document to Firestore: ', error);
+                        alert('Error adding document: ' + error.message);
+                    });
+                });
+            }
+        );
+    };
+
+    // Function to display suppliers
+    async function displaySuppliers() {
+        const holderSuppliers = document.getElementById('holderSuppliers');
+        const addSupplierBtn = document.querySelector('#addsupplierbtn');
+
+        const fragment = document.createDocumentFragment();
+
+        try {
+            const querySnapshot = await getDocs(collection(db, "Leveranciers"));
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const supplierName = data.Naam;
+                const supplierLogo = data.Logo;
+
+                const supplierDiv = document.createElement('div');
+                supplierDiv.className = 'holderthumbnailproduct dashboard';
+                supplierDiv.innerHTML = `
+                    <div class="shoppingcartbtn smaller" onClick="editSupplier('${doc.id}', '${supplierName}', '${supplierLogo}')">
+                        <img src="/images/editicon.svg" loading="lazy" alt="">
+                    </div>
+                    <img src="${supplierLogo}" loading="lazy" alt="" class="thumbproductimage leveranciers">
+                    <div class="thumbproductoverlay">
+                        <div class="mediumbold-text">${supplierName}</div>
+                        <img src="/images/deleteicon.svg" loading="lazy" onClick="confirmDeleteSupplier('${doc.id}', '${supplierName}')">
+                    </div>
+                `;
+                
+                fragment.appendChild(supplierDiv);
+            });
+        } catch (error) {
+            console.error('Error fetching documents: ', error);
+        }
+
+        // Clear existing supplier content except for the button
+        holderSuppliers.innerHTML = '';
+        if (addSupplierBtn) {
+            holderSuppliers.appendChild(addSupplierBtn); // Re-add the button
+        }
+        holderSuppliers.appendChild(fragment); // Add new suppliers
+    }
+
+    // Function to show delete confirmation
+    window.confirmDeleteSupplier = function confirmDeleteSupplier(supplierId, supplierName) {
+        const confirmBox = document.createElement('div');
+        confirmBox.className = 'confirm-delete-box'; // Add styling class for the confirmation box
+        confirmBox.innerHTML = `
+            <div class="confirm-delete-content">
+                <p>Are you sure you want to delete <strong>${supplierName}</strong>?</p>
+                <button id="confirmDelete" class="confirm-btn">Yes, delete</button>
+                <button id="cancelDelete" class="cancel-btn">Cancel</button>
+            </div>
+        `;
+        
+        document.body.appendChild(confirmBox); // Add the confirmation box to the body
+
+        document.getElementById('confirmDelete').onclick = function() {
+            deleteSupplier(supplierId);
+            document.body.removeChild(confirmBox); // Remove the confirmation box
         };
 
-        // Handle confirm delete button click
-        document.getElementById('confirmDeleteBtn').onclick = async function () {
+        document.getElementById('cancelDelete').onclick = function() {
+            document.body.removeChild(confirmBox); // Remove the confirmation box
+        };
+    };
+
+    // Function to delete supplier
+    window.deleteSupplier = async function deleteSupplier(supplierId) {
+        try {
+            await deleteDoc(doc(db, "Leveranciers", supplierId));
+            console.log('Supplier deleted:', supplierId);
+            displaySuppliers(); // Refresh the supplier list after deletion
+        } catch (error) {
+            console.error('Error deleting supplier: ', error);
+            alert('Error deleting supplier: ' + error.message);
+        }
+    };
+
+    // Function to handle edit (unchanged)
+    window.editSupplier = async function editSupplier(id, name, logo) {
+        document.getElementById('naameditleverancier').value = name;
+        const fileEditInput = document.getElementById('fileEditInput');
+        
+        // Update current image
+        const currentImage = document.getElementById('currentImage');
+        currentImage.src = logo;
+        currentImage.style.display = 'block'; // Ensure the image is visible
+
+      fileEditInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+              currentImage.style.display = 'none';
+            }
+        });
+
+        // Show popup
+        const popupEditSupplier = document.getElementById('popupeditsupplier');
+        popupEditSupplier.style.opacity = 1;
+        popupEditSupplier.style.visibility = 'visible';
+
+        // Handle save changes
+        document.getElementById('suppliereditformbtn').onclick = async function() {
+            const file = fileEditInput.files[0];
+            const newSupplierName = document.getElementById('naameditleverancier').value;
+
+            if (!newSupplierName) {
+                alert("Please enter the supplier name.");
+                return;
+            }
+
+            const progressEditText = document.getElementById('progressEditText');
+            progressEditText.style.display = 'block';
+            progressEditText.innerHTML = '0%';
+
+            let newLogoUrl = logo;
+            if (file) {
+                const storageRef = ref(storage, 'leveranciers/' + file.name);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                await new Promise((resolve, reject) => {
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            progressEditText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
+                        },
+                        (error) => {
+                            console.error('Upload failed', error);
+                            alert('Upload failed: ' + error.message);
+                            reject(error);
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                newLogoUrl = downloadURL;
+                                resolve();
+                            });
+                        }
+                    );
+                });
+            }
+
             try {
-                // Delete supplier document from Firestore
-                await deleteDoc(doc(db, "Leveranciers", supplierToDelete));
-
-                // Delete supplier logo from Firebase Storage
-                if (logoToDelete) {
-                    const logoRef = ref(storage, logoToDelete);
-                    await deleteObject(logoRef);
-                }
-
-                // Refresh the suppliers list
-                displaySuppliers();
-
-                // Hide the confirmation modal
-                deleteModal.style.display = 'none';
-
-                console.log("Supplier deleted successfully.");
+                await updateDoc(doc(db, "Leveranciers", id), {
+                    Naam: newSupplierName,
+                    Logo: newLogoUrl
+                });
+                progressEditText.innerHTML = 'Leverancier aangepast';
+                displaySuppliers(); // Refresh the suppliers list
+                document.getElementById('popupeditsupplier').style.opacity = 0;
+                document.getElementById('popupeditsupplier').style.visibility = "hidden";
+                progressEditText.innerHTML = '';
             } catch (error) {
-                console.error("Error deleting supplier:", error);
-                alert("Failed to delete supplier: " + error.message);
+                console.error('Error updating document: ', error);
+                alert('Error updating document: ' + error.message);
             }
         };
+
+        // Close popup
+        document.getElementById('closepopupeditsupplier').onclick = function() {
+            document.getElementById('popupeditsupplier').style.opacity = 0;
+            document.getElementById('popupeditsupplier').style.visibility = "hidden";
+        };
     };
-
-    // Close delete modal when clicking on the 'X' button
-    document.getElementById('closeDeleteSupplierModal').onclick = function () {
-        document.getElementById('deleteSupplierModal').style.display = 'none';
-    };
-
-  async function displaySuppliers() {
-    const holderSuppliers = document.getElementById('holderSuppliers');
-    const addSupplierBtn = document.querySelector('#addsupplierbtn');
-
-    const fragment = document.createDocumentFragment();
-
-    try {
-        const querySnapshot = await getDocs(collection(db, "Leveranciers"));
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const supplierName = data.Naam;
-            const supplierLogo = data.Logo;
-
-            const supplierDiv = document.createElement('div');
-            supplierDiv.className = 'holderthumbnailproduct dashboard';
-            supplierDiv.innerHTML = `
-                <div class="shoppingcartbtn smaller" onClick="editSupplier('${doc.id}', '${supplierName}', '${supplierLogo}')">
-                    <img src="/images/editicon.svg" loading="lazy" alt="">
-                </div>
-                <img src="${supplierLogo}" loading="lazy" alt="" class="thumbproductimage leveranciers">
-                <div class="thumbproductoverlay">
-                    <div class="mediumbold-text">${supplierName}</div>
-                    <img src="/images/deleteicon.svg" loading="lazy" onClick="deleteSupplier('${doc.id}', '${supplierLogo}')">
-                </div>
-            `;
-            
-            fragment.appendChild(supplierDiv);
-        });
-    } catch (error) {
-        console.error('Error fetching documents: ', error);
-    }
-
-    // Clear existing supplier content except for the button
-    holderSuppliers.innerHTML = '';
-    if (addSupplierBtn) {
-        holderSuppliers.appendChild(addSupplierBtn); // Re-add the button
-    }
-    holderSuppliers.appendChild(fragment); // Add new suppliers
-}
 </script>
+
 
 
 
