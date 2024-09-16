@@ -1642,6 +1642,10 @@
     transition: all .2s;
   }
 
+  .holderappdashboard.startinvph {
+    display: "none"
+}
+
   .holdersocialhandles {
     margin-top: 0;
   }
@@ -1808,10 +1812,6 @@
   .holderappresults {
     padding: 10px;
   }
-
-  .holderappdashboard.startinvph {
-    display: "none"
-}
 
   .menuitem {
     flex-flow: column;
