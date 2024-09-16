@@ -67,6 +67,8 @@
   height: 100%;
   position: absolute;
   inset: 0%;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .thumbproductoverlay {
