@@ -16,15 +16,11 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="body">
-  <div id="deleteSupplierModal" class="popupholder" style="display: none;">
+  <div id="popupdeletesupplier" class="popupholder">
     <div class="popupcontainer">
-        <div class="closebtn" id="closeDeleteSupplierModal">X</div>
-        <div class="leftalignflexvert">
-            <p class="brownundertitle">Zeker dat u deze leverncier wil verwijderen??</p>
-            <div class="flexholder">
-                <button id="confirmDeleteBtn" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
-                <button id="cancelDeleteBtn" class="button intypeholder notabs w-button">Cancel</button>
-            </div>
+        <div class="closebtn" id="closepopupdeletesupplier">X</div>
+        <div class="leftalignflexvert" id="confirmDeleteBox">
+
         </div>
     </div>
 </div>
@@ -260,7 +256,7 @@
                     <img src="${supplierLogo}" loading="lazy" alt="" class="thumbproductimage leveranciers">
                     <div class="thumbproductoverlay">
                         <div class="mediumbold-text">${supplierName}</div>
-                        <img src="/images/deleteicon.svg" loading="lazy" onClick="confirmDeleteSupplier('${doc.id}', '${supplierName}')">
+                        <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteSupplier('${doc.id}', '${supplierName}')">
                     </div>
                 `;
                 
@@ -280,26 +276,26 @@
 
     // Function to show delete confirmation
     window.confirmDeleteSupplier = function confirmDeleteSupplier(supplierId, supplierName) {
-        const confirmBox = document.createElement('div');
-        confirmBox.className = 'confirm-delete-box'; // Add styling class for the confirmation box
+        const confirmBox = document.getElementById('confirmDeleteBox');
+        const popupDeleteSupplier = document.getElementById('popupdeletesupplier');
+        popupDeleteSupplier.style.opacity = 1;
+        popupDeleteSupplier.style.visibility = 'visible';
+      
         confirmBox.innerHTML = `
             <div class="confirm-delete-content">
-                <p>Are you sure you want to delete <strong>${supplierName}</strong>?</p>
-                <button id="confirmDelete" class="confirm-btn">Yes, delete</button>
-                <button id="cancelDelete" class="cancel-btn">Cancel</button>
+                <p>Zeker dat u <strong>${supplierName}</strong> wil verwijderen?</p>
+                <div class="flexholder">
+                <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
+                </div>
             </div>
         `;
         
-        document.body.appendChild(confirmBox); // Add the confirmation box to the body
 
         document.getElementById('confirmDelete').onclick = function() {
             deleteSupplier(supplierId);
             document.body.removeChild(confirmBox); // Remove the confirmation box
         };
 
-        document.getElementById('cancelDelete').onclick = function() {
-            document.body.removeChild(confirmBox); // Remove the confirmation box
-        };
     };
 
     // Function to delete supplier
@@ -396,6 +392,11 @@
         document.getElementById('closepopupeditsupplier').onclick = function() {
             document.getElementById('popupeditsupplier').style.opacity = 0;
             document.getElementById('popupeditsupplier').style.visibility = "hidden";
+        };
+
+        document.getElementById('closepopupdeletesupplier').onclick = function() {
+            document.getElementById('popupdeletesupplier').style.opacity = 0;
+            document.getElementById('popupdeletesupplier').style.visibility = "hidden";
         };
     };
 </script>
