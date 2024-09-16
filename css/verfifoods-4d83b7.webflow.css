@@ -10,7 +10,8 @@
 }
 
 .loading {
-  width: 30px;
+  width: 80px;
+  display: none;
 }
 
 .body {
