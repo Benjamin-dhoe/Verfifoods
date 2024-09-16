@@ -107,14 +107,13 @@
         measurementId: "G-2ZTZCL27TE"
     };
 
-    const auth = getAuth();
-    const user = auth.currentUser;
-    console.log(user);
-
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const storage = getStorage(app);
     const db = getFirestore(app);  // Initialize Firestore
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log(user);
 
     // Upload Image function, now attached to the window object to be accessible globally
     window.uploadImage = function uploadImage() {
