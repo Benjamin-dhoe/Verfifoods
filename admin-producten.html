@@ -469,6 +469,8 @@
     const productDoc = await getDoc(productRef);
     const data = productDoc.data();
 
+    
+    document.getElementById('editProductId').value = productID;
     document.getElementById('editnaamNL').value = data.naamNL || '';
     document.getElementById('editbeschrijvingNL').value = data.beschrijvingNL || '';
     document.getElementById('editnaamFR').value = data.naamFR || '';
@@ -493,7 +495,7 @@
 
 // Function to update product details
 window.updateProduct = async function updateProduct() {
-    const productId = document.querySelector('[editparts]:not([style*="none"])').getAttribute('data-id');
+    const productId = document.getElementById('editProductId').value;
     const naamNL = document.getElementById('editnaamNL').value;
     const beschrijvingNL = document.getElementById('editbeschrijvingNL').value;
     const naamFR = document.getElementById('editnaamFR').value;
