@@ -16,6 +16,15 @@
   <link href="/images/webclip.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    #holderProducts {
+      flex-flow: wrap;
+      justify-content: left;
+      align-items: flex-start;
+      display: flex;
+      position: relative;
+    }
+  </style>
 </head>
 <body class="body">
   <div id="popupeditproduct" class="popupholder">
@@ -381,7 +390,7 @@
   }
 
   // Display products
-  // Display products
+// Display products
 async function displayProducts() {
     const holderProducts = document.getElementById('holderProducts');
     const addProductBtn = document.querySelector('#addproductbtn');
@@ -425,11 +434,16 @@ async function displayProducts() {
 
                 // Create table row for the product
                 const tableRow = document.createElement('tr');
+
+                // Make the row clickable for editing, except for the delete button
                 tableRow.innerHTML = 
-                `<td>${productName}</td>
-                 <td>${productPrice}</td>
-                 <td>${productType}</td>
-                 <td>${productWeight}g</td>`;
+                `<td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productName}</td>
+                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productPrice}</td>
+                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productType}</td>
+                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productWeight}g</td>
+                 <td>
+                   <button class="delete-button" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">Delete</button>
+                 </td>`;
 
                 tableFragment.appendChild(tableRow);
             }
@@ -451,6 +465,7 @@ async function displayProducts() {
     tableBody.innerHTML = ''; // Clear existing table rows
     tableBody.appendChild(tableFragment); // Add new rows to the table
 }
+
 
 
   // Function to confirm and delete a product
