@@ -31,7 +31,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert inv" editparts="2">
+        <div class="leftalignflexvert" editparts="2">
             <label class="brownundertitle">naam PRODUCT (FR)</label>
             <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamFR">
             <label class="brownundertitle">Beschrijving (FR)</label>
@@ -41,7 +41,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert inv" editparts="3">
+        <div class="leftalignflexvert" editparts="3">
             <label class="brownundertitle">naam PRODUCT (EN)</label>
             <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamEN">
             <label class="brownundertitle">Beschrijving (EN)</label>
@@ -51,7 +51,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert inv" editparts="4">
+        <div class="leftalignflexvert" editparts="4">
             <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="edittype" required>
                 <option value="" disabled>Selecteer type</option>
@@ -641,9 +641,10 @@ function validateEditPart(part) {
 document.querySelectorAll('[nexteditpart]').forEach(button => {
     button.addEventListener('click', function() {
         const currentPart = parseInt(document.querySelector('[editparts]:not([style*="display: none"])').getAttribute('editparts'));
-
+        console.log('Current Part:', currentPart); // Debugging
         if (validateEditPart(currentPart)) {
             const nextPart = currentPart + 1;
+            console.log('Next Part:', nextPart); // Debugging
             showEditPart(nextPart);
         } else {
             alert("Please fill in all the fields before proceeding.");
