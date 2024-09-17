@@ -17,6 +17,12 @@
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
 </head>
 <body class="body">
+  <div id="popupdeleteproduct" class="popupholder">
+    <div class="popupcontainer vis">
+        <div class="closebtn" id="closepopupdeleteproduct">X</div>
+        <div id="confirmDeleteBox"></div>
+    </div>
+</div>
   <div id="popupaddproduct" class="popupholder">
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupaddproduct">X</div>
@@ -38,7 +44,7 @@
             </div>
           </div>
           <div class="leftalignflexvert inv" addparts="4">
-            <label class="brownundertitle" for="prijsnew">Prijs</label>
+            <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="typenew" required>
               <option value="" disabled selected>Selecteer type</option>
               <option value="w7UDUqdHkQcNItRH7Dx6">Brood</option>
@@ -48,6 +54,7 @@
               <option value="FhNpS4oxqM1mc6ikaGCl">Ijsjes</option>
               <option value="q3Tu4CvuARtHeLtSp3z8">Smoothies</option>
             </select>
+            <label class="brownundertitle">Afbeelding</label>
             <input type="file" id="fileInput" style="
               width: 90%;
               padding-bottom: 20px;
@@ -172,6 +179,7 @@
 
   window.onload = function() {
     checkAuth();
+    displayProducts();
   };
 
   // Function to add product to Firestore and Storage
@@ -210,7 +218,7 @@
       uploadTask.on('state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          progressText.innerHTML = 'Uploading: ' + Math.round(progress) + '%';
+          progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
         },
         (error) => {
           console.error('Upload failed', error);
@@ -232,7 +240,7 @@
             imageURL: downloadURL // Store image URL in Firestore
           });
 
-          progressText.innerHTML = 'Product successfully added!';
+          progressText.innerHTML = 'Product toegevoegd';
           productAddLoading.style.display = 'none';
           document.getElementById('popupaddproduct').style.opacity = 0;
           document.getElementById('popupaddproduct').style.visibility = 'hidden';
@@ -247,7 +255,10 @@
           document.getElementById('temperatuurnew').value = '';
           document.getElementById('oventemperatuurnew').value = '';
           fileInput.value = '';
-
+          document.getElementById("popupaddproduct").style.opacity = 0;
+          document.getElementById("popupaddproduct").style.visibility = "hidden";
+          progressText.innerHTML = '';
+          
         }
       );
     } catch (e) {
@@ -255,6 +266,95 @@
       alert('Error adding product.');
     }
   }
+// display products
+async function displayProducts() {
+    const holderProducts = document.getElementById('holderProducts');
+    const addProductBtn = document.querySelector('#addproductbtn');
+    const productsLoading = document.getElementById('productsloading');
+
+    const fragment = document.createDocumentFragment();
+    
+    // Show loading animation while fetching data
+    productsLoading.style.display = 'block';
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "Producten"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const productName = data.nameNL;
+            const productImage = data.imageURL;
+
+            const productDiv = document.createElement('div');
+            productDiv.className = 'holderthumbnailproduct dashboard';
+            productDiv.innerHTML = `
+                <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
+                    <img src="/images/editicon.svg" loading="lazy" alt="">
+                </div>
+                <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
+                <div class="thumbproductoverlay">
+                    <div class="mediumbold-text">${productName}</div>
+                    <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
+                </div>
+            `;
+            
+            fragment.appendChild(productDiv);
+        });
+    } catch (error) {
+        console.error('Error fetching documents: ', error);
+    } finally {
+        // Hide loading animation after fetching data
+        productsLoading.style.display = 'none';
+    }
+
+    // Clear existing product content except for the button
+    holderProducts.innerHTML = '';
+    if (addProductBtn) {
+        holderProducts.appendChild(addProductBtn); // Re-add the button
+    }
+    holderProducts.appendChild(fragment); // Add new products
+}
+
+// Function to confirm and delete a product
+window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
+    const confirmBox = document.getElementById('confirmDeleteBox');
+    const popupDeleteProduct = document.getElementById('popupdeleteproduct');
+    popupDeleteProduct.style.opacity = 1;
+    popupDeleteProduct.style.visibility = 'visible';
+  
+    confirmBox.innerHTML = `
+        <div class="confirm-delete-content">
+            <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
+            <div class="flexholder">
+            <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('confirmDelete').onclick = function() {
+        deleteProduct(productId);
+        document.body.removeChild(confirmBox); // Remove the confirmation box
+    };
+
+    document.getElementById('closepopupdeleteproduct').onclick = function() {
+        document.getElementById('popupdeleteproduct').style.opacity = 0;
+        document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+    };
+};
+
+// Function to delete a product
+window.deleteProduct = async function deleteProduct(productId) {
+    try {
+        await deleteDoc(doc(db, "Producten", productId));
+        console.log('Product deleted:', productId);
+        displayProducts(); // Refresh the products list after deletion
+        document.getElementById('popupdeleteproduct').style.opacity = 0;
+        document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+    } catch (error) {
+        console.error('Error deleting product: ', error);
+        alert('Error deleting product: ' + error.message);
+    }
+};
+
 </script>
 <script>
   function showPart(part) {
