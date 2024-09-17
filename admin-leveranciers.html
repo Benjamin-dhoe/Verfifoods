@@ -224,6 +224,7 @@
                         fileInput.value = '';
                         document.getElementById('popupaddsupplier').style.opacity = 0;
                         document.getElementById('popupaddsupplier').style.visibility = "hidden";
+                      progressText.innerHTML = '';
                     }).catch((error) => {
                         console.error('Error adding document to Firestore: ', error);
                         alert('Error adding document: ' + error.message);
