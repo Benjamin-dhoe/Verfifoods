@@ -148,7 +148,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
   import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
   // Firebase configuration
   const firebaseConfig = {
@@ -247,7 +247,8 @@
             temperatuur,
             ovenTemp,
             type,
-            afbeeldingURL: downloadURL // Store image URL in Firestore
+            afbeeldingURL: downloadURL, // Store image URL in Firestore
+            verwijderd: false // Add a flag for deletion status
           });
 
           progressText.innerHTML = 'Product toegevoegd';
@@ -265,8 +266,6 @@
           document.getElementById('temperatuurnew').value = '';
           document.getElementById('oventemperatuurnew').value = '';
           fileInput.value = '';
-          document.getElementById("popupaddproduct").style.opacity = 0;
-          document.getElementById("popupaddproduct").style.visibility = "hidden";
           progressText.innerHTML = '';
           
         }
@@ -276,9 +275,9 @@
       alert('Error adding product.');
     }
   }
-// display products
-// Display products
-async function displayProducts() {
+
+  // Display products
+  async function displayProducts() {
     const holderProducts = document.getElementById('holderProducts');
     const addProductBtn = document.querySelector('#addproductbtn');
     const productsLoading = document.getElementById('productsloading');
@@ -289,89 +288,90 @@ async function displayProducts() {
     productsLoading.style.display = 'block';
 
     try {
-        const querySnapshot = await getDocs(collection(db, "Producten"));
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            if (!data.verwijderd) { // Only include products that are not marked as deleted
-                const productName = data.naamNL;
-                const productImage = data.afbeeldingURL;
+      const querySnapshot = await getDocs(collection(db, "Producten"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (!data.verwijderd) { // Only include products that are not marked as deleted
+          const productName = data.naamNL;
+          const productImage = data.afbeeldingURL;
 
-                const productDiv = document.createElement('div');
-                productDiv.className = 'holderthumbnailproduct dashboard';
-                productDiv.innerHTML = `
-                    <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
-                        <img src="/images/editicon.svg" loading="lazy" alt="">
-                    </div>
-                    <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
-                    <div class="thumbproductoverlay">
-                        <div class="mediumbold-text">${productName}</div>
-                        <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
-                    </div>
-                `;
-                
-                fragment.appendChild(productDiv);
-            }
-        });
+          if (!productName || !productImage) {
+            console.error(`Product data missing: ${JSON.stringify(data)}`);
+          }
+
+          const productDiv = document.createElement('div');
+          productDiv.className = 'holderthumbnailproduct dashboard';
+          productDiv.innerHTML = `
+            <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
+                <img src="/images/editicon.svg" loading="lazy" alt="">
+            </div>
+            <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
+            <div class="thumbproductoverlay">
+                <div class="mediumbold-text">${productName}</div>
+                <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
+            </div>
+          `;
+          
+          fragment.appendChild(productDiv);
+        }
+      });
     } catch (error) {
-        console.error('Error fetching documents: ', error);
+      console.error('Error fetching documents: ', error);
     } finally {
-        // Hide loading animation after fetching data
-        productsLoading.style.display = 'none';
+      // Hide loading animation after fetching data
+      productsLoading.style.display = 'none';
     }
 
     // Clear existing product content except for the button
     holderProducts.innerHTML = '';
     if (addProductBtn) {
-        holderProducts.appendChild(addProductBtn); // Re-add the button
+      holderProducts.appendChild(addProductBtn); // Re-add the button
     }
     holderProducts.appendChild(fragment); // Add new products
-}
+  }
 
-
-// Function to confirm and delete a product
-    
-window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
+  // Function to confirm and delete a product
+  window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
     const confirmBox = document.getElementById('confirmDeleteBox');
     const popupDeleteProduct = document.getElementById('popupdeleteproduct');
     popupDeleteProduct.style.opacity = 1;
     popupDeleteProduct.style.visibility = 'visible';
   
     confirmBox.innerHTML = `
-        <div class="confirm-delete-content">
-            <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
-            <div class="flexholder">
-            <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
-            </div>
+      <div class="confirm-delete-content">
+        <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
+        <div class="flexholder">
+          <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
         </div>
+      </div>
     `;
     
     document.getElementById('confirmDelete').onclick = function() {
-        deleteProduct(productId);
-        document.body.removeChild(confirmBox); // Remove the confirmation box
+      deleteProduct(productId);
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
     };
 
     document.getElementById('closepopupdeleteproduct').onclick = function() {
-        document.getElementById('popupdeleteproduct').style.opacity = 0;
-        document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
     };
-};
+  };
 
-// Function to delete a product
-window.deleteProduct = async function deleteProduct(productId) {
+  // Function to delete a product
+  window.deleteProduct = async function deleteProduct(productId) {
     try {
-        const productRef = doc(db, "Producten", productId);
-        await updateDoc(productRef, { verwijderd: true });
-        console.log('Product marked as deleted:', productId);
-        displayProducts(); // Refresh the products list after "deletion"
-        document.getElementById('popupdeleteproduct').style.opacity = 0;
-        document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+      const productRef = doc(db, "Producten", productId);
+      await updateDoc(productRef, { verwijderd: true });
+      console.log('Product marked as deleted:', productId);
+      displayProducts(); // Refresh the products list after "deletion"
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
     } catch (error) {
-        console.error('Error marking product as deleted: ', error);
-        alert('Error marking product as deleted: ' + error.message);
+      console.error('Error marking product as deleted: ', error);
+      alert('Error marking product as deleted: ' + error.message);
     }
-};
-
-
+  };
 </script>
 <script>
   function showPart(part) {
