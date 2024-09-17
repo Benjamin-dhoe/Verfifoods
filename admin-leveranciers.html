@@ -310,6 +310,8 @@
             await deleteDoc(doc(db, "Leveranciers", supplierId));
             console.log('Supplier deleted:', supplierId);
             displaySuppliers(); // Refresh the supplier list after deletion
+            document.getElementById('popupdeletesupplier').style.opacity = 0;
+            document.getElementById('popupdeletesupplier').style.visibility = "hidden";
         } catch (error) {
             console.error('Error deleting supplier: ', error);
             alert('Error deleting supplier: ' + error.message);
