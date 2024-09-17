@@ -184,15 +184,20 @@
 
   // Function to add product to Firestore and Storage
   window.addProduct = async function addProduct() {
-    const nameNL = document.getElementById('naamnewNL').value;
+    const naamNL = document.getElementById('naamnewNL').value;
     const beschrijvingNL = document.getElementById('beschrijvingnewNL').value;
-    const price = document.getElementById('prijsnew').value;
+    const naamFR = document.getElementById('naamnewFR').value;
+    const beschrijvingFR = document.getElementById('beschrijvingnewFR').value;
+    const naamEN = document.getElementById('naamnewEN').value;
+    const beschrijvingEN = document.getElementById('beschrijvingnewEN').value;
+    const prijs = document.getElementById('prijsnew').value;
     const aantal = document.getElementById('aantalnew').value;
     const gewicht = document.getElementById('gewichtnew').value;
     const tijd = document.getElementById('tijdnew').value;
     const temperatuur = document.getElementById('temperatuurnew').value;
     const ovenTemp = document.getElementById('oventemperatuurnew').value;
     const fileInput = document.getElementById('fileInput');
+    const type = document.getElementById('typenew');
     const file = fileInput.files[0];
     const progressText = document.getElementById('progressText');
     const productAddLoading = document.getElementById('productaddloading');
@@ -229,15 +234,20 @@
           console.log('File available at', downloadURL);
 
           await addDoc(collection(db, "Producten"), {
-            nameNL,
+            naamNL,
             beschrijvingNL,
-            price,
+            naamFR,
+            beschrijvingFR,
+            naamEN,
+            beschrijvingEN,
+            prijs,
             aantal,
             gewicht,
             tijd,
             temperatuur,
             ovenTemp,
-            imageURL: downloadURL // Store image URL in Firestore
+            type,
+            afbeeldingURL: downloadURL // Store image URL in Firestore
           });
 
           progressText.innerHTML = 'Product toegevoegd';
@@ -267,6 +277,7 @@
     }
   }
 // display products
+// Display products
 async function displayProducts() {
     const holderProducts = document.getElementById('holderProducts');
     const addProductBtn = document.querySelector('#addproductbtn');
@@ -281,23 +292,25 @@ async function displayProducts() {
         const querySnapshot = await getDocs(collection(db, "Producten"));
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            const productName = data.nameNL;
-            const productImage = data.imageURL;
+            if (!data.verwijderd) { // Only include products that are not marked as deleted
+                const productName = data.naamNL;
+                const productImage = data.afbeeldingURL;
 
-            const productDiv = document.createElement('div');
-            productDiv.className = 'holderthumbnailproduct dashboard';
-            productDiv.innerHTML = `
-                <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
-                    <img src="/images/editicon.svg" loading="lazy" alt="">
-                </div>
-                <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
-                <div class="thumbproductoverlay">
-                    <div class="mediumbold-text">${productName}</div>
-                    <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
-                </div>
-            `;
-            
-            fragment.appendChild(productDiv);
+                const productDiv = document.createElement('div');
+                productDiv.className = 'holderthumbnailproduct dashboard';
+                productDiv.innerHTML = `
+                    <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
+                        <img src="/images/editicon.svg" loading="lazy" alt="">
+                    </div>
+                    <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
+                    <div class="thumbproductoverlay">
+                        <div class="mediumbold-text">${productName}</div>
+                        <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
+                    </div>
+                `;
+                
+                fragment.appendChild(productDiv);
+            }
         });
     } catch (error) {
         console.error('Error fetching documents: ', error);
@@ -314,7 +327,9 @@ async function displayProducts() {
     holderProducts.appendChild(fragment); // Add new products
 }
 
+
 // Function to confirm and delete a product
+    
 window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
     const confirmBox = document.getElementById('confirmDeleteBox');
     const popupDeleteProduct = document.getElementById('popupdeleteproduct');
@@ -344,16 +359,18 @@ window.confirmDeleteProduct = function confirmDeleteProduct(productId, productNa
 // Function to delete a product
 window.deleteProduct = async function deleteProduct(productId) {
     try {
-        await deleteDoc(doc(db, "Producten", productId));
-        console.log('Product deleted:', productId);
-        displayProducts(); // Refresh the products list after deletion
+        const productRef = doc(db, "Producten", productId);
+        await updateDoc(productRef, { verwijderd: true });
+        console.log('Product marked as deleted:', productId);
+        displayProducts(); // Refresh the products list after "deletion"
         document.getElementById('popupdeleteproduct').style.opacity = 0;
         document.getElementById('popupdeleteproduct').style.visibility = "hidden";
     } catch (error) {
-        console.error('Error deleting product: ', error);
-        alert('Error deleting product: ' + error.message);
+        console.error('Error marking product as deleted: ', error);
+        alert('Error marking product as deleted: ' + error.message);
     }
 };
+
 
 </script>
 <script>
