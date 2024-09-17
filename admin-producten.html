@@ -509,12 +509,12 @@ window.updateProduct = async function updateProduct() {
     const temperatuur = document.getElementById('edittemperatuur').value;
     const ovenTemp = document.getElementById('editoventemperatuur').value;
     const type = document.getElementById('edittype').value;
-    const fileInput = document.getElementById('editFileInput');
+    const fileEditInput = document.getElementById('editFileInput');
     
     let imageUrl = '';
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const storageRef = ref(storage, `images/${file.name}`);
+    if (fileEditInput.files.length > 0) {
+        const file = fileEditInput.files[0];
+        const storageRef = ref(storage, `producten/${file.name}`);
         await uploadBytesResumable(storageRef, file);
         imageUrl = await getDownloadURL(storageRef);
     }
