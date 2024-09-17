@@ -759,11 +759,15 @@ document.getElementById('closepopupeditproduct').addEventListener('click', funct
 });
 
 document.getElementById('openlistview').addEventListener('click', function() {
+    document.getElementById('openblockview').classList.remove('active');
+    document.getElementById('openlistview').classList.add('active');
     document.getElementById('productsTable').style.display = "none";
     document.getElementById('holderProducts').style.display = "flex";
 });
 
 document.getElementById('openblockview').addEventListener('click', function() {
+    document.getElementById('openblockview').classList.add('active');
+    document.getElementById('openlistview').classList.remove('active');
     document.getElementById('productsTable').style.display = "flex";
     document.getElementById('holderProducts').style.display = "none";
 });
