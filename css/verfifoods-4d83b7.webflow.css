@@ -9,6 +9,16 @@
   --darker-background: #fcf3e7;
 }
 
+.deleteicon {
+    width: 20px;
+    margin-left: 10px;
+    opacity: 0.9;
+}
+
+.deleteicon:hover {
+    opacity: 1;
+}
+
 .table-container {
     width: 100%;
     margin: 20px;
