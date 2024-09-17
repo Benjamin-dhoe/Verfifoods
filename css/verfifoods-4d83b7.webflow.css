@@ -10,12 +10,14 @@
 }
 
 .deleteicon {
-    width: 20px;
+    width: 15px;
     margin-left: 10px;
     opacity: 0.9;
+    transition: transform 0.3s ease;
 }
 
 .deleteicon:hover {
+    transform: scale(1.2);
     opacity: 1;
 }
 
