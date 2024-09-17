@@ -382,7 +382,7 @@
           const productImage = data.afbeeldingURL;
 
           if (!productName || !productImage) {
-            console.error(Product data missing: ${JSON.stringify(data)});
+            console.log("error productData");
           }
 
           const productDiv = document.createElement('div');
