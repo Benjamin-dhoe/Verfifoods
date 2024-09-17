@@ -382,12 +382,12 @@
           const productImage = data.afbeeldingURL;
 
           if (!productName || !productImage) {
-            console.error(`Product data missing: ${JSON.stringify(data)}`);
+            console.error(Product data missing: ${JSON.stringify(data)});
           }
 
           const productDiv = document.createElement('div');
           productDiv.className = 'holderthumbnailproduct dashboard';
-          productDiv.innerHTML = `
+          productDiv.innerHTML = 
             <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
                 <img src="/images/editicon.svg" loading="lazy" alt="">
             </div>
@@ -396,7 +396,7 @@
                 <div class="mediumbold-text">${productName}</div>
                 <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
             </div>
-          `;
+          ;
           
           fragment.appendChild(productDiv);
         }
@@ -423,115 +423,122 @@
     popupDeleteProduct.style.opacity = 1;
     popupDeleteProduct.style.visibility = 'visible';
   
-    confirmBox.innerHTML = `
+    confirmBox.innerHTML = 
       <div class="confirm-delete-content">
         <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
         <div class="flexholder">
           <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
         </div>
       </div>
-    `;
-  
+    ;
+    
     document.getElementById('confirmDelete').onclick = function() {
       deleteProduct(productId);
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+    };
+
+    document.getElementById('closepopupdeleteproduct').onclick = function() {
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
     };
   };
 
   // Function to delete a product
-  async function deleteProduct(productId) {
+  window.deleteProduct = async function deleteProduct(productId) {
     try {
       const productRef = doc(db, "Producten", productId);
-      await updateDoc(productRef, { verwijderd: true }); // Update the product to mark it as deleted
-      console.log('Product deleted successfully');
-      displayProducts(); // Refresh the product list
-      const popupDeleteProduct = document.getElementById('popupdeleteproduct');
-      popupDeleteProduct.style.opacity = 0;
-      popupDeleteProduct.style.visibility = 'hidden';
-    } catch (e) {
-      console.error('Error deleting product: ', e);
-      alert('Error deleting product.');
+      await updateDoc(productRef, { verwijderd: true });
+      console.log('Product marked as deleted:', productId);
+      displayProducts(); // Refresh the products list after "deletion"
+      document.getElementById('popupdeleteproduct').style.opacity = 0;
+      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+    } catch (error) {
+      console.error('Error marking product as deleted: ', error);
+      alert('Error marking product as deleted: ' + error.message);
     }
-  }
-
-  // Function to edit a product
-  window.editProduct = async function editProduct(productId, productName, productImage) {
-    document.getElementById('popupeditproduct').style.opacity = 1;
-    document.getElementById('popupeditproduct').style.visibility = 'visible';
-    document.getElementById('editProductId').value = productId;
-    document.getElementById('editProductName').value = productName;
-    document.getElementById('editProductImage').src = productImage;
   };
 
-  // Function to update a product
-  window.updateProduct = async function updateProduct() {
-    const productId = document.getElementById('editProductId').value;
-    const naamNL = document.getElementById('editProductName').value;
-    const fileInput = document.getElementById('fileInputEdit');
-    const file = fileInput.files[0];
-    const progressText = document.getElementById('progressTextEdit');
-    const productEditLoading = document.getElementById('producteditloading');
+  window.editProduct = async function editProduct(productId, productName, productImage) {
+    const popupEditProduct = document.getElementById("popupeditproduct");
+    popupEditProduct.style.opacity = 1;
+    popupEditProduct.style.visibility = "visible";
 
-    if (!naamNL) {
-      alert("Please enter the product name.");
-      return;
+    const productRef = doc(db, "Producten", productId);
+    const productDoc = await getDoc(productRef);
+    const data = productDoc.data();
+
+    document.getElementById('editnaamNL').value = data.naamNL || '';
+    document.getElementById('editbeschrijvingNL').value = data.beschrijvingNL || '';
+    document.getElementById('editnaamFR').value = data.naamFR || '';
+    document.getElementById('editbeschrijvingFR').value = data.beschrijvingFR || '';
+    document.getElementById('editnaamEN').value = data.naamEN || '';
+    document.getElementById('editbeschrijvingEN').value = data.beschrijvingEN || '';
+    document.getElementById('editprijs').value = data.prijs || '';
+    document.getElementById('editaantal').value = data.aantal || '';
+    document.getElementById('editgewicht').value = data.gewicht || '';
+    document.getElementById('edittijd').value = data.tijd || '';
+    document.getElementById('edittemperatuur').value = data.temperatuur || '';
+    document.getElementById('editoventemperatuur').value = data.ovenTemp || '';
+    document.getElementById('edittype').value = data.type || '';
+    
+    const currentImage = document.getElementById('currentImage');
+    currentImage.src = productImage;
+    currentImage.style.display = 'block';
+
+    document.getElementById('editFileInput').value = ''; // Clear file input
+    document.querySelector([editparts="1"]).style.display = 'flex';
+}
+
+// Function to update product details
+window.updateProduct = async function updateProduct() {
+    const productId = document.querySelector('[editparts]:not([style*="none"])').getAttribute('data-id');
+    const naamNL = document.getElementById('editnaamNL').value;
+    const beschrijvingNL = document.getElementById('editbeschrijvingNL').value;
+    const naamFR = document.getElementById('editnaamFR').value;
+    const beschrijvingFR = document.getElementById('editbeschrijvingFR').value;
+    const naamEN = document.getElementById('editnaamEN').value;
+    const beschrijvingEN = document.getElementById('editbeschrijvingEN').value;
+    const prijs = document.getElementById('editprijs').value;
+    const aantal = document.getElementById('editaantal').value;
+    const gewicht = document.getElementById('editgewicht').value;
+    const tijd = document.getElementById('edittijd').value;
+    const temperatuur = document.getElementById('edittemperatuur').value;
+    const ovenTemp = document.getElementById('editoventemperatuur').value;
+    const type = document.getElementById('edittype').value;
+    const fileInput = document.getElementById('editFileInput');
+    
+    let imageUrl = '';
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const storageRef = ref(storage, images/${file.name});
+        await uploadBytesResumable(storageRef, file);
+        imageUrl = await getDownloadURL(storageRef);
     }
 
     const productRef = doc(db, "Producten", productId);
-    
-    // Handling image update
-    let downloadURL = null;
-    if (file) {
-      progressText.style.display = 'block';
-      productEditLoading.style.display = 'block';
-      progressText.innerHTML = '0%';
-
-      const storageRef = ref(storage, 'producten/' + file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      try {
-        await new Promise((resolve, reject) => {
-          uploadTask.on('state_changed',
-            (snapshot) => {
-              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
-            },
-            (error) => {
-              console.error('Upload failed', error);
-              alert('Upload failed: ' + error.message);
-              reject(error);
-            },
-            async () => {
-              downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-              resolve();
-            }
-          );
-        });
-      } catch (error) {
-        return;
-      }
-    } else {
-      // If no new file is uploaded, keep existing image URL
-      const productDoc = await getDoc(productRef);
-      const productData = productDoc.data();
-      downloadURL = productData.afbeeldingURL;
-    }
-
-    try {
-      await updateDoc(productRef, {
+    await updateDoc(productRef, {
         naamNL,
-        afbeeldingURL: downloadURL // Update image URL if new image is uploaded
-      });
-      console.log('Product updated successfully');
-      progressText.innerHTML = 'Product bijgewerkt';
-      productEditLoading.style.display = 'none';
-      document.getElementById('popupeditproduct').style.opacity = 0;
-      document.getElementById('popupeditproduct').style.visibility = 'hidden';
-      displayProducts(); // Refresh the product list
-    } catch (e) {
-      console.error('Error updating product: ', e);
-      alert('Error updating product.');
-    }
-  }
+        beschrijvingNL,
+        naamFR,
+        beschrijvingFR,
+        naamEN,
+        beschrijvingEN,
+        prijs,
+        aantal,
+        gewicht,
+        tijd,
+        temperatuur,
+        ovenTemp,
+        type,
+        afbeelding: imageUrl || null
+    });
+
+    // Hide popup and reset fields
+    document.getElementById('popupeditproduct').style.opacity = 0;
+    document.getElementById('popupeditproduct').style.visibility = "hidden";
+    document.getElementById('popupeditproduct').reset();
+}
 </script>
 <script>
   function showPart(part) {
