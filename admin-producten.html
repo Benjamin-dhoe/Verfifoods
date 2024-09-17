@@ -17,6 +17,90 @@
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
 </head>
 <body class="body">
+  <div id="popupeditproduct" class="popupholder">
+    <div class="popupcontainer vis">
+        <div class="closebtn" id="closepopupeditproduct">X</div>
+        <div class="leftalignflexvert" editparts="1">
+            <label class="brownundertitle">naam PRODUCT (NL)</label>
+            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamNL">
+            <label class="brownundertitle">Beschrijving (NL)</label>
+            <textarea placeholder="" maxlength="5000" id="editbeschrijvingNL" class="textarea w-input"></textarea>
+            <div class="alwaysflexhorizontal nextprev">
+                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
+            </div>
+        </div>
+        <div class="leftalignflexvert inv" editparts="2">
+            <label class="brownundertitle">naam PRODUCT (FR)</label>
+            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamFR">
+            <label class="brownundertitle">Beschrijving (FR)</label>
+            <textarea placeholder="" maxlength="5000" id="editbeschrijvingFR" class="textarea w-input"></textarea>
+            <div class="alwaysflexhorizontal nextprev">
+                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
+                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
+            </div>
+        </div>
+        <div class="leftalignflexvert inv" editparts="3">
+            <label class="brownundertitle">naam PRODUCT (EN)</label>
+            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamEN">
+            <label class="brownundertitle">Beschrijving (EN)</label>
+            <textarea placeholder="" maxlength="5000" id="editbeschrijvingEN" class="textarea w-input"></textarea>
+            <div class="alwaysflexhorizontal nextprev">
+                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
+                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
+            </div>
+        </div>
+        <div class="leftalignflexvert inv" editparts="4">
+            <label class="brownundertitle">Prijs</label>
+            <select class="text-field w-input" id="edittype" required>
+                <option value="" disabled>Selecteer type</option>
+                <option value="w7UDUqdHkQcNItRH7Dx6">Brood</option>
+                <option value="W2II8fhgeqnAC0mNbzCP">Viennoiserie</option>
+                <option value="8QZfIQ8c4ap8SmkvJIMx">Stokbrood</option>
+                <option value="q6xYExbEJ4PQTGgWnPBN">Gebak</option>
+                <option value="FhNpS4oxqM1mc6ikaGCl">Ijsjes</option>
+                <option value="q3Tu4CvuARtHeLtSp3z8">Smoothies</option>
+            </select>
+            <label class="brownundertitle">Afbeelding</label>
+            <input type="file" id="editFileInput" style="width: 90%; padding-bottom: 20px;">
+            <img id="currentImage" src="" style="width: 100px; height: 100px; display: none;">
+            <label class="brownundertitle">Prijs</label>
+            <input class="text-field w-input" maxlength="256" placeholder="" type="number" id="editprijs" required="">
+            <label for="Aantal" class="brownundertitle">Aantal stuks per doos</label>
+            <input class="text-field w-input" maxlength="256" placeholder="" type="number" id="editaantal" required="">
+            <label class="brownundertitle">Specificaties</label>
+            <div class="alwaysflexhorizontal">
+                <div class="iconspecs"><img src="/images/weight-kg.svg" loading="lazy" alt=""></div>
+                <input class="noclass w-input" maxlength="256" placeholder="in gram" type="number" id="editgewicht" required>
+            </div>
+            <div class="alwaysflexhorizontal">
+                <div class="iconspecs"><img src="/images/time.svg" loading="lazy" alt=""></div>
+                <input class="noclass w-input" maxlength="256" name="tijd" data-name="tijd" placeholder="in minuten" type="number" id="edittijd" required>
+            </div>
+            <div class="alwaysflexhorizontal">
+                <div class="iconspecs"><img src="/images/temperature.svg" loading="lazy" width="18" alt=""></div>
+                <input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="edittemperatuur" required>
+            </div>
+            <div class="alwaysflexhorizontal">
+                <div class="iconspecs"><img src="/images/753124_microwave_oven_cook_cooking_kitchen_icon.svg" loading="lazy" alt=""></div>
+                <input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="editoventemperatuur" required>
+            </div>
+            <div class="alwaysflexhorizontal nextprev">
+                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
+                <button class="button intypeholder notabs w-button" onclick="updateProduct()">Product bijwerken</button>
+            </div>
+            <div class="loading" id="producteditloading">
+                <lottie-player
+                    src="/images/loading.json"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay>
+                </lottie-player>
+            </div>
+            <div id="editProgressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
+        </div>
+    </div>
+</div>
   <div id="popupdeleteproduct" class="popupholder">
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupdeleteproduct">X</div>
@@ -372,6 +456,87 @@
       alert('Error marking product as deleted: ' + error.message);
     }
   };
+
+  window.editProduct = async function editProduct(productId, productName, productImage) {
+    const popupEditProduct = document.getElementById("popupeditproduct");
+    popupEditProduct.style.opacity = 1;
+    popupEditProduct.style.visibility = "visible";
+
+    const productRef = doc(db, "Producten", productId);
+    const productDoc = await getDoc(productRef);
+    const data = productDoc.data();
+
+    document.getElementById('editnaamNL').value = data.naamNL || '';
+    document.getElementById('editbeschrijvingNL').value = data.beschrijvingNL || '';
+    document.getElementById('editnaamFR').value = data.naamFR || '';
+    document.getElementById('editbeschrijvingFR').value = data.beschrijvingFR || '';
+    document.getElementById('editnaamEN').value = data.naamEN || '';
+    document.getElementById('editbeschrijvingEN').value = data.beschrijvingEN || '';
+    document.getElementById('editprijs').value = data.prijs || '';
+    document.getElementById('editaantal').value = data.aantal || '';
+    document.getElementById('editgewicht').value = data.gewicht || '';
+    document.getElementById('edittijd').value = data.tijd || '';
+    document.getElementById('edittemperatuur').value = data.temperatuur || '';
+    document.getElementById('editoventemperatuur').value = data.oventemperatuur || '';
+    document.getElementById('edittype').value = data.type || '';
+    
+    const currentImage = document.getElementById('currentImage');
+    currentImage.src = productImage;
+    currentImage.style.display = 'block';
+
+    document.getElementById('editFileInput').value = ''; // Clear file input
+    document.querySelector(`[editparts="1"]`).style.display = 'flex';
+}
+
+// Function to update product details
+window.updateProduct = async function updateProduct() {
+    const productId = document.querySelector('[editparts]:not([style*="none"])').getAttribute('data-id');
+    const naamNL = document.getElementById('editnaamNL').value;
+    const beschrijvingNL = document.getElementById('editbeschrijvingNL').value;
+    const naamFR = document.getElementById('editnaamFR').value;
+    const beschrijvingFR = document.getElementById('editbeschrijvingFR').value;
+    const naamEN = document.getElementById('editnaamEN').value;
+    const beschrijvingEN = document.getElementById('editbeschrijvingEN').value;
+    const prijs = document.getElementById('editprijs').value;
+    const aantal = document.getElementById('editaantal').value;
+    const gewicht = document.getElementById('editgewicht').value;
+    const tijd = document.getElementById('edittijd').value;
+    const temperatuur = document.getElementById('edittemperatuur').value;
+    const oventemperatuur = document.getElementById('editoventemperatuur').value;
+    const type = document.getElementById('edittype').value;
+    const fileInput = document.getElementById('editFileInput');
+    
+    let imageUrl = '';
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const storageRef = ref(storage, `images/${file.name}`);
+        await uploadBytes(storageRef, file);
+        imageUrl = await getDownloadURL(storageRef);
+    }
+
+    const productRef = doc(db, "Producten", productId);
+    await updateDoc(productRef, {
+        naamNL,
+        beschrijvingNL,
+        naamFR,
+        beschrijvingFR,
+        naamEN,
+        beschrijvingEN,
+        prijs,
+        aantal,
+        gewicht,
+        tijd,
+        temperatuur,
+        oventemperatuur,
+        type,
+        afbeelding: imageUrl || null
+    });
+
+    // Hide popup and reset fields
+    document.getElementById('popupeditproduct').style.opacity = 0;
+    document.getElementById('popupeditproduct').style.visibility = "hidden";
+    document.getElementById('popupeditproduct').reset();
+}
 </script>
 <script>
   function showPart(part) {
@@ -438,6 +603,30 @@
       showPart(prevPart);
     });
   });
+
+  // Handle navigation between edit sections
+document.querySelectorAll('[nexteditpart]').forEach(button => {
+    button.addEventListener('click', function() {
+        const currentPart = parseInt(document.querySelector('[editparts]:not(.inv)').getAttribute('editparts'));
+        document.querySelector(`[editparts="${currentPart}"]`).classList.add('inv');
+        document.querySelector(`[editparts="${currentPart + 1}"]`).classList.remove('inv');
+    });
+});
+
+document.querySelectorAll('[preveditpart]').forEach(button => {
+    button.addEventListener('click', function() {
+        const currentPart = parseInt(document.querySelector('[editparts]:not(.inv)').getAttribute('editparts'));
+        document.querySelector(`[editparts="${currentPart}"]`).classList.add('inv');
+        document.querySelector(`[editparts="${currentPart - 1}"]`).classList.remove('inv');
+    });
+});
+
+// Close edit popup
+document.getElementById('closepopupeditproduct').addEventListener('click', function() {
+    document.getElementById('popupeditproduct').style.opacity = 0;
+    document.getElementById('popupeditproduct').style.visibility = "hidden";
+});
+
 </script>
 
 </html>
