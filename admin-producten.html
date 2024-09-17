@@ -210,8 +210,8 @@
             </div>
             <img src="/images/filterIcon.svg" loading="lazy" alt="" class="menuicon" opensidemenu>
           </div>
-          <div class="holderappresults" id="productsTable">
-              <div class="table-container">
+          <div class="holderappresults">
+              <div class="table-container" id="productsTable">
                 <table class="styled-table">
                     <thead>
                         <tr>
@@ -226,20 +226,20 @@
                     </tbody>
                 </table>
               </div>
-          </div>
-          <div class="holderappresults" id="holderProducts">
-            <div class="holderthumbnailproduct dashboard newadd" id="addproductbtn">
-              <div class="button intypeholder w-button">Nieuw product </div>
-              <div class="plussign">+</div>
-          </div>
-          <div class="loading vis" id="productsloading">
-              <lottie-player
-                src="/images/loading.json"
-                background="transparent"
-                speed="1"
-                loop
-                autoplay>
-              </lottie-player>
+              <div id="holderProducts">
+                <div class="holderthumbnailproduct dashboard newadd" id="addproductbtn">
+                  <div class="button intypeholder w-button">Nieuw product </div>
+                  <div class="plussign">+</div>
+              </div>
+              <div class="loading vis" id="productsloading">
+                  <lottie-player
+                    src="/images/loading.json"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay>
+                  </lottie-player>
+                </div>
             </div>
         </div>
       </div>
@@ -548,16 +548,9 @@ window.updateProduct = async function updateProduct() {
     const type = document.getElementById('edittype').value;
     const fileEditInput = document.getElementById('editFileInput');
     
-    let imageUrl = '';
-    if (fileEditInput.files.length > 0) {
-        const file = fileEditInput.files[0];
-        const storageRef = ref(storage, `producten/${file.name}`);
-        await uploadBytesResumable(storageRef, file);
-        imageUrl = await getDownloadURL(storageRef);
-    }
-
     const productRef = doc(db, "Producten", productId);
-    await updateDoc(productRef, {
+    
+    let updateData = {
         naamNL,
         beschrijvingNL,
         naamFR,
@@ -570,14 +563,29 @@ window.updateProduct = async function updateProduct() {
         tijd,
         temperatuur,
         ovenTemp,
-        type,
-        afbeeldingURL: imageUrl || null
-    });
+        type
+    };
 
-    // Hide popup and reset fields
+    // If a new image is selected, upload it and include it in the update
+    if (fileEditInput.files.length > 0) {
+        const file = fileEditInput.files[0];
+        const storageRef = ref(storage, `producten/${file.name}`);
+        await uploadBytesResumable(storageRef, file);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        // Add the new image URL to the update
+        updateData.afbeeldingURL = imageUrl;
+    }
+
+    // Update the product in Firestore
+    await updateDoc(productRef, updateData);
+
+    // Hide the popup and reset fields
     document.getElementById('popupeditproduct').style.opacity = 0;
     document.getElementById('popupeditproduct').style.visibility = "hidden";
     document.getElementById('producteditloading').style.display = 'none';
+    
+    // Refresh the displayed products
     displayProducts();
 }
 </script>
