@@ -405,19 +405,19 @@ async function displayProducts() {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             console.log(data);
-
+        
             if (!data.verwijderd) { // Only include products that are not marked as deleted
                 const productName = data.naamNL;
                 const productImage = data.afbeeldingURL;
                 const productPrice = data.prijs;
                 const productWeight = data.gewicht;
                 const productType = data.type;
-
+        
                 if (!productName || !productImage) {
                     console.error(`Product data missing: ${JSON.stringify(data)}`);
                 }
-
-                // Create thumbnail view
+        
+                // Create thumbnail view (existing code)
                 const productDiv = document.createElement('div');
                 productDiv.className = 'holderthumbnailproduct dashboard';
                 productDiv.innerHTML = 
@@ -429,25 +429,37 @@ async function displayProducts() {
                     <div class="mediumbold-text">${productName}</div>
                     <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
                 </div>`;
-
+        
                 fragment.appendChild(productDiv);
-
-                // Create table row for the product
+        
+                // Create table row for the product (UPDATED)
                 const tableRow = document.createElement('tr');
-
-                // Make the row clickable for editing, except for the delete button
-                tableRow.innerHTML = 
-                `<td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productName}</td>
-                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productPrice}</td>
-                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productType}</td>
-                 <td onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">${productWeight}g</td>
-                 <td>
-                   <button class="delete-button" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">Delete</button>
-                 </td>`;
-
+        
+                // Make the row clickable for editing the product
+                tableRow.addEventListener('click', () => {
+                    editProduct(doc.id, productName, productImage);
+                });
+        
+                // Prevent row click when clicking the delete icon
+                const deleteCell = document.createElement('td');
+                deleteCell.innerHTML = `<img src="/images/deleteicon.png" loading="lazy" alt="Delete" onClick="event.stopPropagation(); confirmDeleteProduct('${doc.id}', '${productName}')">`;
+        
+                // Add table row content (except for delete button)
+                tableRow.innerHTML = `
+                    <td>${productName}</td>
+                    <td>${productPrice}</td>
+                    <td>${productType}</td>
+                    <td>${productWeight}g</td>
+                `;
+                
+                // Append the delete button as the last cell in the row
+                tableRow.appendChild(deleteCell);
+                
+                // Append the row to the table fragment
                 tableFragment.appendChild(tableRow);
             }
         });
+
     } catch (error) {
         console.error('Error fetching documents: ', error);
     } finally {
