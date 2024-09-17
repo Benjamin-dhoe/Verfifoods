@@ -513,7 +513,7 @@ window.updateProduct = async function updateProduct() {
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
         const storageRef = ref(storage, `images/${file.name}`);
-        await uploadBytes(storageRef, file);
+        await uploadBytesResumable(storageRef, file);
         imageUrl = await getDownloadURL(storageRef);
     }
 
