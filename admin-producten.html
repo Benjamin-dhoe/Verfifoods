@@ -370,9 +370,6 @@
     const productsLoading = document.getElementById('productsloading');
 
     const fragment = document.createDocumentFragment();
-    
-    // Show loading animation while fetching data
-    productsLoading.style.display = 'block';
 
     try {
       const querySnapshot = await getDocs(collection(db, "Producten"));
