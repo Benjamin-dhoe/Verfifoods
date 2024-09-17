@@ -65,12 +65,12 @@
             <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="edittype" required>
                 <option value="" disabled>Selecteer type</option>
-                <option value="w7UDUqdHkQcNItRH7Dx6">Brood</option>
-                <option value="W2II8fhgeqnAC0mNbzCP">Viennoiserie</option>
-                <option value="8QZfIQ8c4ap8SmkvJIMx">Stokbrood</option>
-                <option value="q6xYExbEJ4PQTGgWnPBN">Gebak</option>
-                <option value="FhNpS4oxqM1mc6ikaGCl">Ijsjes</option>
-                <option value="q3Tu4CvuARtHeLtSp3z8">Smoothies</option>
+                <option value="Brood">Brood</option>
+                <option value="Viennoiserie">Viennoiserie</option>
+                <option value="Stokbrood">Stokbrood</option>
+                <option value="Gebak">Gebak</option>
+                <option value="Ijsjes">Ijsjes</option>
+                <option value="Smoothies">Smoothies</option>
             </select>
             <label class="brownundertitle">Afbeelding</label>
             <input type="file" id="editFileInput" style="width: 90%; padding-bottom: 20px;">
@@ -143,12 +143,12 @@
             <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="typenew" required>
               <option value="" disabled selected>Selecteer type</option>
-              <option value="w7UDUqdHkQcNItRH7Dx6">Brood</option>
-              <option value="W2II8fhgeqnAC0mNbzCP">Viennoiserie</option>
-              <option value="8QZfIQ8c4ap8SmkvJIMx">Stokbrood</option>
-              <option value="q6xYExbEJ4PQTGgWnPBN">Gebak</option>
-              <option value="FhNpS4oxqM1mc6ikaGCl">Ijsjes</option>
-              <option value="q3Tu4CvuARtHeLtSp3z8">Smoothies</option>
+              <option value="Brood">Brood</option>
+              <option value="Viennoiserie">Viennoiserie</option>
+              <option value="Stokbrood">Stokbrood</option>
+              <option value="Gebak">Gebak</option>
+              <option value="Ijsjes">Ijsjes</option>
+              <option value="Smoothies">Smoothies</option>
             </select>
             <label class="brownundertitle">Afbeelding</label>
             <input type="file" id="fileInput" style="
@@ -224,10 +224,14 @@
                 <table class="styled-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Price</th>
+                            <th>NaamNL</th>
+                            <th>Prijs</th>
                             <th>Type</th>
-                            <th>Weight</th>
+                            <th><img src="/images/weight-kg.svg" loading="lazy" alt=""></th>
+                            <th><img src="/images/time.svg" loading="lazy" alt=""></th>
+                            <th><img src="/images/temperature.svg" loading="lazy" width="18" alt=""></th>
+                            <th><img src="/images/753124_microwave_oven_cook_cooking_kitchen_icon.svg" loading="lazy" alt=""></th>
+                            <th>X</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -411,6 +415,9 @@ async function displayProducts() {
                 const productImage = data.afbeeldingURL;
                 const productPrice = data.prijs;
                 const productWeight = data.gewicht;
+                const productTime = data.tijd;
+                const productOven = data.ovenTemp;
+                const productTemp = data.temperatuur;
                 const productType = data.type;
         
                 if (!productName || !productImage) {
@@ -450,6 +457,9 @@ async function displayProducts() {
                     <td>${productPrice}</td>
                     <td>${productType}</td>
                     <td>${productWeight}g</td>
+                    <td>${productTime}'</td>
+                    <td>${productTemp}°</td>
+                    <td>${productOven}°</td>
                 `;
                 
                 // Append the delete button as the last cell in the row
