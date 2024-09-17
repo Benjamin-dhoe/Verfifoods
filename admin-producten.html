@@ -37,7 +37,19 @@
               <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
             </div>
           </div>
-          <div class="leftalignflexvert inv" addparts="4"><label class="brownundertitle">Prijs</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="prijsnew" required=""><label for="Aantal" class="brownundertitle">Aantal stuks per doos</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="aantalnew" required=""><label class="brownundertitle">Specificaties</label>
+          <div class="leftalignflexvert inv" addparts="4">
+            <label class="brownundertitle" for="prijsnew">Prijs</label>
+            <select class="text-field w-input" id="typenew" required>
+              <option value="" disabled selected>Selecteer type</option>
+              <option value="w7UDUqdHkQcNItRH7Dx6">Brood</option>
+              <option value="W2II8fhgeqnAC0mNbzCP">Viennoiserie</option>
+              <option value="8QZfIQ8c4ap8SmkvJIMx">Stokbrood</option>
+              <option value="q6xYExbEJ4PQTGgWnPBN">Gebak</option>
+              <option value="FhNpS4oxqM1mc6ikaGCl">Ijsjes</option>
+              <option value="q3Tu4CvuARtHeLtSp3z8">Smoothies</option>
+            </select>
+            <label class="brownundertitle">Prijs</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="prijsnew" required="">
+            <label for="Aantal" class="brownundertitle">Aantal stuks per doos</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="aantalnew" required=""><label class="brownundertitle">Specificaties</label>
             <div class="alwaysflexhorizontal">
               <div class="iconspecs"><img src="/images/weight-kg.svg" loading="lazy" alt=""></div><input class="noclass w-input" maxlength="256" placeholder="in gram" type="number" id="gewichtnew" required>
             </div>
