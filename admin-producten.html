@@ -220,7 +220,7 @@
             <img src="/images/filterIcon.svg" loading="lazy" alt="" class="menuicon" opensidemenu>
           </div>
           <div class="holderappresults">
-              <div class="topresultsviewings"><div class="alwaysflexhorizontal"><div class="viewstylebtn active"><img src="/images/blocks.svg" loading="lazy" width="21" alt=""></div><div class="viewstylebtn"><img src="/images/listicon.svg" loading="lazy" width="21" alt=""></div></div></div>
+              <div class="topresultsviewings"><div class="alwaysflexhorizontal"><div class="viewstylebtn active" id="openblockview"><img src="/images/blocks.svg" loading="lazy" width="21" alt=""></div><div class="viewstylebtn" id="openlistview"><img src="/images/listicon.svg" loading="lazy" width="21" alt=""></div></div></div>
               <div class="table-container" id="productsTable">
                 <table class="styled-table">
                     <thead>
@@ -756,6 +756,16 @@ document.querySelectorAll('[preveditpart]').forEach(button => {
 document.getElementById('closepopupeditproduct').addEventListener('click', function() {
     document.getElementById('popupeditproduct').style.opacity = 0;
     document.getElementById('popupeditproduct').style.visibility = "hidden";
+});
+
+document.getElementById('openlistview').addEventListener('click', function() {
+    document.getElementById('productsTable').style.display = "none";
+    document.getElementById('holderProducts').style.display = "flex";
+});
+
+document.getElementById('openblockview').addEventListener('click', function() {
+    document.getElementById('productsTable').style.display = "flex";
+    document.getElementById('holderProducts').style.display = "none";
 });
 
 </script>
