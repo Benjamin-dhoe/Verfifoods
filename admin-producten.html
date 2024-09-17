@@ -378,6 +378,7 @@
       const querySnapshot = await getDocs(collection(db, "Producten"));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
+        console.log(data);
         if (!data.verwijderd) { // Only include products that are not marked as deleted
           const productName = data.naamNL;
           const productImage = data.afbeeldingURL;
