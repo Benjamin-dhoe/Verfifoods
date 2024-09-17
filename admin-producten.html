@@ -478,7 +478,7 @@
     document.getElementById('editgewicht').value = data.gewicht || '';
     document.getElementById('edittijd').value = data.tijd || '';
     document.getElementById('edittemperatuur').value = data.temperatuur || '';
-    document.getElementById('editoventemperatuur').value = data.oventemperatuur || '';
+    document.getElementById('editoventemperatuur').value = data.ovenTemp || '';
     document.getElementById('edittype').value = data.type || '';
     
     const currentImage = document.getElementById('currentImage');
@@ -503,7 +503,7 @@ window.updateProduct = async function updateProduct() {
     const gewicht = document.getElementById('editgewicht').value;
     const tijd = document.getElementById('edittijd').value;
     const temperatuur = document.getElementById('edittemperatuur').value;
-    const oventemperatuur = document.getElementById('editoventemperatuur').value;
+    const ovenTemp = document.getElementById('editoventemperatuur').value;
     const type = document.getElementById('edittype').value;
     const fileInput = document.getElementById('editFileInput');
     
