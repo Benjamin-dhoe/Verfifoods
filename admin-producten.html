@@ -342,7 +342,7 @@
           productAddLoading.style.display = 'none';
           document.getElementById('popupaddproduct').style.opacity = 0;
           document.getElementById('popupaddproduct').style.visibility = 'hidden';
-          displayProducts();
+          
           // Optionally, clear form fields
           document.getElementById('naamnewNL').value = '';
           document.getElementById('beschrijvingnewNL').value = '';
@@ -354,7 +354,7 @@
           document.getElementById('oventemperatuurnew').value = '';
           fileInput.value = '';
           progressText.innerHTML = '';
-          
+          displayProducts();
         }
       );
     } catch (e) {
@@ -451,9 +451,9 @@
       const productRef = doc(db, "Producten", productId);
       await updateDoc(productRef, { verwijderd: true });
       console.log('Product marked as deleted:', productId);
-      displayProducts(); // Refresh the products list after "deletion"
       document.getElementById('popupdeleteproduct').style.opacity = 0;
       document.getElementById('popupdeleteproduct').style.visibility = "hidden";
+      displayProducts();
     } catch (error) {
       console.error('Error marking product as deleted: ', error);
       alert('Error marking product as deleted: ' + error.message);
@@ -542,6 +542,7 @@ window.updateProduct = async function updateProduct() {
     document.getElementById('popupeditproduct').style.opacity = 0;
     document.getElementById('popupeditproduct').style.visibility = "hidden";
     document.getElementById('producteditloading').style.display = 'none';
+    displayProducts();
 }
 </script>
 <script>
