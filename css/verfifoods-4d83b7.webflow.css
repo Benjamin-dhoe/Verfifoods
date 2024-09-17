@@ -19,6 +19,29 @@
     
 }
 
+.topresultsviewings {
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.viewstylebtn {
+    background-color: var(--semi-grey);
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    padding: 10px;
+    display: flex;
+}
+
+.viewstylebtn.active {
+    background-color: var(--brown);
+}
+
 .styled-table {
     width: 100%;
     border-collapse: collapse;
