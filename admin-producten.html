@@ -495,6 +495,7 @@
 
 // Function to update product details
 window.updateProduct = async function updateProduct() {
+    document.getElementById('producteditloading').style.display = 'block';
     const productId = document.getElementById('editProductId').value;
     const naamNL = document.getElementById('editnaamNL').value;
     const beschrijvingNL = document.getElementById('editbeschrijvingNL').value;
@@ -540,7 +541,7 @@ window.updateProduct = async function updateProduct() {
     // Hide popup and reset fields
     document.getElementById('popupeditproduct').style.opacity = 0;
     document.getElementById('popupeditproduct').style.visibility = "hidden";
-    document.getElementById('popupeditproduct').reset();
+    document.getElementById('producteditloading').style.display = 'none';
 }
 </script>
 <script>
