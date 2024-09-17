@@ -605,22 +605,59 @@ window.updateProduct = async function updateProduct() {
     });
   });
 
-  // Handle navigation between edit sections
+// Function to show a specific part
+function showEditPart(part) {
+    const parts = document.querySelectorAll('[editparts]');
+    parts.forEach((el) => {
+        const partNum = parseInt(el.getAttribute('editparts'));
+        if (partNum === part) {
+            el.style.display = 'block'; // Show the current part
+        } else {
+            el.style.display = 'none'; // Hide all other parts
+        }
+    });
+}
+
+// Function to validate the current part
+function validateEditPart(part) {
+    const currentPart = document.querySelector(`[editparts="${part}"]`);
+    const inputs = currentPart.querySelectorAll('input, textarea'); // Get all inputs and textareas in the current part
+    let allFilled = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === "") {
+            input.style.border = "2px solid red"; // Highlight empty inputs
+            allFilled = false;
+        } else {
+            input.style.border = ""; // Reset border if filled
+        }
+    });
+
+    return allFilled;
+}
+
+// Event listeners for navigation between edit parts
 document.querySelectorAll('[nexteditpart]').forEach(button => {
     button.addEventListener('click', function() {
-        const currentPart = parseInt(document.querySelector('[editparts]:not(.inv)').getAttribute('editparts'));
-        document.querySelector(`[editparts="${currentPart}"]`).classList.add('inv');
-        document.querySelector(`[editparts="${currentPart + 1}"]`).classList.remove('inv');
+        const currentPart = parseInt(document.querySelector('[editparts]:not([style*="display: none"])').getAttribute('editparts'));
+
+        if (validateEditPart(currentPart)) {
+            const nextPart = currentPart + 1;
+            showEditPart(nextPart);
+        } else {
+            alert("Please fill in all the fields before proceeding.");
+        }
     });
 });
 
 document.querySelectorAll('[preveditpart]').forEach(button => {
     button.addEventListener('click', function() {
-        const currentPart = parseInt(document.querySelector('[editparts]:not(.inv)').getAttribute('editparts'));
-        document.querySelector(`[editparts="${currentPart}"]`).classList.add('inv');
-        document.querySelector(`[editparts="${currentPart - 1}"]`).classList.remove('inv');
+        const currentPart = parseInt(document.querySelector('[editparts]:not([style*="display: none"])').getAttribute('editparts'));
+        const prevPart = currentPart - 1;
+        showEditPart(prevPart);
     });
 });
+
 
 // Close edit popup
 document.getElementById('closepopupeditproduct').addEventListener('click', function() {
