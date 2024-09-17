@@ -227,6 +227,7 @@
                             <th>NaamNL</th>
                             <th>Prijs</th>
                             <th>Type</th>
+                            <th>#</th>
                             <th>Gew</th>
                             <th>Tijd</th>
                             <th>Bew°</th>
@@ -419,6 +420,7 @@ async function displayProducts() {
                 const productOven = data.ovenTemp;
                 const productTemp = data.temperatuur;
                 const productType = data.type;
+                const productAantal = data.aantal;
         
                 if (!productName || !productImage) {
                     console.error(`Product data missing: ${JSON.stringify(data)}`);
@@ -456,6 +458,7 @@ async function displayProducts() {
                     <td>${productName}</td>
                     <td>${productPrice}</td>
                     <td>${productType}</td>
+                    <td>${productAantal}</td>
                     <td>${productWeight}g</td>
                     <td>${productTime}'</td>
                     <td>${productTemp}°</td>
