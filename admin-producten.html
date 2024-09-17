@@ -125,6 +125,8 @@
   <script type="module">
     // Import Firebase SDK and initialize the app
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     // Firebase configuration
@@ -140,7 +142,24 @@
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
     const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    function checkAuth() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is logged in:", user);
+            } else {
+                console.log("No user is logged in");
+            }
+        });
+    }
+
+    window.onload = function() {
+        checkAuth();
+        // displayProducts();
+    };
 
     // Function to add product to Firestore
     async function addProduct() {
