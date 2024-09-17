@@ -1757,7 +1757,7 @@
   
   .menuicondash {
         background-color: var(--semi-grey);
-        border-radius: 50%;
+        border-radius: 5px;
         justify-content: center;
         align-items: center;
         width: 40px;
