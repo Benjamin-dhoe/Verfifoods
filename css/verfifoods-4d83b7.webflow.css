@@ -1751,6 +1751,11 @@
   }
 
   .menuicon {
+    width: 30px;
+    display: block;
+  }
+  
+  .menuicondash {
         background-color: var(--brown);
         border-radius: 50%;
         justify-content: center;
@@ -1762,7 +1767,7 @@
         color: white;
     }
 
-      .menuicon.close {
+      .menuicondash.close {
         position: absolute;
         inset: 140px 50px auto auto;
     }
