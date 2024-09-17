@@ -210,6 +210,23 @@
             </div>
             <img src="/images/filterIcon.svg" loading="lazy" alt="" class="menuicon" opensidemenu>
           </div>
+          <div class="holderappresults" id="productsTable">
+              <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Type</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be dynamically added here by the script -->
+                    </tbody>
+                </table>
+              </div>
+          </div>
           <div class="holderappresults" id="holderProducts">
             <div class="holderthumbnailproduct dashboard newadd" id="addproductbtn">
               <div class="button intypeholder w-button">Nieuw product </div>
@@ -364,54 +381,77 @@
   }
 
   // Display products
-  async function displayProducts() {
+  // Display products
+async function displayProducts() {
     const holderProducts = document.getElementById('holderProducts');
     const addProductBtn = document.querySelector('#addproductbtn');
     const productsLoading = document.getElementById('productsloading');
+    const productsTable = document.getElementById('productsTable'); // Table container
 
     const fragment = document.createDocumentFragment();
+    const tableFragment = document.createDocumentFragment(); // Fragment for table rows
 
     try {
-      const querySnapshot = await getDocs(collection(db, "Producten"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log(data);
-        if (!data.verwijderd) { // Only include products that are not marked as deleted
-          const productName = data.naamNL;
-          const productImage = data.afbeeldingURL;
+        const querySnapshot = await getDocs(collection(db, "Producten"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            console.log(data);
 
-          if (!productName || !productImage) {
-            console.error(`Product data missing: ${JSON.stringify(data)}`);
-          }
+            if (!data.verwijderd) { // Only include products that are not marked as deleted
+                const productName = data.naamNL;
+                const productImage = data.afbeeldingURL;
+                const productPrice = data.prijs;
+                const productWeight = data.gewicht;
+                const productType = data.type;
 
-          const productDiv = document.createElement('div');
-          productDiv.className = 'holderthumbnailproduct dashboard';
-          productDiv.innerHTML = `
-            <div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
-                <img src="/images/editicon.svg" loading="lazy" alt="">
-            </div>
-            <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
-            <div class="thumbproductoverlay">
-                <div class="mediumbold-text">${productName}</div>
-                <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
-            </div>
-          `;
-          
-          fragment.appendChild(productDiv);
-        }
-      });
+                if (!productName || !productImage) {
+                    console.error(`Product data missing: ${JSON.stringify(data)}`);
+                }
+
+                // Create thumbnail view
+                const productDiv = document.createElement('div');
+                productDiv.className = 'holderthumbnailproduct dashboard';
+                productDiv.innerHTML = 
+                `<div class="shoppingcartbtn smaller" onClick="editProduct('${doc.id}', '${productName}', '${productImage}')">
+                    <img src="/images/editicon.svg" loading="lazy" alt="">
+                </div>
+                <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
+                <div class="thumbproductoverlay">
+                    <div class="mediumbold-text">${productName}</div>
+                    <img src="/images/deleteicon.png" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
+                </div>`;
+
+                fragment.appendChild(productDiv);
+
+                // Create table row for the product
+                const tableRow = document.createElement('tr');
+                tableRow.innerHTML = 
+                `<td>${productName}</td>
+                 <td>${productPrice}</td>
+                 <td>${productType}</td>
+                 <td>${productWeight}g</td>`;
+
+                tableFragment.appendChild(tableRow);
+            }
+        });
     } catch (error) {
-      console.error('Error fetching documents: ', error);
+        console.error('Error fetching documents: ', error);
     } finally {
     }
 
     // Clear existing product content except for the button
     holderProducts.innerHTML = '';
     if (addProductBtn) {
-      holderProducts.appendChild(addProductBtn); // Re-add the button
+        holderProducts.appendChild(addProductBtn); // Re-add the button
     }
-    holderProducts.appendChild(fragment); // Add new products
-  }
+    holderProducts.appendChild(fragment); // Add new products in thumbnail view
+
+    // Update the table
+    const tableBody = productsTable.querySelector('tbody');
+    tableBody.innerHTML = ''; // Clear existing table rows
+    tableBody.appendChild(tableFragment); // Add new rows to the table
+}
+
 
   // Function to confirm and delete a product
   window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
