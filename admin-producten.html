@@ -440,7 +440,7 @@ async function displayProducts() {
                 <img src="${productImage}" loading="lazy" alt="" class="thumbproductimage producten">
                 <div class="thumbproductoverlay">
                     <div class="mediumbold-text">${productName}</div>
-                    <img src="/images/deleteicon.svg" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
+                    <img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" onClick="confirmDeleteProduct('${doc.id}', '${productName}')">
                 </div>`;
         
                 fragment.appendChild(productDiv);
@@ -455,7 +455,7 @@ async function displayProducts() {
         
                 // Prevent row click when clicking the delete icon
                 const deleteCell = document.createElement('td');
-                deleteCell.innerHTML = `<img src="/images/deleteicon.svg" loading="lazy" alt="Delete" onClick="event.stopPropagation(); confirmDeleteProduct('${doc.id}', '${productName}')">`;
+                deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete" onClick="event.stopPropagation(); confirmDeleteProduct('${doc.id}', '${productName}')">`;
         
                 // Add table row content (except for delete button)
                 tableRow.innerHTML = `
