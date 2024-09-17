@@ -847,6 +847,10 @@
   display: flex;
 }
 
+leftalignflexvert.inv {
+  display: none;
+}
+
 .text-field {
   min-width: 250px;
 }
