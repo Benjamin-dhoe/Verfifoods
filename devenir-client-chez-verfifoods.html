@@ -211,11 +211,7 @@ function signUpWithEmail(event) {
       // Send email verification
       sendEmailVerification(user)
         .then(() => {
-          // Show success message or redirect to a confirmation page
-          alert("Un e-mail de vérification a été envoyé à " + email + ". Veuillez vérifier votre boîte de réception.");
-          
-          // Optionally redirect to a 'verification pending' page
-          window.location.href = "/verification-pending";
+          window.location.href = "/ms/verify-email?lang=fr&action=setup";
         })
         .catch((error) => {
           console.error("Error sending email verification:", error);
