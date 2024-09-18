@@ -58,6 +58,7 @@ function updateContent() {
 
     // Check the 'lang' query value first
     if (queryParams.lang === 'nl') {
+        loginlink.href = '/nl/index.html';
         if (queryParams.action === 'reset') {
             titleElement.textContent = "Reset paswoord via email";
             textElement.textContent = "We hebben u zonet een email gestuurd";
@@ -67,6 +68,7 @@ function updateContent() {
         }
 
     } else if (queryParams.lang === 'fr') {
+        loginlink.href = '/index.html';
         if (queryParams.action === 'reset') {
             titleElement.textContent = "Réinitialiser le mot de passe par e-mail";
             textElement.textContent = "Nous venons de vous envoyer un e-mail";
@@ -75,6 +77,7 @@ function updateContent() {
             textElement.textContent = "Nous venons de vous envoyer un e-mail";
         }
     } else {
+        loginlink.href = '/en/index.html';
         if (queryParams.action === 'reset') {
             titleElement.textContent = "Reset your paswoord";
             textElement.textContent = "We've sent you an email";
