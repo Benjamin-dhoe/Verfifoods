@@ -84,7 +84,7 @@
           <div>Ou</div>
           <div class="line"></div>
         </div>
-        <a href="#" class="mapslink google w-inline-block"><img src="images/2993685_brand_brands_google_logo_logos_icon.png" loading="lazy" width="22" alt="" class="socialmediaicon">
+        <a href="#" id="googlelogin" class="mapslink google w-inline-block"><img src="images/2993685_brand_brands_google_logo_logos_icon.png" loading="lazy" width="22" alt="" class="socialmediaicon">
           <div>Se connecter avec Google</div>
         </a>
       </div>
@@ -170,7 +170,7 @@
   <script src="/js/index.js" type="text/javascript"></script>
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
@@ -254,6 +254,34 @@ function login(event) {
           popupResetPaswoord.style.opacity = 0;
           popupResetPaswoord.style.visibility = "hidden";
     });
+
+    function loginWithGoogle(event) {
+  event.preventDefault();
+
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
+    })
+    .then(({ idToken, userId }) => {
+      // Set the cookies
+      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
+
+      // Redirect the user
+      window.location.href = `/users/${userId}`;
+    })
+    .catch((error) => {
+      console.error("Google login error:", error);
+      const errorMessageEl = document.getElementById('error-message');
+      errorMessageEl.textContent = "Erreur de connexion Google.";
+      errorMessageEl.style.display = "block";
+    });
+}
+
+    document.getElementById('googlelogin').addEventListener('click', loginWithGoogle);
 </script>
 </body>
 </html>
