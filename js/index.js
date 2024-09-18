@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const userNavHtml = `
         <div class="navlink logged w-inline-block">
             <img src="/images/usericon.svg" loading="lazy" alt="" class="loggedicon">
-            <div class="rotatedtext">&gt;</div>
+            <div>&gt;</div>
         </div>
         `;
         document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', userNavHtml);
