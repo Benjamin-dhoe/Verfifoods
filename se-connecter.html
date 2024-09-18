@@ -45,15 +45,16 @@
       </div>
       <div class="doublepartsside right centered">
         <div>
-          <form id="email-form" name="email-form" class="leftalignflexvert">
+          <div class="leftalignflexvert">
             <label for="Email" class="brownundertitle">Adresse e-mail</label>
             <input class="text-field w-input" maxlength="256" name="Email" type="email" id="Email" required>
             
             <label for="Password" class="brownundertitle">Mot de passe</label>
             <input class="w-input" maxlength="256" name="Password" type="password" id="Password" required>
+            <div class="passwordresethold"><div id="resetpaswoord">Oublié mot de passe??</div></div>
         
-            <input type="submit" class="button intypeholder notabs w-button" value="Se connecter">
-          </form>
+            <button class="button intypeholder notabs w-button" id="loginbtn">Se connecter</button>
+          </div>
         
           <div class="w-form-fail" id="error-message"></div>
         </div>
@@ -149,7 +150,7 @@
   <script type="module">
   // Import the Firebase SDKs
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -199,8 +200,28 @@ function login(event) {
     });
 }
 
-  // Attach event listener to the form
-  document.getElementById('email-form').addEventListener('submit', login);
+  function resetPassword() {
+    const email = document.getElementById('Email').value;
+    const errorMessageEl = document.getElementById('error-message');
+
+    if (!email) {
+      errorMessageEl.textContent = "Please enter your email to reset your password.";
+      return;
+    }
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        errorMessageEl.textContent = "Password reset email has been sent.";
+      })
+      .catch((error) => {
+        console.error("Password reset error:", error);
+        errorMessageEl.textContent = "Error: " + error.message;
+      });
+  }
+
+  // Attach event listeners
+  document.getElementById('loginbtn').addEventListener('click', login);
+  document.getElementById('resetpaswoord').addEventListener('click', resetPassword);
 </script>
 </body>
 </html>
