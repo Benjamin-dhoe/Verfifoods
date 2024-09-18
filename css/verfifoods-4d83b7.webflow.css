@@ -253,6 +253,7 @@
 
 .button.intypeholder.notabs.grey {
   background-color: var(--semi-grey);
+  background-image: '';
   margin-right: 10px;
 }
 
