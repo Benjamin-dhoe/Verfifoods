@@ -174,9 +174,9 @@
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
 <script type="module">
-  // Firebase app and auth import
+// Firebase app and auth import
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -207,20 +207,25 @@ function signUpWithEmail(event) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
-    })
-    .then(({ idToken, userId }) => {
-      // Set cookies for token and userId
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
-      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
-      // Redirect to the user's page
-      window.location.href = `/users/${userId}`;
+      // Send email verification
+      sendEmailVerification(user)
+        .then(() => {
+          // Show success message or redirect to a confirmation page
+          alert("Un e-mail de vérification a été envoyé à " + email + ". Veuillez vérifier votre boîte de réception.");
+          
+          // Optionally redirect to a 'verification pending' page
+          window.location.href = "/verification-pending";
+        })
+        .catch((error) => {
+          console.error("Error sending email verification:", error);
+          errorMessageEl.textContent = "Erreur lors de l'envoi de l'email de vérification: " + error.message;
+        });
+
     })
     .catch((error) => {
       console.error("Error signing up:", error);
       errorMessageEl.textContent = "Erreur lors de l'inscription: " + error.message;
-      errorMessageEl.style.display = "block";
     });
 }
 
@@ -234,27 +239,28 @@ function signUpWithGoogle(event) {
   signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
-      return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
-    })
-    .then(({ idToken, userId }) => {
-      // Set cookies for token and userId
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
-      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
-      // Redirect to the user's page
-      window.location.href = `/users/${userId}`;
+      if (!user.emailVerified) {
+        // If user signs up with Google, and email verification is needed
+        sendEmailVerification(user).then(() => {
+          window.location.href = "/ms/verify-email?lang=fr&action=setup";
+        });
+      }
+
+      // Redirect after successful Google sign-up
+      window.location.href = `/users/${user.uid}`;
     })
     .catch((error) => {
       console.error("Google sign-up error:", error);
       const errorMessageEl = document.getElementById('error-message-signup');
       errorMessageEl.textContent = "Erreur de connexion Google: " + error.message;
-      errorMessageEl.style.display = "block";
     });
 }
 
 // Event listeners for buttons
 document.getElementById('signupbtn').addEventListener('click', signUpWithEmail);
 document.getElementById('googleSignUp').addEventListener('click', signUpWithGoogle);
+
 </script>
 </body>
 </html>
