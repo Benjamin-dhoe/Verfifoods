@@ -1157,6 +1157,10 @@
   display: none;
 }
 
+.menuicondash {
+  display: none;
+}
+
 .section-product {
   flex-flow: column;
   justify-content: center;
