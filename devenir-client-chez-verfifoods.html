@@ -238,8 +238,11 @@ function signUpWithEmail(event) {
       // General error message for other errors
       errorMessageEl.textContent = "Erreur lors de l'inscription: " + error.message;
     }
+      errorMessageEl.style.display = "block";
+      setTimeout(() => {
+        errorMessageEl.style.display = "none";
+      }, 5000);
     
-    errorMessageEl.style.display = "block";
   });
 }
 
