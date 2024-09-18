@@ -1011,6 +1011,7 @@
     align-items: center;
     display: flex;
     position: relative;
+    cursor: pointer;
 }
 
 .navlink:hover {
