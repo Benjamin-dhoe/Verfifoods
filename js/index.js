@@ -129,29 +129,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for authentication via cookies
     const userId = getCookie('userId');
 
-    if (userId) {
-        // User is logged in
-        const navConnectLink = 
+if (userId) {
+    // Query for the login link in different languages
+    const navConnectLink = 
         document.querySelector('a[href="/se-connecter"]') || 
         document.querySelector('a[href="/nl/login"]') || 
         document.querySelector('a[href="/en/login"]');
-        if (navConnectLink) {
-            navConnectLink.remove();
-        }
+    
+    let languagePrefix = ''; // Default to no prefix (root folder)
 
-        const userNavHtml = `
+    if (navConnectLink) {
+        // Remove the login link from the navigation
+        navConnectLink.remove();
+
+        // Determine the language prefix based on the href found
+        const href = navConnectLink.getAttribute('href');
+        if (href.includes('/nl')) {
+            languagePrefix = '/nl';  // Dutch
+        } else if (href.includes('/en')) {
+            languagePrefix = '/en';  // English
+        } else {
+            languagePrefix = '';  // Default to French or no language-specific prefix
+        }
+    }
+
+    // Create the user navigation HTML
+    const userNavHtml = `
         <div class="navlink logged w-inline-block">
             <img src="/images/usericon.svg" loading="lazy" alt="" class="loggedicon">
             <div>&gt;</div>
         </div>
-        `;
-        document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', userNavHtml);
+    `;
+    
+    // Insert the new user navigation element
+    document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', userNavHtml);
 
-        const userNav = document.querySelector('.navlink.logged');
-        userNav.addEventListener('click', function() {
-            window.location.href = `/users/${userId}`;
-        });
-
-    }
+    // Add an event listener to the new user navigation
+    const userNav = document.querySelector('.navlink.logged');
+    userNav.addEventListener('click', function() {
+        // Redirect to the user page with the appropriate language prefix
+        window.location.href = `${languagePrefix}/users/${userId}`;
+    });
+}
 });
 
