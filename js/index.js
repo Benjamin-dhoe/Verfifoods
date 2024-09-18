@@ -23,27 +23,6 @@ function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
 document.addEventListener('DOMContentLoaded', function() {
-    // Firebase configuration and initialization
-    const firebaseConfig = {
-    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
-    authDomain: "test-9efbe.firebaseapp.com",
-    projectId: "test-9efbe",
-    storageBucket: "test-9efbe.appspot.com",
-    messagingSenderId: "218327249026",
-    appId: "1:218327249026:web:0d48fa588ac45ef557049b",
-    measurementId: "G-2ZTZCL27TE"
-  };
-    
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    }
-
-    const popupHtml = `
-    <div id="popupLang" class="popupholder">
-        <div id="containerLang" class="popupcontainer">
-            <div id="closeLang" class="closebtn">X</div>
-document.addEventListener('DOMContentLoaded', function() {
     // HTML for the language popup
     const popupHtml = `
     <div id="popupLang" class="popupholder">
