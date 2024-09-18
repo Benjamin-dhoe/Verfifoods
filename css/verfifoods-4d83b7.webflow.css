@@ -256,6 +256,10 @@
   margin-right: 10px;
 }
 
+.button.intypeholder.notabs.grey:hover {
+  background-color: grey;
+}
+
 .button.intypeholder.notabs.delete {
   background-color: #990000;
 }
