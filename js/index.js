@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const userNavHtml = `
         <div class="navlink logged w-inline-block w--current">
-            <img src="/images/userlog.svg" loading="lazy" alt="" class="loggedicon">
+            <img src="/images/usericon.svg" loading="lazy" alt="" class="loggedicon">
             <div class="rotatedtext">&gt;</div>
         </div>
         `;
