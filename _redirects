@@ -1,3 +1,5 @@
 /product/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getProductPage?id=:id  200
-/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id  200
+/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id/lang=fr  200
+/nl/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id/lang=nl  200
+/en/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id/lang=en  200
 
