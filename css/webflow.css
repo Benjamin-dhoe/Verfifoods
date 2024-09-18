@@ -325,6 +325,7 @@ button,
   margin-top: 10px;
   padding: 10px;
   background-color: #ffdede;
+  max-width: 250px;
 }
 label {
   display: block;
