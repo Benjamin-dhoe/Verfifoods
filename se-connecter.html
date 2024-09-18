@@ -198,22 +198,24 @@ function login(event) {
   errorMessageEl.textContent = "";
 
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
+  .then((userCredential) => {
+    const user = userCredential.user;
 
-      return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
-    })
-    .then(({ idToken, userId }) => {
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+    return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
+  })
+  .then(({ idToken, userId }) => {
+    // Set the cookies
+    document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
-      window.location.href = `/users/${userId}`;
-    })
-    .catch((error) => {
-      console.error("Login or redirect error:", error);
-      errorMessageEl.textContent = "L'adresse e-mail ou le mot de passe que vous avez entré est incorrect.";
-      errorMessageEl.style.display = "block";
-    });
-}
+    // Redirect the user
+    window.location.href = `/users/${userId}`;
+  })
+  .catch((error) => {
+    console.error("Login or redirect error:", error);
+    errorMessageEl.textContent = "L'adresse e-mail ou le mot de passe que vous avez entré est incorrect.";
+    errorMessageEl.style.display = "block";
+  });
 
   function resetPassword() {
     const email = document.getElementById('EmailReset').value;
