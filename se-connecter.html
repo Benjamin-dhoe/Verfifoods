@@ -182,12 +182,9 @@
     measurementId: "G-2ZTZCL27TE"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  // Function to log in a user
-  // Function to log in a user
 function login(event) {
   event.preventDefault();
 
@@ -266,11 +263,9 @@ function login(event) {
       return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
     })
     .then(({ idToken, userId }) => {
-      // Set the cookies
       document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
       document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
-      // Redirect the user
       window.location.href = `/users/${userId}`;
     })
     .catch((error) => {
