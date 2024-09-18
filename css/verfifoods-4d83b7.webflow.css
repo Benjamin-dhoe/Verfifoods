@@ -957,6 +957,11 @@
   display: flex;
 }
 
+.leftalignflexvert.overflow {
+  max-height: 90%
+  overflow: scroll;
+}
+
 .leftalignflexvert.inv {
   display: none;
 }
@@ -1481,6 +1486,7 @@
   transition: opacity .25s;
   display: flex;
   position: relative;
+  max-height: 90vh;
 }
 
 .popupcontainer.vis {
