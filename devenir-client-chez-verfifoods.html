@@ -219,6 +219,7 @@ function signUpWithEmail(event) {
         })
         .catch((error) => {
           console.error("Error sending email verification:", error);
+          errorMessageEl.style.display = "block";
           errorMessageEl.textContent = "Erreur lors de l'envoi de l'email de vérification: " + error.message;
         });
 
@@ -226,6 +227,7 @@ function signUpWithEmail(event) {
     .catch((error) => {
       console.error("Error signing up:", error);
       errorMessageEl.textContent = "Erreur lors de l'inscription: " + error.message;
+      errorMessageEl.style.display = "block";
     });
 }
 
