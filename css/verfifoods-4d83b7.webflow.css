@@ -19,6 +19,14 @@
     cursor: pointer;
 }
 
+.loggedicon {
+    background-color: inherit;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+}
+
 .deleteicon {
     width: 15px;
     margin-left: 10px;
@@ -996,6 +1004,12 @@
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
+}
+
+.navlink.logged {
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .navlink:hover {
