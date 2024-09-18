@@ -17,6 +17,17 @@
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
 </head>
 <body class="body">
+<div class="popupholder" id="popupresetpaswoord">
+    <div class="popupcontainer vis">
+        <div class="closebtn" id="closeresetpaswoord">X</div>
+          <div class="leftalignflexvert">
+            <label class="brownundertitle">Adresse e-mail</label>
+            <input class="text-field w-input" maxlength="256" name="Email" type="email" id="EmailReset" required>
+            <button id="resetpaswoord" class="button intypeholder notabs w-button">Reset paswoord</button>
+            <div class="w-form-fail" id="error-message-reset"></div>
+          </div>
+    </div>
+  </div>
   <nav class="nav">
     <div class="holderlogofooter nav">
       <a href="/index.html" class="logofooter nav w-inline-block"><img src="/images/logo-Verfifoods.png" loading="lazy" alt="Logo Verfifoods"></a><img src="/images/menuIcon.svg" loading="lazy" id="openNavPhone" alt="" class="menuicon">
@@ -51,9 +62,18 @@
             
             <label for="Password" class="brownundertitle">Mot de passe</label>
             <input class="w-input" maxlength="256" name="Password" type="password" id="Password" required>
-            <div class="passwordresethold"><div id="resetpaswoord">Oublié mot de passe??</div></div>
+            <div class="passwordresethold"><div id="openresetpaswoord">Oublié mot de passe?</div></div>
         
             <button class="button intypeholder notabs w-button" id="loginbtn">Se connecter</button>
+            <div class="loading" id="paswoordresetloading">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
           </div>
         
           <div class="w-form-fail" id="error-message"></div>
@@ -201,17 +221,22 @@ function login(event) {
 }
 
   function resetPassword() {
-    const email = document.getElementById('Email').value;
-    const errorMessageEl = document.getElementById('error-message');
+    const email = document.getElementById('EmailReset').value;
+    const errorMessageResetEl = document.getElementById('error-message-reset');
+    
 
     if (!email) {
-      errorMessageEl.textContent = "Please enter your email to reset your password.";
+      errorMessageResetEl.textContent = "Please enter your email to reset your password.";
       return;
     }
 
+    document.getElementById('loginbtn').style.display = "none";
+    document.getElementById('paswoordresetloading').style.display = "block";
+    localStorage.setItem('lang', 'fr');
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        errorMessageEl.textContent = "Password reset email has been sent.";
+        window.location.href = "/ms/verify-email?lang=fr&action=reset";
       })
       .catch((error) => {
         console.error("Password reset error:", error);
@@ -222,6 +247,15 @@ function login(event) {
   // Attach event listeners
   document.getElementById('loginbtn').addEventListener('click', login);
   document.getElementById('resetpaswoord').addEventListener('click', resetPassword);
+  const popupResetPaswoord = document.getElementById("popupresetpaswoord");     
+    document.getElementById("addsupplierbtn").addEventListener("click", function() {
+          popupResetPaswoord.style.opacity = 1;
+          popupResetPaswoord.style.visibility = "visible";
+    });
+    document.getElementById("closeresetpaswoord").addEventListener("click", function() {
+          popupResetPaswoord.style.opacity = 0;
+          popupResetPaswoord.style.visibility = "hidden";
+    });
 </script>
 </body>
 </html>
