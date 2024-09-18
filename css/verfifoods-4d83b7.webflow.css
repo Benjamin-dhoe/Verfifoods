@@ -20,7 +20,7 @@
 }
 
 .loggedicon {
-    background-color: inherit;
+    background-color: var(--verfi-blue);
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -1015,6 +1015,10 @@
 
 .navlink:hover {
   color: var(--brown);
+}
+
+.navlink.logged:hover .loggedicon {
+   background-color: var(--brown);
 }
 
 .dropdown-menu {
