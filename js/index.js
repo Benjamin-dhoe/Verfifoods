@@ -73,15 +73,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('langNL').addEventListener('click', function() {
-        window.location.href = '/nl';
+        window.location.href = urlNL;
     });
 
     document.getElementById('langFR').addEventListener('click', function() {
-        window.location.href = '/fr';
+        window.location.href = urlFR;
     });
 
     document.getElementById('langEN').addEventListener('click', function() {
-        window.location.href = '/en';
+        window.location.href = urlEN;
     });
 
     // Navbar toggle
@@ -131,7 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (userId) {
         // User is logged in
-        const navConnectLink = document.querySelector('a[href="/se-connecter"]');
+        const navConnectLink = 
+        document.querySelector('a[href="/se-connecter"]') || 
+        document.querySelector('a[href="/nl/login"]') || 
+        document.querySelector('a[href="/en/login"]');
         if (navConnectLink) {
             navConnectLink.remove();
         }
@@ -149,16 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = `/users/${userId}`;
         });
 
-    } else {
-        // User is not logged in, ensure the login link is present
-        const existingLoginLink = document.querySelector('a[href="/se-connecter"]');
-        if (!existingLoginLink) {
-            document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', `
-            <a class="navlink w-inline-block" href="/se-connecter">
-                <div>Se connecter</div>
-            </a>
-            `);
-        }
+    }
     }
 });
 
