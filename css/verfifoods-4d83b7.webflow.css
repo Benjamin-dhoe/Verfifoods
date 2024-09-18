@@ -958,7 +958,7 @@
 }
 
 .leftalignflexvert.overflow {
-  max-height: 90%
+  max-height: 90%;
   overflow: scroll;
 }
 
