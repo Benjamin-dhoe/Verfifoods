@@ -9,6 +9,15 @@
   --darker-background: #fcf3e7;
 }
 
+.passwordresethold {
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+}
+
 .deleteicon {
     width: 15px;
     margin-left: 10px;
