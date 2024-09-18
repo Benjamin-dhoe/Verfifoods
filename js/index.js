@@ -1,27 +1,3 @@
-function setCookie(name, value, days) {
-    let expires = "";
-    if (days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
-}
 document.addEventListener('DOMContentLoaded', function() {
     // HTML for the language popup
     const popupHtml = `
@@ -124,11 +100,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Cookie management functions
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        document.cookie = name + '=; Max-Age=-99999999;';
+    }
+
     // Check for authentication via cookies
     const userId = getCookie('userId');
-    const userToken = getCookie('token');
 
-    if (userId && userToken) {
+    if (userId) {
         // User is logged in
         const navConnectLink = document.querySelector('a[href="/se-connecter"]');
         if (navConnectLink) {
@@ -136,32 +137,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const userNavHtml = `
-        <div id="userNav" class="navlink logged w-inline-block w--current">
+        <div class="navlink logged w-inline-block w--current">
             <img src="/images/userlog.svg" loading="lazy" alt="" class="loggedicon">
             <div class="rotatedtext">&gt;</div>
-            <div class="dropdown-menu">
-                <a href="/users/${userId}" class="dropdown-item">Dashboard</a>
-                <a href="#" id="logout" class="dropdown-item">Uitloggen</a>
-            </div>
         </div>
         `;
         document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', userNavHtml);
 
-        const userNav = document.getElementById('userNav');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-
-        userNav.addEventListener('mouseover', function() {
-            dropdownMenu.style.display = 'block';
-        });
-
-        userNav.addEventListener('mouseout', function() {
-            dropdownMenu.style.display = 'none';
-        });
-
-        document.getElementById('logout').addEventListener('click', function() {
-            eraseCookie('userId');
-            eraseCookie('token');
-            window.location.href = '/'; // Redirect to homepage or login page
+        const userNav = document.querySelector('.navlink.logged');
+        userNav.addEventListener('click', function() {
+            window.location.href = `/users/${userId}`;
         });
 
     } else {
@@ -176,3 +161,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
