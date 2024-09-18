@@ -203,7 +203,7 @@ function login(event) {
     document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
     // Redirect the user
-    window.location.href = `/users/${userId}`;
+    window.location.href = `/en/users/${userId}`;
   })
   .catch((error) => {
     console.error("Login or redirect error:", error);
@@ -263,7 +263,7 @@ function login(event) {
       document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
       document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
-      window.location.href = `/users/${userId}`;
+      window.location.href = `/en/users/${userId}`;
     })
     .catch((error) => {
       console.error("Google login error:", error);
