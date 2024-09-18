@@ -201,7 +201,7 @@ const auth = getAuth(app);
 function signUpWithEmail(event) {
   event.preventDefault();
 
-  document.getElementById('loadingsignup).style.display = "block";
+  document.getElementById('loadingsignup').style.display = "block";
   document.getElementById('signupbtn').style.display = "none";
   const email = document.getElementById('Email').value;
   const password = document.getElementById('Paswoord').value;
@@ -228,7 +228,7 @@ function signUpWithEmail(event) {
             console.error("Error sending email verification:", error);
             errorMessageEl.style.display = "block";
             errorMessageEl.textContent = "Erreur lors de l'envoi de l'email de vérification: " + error.message;
-            document.getElementById('loadingsignup).style.display = "none";
+            document.getElementById('loadingsignup').style.display = "none";
             document.getElementById('signupbtn').style.display = "block";
           });
       }).catch((error) => {
@@ -238,7 +238,7 @@ function signUpWithEmail(event) {
     })
     .catch((error) => {
       console.error("Error signing up:", error);
-      document.getElementById('loadingsignup).style.display = "none";
+      document.getElementById('loadingsignup').style.display = "none";
       document.getElementById('signupbtn').style.display = "block";
       if (error.code === 'auth/email-already-in-use') {
         errorMessageEl.textContent = "L'email est déjà utilisé. Veuillez utiliser un autre email.";
