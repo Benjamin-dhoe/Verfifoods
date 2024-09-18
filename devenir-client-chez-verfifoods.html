@@ -225,10 +225,22 @@ function signUpWithEmail(event) {
 
     })
     .catch((error) => {
-      console.error("Error signing up:", error);
+  console.error("Error signing up:", error);
+
+  // Handle specific Firebase error codes
+    if (error.code === 'auth/email-already-in-use') {
+      errorMessageEl.textContent = "L'email est déjà utilisé. Veuillez utiliser un autre email.";
+    } else if (error.code === 'auth/invalid-email') {
+      errorMessageEl.textContent = "L'adresse email est invalide. Veuillez vérifier et réessayer.";
+    } else if (error.code === 'auth/weak-password') {
+      errorMessageEl.textContent = "Le mot de passe est trop faible. Veuillez choisir un mot de passe plus sécurisé.";
+    } else {
+      // General error message for other errors
       errorMessageEl.textContent = "Erreur lors de l'inscription: " + error.message;
-      errorMessageEl.style.display = "block";
-    });
+    }
+    
+    errorMessageEl.style.display = "block";
+  });
 }
 
 // Function to handle Google sign-up
