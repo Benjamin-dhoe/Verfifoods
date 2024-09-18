@@ -31,7 +31,7 @@
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupeditproduct">X</div>
         <input type="hidden" id="editProductId">
-        <div class="leftalignflexvert" editparts="1">
+        <div class="leftalignflexvert overflow" editparts="1">
             
             <label class="brownundertitle">naam PRODUCT (NL)</label>
             <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamNL">
@@ -41,7 +41,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert" editparts="2">
+        <div class="leftalignflexvert overflow" editparts="2">
             <label class="brownundertitle">naam PRODUCT (FR)</label>
             <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamFR">
             <label class="brownundertitle">Beschrijving (FR)</label>
@@ -51,7 +51,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert" editparts="3">
+        <div class="leftalignflexvert overflow" editparts="3">
             <label class="brownundertitle">naam PRODUCT (EN)</label>
             <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamEN">
             <label class="brownundertitle">Beschrijving (EN)</label>
@@ -61,7 +61,7 @@
                 <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
             </div>
         </div>
-        <div class="leftalignflexvert" editparts="4">
+        <div class="leftalignflexvert overflow" editparts="4">
             <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="edittype" required>
                 <option value="" disabled>Selecteer type</option>
@@ -122,24 +122,24 @@
   <div id="popupaddproduct" class="popupholder">
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupaddproduct">X</div>
-          <div class="leftalignflexvert" addparts="1"><label class="brownundertitle">naam PRODUCT (NL)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewNL"><label class="brownundertitle">Beschrijving (NL)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewNL" class="textarea w-input"></textarea>
+          <div class="leftalignflexvert overflow" addparts="1"><label class="brownundertitle">naam PRODUCT (NL)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewNL"><label class="brownundertitle">Beschrijving (NL)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewNL" class="textarea w-input"></textarea>
             <div class="alwaysflexhorizontal nextprev">
               <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
             </div>
           </div>
-          <div class="leftalignflexvert inv" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-              <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
-              <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
-            </div>
-          </div>
-          <div class="leftalignflexvert inv" addparts="3"><label class="brownundertitle">naam PRODUCT (EN)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewEN"><label class="brownundertitle">Beschrijving (EN)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewEN" class="textarea w-input"></textarea>
+          <div class="leftalignflexvert inv overflow" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
             <div class="alwaysflexhorizontal nextprev">
               <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
               <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
             </div>
           </div>
-          <div class="leftalignflexvert inv" addparts="4">
+          <div class="leftalignflexvert inv overflow" addparts="3"><label class="brownundertitle">naam PRODUCT (EN)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewEN"><label class="brownundertitle">Beschrijving (EN)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewEN" class="textarea w-input"></textarea>
+            <div class="alwaysflexhorizontal nextprev">
+              <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
+              <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
+            </div>
+          </div>
+          <div class="leftalignflexvert inv overflow" addparts="4">
             <label class="brownundertitle">Prijs</label>
             <select class="text-field w-input" id="typenew" required>
               <option value="" disabled selected>Selecteer type</option>
