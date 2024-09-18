@@ -16,6 +16,7 @@
     font-size: 12px;
     line-height: 14px;
     display: flex;
+    cursor: pointer;
 }
 
 .deleteicon {
