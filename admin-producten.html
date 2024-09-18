@@ -323,10 +323,6 @@
   const leverancierSelect = document.getElementById('leveranciernew');
   const leverancierEditSelect = document.getElementById('editleverancier');
 
-  // Clear existing options
-  leverancierSelect.innerHTML = '';
-  leverancierEditSelect.innerHTML = '';
-
   getDocs(collection(db, "Leveranciers"))
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -363,6 +359,7 @@
     const ovenTemp = document.getElementById('oventemperatuurnew').value;
     const fileInput = document.getElementById('fileInput');
     const type = document.getElementById('typenew').value;
+    const leverancier = document.getElementById('leveranciernew').value;
     const file = fileInput.files[0];
     const progressText = document.getElementById('progressText');
     const productAddLoading = document.getElementById('productaddloading');
@@ -412,6 +409,7 @@
             temperatuur,
             ovenTemp,
             type,
+            leverancier,
             afbeeldingURL: downloadURL, // Store image URL in Firestore
             verwijderd: false // Add a flag for deletion status
           });
@@ -430,6 +428,7 @@
           document.getElementById('tijdnew').value = '';
           document.getElementById('temperatuurnew').value = '';
           document.getElementById('oventemperatuurnew').value = '';
+          document.getElementById('leveranciernew').value = '';
           fileInput.value = '';
           progressText.innerHTML = '';
           displayProducts();
@@ -467,6 +466,7 @@ async function displayProducts() {
                 const productOven = data.ovenTemp;
                 const productTemp = data.temperatuur;
                 const productType = data.type;
+                const productLeverancier = data.leverancier;
                 const productAantal = data.aantal;
         
                 if (!productName || !productImage) {
@@ -607,6 +607,7 @@ async function displayProducts() {
     document.getElementById('edittemperatuur').value = data.temperatuur || '';
     document.getElementById('editoventemperatuur').value = data.ovenTemp || '';
     document.getElementById('edittype').value = data.type || '';
+    document.getElementById('editleverancier').value = data.leverancier || '';
     
     const currentImage = document.getElementById('currentImage');
     currentImage.src = productImage;
@@ -633,6 +634,7 @@ window.updateProduct = async function updateProduct() {
     const temperatuur = document.getElementById('edittemperatuur').value;
     const ovenTemp = document.getElementById('editoventemperatuur').value;
     const type = document.getElementById('edittype').value;
+    const leverancier = document.getElementById('editleverancier').value;
     const fileEditInput = document.getElementById('editFileInput');
     
     const productRef = doc(db, "Producten", productId);
@@ -650,7 +652,8 @@ window.updateProduct = async function updateProduct() {
         tijd,
         temperatuur,
         ovenTemp,
-        type
+        type,
+        leverancier
     };
 
     // If a new image is selected, upload it and include it in the update
