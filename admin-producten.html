@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="leftalignflexvert overflow" editparts="4">
-            <label class="brownundertitle">Prijs</label>
+            <label class="brownundertitle">Type</label>
             <select class="text-field w-input" id="edittype" required>
                 <option value="" disabled>Selecteer type</option>
                 <option value="Brood">Brood</option>
@@ -71,6 +71,11 @@
                 <option value="Gebak">Gebak</option>
                 <option value="Ijsjes">Ijsjes</option>
                 <option value="Smoothies">Smoothies</option>
+            </select>
+            <label class="brownundertitle">Leverancier</label>
+            <select class="text-field w-input" id="editleverancier" required>
+                <option value="" disabled>Selecteer leverancier</option>
+
             </select>
             <label class="brownundertitle">Afbeelding</label>
             <input type="file" id="editFileInput" style="width: 90%; padding-bottom: 20px;">
@@ -140,7 +145,7 @@
             </div>
           </div>
           <div class="leftalignflexvert inv overflow" addparts="4">
-            <label class="brownundertitle">Prijs</label>
+            <label class="brownundertitle">Type</label>
             <select class="text-field w-input" id="typenew" required>
               <option value="" disabled selected>Selecteer type</option>
               <option value="Brood">Brood</option>
@@ -149,6 +154,10 @@
               <option value="Gebak">Gebak</option>
               <option value="Ijsjes">Ijsjes</option>
               <option value="Smoothies">Smoothies</option>
+            </select>
+            <label class="brownundertitle">Levernacier</label>
+            <select class="text-field w-input" id="leveranciernew" required>
+              <option value="" disabled selected>Selecteer leverancier</option>
             </select>
             <label class="brownundertitle">Afbeelding</label>
             <input type="file" id="fileInput" style="
@@ -308,6 +317,25 @@
     checkAuth();
     displayProducts();
   };
+
+  async function populateLeverancierSelect() {
+  const leverancierSelect = document.getElementById('leveranciernew');
+  const leverancierEditSelect = document.getElementById('editleverancier');
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "Leveranciers"));
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const option = document.createElement('option');
+      option.value = doc.id; // Use the document ID as the value
+      option.textContent = data.Naam; // Display the Naam
+      leverancierSelect.appendChild(option);
+      leverancierEditSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error fetching leveranciers: ', error);
+  }
+}
 
   // Function to add product to Firestore and Storage
   window.addProduct = async function addProduct() {
