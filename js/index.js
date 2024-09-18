@@ -1,4 +1,50 @@
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
 document.addEventListener('DOMContentLoaded', function() {
+    // Firebase configuration and initialization
+    const firebaseConfig = {
+    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+    authDomain: "test-9efbe.firebaseapp.com",
+    projectId: "test-9efbe",
+    storageBucket: "test-9efbe.appspot.com",
+    messagingSenderId: "218327249026",
+    appId: "1:218327249026:web:0d48fa588ac45ef557049b",
+    measurementId: "G-2ZTZCL27TE"
+  };
+    
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    }
+
+    const popupHtml = `
+    <div id="popupLang" class="popupholder">
+        <div id="containerLang" class="popupcontainer">
+            <div id="closeLang" class="closebtn">X</div>
+document.addEventListener('DOMContentLoaded', function() {
+    // HTML for the language popup
     const popupHtml = `
     <div id="popupLang" class="popupholder">
         <div id="containerLang" class="popupcontainer">
@@ -23,66 +69,67 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.body.insertAdjacentHTML('beforeend', popupHtml);
 
+    // Language switcher logic
     const url = window.location.href.toLowerCase();
     const langHolderElement = document.querySelector('[langholder]');
 
     let flagSrc = '/images/Flag-France.svg';
-        let langText = 'FR';
+    let langText = 'FR';
 
-        if (url.includes('/nl')) {
-            flagSrc = '/images/Flag-Netherlands.svg';
-            langText = 'NL';
-        } else if (url.includes('/en')) {
-            flagSrc = '/images/Flag-Great-Britain.svg';
-            langText = 'EN';
-        }
+    if (url.includes('/nl')) {
+        flagSrc = '/images/Flag-Netherlands.svg';
+        langText = 'NL';
+    } else if (url.includes('/en')) {
+        flagSrc = '/images/Flag-Great-Britain.svg';
+        langText = 'EN';
+    }
 
-        const langHolderHtml = `
-        <div id="openLang" class="langholder">
-            <img src="${flagSrc}" loading="lazy" alt="" class="flag">
-            <div>${langText}</div>
-            <div class="rotatedtext">&gt;</div>
-        </div>
-        `;
+    const langHolderHtml = `
+    <div id="openLang" class="langholder">
+        <img src="${flagSrc}" loading="lazy" alt="" class="flag">
+        <div>${langText}</div>
+        <div class="rotatedtext">&gt;</div>
+    </div>
+    `;
 
     if (langHolderElement) {
         langHolderElement.insertAdjacentHTML('beforeend', langHolderHtml);
     } else {
         document.body.insertAdjacentHTML('beforeend', langHolderHtml);
-    };
+    }
 
     const langBtn = document.getElementById('openLang');
-        const popupLang = document.getElementById('popupLang');
-        const containerLang = document.getElementById('containerLang');
-        const closeLang = document.getElementById('closeLang');
-        langBtn.addEventListener('click', function() {
-            popupLang.style.visibility = "visible";
-            popupLang.style.opacity = 1;
-            setTimeout(() => {
-                containerLang.style.opacity = 1;
-            }, 650);
-        });
-            closeLang.addEventListener('click', function() {
-                popupLang.style.opacity = 0;
-            popupLang.style.visibility = "hidden";
-            containerLang.style.opacity = 0;
-        });
+    const popupLang = document.getElementById('popupLang');
+    const containerLang = document.getElementById('containerLang');
+    const closeLang = document.getElementById('closeLang');
 
+    langBtn.addEventListener('click', function() {
+        popupLang.style.visibility = "visible";
+        popupLang.style.opacity = 1;
+        setTimeout(() => {
+            containerLang.style.opacity = 1;
+        }, 650);
+    });
 
+    closeLang.addEventListener('click', function() {
+        popupLang.style.opacity = 0;
+        popupLang.style.visibility = "hidden";
+        containerLang.style.opacity = 0;
+    });
 
     document.getElementById('langNL').addEventListener('click', function() {
-        window.location.href = urlNL;
+        window.location.href = '/nl';
     });
 
     document.getElementById('langFR').addEventListener('click', function() {
-        window.location.href = urlFR;
+        window.location.href = '/fr';
     });
 
     document.getElementById('langEN').addEventListener('click', function() {
-        window.location.href = urlEN;
+        window.location.href = '/en';
     });
 
-    //navbar
+    // Navbar toggle
     const toggleBtn = document.getElementById('openNavPhone');
     if (toggleBtn) {
         const navLinksHolder = document.querySelector('.navlinksholder');
@@ -96,5 +143,57 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             isOpen = !isOpen;
         });
+    }
+
+    // Check for authentication via cookies
+    const userId = getCookie('userId');
+    const userToken = getCookie('token');
+
+    if (userId && userToken) {
+        // User is logged in
+        const navConnectLink = document.querySelector('a[href="/se-connecter"]');
+        if (navConnectLink) {
+            navConnectLink.remove();
+        }
+
+        const userNavHtml = `
+        <div id="userNav" class="navlink logged w-inline-block w--current">
+            <img src="/images/userlog.svg" loading="lazy" alt="" class="loggedicon">
+            <div class="rotatedtext">&gt;</div>
+            <div class="dropdown-menu">
+                <a href="/users/${userId}" class="dropdown-item">Dashboard</a>
+                <a href="#" id="logout" class="dropdown-item">Uitloggen</a>
+            </div>
+        </div>
+        `;
+        document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', userNavHtml);
+
+        const userNav = document.getElementById('userNav');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        userNav.addEventListener('mouseover', function() {
+            dropdownMenu.style.display = 'block';
+        });
+
+        userNav.addEventListener('mouseout', function() {
+            dropdownMenu.style.display = 'none';
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            eraseCookie('userId');
+            eraseCookie('token');
+            window.location.href = '/'; // Redirect to homepage or login page
+        });
+
+    } else {
+        // User is not logged in, ensure the login link is present
+        const existingLoginLink = document.querySelector('a[href="/se-connecter"]');
+        if (!existingLoginLink) {
+            document.querySelector('.navlinksholder').insertAdjacentHTML('beforeend', `
+            <a class="navlink w-inline-block" href="/se-connecter">
+                <div>Se connecter</div>
+            </a>
+            `);
+        }
     }
 });
