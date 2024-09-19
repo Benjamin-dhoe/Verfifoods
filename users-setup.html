@@ -35,6 +35,8 @@
               Bedrijfsaccount
             </label>
           </div>
+          <label class="brownundertitle">Telefoon nr</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" required>
           <div class="spacer10px"></div>
           <div id="personaldiv" style="display: none;">
             <label class="brownundertitle">Voornaam</label>
@@ -182,6 +184,7 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
     streetnr: document.getElementById('streetnr')?.value || '',
     postcode: document.getElementById('postcode')?.value || '',
     place: document.getElementById('place')?.value || '',
+    telephone: document.getElementById('telephone')?.value || '',
     companyname: document.getElementById('companyname')?.value || '',
     btwnr: document.getElementById('btwnr')?.value || '',
     streetnrcompany: document.getElementById('streetnrcompany')?.value || '',
