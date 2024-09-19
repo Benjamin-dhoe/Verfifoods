@@ -376,12 +376,6 @@
   position: relative;
 }
 
-.holderthumbnailproduct:hover {
-  background-image: url('../images/27053.jpg');
-  background-position: 50%;
-  background-size: cover;
-}
-
 .holderthumbnailproduct.hero {
   background-color: var(--white);
 }
