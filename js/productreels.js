@@ -46,8 +46,9 @@ async function updateProducts() {
             
             // Create product elements
             shuffledProducts.forEach(product => {
-                const productElement = document.createElement('div');
+                const productElement = document.createElement('a');
                 productElement.className = 'holderthumbnailproduct';
+                productElement.href = `/product/${product.id}`;
                 
                 productElement.innerHTML = `
                     <div class="shoppingcartbtn">
