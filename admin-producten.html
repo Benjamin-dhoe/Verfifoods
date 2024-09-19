@@ -320,7 +320,7 @@
   };
 
   function populateLeverancierSelect() {
-  const leverancierSelect = document.getElementById('leveranciernew');
+  const leverancierSelect = dt.getElementById('leveranciernew');
   const leverancierEditSelect = document.getElementById('editleverancier');
 
   getDocs(collection(db, "Leveranciers"))
@@ -422,7 +422,7 @@
           // Optionally, clear form fields
           document.getElementById('naamnewNL').value = '';
           document.getElementById('beschrijvingnewNL').value = '';
-          ocument.getElementById('naamnewFR').value = '';
+          document.getElementById('naamnewFR').value = '';
           document.getElementById('beschrijvingnewFR').value = '';
           ocument.getElementById('naamnewEN').value = '';
           document.getElementById('beschrijvingnewEN').value = '';
