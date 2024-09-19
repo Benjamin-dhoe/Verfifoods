@@ -11,50 +11,51 @@ const firebaseConfig = {
     measurementId: "G-2ZTZCL27TE"
   };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
 
-        // Fetch products from Firebase
-        async function fetchProducts() {
-            const productsSnapshot = await db.collection('Producten').get();
-            return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        }
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-        // Update products in elements
-        async function updateProducts() {
-            const products = await fetchProducts();
-            const elements = document.querySelectorAll('[showproducts]');
+// Fetch products from Firebase
+async function fetchProducts() {
+    const productsSnapshot = await getDocs(collection(db, 'Producten'));
+    return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Update products in elements
+async function updateProducts() {
+    const products = await fetchProducts();
+    const elements = document.querySelectorAll('[showproducts]');
+    
+    elements.forEach(element => {
+        const count = parseInt(element.getAttribute('showproducts'), 10);
+        const container = document.createElement('div');
+        container.className = 'product-container';
+        
+        // Create product elements
+        products.slice(0, count).forEach(product => {
+            const productElement = document.createElement('a');
+            productElement.className = 'holderthumbnailproduct';
+            productElement.href = `/product/${product.id}`;
             
-            elements.forEach(element => {
-                const count = parseInt(element.getAttribute('showproducts'), 10);
-                const container = document.createElement('div');
-                container.className = 'product-container';
-                
-                // Create product elements
-                products.slice(0, count).forEach(product => {
-                    const productElement = document.createElement('a');
-                    productElement.className = 'holderthumbnailproduct';
-                    productElement.href = `/product/${product.id}`;
-                    
-                    productElement.innerHTML = `
-                        <div class="shoppingcartbtn">
-                            <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
-                        </div>
-                        <div class="mediumbold-text">${product.naamNL}</div>
-                        <div class="brown-text bold-text">${product.prijs}€</div>
-                    `;
-                    
-                    container.appendChild(productElement);
-                });
-                
-                element.innerHTML = ''; // Clear existing content
-                element.appendChild(container);
-            });
-        }
+            productElement.innerHTML = `
+                <div class="shoppingcartbtn">
+                    <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
+                </div>
+                <div class="mediumbold-text">${product.naamNL}</div>
+                <div class="brown-text bold-text">${product.prijs}€</div>
+            `;
+            
+            container.appendChild(productElement);
+        });
+        
+        element.innerHTML = ''; // Clear existing content
+        element.appendChild(container);
+    });
+}
 
-        // Initial update
-        updateProducts();
+// Initial update
+updateProducts();
 
-        // Update every 10 seconds
-        setInterval(updateProducts, 10000);
+// Update every 10 seconds
+setInterval(updateProducts, 10000);
