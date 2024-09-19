@@ -641,7 +641,7 @@
   font-weight: 500;
 }
 
-.filtermenusneak.active {
+.filtermenusneak:hover {
   background-color: var(--background-color);
   color: var(--darkest-blue);
 }
