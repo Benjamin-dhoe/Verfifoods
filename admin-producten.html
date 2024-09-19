@@ -320,7 +320,7 @@
   };
 
   function populateLeverancierSelect() {
-  const leverancierSelect = dt.getElementById('leveranciernew');
+  const leverancierSelect = document.getElementById('leveranciernew');
   const leverancierEditSelect = document.getElementById('editleverancier');
 
   getDocs(collection(db, "Leveranciers"))
