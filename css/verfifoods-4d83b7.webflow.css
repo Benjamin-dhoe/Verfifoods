@@ -1320,6 +1320,7 @@
   border: 1px solid var(--brown);
   border-radius: 20px;
   width: 35%;
+  padding: 20px;
 }
 
 .productinfo {
