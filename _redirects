@@ -2,4 +2,5 @@
 /users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id&lang=fr  200
 /nl/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id&lang=nl  200
 /en/users/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getUserDashboard?id=:id&lang=en  200
+/admin/:action  https://europe-west1-test-9efbe.cloudfunctions.net/adminPanel?action=:action  200
 
