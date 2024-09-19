@@ -9,6 +9,13 @@
   --darker-background: #fcf3e7;
 }
 
+.sectionsingle {
+    flex-flow: column;
+    align-items: center;
+    padding-top: 60px;
+    display: flex;
+}
+
 .passwordresethold {
     justify-content: flex-end;
     width: 100%;
@@ -383,6 +390,10 @@
 
 .containcenter {
   width: 80vw;
+}
+
+.containcenter.smallcenter {
+  max-width: 600px;
 }
 
 .containcenter.doubleparts {
