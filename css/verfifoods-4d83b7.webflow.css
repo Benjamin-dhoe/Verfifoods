@@ -1714,9 +1714,11 @@
     margin-top: 20px;
   }
 
-  .text-field {
+  input,
+textarea,
+select {
     font-size: 16px;
-  }
+}
 
   .section-doublepart.minfullheight.firsection, .section-doublepart.firstsection {
     padding-top: 40px;
@@ -1949,6 +1951,12 @@
   .hero-section {
     min-height: 90vh;
   }
+
+  input,
+textarea,
+select {
+    font-size: 16px;
+}
 
   .contain-hero-content {
     flex-flow: column;
