@@ -9,6 +9,11 @@
   --darker-background: #fcf3e7;
 }
 
+[showproducts] {
+    transition: opacity 0.3s ease; /* Adjust duration as needed */
+    opacity: 1;
+}
+
 .sectionsingle {
     flex-flow: column;
     align-items: center;
