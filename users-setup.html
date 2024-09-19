@@ -116,10 +116,25 @@
     if (personalRadio.checked) {
       personalDiv.style.display = 'block';
       businessDiv.style.display = 'none';
+      setRequiredFields(personalDiv, true);
+      setRequiredFields(businessDiv, false);
     } else if (businessRadio.checked) {
       personalDiv.style.display = 'none';
       businessDiv.style.display = 'block';
+      setRequiredFields(personalDiv, false);
+      setRequiredFields(businessDiv, true);
     }
+  }
+
+  function setRequiredFields(div, isRequired) {
+    const inputs = div.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+      if (isRequired) {
+        input.setAttribute('required', 'required');
+      } else {
+        input.removeAttribute('required');
+      }
+    });
   }
 
   function updateDeliveryAddress() {
@@ -159,9 +174,24 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
   document.getElementById('submitform').style.display = "none";
   document.getElementById('loading').style.display = "block";
 
-  // Capture form data
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
+  // Manually collect form data
+  const formData = {
+    type: document.querySelector('input[name="type"]:checked')?.value,
+    firstname: document.getElementById('firstname')?.value || '',
+    name: document.getElementById('name')?.value || '',
+    streetnr: document.getElementById('streetnr')?.value || '',
+    postcode: document.getElementById('postcode')?.value || '',
+    place: document.getElementById('place')?.value || '',
+    companyname: document.getElementById('companyname')?.value || '',
+    btwnr: document.getElementById('btwnr')?.value || '',
+    streetnrcompany: document.getElementById('streetnrcompany')?.value || '',
+    postcodecompany: document.getElementById('postcodecompany')?.value || '',
+    placecompany: document.getElementById('placecompany')?.value || '',
+    samedeliveryadress: document.getElementById('samedeliveryadress')?.checked || false,
+    deliverystreetnr: document.getElementById('deliverystreetnr')?.value || '',
+    deliverypostcode: document.getElementById('deliverypostcode')?.value || '',
+    deliveryplace: document.getElementById('deliveryplace')?.value || ''
+  };
 
   try {
     // Send the form data to the Google Cloud Function
@@ -170,7 +200,7 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(formData)
     });
 
     // Parse the response
@@ -187,7 +217,6 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
     document.getElementById('loading').style.display = "none";
   }
 });
-
   </script>
 </body>
 </html>
