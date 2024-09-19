@@ -42,7 +42,7 @@ async function updateProducts() {
                     <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
                 </div>
                 <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
-                <div class="thumbproductoverlay">
+                <div class="thumbproductoverlay showcase">
                     <div class="mediumbold-text">${product.naamNL}</div>
                     <div class="brown-text bold-text">${product.prijs}€</div>
                 </div>
