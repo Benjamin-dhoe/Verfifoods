@@ -43,14 +43,6 @@
             <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
             <label class="brownundertitle">Naam</label>
             <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
-            <div class="spacer10px"></div>
-            <label class="brownundertitle bold-text">Standaard leveradres</label>
-            <label class="brownundertitle">Straat en huisnummer</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="streetnr" name="streetnr" required>
-            <label class="brownundertitle">Postcode</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="postcode" name="postcode" required>
-            <label class="brownundertitle">Plaats</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="place" name="place" required>
           </div>
           <div id="businessdiv" style="display: none;">
             <label class="brownundertitle">Bedrijfsnaam</label>
@@ -73,7 +65,9 @@
               Zelfde als bedrijfsadres
             </label>
             <div class="spacer10px"></div>
-            <div id="deliveryadress" style="display: none;">
+            
+          </div>
+          <div id="deliveryadress">
               <label class="brownundertitle">Straat en huisnummer</label>
               <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
               <label class="brownundertitle">Postcode</label>
@@ -81,7 +75,6 @@
               <label class="brownundertitle">Plaats</label>
               <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
             </div>
-          </div> 
           <div class="spacer10px"></div>
           <div class="loading" id="loading" style="display: none;">
               <lottie-player
@@ -181,9 +174,6 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
     type: document.querySelector('input[name="type"]:checked')?.value,
     firstname: document.getElementById('firstname')?.value || '',
     name: document.getElementById('name')?.value || '',
-    streetnr: document.getElementById('streetnr')?.value || '',
-    postcode: document.getElementById('postcode')?.value || '',
-    place: document.getElementById('place')?.value || '',
     telephone: document.getElementById('telephone')?.value || '',
     companyname: document.getElementById('companyname')?.value || '',
     btwnr: document.getElementById('btwnr')?.value || '',
