@@ -265,6 +265,15 @@
   inset: 0%;
 }
 
+.thumbproductoverlay.showcase {
+  flex-direction: column;
+}
+
+.thumbproductoverlay.showcase:hover {
+  background-image: none;
+}
+
+
 .contain-hero-content {
   flex-flow: row;
   justify-content: space-between;
