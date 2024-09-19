@@ -24,108 +24,157 @@
         <div class="small-text">email</div>
         <div class="spacer10px"></div>
         <div class="spacer10px"></div>
-        <label class="brownundertitle">Wilt u een persoonlijk of bedrijfsaccount aanmaken?</label>
-        <div class="radio-container">
-          <label class="radio-label">
-            <input type="radio" name="option" value="personal" class="radio-input">
-            Persoonlijk account
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="option" value="business" class="radio-input">
-            Bedrijfsaccount
-          </label>
-        </div>
-        <div class="spacer10px"></div>
-        <div id="personaldiv" style="display: none;">
-          <label class="brownundertitle">Voornaam</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="firstname" required>
-          <label class="brownundertitle">Naam</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="name" required>
-          <div class="spacer10px"></div>
-          <label class="brownundertitle bold-text">Standaard leveradres</label>
-          <label class="brownundertitle">Straat en huisnummer</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="streetnr" required>
-          <label class="brownundertitle">Postcode</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="postcode" required>
-          <label class="brownundertitle">Plaats</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="place" required>
-        </div>
-        <div id="businessdiv" style="display: none;">
-          <label class="brownundertitle">Bedrijfsnaam</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="companyname" required>
-          <label class="brownundertitle">BTW nummer</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="btwnr" required>
-          <div class="spacer10px"></div>
-          <label class="brownundertitle bold-text">Bedrijfsadres</label>
-          <label class="brownundertitle">Straat en huisnummer</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="streetnrcompany" required>
-          <label class="brownundertitle">Postcode</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="postcodecompany" required>
-          <label class="brownundertitle">Plaats</label>
-          <input class="text-field w-input" maxlength="256" type="text" id="placecompany" required>
-          <div class="spacer10px"></div>
-          <label class="brownundertitle bold-text">Standaard leveradres</label>
-          <label>
-            <input type="checkbox" id="samedeliveryadress">
-            <span></span>
-            Zelfde als bedrijfsadres
-        </label>
-          <div id="deliveryadress" style="display: none;">
-            <label class="brownundertitle">Straat en huisnummer</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="streetnr" required>
-            <label class="brownundertitle">Postcode</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="postcode" required>
-            <label class="brownundertitle">Plaats</label>
-            <input class="text-field w-input" maxlength="256" type="text" id="place" required>
+        <form id="accountSetupForm">
+          <label class="brownundertitle">Wilt u een persoonlijk of bedrijfsaccount aanmaken?</label>
+          <div class="radio-container">
+            <label class="radio-label">
+              <input type="radio" name="type" value="personal" class="radio-input" required>
+              Persoonlijk account
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="type" value="business" class="radio-input" required>
+              Bedrijfsaccount
+            </label>
           </div>
-        </div> 
+          <div class="spacer10px"></div>
+          <div id="personaldiv" style="display: none;">
+            <label class="brownundertitle">Voornaam</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
+            <label class="brownundertitle">Naam</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
             <div class="spacer10px"></div>
-            <button class="button intypeholder notabs w-button">Doorgaan</button>
-            
+            <label class="brownundertitle bold-text">Standaard leveradres</label>
+            <label class="brownundertitle">Straat en huisnummer</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="streetnr" name="streetnr" required>
+            <label class="brownundertitle">Postcode</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="postcode" name="postcode" required>
+            <label class="brownundertitle">Plaats</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="place" name="place" required>
+          </div>
+          <div id="businessdiv" style="display: none;">
+            <label class="brownundertitle">Bedrijfsnaam</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="companyname" name="companyname" required>
+            <label class="brownundertitle">BTW nummer</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="btwnr" name="btwnr" required>
+            <div class="spacer10px"></div>
+            <label class="brownundertitle bold-text">Bedrijfsadres</label>
+            <label class="brownundertitle">Straat en huisnummer</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="streetnrcompany" name="streetnrcompany" required>
+            <label class="brownundertitle">Postcode</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="postcodecompany" name="postcodecompany" required>
+            <label class="brownundertitle">Plaats</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="placecompany" name="placecompany" required>
+            <div class="spacer10px"></div>
+            <label class="brownundertitle bold-text">Standaard leveradres</label>
+            <label>
+              <input type="checkbox" id="samedeliveryadress" name="samedeliveryadress">
+              <span></span>
+              Zelfde als bedrijfsadres
+            </label>
+            <div id="deliveryadress" style="display: none;">
+              <label class="brownundertitle">Straat en huisnummer</label>
+              <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
+              <label class="brownundertitle">Postcode</label>
+              <input class="text-field w-input" maxlength="256" type="text" id="deliverypostcode" name="deliverypostcode" required>
+              <label class="brownundertitle">Plaats</label>
+              <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
+            </div>
+          </div> 
+          <div class="spacer10px"></div>
+          <div class="loading" id="loading" style="display: none;">
+              <lottie-player
+                  src="/images/loading.json"
+                  background="transparent"
+                  speed="1"
+                  loop
+                  autoplay>
+              </lottie-player>
+          </div>
+          <button type="submit" class="button intypeholder notabs w-button" id="submitform">Doorgaan</button>
+        </form>
     </div>
   </section>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66d843f7aa41c71a1134cb81" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  // Get elements
-  const personalDiv = document.getElementById('personaldiv');
-  const businessDiv = document.getElementById('businessdiv');
-  const personalRadio = document.querySelector('input[value="personal"]');
-  const businessRadio = document.querySelector('input[value="business"]');
-  const sameDeliveryCheckbox = document.getElementById('samedeliveryadress');
-  const deliveryAddressDiv = document.getElementById('deliveryadress');
+    document.addEventListener('DOMContentLoaded', function () {
+      const personalDiv = document.getElementById('personaldiv');
+      const businessDiv = document.getElementById('businessdiv');
+      const personalRadio = document.querySelector('input[value="personal"]');
+      const businessRadio = document.querySelector('input[value="business"]');
+      const sameDeliveryCheckbox = document.getElementById('samedeliveryadress');
+      const deliveryAddressDiv = document.getElementById('deliveryadress');
 
-  // Function to show/hide personal or business account divs
-  function toggleAccountDivs() {
-    if (personalRadio.checked) {
-      personalDiv.style.display = 'block';
-      businessDiv.style.display = 'none';
-    } else if (businessRadio.checked) {
-      personalDiv.style.display = 'none';
-      businessDiv.style.display = 'block';
-    }
-  }
+      const companyStreet = document.getElementById('streetnrcompany');
+      const companyPostcode = document.getElementById('postcodecompany');
+      const companyPlace = document.getElementById('placecompany');
 
-  // Function to show/hide delivery address div in business account
-  function toggleDeliveryAddressDiv() {
-    if (sameDeliveryCheckbox.checked) {
-      deliveryAddressDiv.style.display = 'none';
-    } else {
-      deliveryAddressDiv.style.display = 'block';
-    }
-  }
+      const deliveryStreet = document.getElementById('deliverystreetnr');
+      const deliveryPostcode = document.getElementById('deliverypostcode');
+      const deliveryPlace = document.getElementById('deliveryplace');
 
-  // Event listeners for radio buttons
-  personalRadio.addEventListener('change', toggleAccountDivs);
-  businessRadio.addEventListener('change', toggleAccountDivs);
+      function toggleAccountDivs() {
+        if (personalRadio.checked) {
+          personalDiv.style.display = 'block';
+          businessDiv.style.display = 'none';
+        } else if (businessRadio.checked) {
+          personalDiv.style.display = 'none';
+          businessDiv.style.display = 'block';
+        }
+      }
 
-  // Event listener for checkbox in business account
-  sameDeliveryCheckbox.addEventListener('change', toggleDeliveryAddressDiv);
+      function toggleDeliveryAddressDiv() {
+        if (sameDeliveryCheckbox.checked) {
+          deliveryAddressDiv.style.display = 'none';
+          deliveryStreet.value = companyStreet.value;
+          deliveryPostcode.value = companyPostcode.value;
+          deliveryPlace.value = companyPlace.value;
+        } else {
+          deliveryAddressDiv.style.display = 'block';
+        }
+      }
 
-  // Initialize the visibility on page load
-  toggleAccountDivs();
-  toggleDeliveryAddressDiv();
-});
-</script>
+      personalRadio.addEventListener('change', toggleAccountDivs);
+      businessRadio.addEventListener('change', toggleAccountDivs);
+
+      sameDeliveryCheckbox.addEventListener('change', toggleDeliveryAddressDiv);
+
+      toggleAccountDivs();
+      toggleDeliveryAddressDiv();
+    });
+
+    document.getElementById('accountSetupForm').addEventListener('submit', async (event) => {
+      event.preventDefault();  // Prevent the default form submission behavior
+      document.getElementById('submitform').style.display = "none";
+      document.getElementById('loading').style.display = "block";
+
+      // Capture form data
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        // Send the form data to the Google Cloud Function
+        const response = await fetch('https://REGION-PROJECT_ID.cloudfunctions.net/handleFormSubmission', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        // Parse the response
+        const result = await response.json();
+        console.log(result);
+
+        // Handle success (e.g., display a message) of page reload?
+        
+      } catch (error) {
+        console.error('Error submitting form:', error);
+
+      } finally {
+        document.getElementById('submitform').style.display = "block";
+        document.getElementById('loading').style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
