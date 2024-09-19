@@ -357,7 +357,7 @@
   color: var(--verfi-blue);
   text-align: right;
   cursor: pointer;
-  background-image: linear-gradient(135deg, #fff0 36%, #fff), url('../images/27053.jpg');
+  background-color: #fff;
   background-position: 0 0, 50%;
   background-size: auto, cover;
   border-radius: 10px;
