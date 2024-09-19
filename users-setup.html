@@ -188,7 +188,7 @@ document.getElementById('accountSetupForm').addEventListener('submit', async (ev
 
   try {
     // Retrieve the token from local storage or another secure place
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
 
     const response = await fetch('https://europe-west1-test-9efbe.cloudfunctions.net/userSetup', {
       method: 'POST',
