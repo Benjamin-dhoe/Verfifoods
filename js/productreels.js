@@ -11,7 +11,7 @@ const firebaseConfig = {
     measurementId: "G-2ZTZCL27TE"
   };
 
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -34,16 +34,18 @@ async function updateProducts() {
 
         // Create product elements
         products.slice(0, count).forEach(product => {
-            const productElement = document.createElement('a');
+            const productElement = document.createElement('div');
             productElement.className = 'holderthumbnailproduct';
-            productElement.href = `/product/${product.id}`;
             
             productElement.innerHTML = `
                 <div class="shoppingcartbtn">
-                    <img src="${product.afbeeldingURL}" loading="lazy" alt="">
+                    <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
                 </div>
-                <div class="mediumbold-text">${product.naamNL}</div>
-                <div class="brown-text bold-text">${product.prijs}€</div>
+                <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
+                <div class="thumbproductoverlay">
+                    <div class="mediumbold-text">${product.naamNL}</div>
+                    <div class="brown-text bold-text">${product.prijs}€</div>
+                </div>
             `;
             
             // Append the product directly to the showproducts element
@@ -57,3 +59,4 @@ updateProducts();
 
 // Update every 10 seconds
 setInterval(updateProducts, 10000);
+
