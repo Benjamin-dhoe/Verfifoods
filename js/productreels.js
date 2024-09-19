@@ -12,7 +12,6 @@ const firebaseConfig = {
   };
 
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -29,9 +28,10 @@ async function updateProducts() {
     
     elements.forEach(element => {
         const count = parseInt(element.getAttribute('showproducts'), 10);
-        const container = document.createElement('div');
-        container.className = 'product-container';
         
+        // Clear existing content
+        element.innerHTML = '';
+
         // Create product elements
         products.slice(0, count).forEach(product => {
             const productElement = document.createElement('a');
@@ -40,17 +40,15 @@ async function updateProducts() {
             
             productElement.innerHTML = `
                 <div class="shoppingcartbtn">
-                    <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
+                    <img src="${product.afbeeldingURL}" loading="lazy" alt="">
                 </div>
                 <div class="mediumbold-text">${product.naamNL}</div>
                 <div class="brown-text bold-text">${product.prijs}€</div>
             `;
             
-            container.appendChild(productElement);
+            // Append the product directly to the showproducts element
+            element.appendChild(productElement);
         });
-        
-        element.innerHTML = ''; // Clear existing content
-        element.appendChild(container);
     });
 }
 
