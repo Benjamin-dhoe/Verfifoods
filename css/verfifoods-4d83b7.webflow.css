@@ -14,6 +14,7 @@
     align-items: center;
     padding-top: 60px;
     display: flex;
+  padding-bottom: 60px;
 }
 
 .radio-container {
@@ -48,8 +49,8 @@
 }
 
 .radio-input:checked {
-  border-color: #2196F3;
-  background-color: #2196F3;
+  border-color: var(--brown);
+  background-color: var(--brown);
 }
 
 .radio-input:checked::after {
@@ -69,9 +70,9 @@
 }
 
 .radio-input:checked + .radio-label {
-  background-color: #2196F3;
+  background-color: var(--brown);
   color: white;
-  border-color: #2196F3;
+  border-color: var(--brown);
 }
 
 .passwordresethold {
