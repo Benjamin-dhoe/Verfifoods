@@ -263,8 +263,8 @@ function login(event) {
       return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
     })
     .then(({ idToken, userId }) => {
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=None`;
-      document.cookie = `userId=${userId}; path=/; Secure; SameSite=None`;
+      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
 
       window.location.href = `/users/${userId}`;
     })
