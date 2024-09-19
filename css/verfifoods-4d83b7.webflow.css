@@ -1040,7 +1040,7 @@
 }
 
 .leftalignflexvert.overflow {
-  max-height: 90%;
+  max-height: 80%;
   overflow: scroll;
 }
 
@@ -1712,6 +1712,10 @@
     width: 200px;
     height: 200px;
     margin-top: 20px;
+  }
+
+  .text-field {
+    font-size: 16px;
   }
 
   .section-doublepart.minfullheight.firsection, .section-doublepart.firstsection {
