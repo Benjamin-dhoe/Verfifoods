@@ -101,6 +101,12 @@ function showPopup() {
         fr: "Continuer vos achats"
     };
 
+    const goToCartText = {
+        en: "Go to cart",
+        nl: "Naar winkelmandje",
+        fr: "Aller au panier"
+    };
+
     const popupHTML = `
         <div class="popupholder" style="display: flex; opacity: 100; visibility: visible;">
             <div class="popupcontainer vis">
@@ -110,7 +116,7 @@ function showPopup() {
                     <div class="spacer10px"></div>
                     <button class="button intypeholder notabs grey w-button" id="continueShoppingBtn">${continueShoppingText[language]}</button>
                     <div class="spacer10px"></div>
-                    <button class="button intypeholder notabs w-button" id="goToCartBtn">Go to Cart</button>
+                    <button class="button intypeholder notabs w-button" id="goToCartBtn">${goToCartText[language]}</button>
                 </div>
             </div>
         </div>
