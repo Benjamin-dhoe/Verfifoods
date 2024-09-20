@@ -101,13 +101,14 @@ function updateProductsOnPage(products, element, count, lang) {
     }, 300);  // Match this delay to your CSS transition
 }
 
-// Fetch and display partner reel
 async function updatePartnerReel() {
     const partnerReelElement = document.querySelector('[partnerreel]');
     if (!partnerReelElement) return; // If no partnerreel element exists, exit
 
     const lang = getLanguageFromURL();
     const partnersSnapshot = await getDocs(collection(db, 'Leveranciers'));  // Fetch all suppliers from the 'Leveranciers' collection
+
+    const partnerElements = [];
 
     partnersSnapshot.docs.forEach(doc => {
         const partner = doc.data();
@@ -130,9 +131,19 @@ async function updatePartnerReel() {
             <img width="207" loading="eager" alt="" src="${partner.Logo}" class="logo-partner">
         `;
 
-        partnerReelElement.appendChild(partnerElement);
+        partnerElements.push(partnerElement);
+    });
+
+    // Append original partners
+    partnerElements.forEach(element => partnerReelElement.appendChild(element));
+
+    // Append cloned partners for seamless scrolling
+    partnerElements.forEach(element => {
+        const clone = element.cloneNode(true);
+        partnerReelElement.appendChild(clone);
     });
 }
+
 
 // Initial product fetch and rotation setup
 async function updateProducts() {
