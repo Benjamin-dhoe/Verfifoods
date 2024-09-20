@@ -460,6 +460,7 @@ select {
 .shoppingcartbtn.opencart {
     position: fixed;
     inset: auto 10px 10px auto;
+    z-index: 11;
 }
 
 .shoppingcartbtn.smaller {
