@@ -81,6 +81,12 @@
   opacity: 1;
 }
 
+.line-partners {
+    background-color: var(--brown);
+    width: 100%;
+    height: 1px;
+}
+
 .logo-partner {
     object-fit: contain;
     width: 65%;
