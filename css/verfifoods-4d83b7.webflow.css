@@ -1266,6 +1266,7 @@ select {
   font-size: 12px;
   display: flex;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .qtyhandlers {
