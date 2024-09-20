@@ -142,7 +142,24 @@ async function updatePartnerReel() {
         const clone = element.cloneNode(true);
         partnerReelElement.appendChild(clone);
     });
+
+    // Dynamically adjust the scroll animation duration based on the number of partners
+    adjustScrollSpeed(partnerElements.length);
 }
+
+// Function to adjust the animation duration dynamically
+function adjustScrollSpeed(partnerCount) {
+    const partnerWidth = 207; // Assuming each partner is 207px wide (same as your image width)
+    const totalWidth = partnerCount * partnerWidth * 2; // Multiply by 2 to include cloned elements
+
+    // Set animation duration based on total width (larger width = longer scroll time)
+    const scrollDuration = totalWidth / 100; // Adjust this factor to control speed (smaller = faster)
+
+    // Apply inline style to #partners element
+    const partnerReelElement = document.getElementById('partners');
+    partnerReelElement.style.animationDuration = `${scrollDuration}s`;
+}
+
 
 
 // Initial product fetch and rotation setup
