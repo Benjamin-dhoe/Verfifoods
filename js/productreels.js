@@ -88,6 +88,7 @@ async function updateProducts() {
 
             element.style.opacity = '1';
         }, 300);
+    });
 }
 
 updateProducts();
