@@ -130,7 +130,10 @@ function showPopup() {
         document.querySelector('.popupholder').remove();
     });
 
-    document.getElementById('continueShoppingBtn').addEventListener('click', handleContinueShopping);
+    document.getElementById('continueShoppingBtn').addEventListener('click', () => {
+        document.querySelector('.popupholder').remove();
+    });
+
     document.getElementById('goToCartBtn').addEventListener('click', displayCart);
 }
 
@@ -140,18 +143,6 @@ function getLanguage() {
     if (currentUrl.includes('/en/')) return 'en';
     if (currentUrl.includes('/nl/')) return 'nl';
     return 'fr'; // Default to French
-}
-
-// Function to handle "Verder winkelen" button click
-function handleContinueShopping() {
-    const currentUrl = window.location.href;
-    const language = getLanguage();
-
-    let redirectUrl = currentUrl.includes("/product/")
-        ? (language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html")
-        : (language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html");
-
-    window.location.href = redirectUrl;
 }
 
 // Function to get the appropriate cart URL based on the language
