@@ -21,12 +21,7 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
 
     // Check if the product is already in the cart
     if (cart[productId]) {
-        // Create and append the check icon
-        const checkIcon = document.createElement('img');
-        checkIcon.src = "/images/check.svg";
-        checkIcon.loading = "lazy";
-        checkIcon.classList.add("checkicon");
-        button.insertAdjacentElement('afterend', checkIcon);
+        addCheckIcon(button);
     }
 
     button.addEventListener('click', (event) => {
@@ -37,30 +32,31 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
             addToCart(productId, quantity);
             // Add the check icon if it wasn't there before
             if (!button.nextElementSibling?.classList.contains("checkicon")) {
-                const checkIcon = document.createElement('img');
-                checkIcon.src = "/images/check.svg";
-                checkIcon.loading = "lazy";
-                checkIcon.classList.add("checkicon");
-                button.insertAdjacentElement('afterend', checkIcon);
+                addCheckIcon(button);
             }
         }
     });
 });
 
+// Function to add check icon
+function addCheckIcon(button) {
+    const checkIcon = document.createElement('img');
+    checkIcon.src = "/images/check.svg";
+    checkIcon.loading = "lazy";
+    checkIcon.classList.add("checkicon");
+    button.insertAdjacentElement('afterend', checkIcon);
+}
+
 // Function to add items to the cart
 function addToCart(productId, quantity) {
     let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
-    // Check if product already exists in the cart, then update the quantity
-    if (cart[productId]) {
-        cart[productId] += quantity;
-    } else {
-        cart[productId] = quantity;
-    }
+    // Update the cart with the new quantity
+    cart[productId] = (cart[productId] || 0) + quantity;
 
     // Save the updated cart back to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
-    
+
     // Update shopping cart button
     updateCartButton();
 
@@ -103,11 +99,7 @@ function showPopup() {
     };
 
     const popupHTML = `
-        <div class="popupholder" style="
-                display: flex;
-                opacity:  100;
-                visibility: visible;
-            ">
+        <div class="popupholder" style="display: flex; opacity: 100; visibility: visible;">
             <div class="popupcontainer vis">
                 <div class="closebtn" id="closepopup">X</div>
                 <div class="leftalignflexvert">
@@ -124,47 +116,31 @@ function showPopup() {
     // Append popup to body
     document.body.insertAdjacentHTML('beforeend', popupHTML);
 
-    // Add event listener to close button
+    // Add event listeners
     document.getElementById('closepopup').addEventListener('click', () => {
         document.querySelector('.popupholder').remove();
     });
 
-    // Add event listener for "Verder winkelen" button
-    document.getElementById('continueShoppingBtn').addEventListener('click', () => {
-        handleContinueShopping();
-    });
-
-    // Add event listener for "Go to Cart" button
-    document.getElementById('goToCartBtn').addEventListener('click', () => {
-        window.location.href = getCartURL();
-    });
+    document.getElementById('continueShoppingBtn').addEventListener('click', handleContinueShopping);
+    document.getElementById('goToCartBtn').addEventListener('click', displayCart);
 }
 
 // Function to get the appropriate language based on the URL
 function getLanguage() {
     const currentUrl = window.location.href;
-    if (currentUrl.includes('/en/')) {
-        return 'en';
-    } else if (currentUrl.includes('/nl/')) {
-        return 'nl';
-    } else {
-        return 'fr'; // Default to French
-    }
+    if (currentUrl.includes('/en/')) return 'en';
+    if (currentUrl.includes('/nl/')) return 'nl';
+    return 'fr'; // Default to French
 }
 
 // Function to handle "Verder winkelen" button click
 function handleContinueShopping() {
     const currentUrl = window.location.href;
     const language = getLanguage();
-    
-    let redirectUrl = "/";
 
-    if (currentUrl.includes("/product/")) {
-        redirectUrl = language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html";
-    } else {
-        // Determine default behavior based on language
-        redirectUrl = language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html";
-    }
+    let redirectUrl = currentUrl.includes("/product/")
+        ? (language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html")
+        : (language === 'en' ? "/en/assortment.html" : language === 'nl' ? "/nl/aanbod.html" : "/gamme.html");
 
     window.location.href = redirectUrl;
 }
@@ -172,39 +148,18 @@ function handleContinueShopping() {
 // Function to get the appropriate cart URL based on the language
 function getCartURL() {
     const currentUrl = window.location.href;
-
-    if (currentUrl.includes('/en/')) {
-        return '/en/cart.html'; // Adjust this to your actual cart URL
-    } else if (currentUrl.includes('/nl/')) {
-        return '/nl/winkelmand.html'; // Adjust this to your actual cart URL
-    } else {
-        return '/panier.html'; // Default to French
-    }
+    if (currentUrl.includes('/en/')) return '/en/cart.html';
+    if (currentUrl.includes('/nl/')) return '/nl/winkelmand.html';
+    return '/panier.html'; // Default to French
 }
 
+// Function to display cart
 function displayCart() {
-    const currentUrl = window.location.href;
-
-    // Determine the appropriate cart URL based on the language
-    let cartURL;
-    if (currentUrl.includes('/en/')) {
-        cartURL = '/en/cart.html'; // Adjust this to your actual cart URL
-    } else if (currentUrl.includes('/nl/')) {
-        cartURL = '/nl/winkelmand.html'; // Adjust this to your actual cart URL
-    } else {
-        cartURL = '/panier.html'; // Default to French
-    }
-
-    // Redirect to the cart page
-    window.location.href = cartURL;
+    window.location.href = getCartURL();
 }
 
 // Initial call to update the shopping cart button on page load
 updateCartButton();
-
-document.getElementById('goToCartBtn').addEventListener('click', () => {
-    displayCart(); // Call the updated function
-});
 
 
 
