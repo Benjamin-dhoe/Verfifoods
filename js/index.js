@@ -180,3 +180,37 @@ if (userId) {
 }
 });
 
+function showLoadingSpinner() {
+        const spinner = document.getElementById('loadingSpinner');
+        spinner.style.display = 'flex'; // Show spinner
+    }
+
+    // List of URLs where we want to show the loading spinner
+    const targetUrls = ["/gamme", "/nl/aanbod", "/en/assortment"];
+
+    // Function to check if the current navigation is going to one of the target URLs
+    function isTargetUrl(href) {
+        return targetUrls.some(url => href.includes(url));
+    }
+
+    // Function to handle navigation
+    function handlePageNavigation(event) {
+        const href = event.target.href || "";
+
+        // Check if the user is navigating to a target URL
+        if (isTargetUrl(href)) {
+            // Show the spinner immediately before navigating
+            showLoadingSpinner();
+
+            // Allow the navigation to happen without any delay
+        }
+    }
+
+    // Attach click listeners to all anchor links
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', handlePageNavigation);
+    });
+
+
+
+
