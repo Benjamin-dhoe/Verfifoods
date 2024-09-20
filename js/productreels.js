@@ -101,6 +101,39 @@ function updateProductsOnPage(products, element, count, lang) {
     }, 300);  // Match this delay to your CSS transition
 }
 
+// Fetch and display partner reel
+async function updatePartnerReel() {
+    const partnerReelElement = document.querySelector('[partnerreel]');
+    if (!partnerReelElement) return; // If no partnerreel element exists, exit
+
+    const lang = getLanguageFromURL();
+    const partnersSnapshot = await getDocs(collection(db, 'Leveranciers'));  // Fetch all suppliers from the 'Leveranciers' collection
+
+    partnersSnapshot.docs.forEach(doc => {
+        const partner = doc.data();
+
+        const partnerElement = document.createElement('a');
+        partnerElement.className = 'partner w-inline-block';
+
+        let partnerURL;
+        if (lang === 'nl') {
+            partnerURL = `/nl/leverancier/${doc.id}`;
+        } else if (lang === 'en') {
+            partnerURL = `/en/supplier/${doc.id}`;
+        } else {
+            partnerURL = `/fournisseur/${doc.id}`;
+        }
+
+        partnerElement.href = partnerURL;
+
+        partnerElement.innerHTML = `
+            <img width="207" loading="eager" alt="" src="${partner.Logo}" class="logo-partner">
+        `;
+
+        partnerReelElement.appendChild(partnerElement);
+    });
+}
+
 // Initial product fetch and rotation setup
 async function updateProducts() {
     const elements = document.querySelectorAll('[showproducts]');
@@ -126,7 +159,9 @@ async function updateProducts() {
 
 // Initial update
 updateProducts();
+updatePartnerReel();  // Fetch and update partner reel on page load
 
 // Update products every 10 seconds, rotating through cached products
 setInterval(updateProducts, 10000);
+
 
