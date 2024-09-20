@@ -61,8 +61,30 @@ function addToCart(productId, quantity) {
     // Save the updated cart back to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
     
+    // Update shopping cart button
+    updateCartButton();
+
     // Show popup instead of alert
     showPopup();
+}
+
+// Function to update the shopping cart button
+function updateCartButton() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    const uniqueItemsCount = Object.keys(cart).length;
+
+    // Check if the cart button already exists
+    let cartButton = document.querySelector('.shoppingcartbtn');
+    if (!cartButton && uniqueItemsCount > 0) {
+        // Create and append the cart button
+        cartButton = document.createElement('div');
+        cartButton.className = "shoppingcartbtn opencart";
+        cartButton.innerHTML = `<img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div>`;
+        document.body.appendChild(cartButton);
+    } else if (cartButton) {
+        // Update the item count
+        cartButton.querySelector('.nritems').textContent = uniqueItemsCount;
+    }
 }
 
 // Function to show the popup
@@ -165,6 +187,10 @@ function displayCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     console.log(cart);
 }
+
+// Initial call to update the shopping cart button on page load
+updateCartButton();
+
 
 
 
