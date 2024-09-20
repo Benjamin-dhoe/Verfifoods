@@ -71,7 +71,7 @@ function updateProductsOnPage(products, element, count, lang) {
             } else if (lang === 'en') {
                 productURL = `/en/product/${product.id}`;
             } else {
-                productURL = `/fr/product/${product.id}`;
+                productURL = `/product/${product.id}`;
             }
 
             let productName;
