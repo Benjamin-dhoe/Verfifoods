@@ -2094,7 +2094,12 @@ select {
 
   .holderappresults {
     padding: 10px;
+    justify-content: center;
   }
+
+  #holderProducts {
+    justify-content: center;
+}
 
   .menuitem {
     flex-flow: column;
