@@ -182,14 +182,29 @@ function getCartURL() {
     }
 }
 
-// Optional: function to display cart contents (can be added later)
 function displayCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    console.log(cart);
+    const currentUrl = window.location.href;
+
+    // Determine the appropriate cart URL based on the language
+    let cartURL;
+    if (currentUrl.includes('/en/')) {
+        cartURL = '/en/cart.html'; // Adjust this to your actual cart URL
+    } else if (currentUrl.includes('/nl/')) {
+        cartURL = '/nl/winkelmand.html'; // Adjust this to your actual cart URL
+    } else {
+        cartURL = '/panier.html'; // Default to French
+    }
+
+    // Redirect to the cart page
+    window.location.href = cartURL;
 }
 
 // Initial call to update the shopping cart button on page load
 updateCartButton();
+
+document.getElementById('goToCartBtn').addEventListener('click', () => {
+    displayCart(); // Call the updated function
+});
 
 
 
