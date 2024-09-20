@@ -19,7 +19,7 @@
     <div class="holdernavheros">
       <nav class="nav">
         <div class="holderlogofooter nav">
-          <a href="#" class="logofooter nav w-inline-block"><img loading="lazy" src="/images/logo-Verfifoods.png" alt=""></a><img id="openNavPhone" loading="lazy" alt="" src="/images/menuIcon.svg" class="menuicon">
+          <a href="/en/index.html" class="logofooter nav w-inline-block"><img loading="lazy" src="/images/logo-Verfifoods.png" alt=""></a><img id="openNavPhone" loading="lazy" alt="" src="/images/menuIcon.svg" class="menuicon">
         </div>
         <div class="navlinksholder">
           <a href="/en/index.html" aria-current="page" class="navlink w-inline-block w--current">
@@ -32,7 +32,7 @@
           <a href="/en/contact.html" class="navlink w-inline-block">
             <div>Contact</div>
           </a>
-          <a href="/en/index.html" class="navlink w-inline-block">
+          <a href="/en/login.html" class="navlink w-inline-block">
             <div>Login</div>
           </a>
         </div>
@@ -44,11 +44,9 @@
         <div class="headingonbluebig">Verfifoods</div>
         <a href="/en/assortment.html" class="button w-button">Place an order</a>
       </div>
-      <a href="/product-page.html" class="holderthumbnailproduct hero w-inline-block">
-        <div class="shoppingcartbtn"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""></div>
-        <div class="mediumbold-text">Navarra con Semilla</div>
-        <div class="brown-text bold-text">27,50€</div>
-      </a>
+      <div showproducts="1">
+        
+      </div>
     </div>
     <div class="contain-hero-content down">
       <div>
@@ -77,29 +75,16 @@
             <div class="small-text">We offer you carefully selected products, expertise, and fast delivery at competitive prices.</div>
           </div>
           <div class="filtermenusneakholder">
-            <div class="filtermenusneak">Ijs &amp; smoothies</div>
-            <div class="filtermenusneak">Gebak</div>
-            <div class="filtermenusneak">Stokbrood</div>
-            <div class="filtermenusneak">Viennoiserie</div>
-            <div class="filtermenusneak active">Brood</div>
+            <button class="filtermenusneak" href="/en/assortment.html?ijsjes">Ice cream</button>
+            <button class="filtermenusneak" href="/en/assortment.html?smoothies">Smoothies</button>
+            <button class="filtermenusneak" href="/en/assortment.html?gebak">Pastries</button>
+            <button class="filtermenusneak" href="/en/assortment.html?stokbrood">Baguettes</button>
+            <button class="filtermenusneak" href="/en/assortment.html?viennoiserie">Viennoiserie</button>
+            <button class="filtermenusneak" href="/en/assortment.html?brood">Bread</button>
           </div>
         </div>
-        <div class="holderproductsneakpeaks">
-          <div class="holderthumbnailproduct">
-            <div class="shoppingcartbtn"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""></div>
-            <div class="mediumbold-text">Navarra con Semilla</div>
-            <div class="brown-text bold-text">27,50€</div>
-          </div>
-          <div class="holderthumbnailproduct">
-            <div class="shoppingcartbtn"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""></div>
-            <div class="mediumbold-text">Navarra con Semilla</div>
-            <div class="brown-text bold-text">27,50€</div>
-          </div>
-          <div class="holderthumbnailproduct">
-            <div class="shoppingcartbtn"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""></div>
-            <div class="mediumbold-text">Navarra con Semilla</div>
-            <div class="brown-text bold-text">27,50€</div>
-          </div>
+        <div class="holderproductsneakpeaks" showproducts="3">
+          
         </div>
         <div class="holder100widthrightalignphonecenterphone">
           <a href="/en/assortment.html" class="button w-button">View all our products</a>
@@ -324,5 +309,6 @@
     const urlEN = "/en/index.html";
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
+  <script type="module" src="/js/productreels.js"></script>
 </body>
 </html>
