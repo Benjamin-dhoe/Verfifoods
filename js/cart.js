@@ -75,7 +75,7 @@ function updateCartButton() {
         // Create and append the cart button
         cartButton = document.createElement('div');
         cartButton.className = "shoppingcartbtn opencart";
-        cartButton.innerHTML = `<button class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></button>`;
+        cartButton.innerHTML = `<a class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></a>`;
         document.body.appendChild(cartButton);
 
         // Add event listener to redirect to the cart
