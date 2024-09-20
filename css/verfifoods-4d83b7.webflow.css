@@ -10,12 +10,12 @@
 }
 
 [showproducts] {
-    transition: opacity 0.3s ease; /* Adjust duration as needed */
+    transition: opacity 0.3s ease;
     opacity: 1;
 }
 
     #partners {
-  animation: scroll-left 20s linear infinite; /* Adjust animation duration as needed */
+  animation: scroll-left 40s linear infinite;
 }
 
 @keyframes scroll-left {
