@@ -14,6 +14,18 @@
     opacity: 1;
 }
 
+.nritems {
+    color: var(--background-color);
+    background-color: #d80000;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+    line-height: 18px;
+    position: absolute;
+    inset: -6px -4px auto auto;
+}
+
 .checkicon {
   margin-left: 10px;
   width: 15px;
@@ -442,6 +454,11 @@ select {
   position: absolute;
   inset: -25px -25px auto auto;
   z-index: 4;
+}
+
+.shoppingcartbtn.opencart {
+    position: fixed;
+    inset: auto 10px 10px auto;
 }
 
 .shoppingcartbtn.smaller {
