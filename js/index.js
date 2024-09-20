@@ -148,9 +148,9 @@ if (userId) {
         let flagSrc = '/images/Flag-France.svg';
         let langText = 'FR';
     
-        if (window.location.href.toLowerCase();.includes('/nl')) {
+        if (window.location.href.toLowerCase().includes('/nl')) {
             languagePrefix = '/nl';
-        } else if (window.location.href.toLowerCase();.includes('/en')) {
+        } else if (window.location.href.toLowerCase().includes('/en')) {
             languagePrefix = '/en';
         } else {
             languagePrefix = '';
