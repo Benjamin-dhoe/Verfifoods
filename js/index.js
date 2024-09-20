@@ -134,7 +134,10 @@ if (userId) {
     const navConnectLink = 
         document.querySelector('a[href="/se-connecter"]') || 
         document.querySelector('a[href="/nl/login"]') || 
-        document.querySelector('a[href="/en/login"]');
+        document.querySelector('a[href="/en/login"]') ||
+        document.querySelector('a[href="/se-connecter.html"]') || 
+        document.querySelector('a[href="/nl/login.html"]') || 
+        document.querySelector('a[href="/en/login.html"]');
     
     let languagePrefix = ''; // Default to no prefix (root folder)
 
