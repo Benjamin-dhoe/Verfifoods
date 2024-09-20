@@ -14,6 +14,74 @@
     opacity: 1;
 }
 
+    #partners {
+  animation: scroll-left 20s linear infinite; /* Adjust animation duration as needed */
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.partner:first-child {
+  animation-delay: 20s; /* Half of the total animation duration */
+}
+
+.section-leveranciers {
+    text-align: center;
+    flex-flow: column;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 100px;
+    display: flex;
+}
+
+.partners-holder {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    margin-top: 40px;
+    display: flex;
+    position: relative;
+}
+
+.box-partners {
+    z-index: 3;
+    border: 1px solid var(--brown);
+    background-color: var(--background-color);
+    border-radius: 20px;
+    height: 200px;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+    display: flex;
+    position: absolute;
+    left: 15vw;
+    right: 15vw;
+    overflow: hidden;
+}
+
+.slider-partner {
+    display: flex;
+}
+
+.partner {
+    border: 1px none var(--brown);
+    opacity: .85;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    min-height: 200px;
+    padding: 20px;
+    display: flex;
+}
+
+.logo-partner {
+    object-fit: contain;
+    width: 65%;
+    height: 50%;
+}
+
 .loadingspin {
     z-index: 100;
     background-color: var(--darker-background);
