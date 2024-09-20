@@ -76,6 +76,11 @@
     display: flex;
 }
 
+.partner:hover {
+  background-color: var(--darker-background);
+  opacity: 1;
+}
+
 .logo-partner {
     object-fit: contain;
     width: 65%;
