@@ -61,12 +61,18 @@ function showPopup() {
     };
 
     const popupHTML = `
-        <div class="popupholder">
+        <div class="popupholder" style="
+                display: flex;
+                opacity:  100;
+                visibility: visible;
+            ">
             <div class="popupcontainer vis">
                 <div class="closebtn" id="closepopup">X</div>
                 <div class="leftalignflexvert">
                     <div>${popupText[language]}</div>
+                    <div class="spacer10px"></div>
                     <button class="button intypeholder notabs grey w-button" id="continueShoppingBtn">${continueShoppingText[language]}</button>
+                    <div class="spacer10px"></div>
                     <button class="button intypeholder notabs w-button" id="goToCartBtn">Go to Cart</button>
                 </div>
             </div>
