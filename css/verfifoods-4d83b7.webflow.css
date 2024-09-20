@@ -1266,7 +1266,6 @@ select {
   font-size: 12px;
   display: flex;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .qtyhandlers {
@@ -1274,6 +1273,7 @@ select {
     width: 30%;
     height: 100%;
     padding-top: 2px;
+  cursor: pointer;
 }
 
 .qtyhandlers:hover {
