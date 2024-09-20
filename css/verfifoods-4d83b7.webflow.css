@@ -15,7 +15,7 @@
 }
 
     #partners {
-  animation: scroll-left 40s linear infinite;
+  animation: scroll-left linear infinite;
 }
 
 @keyframes scroll-left {
