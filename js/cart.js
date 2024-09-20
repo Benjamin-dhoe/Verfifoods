@@ -16,13 +16,33 @@ document.querySelectorAll('.qtyhandlers').forEach(button => {
 
 // Function to handle adding to cart
 document.querySelectorAll('[data-cartbtn]').forEach(button => {
+    const productId = button.getAttribute('data-cartbtn');
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+    // Check if the product is already in the cart
+    if (cart[productId]) {
+        // Create and append the check icon
+        const checkIcon = document.createElement('img');
+        checkIcon.src = "/images/check.svg";
+        checkIcon.loading = "lazy";
+        checkIcon.classList.add("checkicon");
+        button.insertAdjacentElement('afterend', checkIcon);
+    }
+
     button.addEventListener('click', (event) => {
-        const productId = event.target.getAttribute('data-cartbtn');
         const qtyElement = event.target.closest('.holderqtyandaddbtn').querySelector('.qtyamount');
         const quantity = parseInt(qtyElement.textContent);
 
         if (quantity >= 1) {
             addToCart(productId, quantity);
+            // Add the check icon if it wasn't there before
+            if (!button.nextElementSibling?.classList.contains("checkicon")) {
+                const checkIcon = document.createElement('img');
+                checkIcon.src = "/images/check.svg";
+                checkIcon.loading = "lazy";
+                checkIcon.classList.add("checkicon");
+                button.insertAdjacentElement('afterend', checkIcon);
+            }
         }
     });
 });
@@ -145,6 +165,7 @@ function displayCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     console.log(cart);
 }
+
 
 
 
