@@ -142,14 +142,18 @@ if (userId) {
         // Remove the login link from the navigation
         navConnectLink.remove();
 
-        // Determine the language prefix based on the href found
-        const href = navConnectLink.getAttribute('href');
-        if (href.includes('/nl')) {
-            languagePrefix = '/nl';  // Dutch
-        } else if (href.includes('/en')) {
-            languagePrefix = '/en';  // English
+        const url = window.location.href.toLowerCase();
+        const langHolderElement = document.querySelector('[langholder]');
+    
+        let flagSrc = '/images/Flag-France.svg';
+        let langText = 'FR';
+    
+        if (window.location.href.toLowerCase();.includes('/nl')) {
+            languagePrefix = '/nl';
+        } else if (window.location.href.toLowerCase();.includes('/en')) {
+            languagePrefix = '/en';
         } else {
-            languagePrefix = '';  // Default to French or no language-specific prefix
+            languagePrefix = '';
         }
     }
 
