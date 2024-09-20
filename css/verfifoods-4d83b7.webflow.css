@@ -1265,11 +1265,18 @@ select {
   margin-right: 10px;
   font-size: 12px;
   display: flex;
+  overflow: hidden;
 }
 
 .qtyhandlers {
   text-align: center;
   width: 30%;
+  height: 100%;
+}
+
+.qtyhandlers:hover {
+  font-weight: 800;
+  background-color: var(--darker-background);
 }
 
 .qtyamount {
@@ -1327,6 +1334,7 @@ select {
   border-radius: 20px;
   width: 35%;
   padding: 20px;
+  background-color: var(--white);
 }
 
 .productinfo {
