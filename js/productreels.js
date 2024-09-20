@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+import { getFirestore, collection, getDocs, query, where, limit } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
@@ -14,7 +14,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to get language from URL
+let cachedProducts = {};  // Store fetched products by type
+let currentIndex = {};  // Track current index for each type
+
+// Get language from URL
 function getLanguageFromURL() {
     const url = window.location.href;
     if (url.includes('/nl')) {
@@ -26,95 +29,104 @@ function getLanguageFromURL() {
     }
 }
 
-// Fetch products from Firebase with an optional type filter
+// Fetch products once based on type, with a maximum limit of 18
 async function fetchProducts(type = null) {
     let productsQuery = collection(db, 'Producten');
 
-    // If a type is specified, filter products by type
     if (type) {
-        productsQuery = query(productsQuery, where('type', '==', type));
+        productsQuery = query(productsQuery, where('type', '==', type), limit(18)); // Filter by type with a max of 18
+    } else {
+        productsQuery = query(productsQuery, limit(18)); // Limit to 18 items
     }
 
     const productsSnapshot = await getDocs(productsQuery);
     return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-// Shuffle an array
-function shuffleArray(array) {
-    return array.sort(() => Math.random() - 0.5);
+// Function to update the products on the page
+function updateProductsOnPage(products, element, count, lang) {
+    let index = currentIndex[element.getAttribute('type')] || 0; // Get the current index for the given type or start at 0
+
+    element.style.opacity = '0';
+    setTimeout(() => {
+        element.innerHTML = '';  // Clear previous content
+
+        // Slice out the correct amount of products, wrapping around if needed
+        const selectedProducts = [];
+        for (let i = 0; i < count; i++) {
+            selectedProducts.push(products[(index + i) % products.length]);
+        }
+
+        // Update current index for next rotation
+        currentIndex[element.getAttribute('type')] = (index + count) % products.length;
+
+        // Create product elements and append them to the container
+        selectedProducts.forEach(product => {
+            const productElement = document.createElement('a');
+            productElement.className = 'holderthumbnailproduct';
+
+            let productURL;
+            if (lang === 'nl') {
+                productURL = `/nl/product/${product.id}`;
+            } else if (lang === 'en') {
+                productURL = `/en/product/${product.id}`;
+            } else {
+                productURL = `/fr/product/${product.id}`;
+            }
+
+            let productName;
+            if (lang === 'nl') {
+                productName = product.naamNL;
+            } else if (lang === 'en') {
+                productName = product.naamEN;
+            } else {
+                productName = product.naamFR;
+            }
+
+            productElement.href = productURL;
+            productElement.innerHTML = `
+                <div class="shoppingcartbtn">
+                    <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
+                </div>
+                <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
+                <div class="thumbproductoverlay showcase">
+                    <div class="mediumbold-text">${productName}</div>
+                    <div class="brown-text bold-text">${product.prijs}€</div>
+                </div>
+            `;
+            element.appendChild(productElement);
+        });
+
+        element.style.opacity = '1';
+    }, 300);  // Match this delay to your CSS transition
 }
 
-// Update products in elements
+// Initial product fetch and rotation setup
 async function updateProducts() {
     const elements = document.querySelectorAll('[showproducts]');
-    const lang = getLanguageFromURL(); // Get language from URL
-    
+    const lang = getLanguageFromURL();
+
     elements.forEach(async (element) => {
         const count = parseInt(element.getAttribute('showproducts'), 10);
-        const type = element.getAttribute('type'); // Get the 'type' attribute, if any
+        const type = element.getAttribute('type');  // Get the 'type' attribute, if any
+
+        // Check if products for the specific type are already cached
+        if (!cachedProducts[type]) {
+            cachedProducts[type] = await fetchProducts(type);  // Fetch and cache the products if not cached
+        }
+
+        const products = cachedProducts[type];
         
-        // Fetch products based on the type filter
-        const products = await fetchProducts(type);
-
-        // Clear existing content with fade-out
-        element.style.opacity = '0';
-        setTimeout(() => {
-            element.innerHTML = '';
-
-            // Shuffle products and select the desired count
-            const shuffledProducts = shuffleArray(products).slice(0, count);
-            
-            // Create product elements
-            shuffledProducts.forEach(product => {
-                const productElement = document.createElement('a');
-                productElement.className = 'holderthumbnailproduct';
-
-                // Construct the product URL with the language prefix
-                let productURL;
-                if (lang === 'nl') {
-                    productURL = `/nl/product/${product.id}`;
-                } else if (lang === 'en') {
-                    productURL = `/en/product/${product.id}`;
-                } else {
-                    productURL = `/fr/product/${product.id}`;
-                }
-
-                productElement.href = productURL;
-
-                // Choose the name field based on the detected language
-                let productName;
-                if (lang === 'nl') {
-                    productName = product.naamNL;
-                } else if (lang === 'en') {
-                    productName = product.naamEN;
-                } else {
-                    productName = product.naamFR;
-                }
-
-                // Construct the product element HTML
-                productElement.innerHTML = `
-                    <div class="shoppingcartbtn">
-                        <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
-                    </div>
-                    <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
-                    <div class="thumbproductoverlay showcase">
-                        <div class="mediumbold-text">${productName}</div>
-                        <div class="brown-text bold-text">${product.prijs}€</div>
-                    </div>
-                `;
-                
-                // Append the product directly to the showproducts element
-                element.appendChild(productElement);
-            });
-
-            // Fade in the new content
-            element.style.opacity = '1';
-        }, 300); // Match this delay to the CSS transition duration
+        // Update products in the element
+        if (products.length > 0) {
+            updateProductsOnPage(products, element, count, lang);
+        }
     });
 }
 
 // Initial update
 updateProducts();
 
-// Update every 10 seconds
+// Update products every 10 seconds, rotating through cached products
 setInterval(updateProducts, 10000);
+
