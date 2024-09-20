@@ -75,8 +75,11 @@ function updateCartButton() {
         // Create and append the cart button
         cartButton = document.createElement('div');
         cartButton.className = "shoppingcartbtn opencart";
-        cartButton.innerHTML = `<img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div>`;
+        cartButton.innerHTML = `<button class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></button>`;
         document.body.appendChild(cartButton);
+
+        // Add event listener to redirect to the cart
+        cartButton.querySelector('.cart-button').addEventListener('click', displayCart);
     } else if (cartButton) {
         // Update the item count
         cartButton.querySelector('.nritems').textContent = uniqueItemsCount;
@@ -160,6 +163,7 @@ function displayCart() {
 
 // Initial call to update the shopping cart button on page load
 updateCartButton();
+
 
 
 
