@@ -454,6 +454,7 @@ select {
   position: absolute;
   inset: -25px -25px auto auto;
   z-index: 4;
+  cursor: pointer;
 }
 
 .shoppingcartbtn.opencart {
