@@ -188,7 +188,7 @@ function adjustScrollSpeed(partnerCount) {
     const totalWidth = partnerCount * partnerWidth * 2; // Multiply by 2 to include cloned elements
 
     // Set animation duration based on total width (larger width = longer scroll time)
-    const scrollDuration = totalWidth / 50; // Adjust this factor to control speed (smaller = faster)
+    const scrollDuration = totalWidth / 200; // Adjust this factor to control speed (smaller = faster)
 
     // Apply inline style to #partners element
     const partnerReelElement = document.getElementById('partners');
