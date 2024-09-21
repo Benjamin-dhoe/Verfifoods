@@ -30,17 +30,49 @@ function getLanguageFromURL() {
 }
 
 // Fetch products once based on type, with a maximum limit of 18
-async function fetchProducts(type = null) {
+async function fetchProducts(type = null, supplier = null) {
     let productsQuery = collection(db, 'Producten');
 
-    if (type) {
+    // If supplier is set, filter by supplier (leverancier)
+    if (supplier) {
+        productsQuery = query(productsQuery, where('leverancier', '==', supplier), limit(18)); // Filter by supplier
+    } 
+    // Otherwise, if type is set, filter by type
+    else if (type) {
         productsQuery = query(productsQuery, where('type', '==', type), limit(18)); // Filter by type with a max of 18
-    } else {
+    } 
+    // If neither type nor supplier is set, fetch all products with a limit of 18
+    else {
         productsQuery = query(productsQuery, limit(18)); // Limit to 18 items
     }
 
     const productsSnapshot = await getDocs(productsQuery);
     return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Initial product fetch and rotation setup
+async function updateProducts() {
+    const elements = document.querySelectorAll('[showproducts]');
+    const lang = getLanguageFromURL();
+
+    elements.forEach(async (element) => {
+        const count = parseInt(element.getAttribute('showproducts'), 10);
+        const type = element.getAttribute('type');  // Get the 'type' attribute, if any
+        const supplier = element.getAttribute('supplier');  // Get the 'supplier' attribute, if any
+
+        // Check if products for the specific type or supplier are already cached
+        const cacheKey = supplier || type || 'all';  // Use 'supplier', 'type', or 'all' as cache key
+        if (!cachedProducts[cacheKey]) {
+            cachedProducts[cacheKey] = await fetchProducts(type, supplier);  // Fetch and cache the products
+        }
+
+        const products = cachedProducts[cacheKey];
+        
+        // Update products in the element
+        if (products.length > 0) {
+            updateProductsOnPage(products, element, count, lang);
+        }
+    });
 }
 
 // Function to update the products on the page
