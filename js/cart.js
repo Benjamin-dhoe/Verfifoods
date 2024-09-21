@@ -81,8 +81,10 @@ function updateCartButton() {
         // Add event listener to redirect to the cart
         cartButton.querySelector('.cart-button').addEventListener('click', displayCart);
     } else if (cartButton) {
-        // Update the item count
-        cartButton.querySelector('.nritems').textContent = uniqueItemsCount;
+        const nritems = cartButton.querySelector('.nritems')
+        if (nritems) {
+        nritems.textContent = uniqueItemsCount;
+        }
     }
 }
 
