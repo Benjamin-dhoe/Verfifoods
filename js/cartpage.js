@@ -120,7 +120,7 @@ function setupCartEventListeners() {
 
             // Recalculate the total price
             recalculateTotalPrice();
-        }, 300)); // Adjust the delay as needed (300 ms is a common choice)
+        }, 1000));
     });
 
     // Delete button event listener
