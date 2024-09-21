@@ -1,12 +1,11 @@
-<!DOCTYPE html><!--  This site was created in Webflow. https://webflow.com  --><!--  Last Published: Fri Sep 13 2024 08:50:43 GMT+0000 (Coordinated Universal Time)  -->
-<html data-wf-page="66dd693eef5ec13a57886fb9" data-wf-site="66d843f7aa41c71a1134cb81">
+<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
   <title>winkelmand</title>
   <meta content="winkelmand" property="og:title">
   <meta content="winkelmand" property="twitter:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/verfifoods-4d83b7.webflow.css" rel="stylesheet" type="text/css">
@@ -16,51 +15,42 @@
   <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/webclip.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
-  <style>
-  .body {
-    font-family: brandon-grotesque, sans-serif;
-  }
-</style>
 </head>
 <body class="body">
   <nav class="nav">
-    <div class="holderlogofooter nav">
-      <a href="/index.html" class="logofooter nav w-inline-block"><img src="/images/logo-Verfifoods.png" loading="lazy" alt="Logo Verfifoods"></a><img src="/images/menuIcon.svg" loading="lazy" id="openNavPhone" alt="" class="menuicon">
-    </div>
-    <div class="navlinksholder">
-      <a href="/index.html" class="navlink w-inline-block">
-        <div>Accueil</div>
-      </a>
-      <a href="/gamme.html" class="navlink w-inline-block">
-        <div>Notre gamme</div>
-      </a>
-      <div class="spaceholdercentralnav"></div>
-      <a href="/contact.html" aria-current="page" class="navlink w-inline-block w--current">
-        <div>Contact</div>
-      </a>
-      <a href="/se-connecter.html" class="navlink w-inline-block">
-        <div>Se connecter</div>
-      </a>
-    </div>
+        <div class="holderlogofooter nav">
+          <a href="/index.html" class="logofooter nav w-inline-block"><img src="/images/logo-Verfifoods.png" loading="lazy" alt="Logo Verfifoods"></a><img src="/images/menuIcon.svg" loading="lazy" id="openNavPhone" alt="" class="menuicon">
+        </div>
+        <div class="navlinksholder">
+          <a href="/index.html" class="navlink w-inline-block">
+            <div>Accueil</div>
+          </a>
+          <a href="/gamme.html" class="navlink w-inline-block">
+            <div>Notre gamme</div>
+          </a>
+          <div class="spaceholdercentralnav"></div>
+          <a href="/contact.html" aria-current="page" class="navlink w-inline-block w--current">
+            <div>Contact</div>
+          </a>
+          <a href="/se-connecter.html" class="navlink w-inline-block">
+            <div>Se connecter</div>
+          </a>
+        </div>
   </nav>
   <div class="section-product">
     <div class="containcenter">
       <div class="brownundertitle">Panier</div>
       <div class="spacer10px"></div>
+      <div id="selectedproducts"></div>
       <div class="holderdeliveryinfo winkemanditem">
-        <div class="winkelmanditem"><img src="images/27058.jpg" loading="lazy" sizes="(max-width: 479px) 41vw, (max-width: 767px) 20vw, (max-width: 991px) 19vw, 20vw" srcset="images/27058-p-500.jpg 500w, images/27058-p-800.jpg 800w, images/27058-p-1080.jpg 1080w, images/27058-p-1600.jpg 1600w, images/27058.jpg 1772w" alt="" class="productcartimage">
+        <div class="winkelmanditem">
+          <img src="${productafbeelding}" loading="lazy" class="productcartimage">
           <div class="winkelmanditeminfo">
-            <div class="bold-text">Navarra con semillas</div>
+            <div class="bold-text">${productname}</div>
             <div class="spacer10px"></div>
-            <div class="w-form">
-              <form id="email-form" name="email-form" data-name="Email Form" method="get" data-wf-page-id="66dd693eef5ec13a57886fb9" data-wf-element-id="e1a9a903-254e-25a1-eaea-f52205559057">
-                <div class="alwaysflexhorizontal"><select id="field" name="field" data-name="Field" class="select-field w-select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
-                  <div class="deletebtn w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="19.126" height="23.491" viewbox="0 0 19.126 23.491">
+                <div class="alwaysflexhorizontal">
+                  <input class="w-input" type="number" required>
+                  <div class="deletebtn w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewbox="0 0 12 14">
                       <g id="_1814090_delete_garbage_trash_icon_1_" data-name="1814090_delete_garbage_trash_icon (1)" transform="translate(-12.5 -8)">
                         <g id="Icon-Trash" transform="translate(12.5 8)">
                           <path id="Fill-6" d="M-207.5-205.1h1.471v11.77H-207.5Z" transform="translate(213.385 212.407)" fill="currentColor"></path>
@@ -71,62 +61,16 @@
                           <path id="Fill-11" d="M-203.995-192.789h-8.827a2.381,2.381,0,0,1-2.3-2.158L-216.5-212.6l1.471-.1,1.373,17.655a.889.889,0,0,0,.834.785h8.827a.852.852,0,0,0,.834-.785l1.373-17.655,1.471.1-1.373,17.655a2.342,2.342,0,0,1-2.3,2.158" transform="translate(217.971 216.28)" fill="currentColor"></path>
                         </g>
                       </g>
-                    </svg></div>
-                </div>
-              </form>
-              <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-              </div>
-              <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-              </div>
+                    </svg>
+                  </div>
             </div>
           </div>
           <div class="winkelmanditempriceholder">
-            <div class="price">120,00€</div>
+            <div class="price" id="totalprice">${productprice}€</div>
           </div>
         </div>
       </div>
-      <div class="holderdeliveryinfo winkemanditem">
-        <div class="winkelmanditem"><img src="images/27058.jpg" loading="lazy" sizes="(max-width: 479px) 41vw, (max-width: 767px) 20vw, (max-width: 991px) 19vw, 20vw" srcset="images/27058-p-500.jpg 500w, images/27058-p-800.jpg 800w, images/27058-p-1080.jpg 1080w, images/27058-p-1600.jpg 1600w, images/27058.jpg 1772w" alt="" class="productcartimage">
-          <div class="winkelmanditeminfo">
-            <div class="bold-text">Navarra con semillas</div>
-            <div class="spacer10px"></div>
-            <div class="w-form">
-              <form id="email-form" name="email-form" data-name="Email Form" method="get" data-wf-page-id="66dd693eef5ec13a57886fb9" data-wf-element-id="190ff436-ed04-0aa7-831e-48b76b8b3c71">
-                <div class="alwaysflexhorizontal"><select id="field-2" name="field-2" data-name="Field 2" class="select-field w-select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
-                  <div class="deletebtn w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="19.126" height="23.491" viewbox="0 0 19.126 23.491">
-                      <g id="_1814090_delete_garbage_trash_icon_1_" data-name="1814090_delete_garbage_trash_icon (1)" transform="translate(-12.5 -8)">
-                        <g id="Icon-Trash" transform="translate(12.5 8)">
-                          <path id="Fill-6" d="M-207.5-205.1h1.471v11.77H-207.5Z" transform="translate(213.385 212.407)" fill="currentColor"></path>
-                          <path id="Fill-7" d="M-201.5-205.1h1.471v11.77H-201.5Z" transform="translate(210.327 212.407)" fill="currentColor"></path>
-                          <path id="Fill-8" d="M-195.5-205.1h1.471v11.77H-195.5Z" transform="translate(207.27 212.407)" fill="currentColor"></path>
-                          <path id="Fill-9" d="M-219.5-214.1h19.126v1.471H-219.5Z" transform="translate(219.5 216.994)" fill="currentColor"></path>
-                          <path id="Fill-10" d="M-200.142-216.371h-1.373v-1.471a.775.775,0,0,0-.785-.785h-2.942a.775.775,0,0,0-.785.785v1.471H-207.4v-1.471A2.177,2.177,0,0,1-205.242-220h2.942a2.177,2.177,0,0,1,2.158,2.158v1.471" transform="translate(213.334 220)" fill="currentColor"></path>
-                          <path id="Fill-11" d="M-203.995-192.789h-8.827a2.381,2.381,0,0,1-2.3-2.158L-216.5-212.6l1.471-.1,1.373,17.655a.889.889,0,0,0,.834.785h8.827a.852.852,0,0,0,.834-.785l1.373-17.655,1.471.1-1.373,17.655a2.342,2.342,0,0,1-2.3,2.158" transform="translate(217.971 216.28)" fill="currentColor"></path>
-                        </g>
-                      </g>
-                    </svg></div>
-                </div>
-              </form>
-              <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-              </div>
-              <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-              </div>
-            </div>
-          </div>
-          <div class="winkelmanditempriceholder">
-            <div class="price">120,00€</div>
-          </div>
-        </div>
-      </div>
+      
       <div class="checkoutdivcart">
         <div class="flexhorizontalspaced">
           <div class="brownundertitle blue">Totale:</div>
@@ -212,6 +156,165 @@
     const urlFR = "/panier.html";
     const urlNL = "/nl/winkelmand.html";
     const urlEN = "/en/shopping-cart.html";
+  </script>
+  <script>
+  // Function to display the cart items
+async function displayCartItems() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    const selectedProductsEl = document.getElementById('selectedproducts');
+    selectedProductsEl.innerHTML = ''; // Clear previous items
+    let totalPrice = 0;
+
+    for (let productId of Object.keys(cart)) {
+        const quantity = cart[productId];
+        
+        // Retrieve product information from Firestore
+        const productInfo = await getProductFromFirestore(productId);
+        if (!productInfo) {
+            console.error(`Product with ID ${productId} not found or removed.`);
+            continue;
+        }
+
+        const productPrice = productInfo.prijs * quantity;
+        totalPrice += productPrice;
+
+        // Create the HTML structure dynamically for each product
+        const productHTML = `
+            <div class="holderdeliveryinfo winkemanditem" data-product-id="${productId}">
+                <div class="winkelmanditem">
+                    <img src="${productInfo.afbeeldingURL}" loading="lazy" class="productcartimage">
+                    <div class="winkelmanditeminfo">
+                        <div class="bold-text">${productInfo.naamNL}</div>
+                        <div class="spacer10px"></div>
+                        <div class="alwaysflexhorizontal">
+                            <input class="w-input qtyinput" type="number" value="${quantity}" min="1">
+                            <div class="deletebtn w-embed">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewbox="0 0 12 14">
+                                    <g id="_1814090_delete_garbage_trash_icon_1_" data-name="1814090_delete_garbage_trash_icon (1)" transform="translate(-12.5 -8)">
+                                        <g id="Icon-Trash" transform="translate(12.5 8)">
+                                            <path id="Fill-6" d="M-207.5-205.1h1.471v11.77H-207.5Z" transform="translate(213.385 212.407)" fill="currentColor"></path>
+                                            <path id="Fill-7" d="M-201.5-205.1h1.471v11.77H-201.5Z" transform="translate(210.327 212.407)" fill="currentColor"></path>
+                                            <path id="Fill-8" d="M-195.5-205.1h1.471v11.77H-195.5Z" transform="translate(207.27 212.407)" fill="currentColor"></path>
+                                            <path id="Fill-9" d="M-219.5-214.1h19.126v1.471H-219.5Z" transform="translate(219.5 216.994)" fill="currentColor"></path>
+                                            <path id="Fill-10" d="M-200.142-216.371h-1.373v-1.471a.775.775,0,0,0-.785-.785h-2.942a.775.775,0,0,0-.785.785v1.471H-207.4v-1.471A2.177,2.177,0,0,1-205.242-220h2.942a2.177,2.177,0,0,1,2.158,2.158v1.471" transform="translate(213.334 220)" fill="currentColor"></path>
+                                            <path id="Fill-11" d="M-203.995-192.789h-8.827a2.381,2.381,0,0,1-2.3-2.158L-216.5-212.6l1.471-.1,1.373,17.655a.889.889,0,0,0,.834.785h8.827a.852.852,0,0,0,.834-.785l1.373-17.655,1.471.1-1.373,17.655a2.342,2.342,0,0,1-2.3,2.158" transform="translate(217.971 216.28)" fill="currentColor"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="winkelmanditempriceholder">
+                        <div class="price">${productPrice.toFixed(2)}€</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
+    }
+
+    // Display the total price
+    document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
+
+    // Add event listeners for quantity changes and deleting items
+    setupCartEventListeners();
+}
+
+// Function to retrieve product details from Firestore
+async function getProductFromFirestore(productId) {
+    try {
+        const productDoc = await db.collection('Producten').doc(productId).get();
+        if (productDoc.exists) {
+            const productData = productDoc.data();
+            // Ensure product is not marked as "verwijderd"
+            if (productData.verwijderd) {
+                console.error(`Product with ID ${productId} is marked as removed.`);
+                return null;
+            }
+            return {
+                naamNL: productData.naamNL,
+                prijs: productData.prijs,
+                afbeeldingURL: productData.afbeeldingURL
+            }; // Return relevant product data
+        } else {
+            console.error(`No product found with ID: ${productId}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error fetching product with ID ${productId}:`, error);
+        return null;
+    }
+}
+
+// Function to set up event listeners for quantity changes and delete buttons
+function setupCartEventListeners() {
+    // Quantity change event listener
+    document.querySelectorAll('.qtyinput').forEach(input => {
+        input.addEventListener('input', (event) => {
+            const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
+            const newQuantity = parseInt(event.target.value);
+
+            // Update the cart in localStorage
+            updateCartQuantity(productId, newQuantity);
+            // Recalculate the total price
+            recalculateTotalPrice();
+        });
+    });
+
+    // Delete button event listener
+    document.querySelectorAll('.deletebtn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
+
+            // Remove item from cart
+            removeFromCart(productId);
+            // Recalculate the total price
+            recalculateTotalPrice();
+        });
+    });
+}
+
+// Function to update the cart quantity in localStorage
+function updateCartQuantity(productId, newQuantity) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+    if (newQuantity > 0) {
+        cart[productId] = newQuantity;
+    } else {
+        delete cart[productId]; // Remove item if quantity is zero or less
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCartItems(); // Update the UI
+}
+
+// Function to remove an item from the cart
+function removeFromCart(productId) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    delete cart[productId]; // Remove the item from the cart
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCartItems(); // Update the UI
+}
+
+// Function to recalculate the total price
+function recalculateTotalPrice() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let totalPrice = 0;
+
+    Object.keys(cart).forEach(async (productId) => {
+        const productInfo = await getProductFromFirestore(productId);
+        if (productInfo) {
+            totalPrice += productInfo.prijs * cart[productId];
+        }
+    });
+
+    document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
+}
+
+// Load the cart on page load
+displayCartItems();
+
   </script>
   <script src="js/index.js" type="text/javascript"></script>
 </body>
