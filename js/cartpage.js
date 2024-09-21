@@ -16,10 +16,25 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Function to show the loading spinner
+function showLoadingSpinner() {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    loadingSpinner.style.display = 'flex';
+}
+
+// Function to hide the loading spinner
+function hideLoadingSpinner() {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    loadingSpinner.style.display = 'none';
+}
+
 // Function to retrieve product details from Firestore
 async function getProductFromFirestore(productId) {
     try {
+        showLoadingSpinner(); // Show spinner when fetching data
         const productDoc = await getDoc(doc(db, 'Producten', productId));
+        hideLoadingSpinner(); // Hide spinner after fetching data
+        
         if (productDoc.exists()) {
             const productData = productDoc.data();
             if (productData.verwijderd) {
@@ -36,6 +51,7 @@ async function getProductFromFirestore(productId) {
             return null;
         }
     } catch (error) {
+        hideLoadingSpinner(); // Hide spinner in case of error
         console.error(`Error fetching product with ID ${productId}:`, error);
         return null;
     }
@@ -159,9 +175,11 @@ async function recalculateTotalPrice() {
     document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
 }
 
+// Document Ready
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
+
 
 
 
