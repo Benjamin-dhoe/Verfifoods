@@ -1,6 +1,7 @@
 // Import Firebase modules
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
 import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -15,6 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 // Function to show the loading spinner
 function showLoadingSpinner() {
@@ -26,6 +28,19 @@ function showLoadingSpinner() {
 function hideLoadingSpinner() {
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'none';
+}
+
+// Function to get the correct product name based on the URL
+function getProductName(productData) {
+    const urlPath = window.location.pathname;
+    
+    if (urlPath.includes('/nl/')) {
+        return productData.naamNL;
+    } else if (urlPath.includes('/en/')) {
+        return productData.naamEN; // Ensure you have naamEN in your Firestore
+    } else {
+        return productData.naamFR; // Default to naamFR
+    }
 }
 
 // Function to retrieve product details from Firestore
@@ -42,7 +57,7 @@ async function getProductFromFirestore(productId) {
                 return null;
             }
             return {
-                naamNL: productData.naamNL,
+                naam: getProductName(productData), // Use the function to get the correct name
                 prijs: productData.prijs,
                 afbeeldingURL: productData.afbeeldingURL
             };
@@ -83,7 +98,7 @@ async function displayCartItems() {
                 <div class="winkelmanditem">
                     <img src="${productInfo.afbeeldingURL}" loading="lazy" class="productcartimage">
                     <div class="winkelmanditeminfo">
-                        <div class="bold-text">${productInfo.naamNL}</div>
+                        <div class="bold-text">${productInfo.naam}</div>
                         <div class="spacer10px"></div>
                         <div class="alwaysflexhorizontal">
                             <input class="w-input qtyinput" type="number" value="${quantity}" min="1">
@@ -178,6 +193,41 @@ async function recalculateTotalPrice() {
 // Document Ready
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
+});
+
+function checkUserLogin() {
+    return new Promise((resolve) => {
+        onAuthStateChanged(auth, (user) => {
+            resolve(user !== null);
+        });
+    });
+}
+
+// Function to handle the order button click
+async function handleOrderButtonClick() {
+    const isLoggedIn = await checkUserLogin();
+    
+    if (!isLoggedIn) {
+        // Set the cookie
+        document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
+        
+        // Show the login popup
+        document.getElementById('popupgologin').style.opacity = 1;
+        document.getElementById('popupgologin').style.visibility = "visible";
+    } else {
+        // User is logged in, proceed with the order
+        console.log("User is logged in, proceed with order");
+        // Add logic to handle the order
+    }
+}
+
+// Add event listener for the order button
+document.querySelector('.willorder').addEventListener('click', handleOrderButtonClick);
+
+// Close popup functionality
+document.getElementById('closepopupgologin').addEventListener('click', () => {
+    document.getElementById('popupgologin').style.opacity = 0;
+    document.getElementById('popupgologin').style.visibility = "hidden";
 });
 
 
