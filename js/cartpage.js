@@ -4,7 +4,7 @@ import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMyJuNr4",
     authDomain: "test-9efbe.firebaseapp.com",
     projectId: "test-9efbe",
     storageBucket: "test-9efbe.appspot.com",
@@ -91,36 +91,25 @@ async function displayCartItems() {
     setupCartEventListeners();
 }
 
-// Debounce function
-function debounce(func, delay) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
-    };
-}
-
 // Function to set up event listeners for quantity changes and delete buttons
 function setupCartEventListeners() {
-    // Quantity change event listener
+    // Quantity change event listener using blur
     document.querySelectorAll('.qtyinput').forEach(input => {
-        input.addEventListener('input', debounce((event) => {
+        input.addEventListener('blur', async (event) => {
             const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
             const newQuantity = parseInt(event.target.value);
 
             if (!isNaN(newQuantity) && newQuantity > 0) {
                 // Update the cart in localStorage if valid
-                updateCartQuantity(productId, newQuantity);
-            } else if (newQuantity === 0) {
+                await updateCartQuantity(productId, newQuantity);
+            } else {
                 // Clear the input field for user to re-enter a value
                 event.target.value = ''; 
             }
 
             // Recalculate the total price
             recalculateTotalPrice();
-        }, 1000));
+        });
     });
 
     // Delete button event listener
@@ -133,7 +122,7 @@ function setupCartEventListeners() {
 }
 
 // Function to update the cart quantity in localStorage
-function updateCartQuantity(productId, newQuantity) {
+async function updateCartQuantity(productId, newQuantity) {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     
     if (newQuantity > 0) {
@@ -155,7 +144,7 @@ function removeFromCart(productId) {
 }
 
 // Function to recalculate the total price
-function recalculateTotalPrice() {
+async function recalculateTotalPrice() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     let totalPrice = 0;
 
@@ -166,13 +155,13 @@ function recalculateTotalPrice() {
         }
     });
 
-    Promise.all(pricePromises).then(() => {
-        document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
-    });
+    await Promise.all(pricePromises);
+    document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
+
 
 
