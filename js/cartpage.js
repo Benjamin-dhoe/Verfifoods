@@ -222,7 +222,7 @@ async function handleOrderButtonClick() {
 }
 
 // Add event listener for the order button
-document.querySelector('.willorder').addEventListener('click', handleOrderButtonClick);
+document.querySelector('[willorder]').addEventListener('click', handleOrderButtonClick);
 
 // Close popup functionality
 document.getElementById('closepopupgologin').addEventListener('click', () => {
