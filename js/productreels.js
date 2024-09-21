@@ -14,8 +14,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let cachedProducts = {};  // Store fetched products by type
-let currentIndex = {};  // Track current index for each type
+let cachedProducts = {};  // Store fetched products by type or supplier
+let currentIndex = {};    // Track current index for each type or supplier
 
 // Get language from URL
 function getLanguageFromURL() {
@@ -29,55 +29,31 @@ function getLanguageFromURL() {
     }
 }
 
-// Fetch products once based on type, with a maximum limit of 18
+// Fetch products once based on type or supplier, with a maximum limit of 18
 async function fetchProducts(type = null, supplier = null) {
     let productsQuery = collection(db, 'Producten');
 
     // If supplier is set, filter by supplier (leverancier)
     if (supplier) {
-        productsQuery = query(productsQuery, where('leverancier', '==', supplier), limit(18)); // Filter by supplier
-    } 
+        productsQuery = query(productsQuery, where('leverancier', '==', supplier), limit(18));
+    }
     // Otherwise, if type is set, filter by type
     else if (type) {
-        productsQuery = query(productsQuery, where('type', '==', type), limit(18)); // Filter by type with a max of 18
+        productsQuery = query(productsQuery, where('type', '==', type), limit(18));
     } 
     // If neither type nor supplier is set, fetch all products with a limit of 18
     else {
-        productsQuery = query(productsQuery, limit(18)); // Limit to 18 items
+        productsQuery = query(productsQuery, limit(18));
     }
 
     const productsSnapshot = await getDocs(productsQuery);
     return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-// Initial product fetch and rotation setup
-async function updateProducts() {
-    const elements = document.querySelectorAll('[showproducts]');
-    const lang = getLanguageFromURL();
-
-    elements.forEach(async (element) => {
-        const count = parseInt(element.getAttribute('showproducts'), 10);
-        const type = element.getAttribute('type');  // Get the 'type' attribute, if any
-        const supplier = element.getAttribute('supplier');  // Get the 'supplier' attribute, if any
-
-        // Check if products for the specific type or supplier are already cached
-        const cacheKey = supplier || type || 'all';  // Use 'supplier', 'type', or 'all' as cache key
-        if (!cachedProducts[cacheKey]) {
-            cachedProducts[cacheKey] = await fetchProducts(type, supplier);  // Fetch and cache the products
-        }
-
-        const products = cachedProducts[cacheKey];
-        
-        // Update products in the element
-        if (products.length > 0) {
-            updateProductsOnPage(products, element, count, lang);
-        }
-    });
-}
-
 // Function to update the products on the page
 function updateProductsOnPage(products, element, count, lang) {
-    let index = currentIndex[element.getAttribute('type')] || 0; // Get the current index for the given type or start at 0
+    let cacheKey = element.getAttribute('type') || element.getAttribute('supplier'); 
+    let index = currentIndex[cacheKey] || 0; // Get the current index for the given type or supplier, or start at 0
 
     element.style.opacity = '0';
     setTimeout(() => {
@@ -90,7 +66,7 @@ function updateProductsOnPage(products, element, count, lang) {
         }
 
         // Update current index for next rotation
-        currentIndex[element.getAttribute('type')] = (index + count) % products.length;
+        currentIndex[cacheKey] = (index + count) % products.length;
 
         // Create product elements and append them to the container
         selectedProducts.forEach(product => {
@@ -131,6 +107,33 @@ function updateProductsOnPage(products, element, count, lang) {
 
         element.style.opacity = '1';
     }, 300);  // Match this delay to your CSS transition
+}
+
+// Initial product fetch and rotation setup
+async function updateProducts() {
+    const elements = document.querySelectorAll('[showproducts]');
+    const lang = getLanguageFromURL();
+
+    elements.forEach(async (element) => {
+        const count = parseInt(element.getAttribute('showproducts'), 10);
+        const type = element.getAttribute('type');       // Get the 'type' attribute, if any
+        const supplier = element.getAttribute('supplier'); // Get the 'supplier' attribute, if any
+
+        // Determine cache key based on supplier or type
+        const cacheKey = supplier || type || 'all'; 
+
+        // Check if products for the specific type or supplier are already cached
+        if (!cachedProducts[cacheKey]) {
+            cachedProducts[cacheKey] = await fetchProducts(type, supplier);  // Fetch and cache the products
+        }
+
+        const products = cachedProducts[cacheKey];
+        
+        // Update products in the element
+        if (products.length > 0) {
+            updateProductsOnPage(products, element, count, lang);
+        }
+    });
 }
 
 async function updatePartnerReel() {
@@ -185,36 +188,11 @@ function adjustScrollSpeed(partnerCount) {
     const totalWidth = partnerCount * partnerWidth * 2; // Multiply by 2 to include cloned elements
 
     // Set animation duration based on total width (larger width = longer scroll time)
-    const scrollDuration = totalWidth / 100; // Adjust this factor to control speed (smaller = faster)
+    const scrollDuration = totalWidth / 50; // Adjust this factor to control speed (smaller = faster)
 
     // Apply inline style to #partners element
     const partnerReelElement = document.getElementById('partners');
     partnerReelElement.style.animationDuration = `${scrollDuration}s`;
-}
-
-
-
-// Initial product fetch and rotation setup
-async function updateProducts() {
-    const elements = document.querySelectorAll('[showproducts]');
-    const lang = getLanguageFromURL();
-
-    elements.forEach(async (element) => {
-        const count = parseInt(element.getAttribute('showproducts'), 10);
-        const type = element.getAttribute('type');  // Get the 'type' attribute, if any
-
-        // Check if products for the specific type are already cached
-        if (!cachedProducts[type]) {
-            cachedProducts[type] = await fetchProducts(type);  // Fetch and cache the products if not cached
-        }
-
-        const products = cachedProducts[type];
-        
-        // Update products in the element
-        if (products.length > 0) {
-            updateProductsOnPage(products, element, count, lang);
-        }
-    });
 }
 
 // Initial update
@@ -223,5 +201,6 @@ updatePartnerReel();  // Fetch and update partner reel on page load
 
 // Update products every 10 seconds, rotating through cached products
 setInterval(updateProducts, 10000);
+
 
 
