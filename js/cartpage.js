@@ -91,11 +91,22 @@ async function displayCartItems() {
     setupCartEventListeners();
 }
 
+// Debounce function
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
 // Function to set up event listeners for quantity changes and delete buttons
 function setupCartEventListeners() {
     // Quantity change event listener
     document.querySelectorAll('.qtyinput').forEach(input => {
-        input.addEventListener('input', (event) => {
+        input.addEventListener('input', debounce((event) => {
             const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
             const newQuantity = parseInt(event.target.value);
 
@@ -103,13 +114,13 @@ function setupCartEventListeners() {
                 // Update the cart in localStorage if valid
                 updateCartQuantity(productId, newQuantity);
             } else if (newQuantity === 0) {
-                // Optionally, do not remove the product immediately; you can add a confirmation or just ignore
-                event.target.value = ''; // Clear the input field for user to re-enter a value
+                // Clear the input field for user to re-enter a value
+                event.target.value = ''; 
             }
-            
+
             // Recalculate the total price
             recalculateTotalPrice();
-        });
+        }, 300)); // Adjust the delay as needed (300 ms is a common choice)
     });
 
     // Delete button event listener
@@ -163,4 +174,5 @@ function recalculateTotalPrice() {
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
+
 
