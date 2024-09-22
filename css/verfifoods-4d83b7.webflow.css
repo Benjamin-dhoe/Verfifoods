@@ -151,7 +151,11 @@ select {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.radio-label:hover {
+.radio-label.disabled {
+  opacity: 0.5;
+}
+
+.radio-label:not(.disabled):hover {
   background-color: #f0f0f0;
 }
 
