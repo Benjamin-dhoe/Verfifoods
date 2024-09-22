@@ -215,8 +215,8 @@ function login(event) {
   })
   .then(({ idToken, userId }) => {
     // Set the cookies
-    document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
-    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
+    document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
     // Redirect the user
     window.location.href = `/users/${userId}`;
