@@ -195,20 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
 
-function checkUserLogin() {
-    return new Promise((resolve) => {
-        onAuthStateChanged(auth, (user) => {
-            resolve(user !== null); // Resolve based on whether user is logged in
-            console.log("Auth state changed:", user);
-        });
-    });
-}
+let isUserLoggedIn = false; // Global variable to track user login state
+
+// Check user login status and set the global variable
+onAuthStateChanged(auth, (user) => {
+    isUserLoggedIn = !!user; // Set to true if user exists
+    console.log(isUserLoggedIn ? "User is logged in" : "No user is logged in");
+});
 
 // Function to handle the order button click
 async function handleOrderButtonClick() {
-    const isLoggedIn = await checkUserLogin();
-    
-    if (!isLoggedIn) {
+    if (!isUserLoggedIn) {
         // Set the cookie
         document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
         
