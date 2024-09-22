@@ -14,4 +14,6 @@
 /fournisseur/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getSupplierPage?id=:id&lang=fr  200
 /nl/leverancier/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getSupplierPage?id=:id&lang=nl  200
 /en/supplier/:id  https://europe-west1-test-9efbe.cloudfunctions.net/getSupplierPage?id=:id&lang=en  200
-
+/checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=fr  200
+/nl/checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=nl  200
+/en/checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=en  200
