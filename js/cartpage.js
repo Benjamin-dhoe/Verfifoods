@@ -1,7 +1,7 @@
 // Import Firebase modules
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
 import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -17,6 +17,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+
+// Set persistence
+setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+        console.log("Persistence set to local.");
+    })
+    .catch((error) => {
+        console.error("Persistence error:", error);
+    });
 
 // Function to show the loading spinner
 function showLoadingSpinner() {
