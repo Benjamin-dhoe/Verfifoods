@@ -76,11 +76,9 @@
       .catch(error => {
         // Handle the error if something goes wrong with the fetch request
         console.error('Error verifying payment:', error);
-        window.location.href = '/error?message=Payment verification failed'; // Redirect to error page
       });
     } else {
       // If there's no payment token in the URL, redirect to an error page
-      window.location.href = '/error?message=Missing payment token';
     }
   </script>
 </body>
