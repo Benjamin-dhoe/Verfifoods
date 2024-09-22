@@ -195,7 +195,7 @@
     measurementId: "G-2ZTZCL27TE"
   };
 
-  const app = initializeApp(firebaseConfig);
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
   // Set persistence
