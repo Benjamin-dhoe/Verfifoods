@@ -49,7 +49,7 @@
     // Check if the token exists
     if (paymentToken) {
       // Define the Cloud Function URL
-      const cloudFunctionUrl = 'https://<your-cloud-function-url>';
+      const cloudFunctionUrl = `https://europe-west1-test-9efbe.cloudfunctions.net/updatePaymentStatus?paymentToken=€{paymentToken}`;
 
       // Prepare the request body
       const requestBody = {
