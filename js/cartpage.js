@@ -30,9 +30,9 @@ function hideLoadingSpinner() {
     loadingSpinner.style.display = 'none';
 }
 
-// Function to get the correct product name based on the URL
+const urlPath = window.location.pathname;
+
 function getProductName(productData) {
-    const urlPath = window.location.pathname;
     
     if (urlPath.includes('/nl/')) {
         return productData.naamNL;
@@ -195,25 +195,21 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
 
-function checkUserLogin() {
-    return new Promise((resolve, reject) => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("User is logged in:", user);
-                resolve(user); // Resolve the promise with user details
-            } else {
-                console.log("No user is logged in.");
-                resolve(null); // Resolve with null if not logged in
-            }
-        });
-    });
-}
+function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
 
 // Function to handle the order button click
 async function handleOrderButtonClick() {
-    const user = await checkUserLogin();
-    console.log(user);
-    if (!user) {
+    const tokencookie = getCookie('token');
+    if (!token) {
         // Set the cookie
         document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
         
@@ -221,9 +217,14 @@ async function handleOrderButtonClick() {
         document.getElementById('popupgologin').style.opacity = 1;
         document.getElementById('popupgologin').style.visibility = "visible";
     } else {
-        // User is logged in, proceed with the order
         console.log("User is logged in, proceed with order");
-        // Add logic to handle the order
+        if (urlPath.includes('/nl/')) {
+            window.location.href = `/nl/checkout`;
+        } else if (urlPath.includes('/en/')) {
+            window.location.href = `/en/checkout`;
+        } else {
+            window.location.href = `/checkout`;
+        }
     }
 }
 
