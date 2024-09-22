@@ -18,25 +18,25 @@
 </head>
 <body class="body">
   <nav class="nav">
-    <div class="holderlogofooter nav">
-      <a href="/nl/index.html" aria-current="page" class="logofooter nav w-inline-block w--current"><img src="/images/logo-Verfifoods.png" loading="lazy" alt="Verfifoods logo"></a><img src="/images/menuIcon.svg" loading="lazy" id="openNavPhone" alt="" class="menuicon">
-    </div>
-    <div class="navlinksholder">
-      <a href="/nl/index.html" class="navlink w-inline-block">
-        <div>Home</div>
-      </a>
-      <a href="/nl/aanbod.html" class="navlink w-inline-block">
-        <div>Aanbod</div>
-      </a>
-      <div class="spaceholdercentralnav"></div>
-      <a href="/nl/contact.html" class="navlink w-inline-block">
-        <div>Contact</div>
-      </a>
-      <a href="/nl/login.html" class="navlink w-inline-block">
-        <div>Login</div>
-      </a>
-    </div>
-  </nav>
+        <div class="holderlogofooter nav">
+          <a href="/nl/index.html" aria-current="page" class="logofooter nav w-inline-block w--current"><img src="/images/logo-Verfifoods.png" loading="lazy" alt="Verfifoods logo"></a><img src="/images/menuIcon.svg" loading="lazy" id="openNavPhone" alt="" class="menuicon">
+        </div>
+        <div class="navlinksholder">
+          <a href="/nl/index.html" class="navlink w-inline-block">
+            <div>Home</div>
+          </a>
+          <a href="/nl/aanbod.html" class="navlink w-inline-block">
+            <div>Aanbod</div>
+          </a>
+          <div class="spaceholdercentralnav"></div>
+          <a href="/nl/contact.html" class="navlink w-inline-block">
+            <div>Contact</div>
+          </a>
+          <a href="/nl/login.html" class="navlink w-inline-block">
+            <div>Login</div>
+          </a>
+        </div>
+      </nav>
   <section id="formSection" class="section-doublepart firstsection">
     <div class="containcenter doubleparts">
       <div class="doublepartsside centered">
@@ -44,27 +44,38 @@
         <div class="small-text">Scroll naar beneden om de voordelen te ontdekken</div>
       </div>
       <div class="doublepartsside right centered">
-        <div class="w-form">
-          <form id="email-form" name="email-form" data-name="Email Form" method="get" class="leftalignflexvert" data-wf-page-id="66e02cc76427bae71aaa7606" data-wf-element-id="2872464f-7ba1-bf45-5809-341728b8ace9"><label for="Email" class="brownundertitle">Emailadres</label><input class="text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="" type="email" id="Email"><label for="Paswoord" class="brownundertitle">Wachtwoord</label><input class="w-input" maxlength="256" name="Paswoord" data-name="Paswoord" placeholder="" type="password" id="Paswoord" required=""><input type="submit" data-wait="Please wait." class="button intypeholder notabs w-button" value="Maak account aan"></form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
+        <div class="leftalignflexvert">
+          <label for="Email" class="brownundertitle">Email adres</label>
+          <input class="text-field w-input" maxlength="256" name="Email" placeholder="" type="email" id="Email">
+          <label for="Paswoord" class="brownundertitle">Wachtwoord</label>
+          <input class="w-input" maxlength="256" name="Paswoord" placeholder="" type="password" id="Paswoord">
+          <button class="button intypeholder notabs w-button" id="signupbtn">Klant worden</button>
+          <div class="loading" id="loadingsignup">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
+          <div id="error-message-signup" class="w-form-fail"></div>
+          
+          <div class="holderoflines">
+            <div class="line"></div>
+            <div>Of</div>
+            <div class="line"></div>
           </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+          
+          <a href="#" id="googleSignUp" class="mapslink google w-inline-block">
+            <img src="/images/2993685_brand_brands_google_logo_logos_icon.png" loading="lazy" width="22" alt="Sign up avec Google chez Verfifoods" class="socialmediaicon">
+            <div>Sign up met Google</div>
+          </a>
         </div>
-        <div class="holderoflines">
-          <div class="line"></div>
-          <div>Of</div>
-          <div class="line"></div>
-        </div>
-        <a href="#" class="mapslink google w-inline-block"><img src="/images/2993685_brand_brands_google_logo_logos_icon.png" loading="lazy" width="22" alt="" class="socialmediaicon">
-          <div>Sign up met Google</div>
-        </a>
       </div>
     </div>
-  </section>
-  <section class="section-doublepart">
+</section>
+ <section class="section-doublepart">
     <div class="containcenter doubleparts">
       <div class="doublepartsside left">
         <div>
@@ -168,5 +179,119 @@
     const urlEN = "/en/sign-up-at-verfifoods.html";
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, GoogleAuthProvider, signInWithPopup, getIdToken } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
+  authDomain: "test-9efbe.firebaseapp.com",
+  projectId: "test-9efbe",
+  storageBucket: "test-9efbe.appspot.com",
+  messagingSenderId: "218327249026",
+  appId: "1:218327249026:web:0d48fa588ac45ef557049b",
+  measurementId: "G-2ZTZCL27TE"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+function signUpWithEmail(event) {
+  event.preventDefault();
+
+  document.getElementById('loadingsignup').style.display = "block";
+  document.getElementById('signupbtn').style.display = "none";
+  const email = document.getElementById('Email').value;
+  const password = document.getElementById('Paswoord').value;
+  const errorMessageEl = document.getElementById('error-message-signup');
+
+  errorMessageEl.textContent = "";
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+
+      // Set cookies with userId
+      document.cookie = `userId=${user.uid}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+
+      // Get ID token and set cookie
+      user.getIdToken().then((idToken) => {
+        document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+
+        sendEmailVerification(user)
+          .then(() => {
+            window.location.href = "/ms/verify-email?lang=fr&action=setup";
+          })
+          .catch((error) => {
+            console.error("Error sending email verification:", error);
+            errorMessageEl.style.display = "block";
+            errorMessageEl.textContent = "Fout bij verzenden verificatie mail: " + error.message;
+            document.getElementById('loadingsignup').style.display = "none";
+            document.getElementById('signupbtn').style.display = "block";
+          });
+      }).catch((error) => {
+        console.error("Error getting ID token:", error);
+      });
+
+    })
+    .catch((error) => {
+      console.error("Error signing up:", error);
+      document.getElementById('loadingsignup').style.display = "none";
+      document.getElementById('signupbtn').style.display = "block";
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessageEl.textContent = "Email is reeds in gebruik.";
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessageEl.textContent = "Ongeldig email adres.";
+      } else if (error.code === 'auth/weak-password') {
+        errorMessageEl.textContent = "Wachtwoord te zwak, kies een sterker wachtwoord.";
+      } else {
+        errorMessageEl.textContent = "Fout bij inschrijven: " + error.message;
+      }
+      errorMessageEl.style.display = "block";
+      setTimeout(() => {
+        errorMessageEl.style.display = "none";
+      }, 5000);
+    });
+}
+
+document.getElementById('signupbtn').addEventListener('click', signUpWithEmail);
+
+function signUpWithGoogle(event) {
+  event.preventDefault();
+
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+
+      // Set cookies with userId
+      document.cookie = `userId=${user.uid}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+
+      // Get ID token and set cookie
+      user.getIdToken().then((idToken) => {
+        document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+
+        if (!user.emailVerified) {
+          sendEmailVerification(user).then(() => {
+            window.location.href = "/ms/verify-email?lang=fr&action=setup";
+          });
+        } else {
+          window.location.href = `/users/${user.uid}`;
+        }
+      }).catch((error) => {
+        console.error("Error getting ID token:", error);
+      });
+    })
+    .catch((error) => {
+      console.error("Google sign-up error:", error);
+      const errorMessageEl = document.getElementById('error-message-signup');
+      errorMessageEl.textContent = "Erreur de connexion Google: " + error.message;
+    });
+}
+
+document.getElementById('googleSignUp').addEventListener('click', signUpWithGoogle);
+
+</script>
 </body>
 </html>
