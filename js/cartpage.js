@@ -209,7 +209,7 @@ function getCookie(name) {
 // Function to handle the order button click
 async function handleOrderButtonClick() {
     const tokencookie = getCookie('token');
-    if (!token) {
+    if (!tokencookie) {
         // Set the cookie
         document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
         
