@@ -17,8 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-const user = auth.currentUser;
-console.log(user);
 
 // Function to show the loading spinner
 function showLoadingSpinner() {
@@ -207,6 +205,8 @@ onAuthStateChanged(auth, (user) => {
 
 // Function to handle the order button click
 async function handleOrderButtonClick() {
+    const user = auth.currentUser;
+    console.log(user);
     if (!isUserLoggedIn) {
         // Set the cookie
         document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
