@@ -183,7 +183,7 @@
   <script src="/js/index.js" type="text/javascript"></script>
   <script type="module">
   import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence  } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
@@ -197,15 +197,6 @@
 
   const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const auth = getAuth(app);
-
-  // Set persistence
-setPersistence(auth, browserLocalPersistence)
-    .then(() => {
-        console.log("Persistence set to local.");
-    })
-    .catch((error) => {
-        console.error("Persistence error:", error);
-    });
 
 function login(event) {
   event.preventDefault();
@@ -224,8 +215,8 @@ function login(event) {
   })
   .then(({ idToken, userId }) => {
     // Set the cookies
-    document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
-    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
+    document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
+    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
 
     // Redirect the user
     window.location.href = `/users/${userId}`;
@@ -285,8 +276,8 @@ function login(event) {
       return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
     })
     .then(({ idToken, userId }) => {
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
-      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict`;
+      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
       window.location.href = `/users/${userId}`;
     })
