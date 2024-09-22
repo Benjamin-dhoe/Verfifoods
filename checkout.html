@@ -24,6 +24,7 @@
         <div class="spacer10px"></div>
         <div class="spacer10px"></div>
         <form id="checkoutForm">
+          <label class="brownundertitle">Comande personelle / entreprise</label>
           <div class="radio-container">
             <label class="radio-label">
               <input type="radio" name="type" value="personal" class="radio-input" required>
@@ -34,6 +35,8 @@
               Commande d'entreprise
             </label>
           </div>
+          <div class="spacer10px"></div>
+          <label class="brownundertitle">Livraison / retrait</label>
           <div class="radio-container">
             <label class="radio-label">
               <input type="radio" name="delivery" value="delivery" class="radio-input" required>
@@ -54,7 +57,6 @@
             <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
             <label class="brownundertitle">Nom</label>
             <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
-          </div>
           </div>
           <div id="businessdiv" style="display: none;">
             <label class="brownundertitle">Nom de l'entreprise</label>
