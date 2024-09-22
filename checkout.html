@@ -180,6 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   personalRadio.addEventListener('change', toggleAccountDivs);
   businessRadio.addEventListener('change', toggleAccountDivs);
+  deliveryRadio.addEventListener('change', toggleDeliveryDivs);
+  pickupRadio.addEventListener('change', toggleDeliveryDivs);
   sameDeliveryCheckbox.addEventListener('change', toggleDeliveryAddressDiv);
 
   factuurStreet.addEventListener('input', updateDeliveryAddress);
