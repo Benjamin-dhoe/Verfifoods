@@ -197,9 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkUserLogin() {
     return new Promise((resolve) => {
-        const user = auth.currentUser; // Get the currently signed-in user
-        resolve(user !== null); // Resolve the promise with the login status
-        console.log("Current user:", user);
+        onAuthStateChanged(auth, (user) => {
+            resolve(user !== null); // Resolve based on whether user is logged in
+            console.log("Auth state changed:", user);
+        });
     });
 }
 
