@@ -118,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const deliveryAddressDiv = document.getElementById('deliveryadress');
   const onlyDeliveryDiv = document.getElementById('onlydelivery');
 
-  const companyStreet = document.getElementById('streetnrcompany');
-  const companyPostcode = document.getElementById('postcodecompany');
-  const companyPlace = document.getElementById('placecompany');
+  const factuurStreet = document.getElementById('streetnrfact');
+  const factuurPostcode = document.getElementById('postcodefact');
+  const factuurPlace = document.getElementById('placefact');
 
   const deliveryStreet = document.getElementById('deliverystreetnr');
   const deliveryPostcode = document.getElementById('deliverypostcode');
@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateDeliveryAddress() {
     if (sameDeliveryCheckbox.checked) {
-      deliveryStreet.value = companyStreet.value;
-      deliveryPostcode.value = companyPostcode.value;
-      deliveryPlace.value = companyPlace.value;
+      deliveryStreet.value = factuurStreet.value;
+      deliveryPostcode.value = factuurPostcode.value;
+      deliveryPlace.value = factuurPlace.value;
     }
   }
 
@@ -182,9 +182,9 @@ document.addEventListener('DOMContentLoaded', function () {
   businessRadio.addEventListener('change', toggleAccountDivs);
   sameDeliveryCheckbox.addEventListener('change', toggleDeliveryAddressDiv);
 
-  companyStreet.addEventListener('input', updateDeliveryAddress);
-  companyPostcode.addEventListener('input', updateDeliveryAddress);
-  companyPlace.addEventListener('input', updateDeliveryAddress);
+  factuurStreet.addEventListener('input', updateDeliveryAddress);
+  factuurPostcode.addEventListener('input', updateDeliveryAddress);
+  factuurPlace.addEventListener('input', updateDeliveryAddress);
 
   toggleAccountDivs();
   toggleDeliveryAddressDiv();
@@ -211,9 +211,9 @@ document.getElementById('checkoutForm').addEventListener('submit', async (event)
     telephone: document.getElementById('telephone')?.value || '',
     companyname: document.getElementById('companyname')?.value || '',
     btwnr: document.getElementById('btwnr')?.value || '',
-    streetnrcompany: document.getElementById('streetnrcompany')?.value || '',
-    postcodecompany: document.getElementById('postcodecompany')?.value || '',
-    placecompany: document.getElementById('placecompany')?.value || '',
+    streetnrfact: document.getElementById('streetnrfact')?.value || '',
+    postcodefact: document.getElementById('postcodefact')?.value || '',
+    placefact: document.getElementById('placefact')?.value || '',
     samedeliveryadress: document.getElementById('samedeliveryadress')?.checked || false,
     deliverystreetnr: document.getElementById('deliverystreetnr')?.value || '',
     deliverypostcode: document.getElementById('deliverypostcode')?.value || '',
