@@ -17,3 +17,6 @@
 /checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=fr  200
 /nl/checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=nl  200
 /en/checkout  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=en  200
+/checkout.html  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=fr  200
+/nl/checkout.html  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=nl  200
+/en/checkout.html  https://us-central1-test-9efbe.cloudfunctions.net/renderCheckoutPage?lang=en  200
