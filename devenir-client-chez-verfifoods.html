@@ -268,11 +268,11 @@ function signUpWithGoogle(event) {
       const user = result.user;
 
       // Set cookies with userId
-      document.cookie = `userId=${user.uid}; path=/; Secure; SameSite=Strict`;
+      document.cookie = `userId=${user.uid}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
       // Get ID token and set cookie
       user.getIdToken().then((idToken) => {
-        document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict`;
+        document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
         if (!user.emailVerified) {
           sendEmailVerification(user).then(() => {
