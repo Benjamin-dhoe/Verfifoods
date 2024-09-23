@@ -26,11 +26,11 @@
                <div class="radio-container">
                  <label class="radio-label">
                    <input type="radio" name="type" value="personal" class="radio-input" required>
-                   B2B-klant
+                   B2C-klant
                  </label>
                  <label class="radio-label">
                    <input type="radio" name="type" value="business" class="radio-input" required>
-                   B2C-klant
+                   B2B-klant
                  </label>
                </div>
                <div class="spacer10px"></div>
@@ -58,7 +58,7 @@
                  <input class="text-field w-input" maxlength="256" type="text" id="streetnrfact" name="streetnrfact" required>
                  <label class="brownundertitle">Postcode</label>
                  <input class="text-field w-input" maxlength="256" type="text" id="postcodefact" name="postcodefact" required>
-                 <label class="brownundertitle">¨Plaats</label>
+                 <label class="brownundertitle">Plaats</label>
                  <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" required>
                  <div class="spacer10px"></div>
                  <label class="brownundertitle bold-text">Leveringsadres</label>
@@ -312,8 +312,9 @@
     const deliverypostcode = document.getElementById('deliverypostcode')?.value || '';
     const deliveryplace = document.getElementById('deliveryplace')?.value || '';
 
+    const klantAddLoading = document.getElementById('loadingaddklant');
     progressText.style.display = 'block';
-    productAddLoading.style.display = 'block';
+    klantAddLoading.style.display = 'block';
     progressText.innerHTML = '0%';
 
     try {
