@@ -35,15 +35,29 @@ async function fetchProducts(type = null, supplier = null) {
 
     // If supplier is set, filter by supplier (leverancier)
     if (supplier) {
-        productsQuery = query(productsQuery, where('leverancier', '==', supplier), limit(18));
+    productsQuery = query(
+        productsQuery,
+        where('leverancier', '==', supplier),
+        where('verwijderd', '==', false),
+        limit(18)
+    );
     }
     // Otherwise, if type is set, filter by type
     else if (type) {
-        productsQuery = query(productsQuery, where('type', '==', type), limit(18));
+        productsQuery = query(
+            productsQuery,
+            where('type', '==', type),
+            where('verwijderd', '==', false),
+            limit(18)
+        );
     } 
     // If neither type nor supplier is set, fetch all products with a limit of 18
     else {
-        productsQuery = query(productsQuery, limit(18));
+        productsQuery = query(
+            productsQuery,
+            where('verwijderd', '==', false),
+            limit(18)
+        );
     }
 
     const productsSnapshot = await getDocs(productsQuery);
