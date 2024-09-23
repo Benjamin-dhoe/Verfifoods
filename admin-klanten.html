@@ -408,8 +408,8 @@ async function displayKlanten() {
                 });
         
                 // Prevent row click when clicking the delete icon
-                // const deleteCell = document.createElement('td');
-                // deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete" onClick="event.stopPropagation(); confirmDeleteProduct('${doc.id}', '${productName}')">`;
+                const deleteCell = document.createElement('td');
+                deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete">`;
         
                 // Add table row content (except for delete button)
                 tableRow.innerHTML = `
@@ -596,7 +596,7 @@ window.updateProduct = async function updateProduct() {
     return allFilled;
   }
 
-  document.getElementById('addproductinlist').addEventListener("click", function() {
+  document.getElementById('addklant').addEventListener("click", function() {
     const popupAddProduct = document.getElementById("popupaddproduct");
     popupAddProduct.style.opacity = 1;
     popupAddProduct.style.visibility = "visible";
