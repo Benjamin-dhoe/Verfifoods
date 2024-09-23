@@ -303,6 +303,24 @@ select {
     color: #050527;
 }
 
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+td {
+  position: relative; /* This is necessary for tooltip positioning */
+}
+
+td:hover .tooltip {
+  display: block; /* Show tooltip on hover */
+}
+
 .loading {
   width: 80px;
   display: none;
