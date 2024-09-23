@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 signOut(auth).then(() => {
                     console.log('User signed out.');
                     deleteCookie('token');
-                    deleteCookie('userid');
+                    deleteCookie('userId');
                     // Redirect to login page
                     window.location.href = '/index';
                 }).catch((error) => {
