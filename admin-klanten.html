@@ -399,7 +399,7 @@ async function displayKlanten() {
                 const klantVoornaam = data.firstname;
                 const klantNaam = data.name;
         
-                fragment.appendChild(productDiv);
+                fragment.appendChild(klantDiv);
         
                 // Create table row for the product (UPDATED)
                 const tableRow = document.createElement('tr');
@@ -597,14 +597,6 @@ window.updateProduct = async function updateProduct() {
 
     return allFilled;
   }
-
-  // Event listeners for navigation and showing/hiding parts of the form
-  document.getElementById("addproductbtn").addEventListener("click", function() {
-    const popupAddProduct = document.getElementById("popupaddproduct");
-    popupAddProduct.style.opacity = 1;
-    popupAddProduct.style.visibility = "visible";
-    showPart(1); // Show the first part
-  });
 
   document.getElementById('addproductinlist').addEventListener("click", function() {
     const popupAddProduct = document.getElementById("popupaddproduct");
