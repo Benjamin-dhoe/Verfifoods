@@ -18,6 +18,93 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="body">
+<div id="popupaddklant" class="popupholder">
+    <div class="popupcontainer vis">
+        <div class="closebtn" id="closepopupaddproduct">X</div>
+          <div class="leftalignflexvert overflow">
+            <div id="accountSetupForm">
+               <div class="radio-container">
+                 <label class="radio-label">
+                   <input type="radio" name="type" value="personal" class="radio-input" required>
+                   B2B-klant
+                 </label>
+                 <label class="radio-label">
+                   <input type="radio" name="type" value="business" class="radio-input" required>
+                   B2C-klant
+                 </label>
+               </div>
+               <div class="spacer10px"></div>
+                <label class="brownundertitle">Email</label>
+               <input class="text-field w-input" maxlength="256" type="text" id="email" name="email" required>
+               <label class="brownundertitle">Telefoon</label>
+               <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" required>
+               <div id="personaldiv" style="display: none;">
+                 <label class="brownundertitle">Voornaam</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
+                 <label class="brownundertitle">Naam</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
+               </div>
+               <div id="businessdiv" style="display: none;">
+                 <label class="brownundertitle">Bedrijfsnaam</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="companyname" name="companyname" required>
+                 <label class="brownundertitle">BTW nummer</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="btwnr" name="btwnr" required>
+                 
+               </div>
+               <div>
+                 <div class="spacer10px"></div>
+                 <label class="brownundertitle bold-text">Factuuradres</label>
+                 <label class="brownundertitle">Straat en huisnummer</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="streetnrfact" name="streetnrfact" required>
+                 <label class="brownundertitle">Postcode</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="postcodefact" name="postcodefact" required>
+                 <label class="brownundertitle">¨Plaats</label>
+                 <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" required>
+                 <div class="spacer10px"></div>
+                 <label class="brownundertitle bold-text">Leveringsadres</label>
+                 <label>
+                   <input type="checkbox" id="samedeliveryadress" name="samedeliveryadress">
+                   <span></span>
+                   Identiek aan factuuradres
+                 </label>
+                 <div class="spacer10px"></div>
+               </div>  
+               
+               <div id="deliveryadress">
+                   <label class="brownundertitle">Straat en huisnummer</label>
+                   <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
+                   <label class="brownundertitle">Postcode</label>
+                   <input class="text-field w-input" maxlength="256" type="text" id="deliverypostcode" name="deliverypostcode" required>
+                   <label class="brownundertitle">Plaats</label>
+                   <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
+                 </div>
+               <div class="spacer10px"></div>
+               <div class="loading" id="loadingaddklant" style="display: none;">
+                   <lottie-player
+                       src="/images/loading.json"
+                       background="transparent"
+                       speed="1"
+                       loop
+                       autoplay>
+                   </lottie-player>
+               </div>
+               <button type="submit" class="button intypeholder notabs w-button" onClick="addKlant()>Klant toevoegen</button>
+            </div>
+            <label class="brownundertitle">Prijs</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="prijsnew" required="">
+            <button class="button intypeholder notabs w-button" onclick="addKlant()">Product toevoegen</button>
+            <div class="loading" id="klantaddloading">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
+            <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
+          </div>
+    </div>
+  </div>
   <div id="popupeditproduct" class="popupholder">
     <div class="popupcontainer vis">
         <div class="closebtn" id="closepopupeditproduct">X</div>
@@ -115,77 +202,7 @@
         <div id="confirmDeleteBox"></div>
     </div>
 </div>
-  <div id="popupaddproduct" class="popupholder">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupaddproduct">X</div>
-          <div class="leftalignflexvert overflow" addparts="1"><label class="brownundertitle">naam PRODUCT (NL)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewNL"><label class="brownundertitle">Beschrijving (NL)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewNL" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-              <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
-            </div>
-          </div>
-          <div class="leftalignflexvert inv overflow" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-              <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
-              <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
-            </div>
-          </div>
-          <div class="leftalignflexvert inv overflow" addparts="3"><label class="brownundertitle">naam PRODUCT (EN)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewEN"><label class="brownundertitle">Beschrijving (EN)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewEN" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-              <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
-              <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
-            </div>
-          </div>
-          <div class="leftalignflexvert inv overflow" addparts="4">
-            <label class="brownundertitle">Type</label>
-            <select class="text-field w-input" id="typenew" required>
-              <option value="" disabled selected>Selecteer type</option>
-              <option value="Brood">Brood</option>
-              <option value="Viennoiserie">Viennoiserie</option>
-              <option value="Stokbrood">Stokbrood</option>
-              <option value="Gebak">Gebak</option>
-              <option value="Ijsjes">Ijsjes</option>
-              <option value="Smoothies">Smoothies</option>
-            </select>
-            <label class="brownundertitle">Levernacier</label>
-            <select class="text-field w-input" id="leveranciernew" required>
-              <option value="" disabled selected>Selecteer leverancier</option>
-            </select>
-            <label class="brownundertitle">Afbeelding</label>
-            <input type="file" id="fileInput" style="
-              width: 90%;
-              padding-bottom: 20px;
-            ">
-            <label class="brownundertitle">Prijs</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="prijsnew" required="">
-            <label for="Aantal" class="brownundertitle">Aantal stuks per doos</label><input class="text-field w-input" maxlength="256" placeholder="" type="number" id="aantalnew" required=""><label class="brownundertitle">Specificaties</label>
-            <div class="alwaysflexhorizontal">
-              <div class="iconspecs"><img src="/images/weight-kg.svg" loading="lazy" alt=""></div><input class="noclass w-input" maxlength="256" placeholder="in gram" type="number" id="gewichtnew" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-              <div class="iconspecs"><img src="/images/time.svg" loading="lazy" alt=""></div><input class="noclass w-input" maxlength="256" name="tijd" data-name="tijd" placeholder="in minuten" type="number" id="tijdnew" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-              <div class="iconspecs"><img src="/images/temperature.svg" loading="lazy" width="18" alt=""></div><input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="temperatuurnew" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-              <div class="iconspecs"><img src="/images/753124_microwave_oven_cook_cooking_kitchen_icon.svg" loading="lazy" alt=""></div><input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="oventemperatuurnew" required>
-            </div>
-            <div class="alwaysflexhorizontal nextprev">
-              <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
-              <button class="button intypeholder notabs w-button" onclick="addProduct()">Product toevoegen</button>
-            </div>
-            <div class="loading" id="productaddloading">
-              <lottie-player
-                src="/images/loading.json"
-                background="transparent"
-                speed="1"
-                loop
-                autoplay>
-              </lottie-player>
-            </div>
-            <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
-          </div>
-    </div>
-  </div>
+  
   <div class="_100-widthcenter">
     <div class="containcenter dashboard">
       <div class="holdertopdashboard">
@@ -203,11 +220,11 @@
           </a>
           <a href="/admin/klanten" class="mapslink _10down">
             <div class="typefoodicon dash"><img src="/images/usericon.svg" loading="lazy" alt=""></div>
-            <div class="brownundertitle blue">Klanten</div>
+            <div class="brownundertitle bold-text">Klanten</div>
           </a>
           <a href="/admin/producten" class="mapslink _10down">
             <div class="typefoodicon dash"><img src="/images/producticon.svg" loading="lazy" alt=""></div>
-            <div class="brownundertitle bold-text">Producten</div>
+            <div class="brownundertitle blue">Producten</div>
           </a>
           <a href="/admin/leveranciers" class="mapslink _10down">
             <div class="typefoodicon dash"><img src="/images/breadicon.svg" loading="lazy" alt=""></div>
@@ -217,8 +234,8 @@
         <div class="holderappdashboard">
           <div class="holderapptop">
             <div class="mapslink _10down">
-              <div class="typefoodicon dash"><img src="/images/producticon.svg" loading="lazy" alt=""></div>
-              <div class="brownundertitle bold-text">Producten</div>
+              <div class="typefoodicon dash"><img src="/images/usericon.svg" loading="lazy" alt=""></div>
+              <div class="brownundertitle bold-text">Klanten</div>
             </div>
             <div class="menuicondash" opensidemenu>
               <img src="/images/listicon.svg" loading="lazy" alt="">
@@ -226,7 +243,7 @@
           </div>
           <div class="holderappresults">
             <div class="100widthcenter">
-              <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>  
+              <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>
             </div>
             <div class="table-container" id="klantenTable">
                 <table class="styled-table">
@@ -236,7 +253,7 @@
                             <th>Type</th>
                             <th>Email</th>
                             <th>Telefoon</th>
-                            <th>X</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -291,97 +308,94 @@
 
   // Function to add product to Firestore and Storage
   window.addKlant = async function addKlant() {
-    const naamNL = document.getElementById('naamnewNL').value;
-    const beschrijvingNL = document.getElementById('beschrijvingnewNL').value;
-    const naamFR = document.getElementById('naamnewFR').value;
-    const beschrijvingFR = document.getElementById('beschrijvingnewFR').value;
-    const naamEN = document.getElementById('naamnewEN').value;
-    const beschrijvingEN = document.getElementById('beschrijvingnewEN').value;
-    const prijs = document.getElementById('prijsnew').value;
-    const aantal = document.getElementById('aantalnew').value;
-    const gewicht = document.getElementById('gewichtnew').value;
-    const tijd = document.getElementById('tijdnew').value;
-    const temperatuur = document.getElementById('temperatuurnew').value;
-    const ovenTemp = document.getElementById('oventemperatuurnew').value;
-    const fileInput = document.getElementById('fileInput');
-    const type = document.getElementById('typenew').value;
-    const leverancier = document.getElementById('leveranciernew').value;
-    const progressText = document.getElementById('progressText');
-    const productAddLoading = document.getElementById('productaddloading');
+    const type = document.querySelector('input[name="type"]:checked')?.value;
+    const email = document.getElementById('email')?.value || '';
+    const firstname = document.getElementById('firstname')?.value || '';
+    const name = document.getElementById('name')?.value || '';
+    const telephone = document.getElementById('telephone')?.value || '';
+    const companyname = document.getElementById('companyname')?.value || '';
+    const btwnr = document.getElementById('btwnr')?.value || '';
+    const streetnrfact = document.getElementById('streetnrfact')?.value || '';
+    const postcodefact = document.getElementById('postcodefact')?.value || '';
+    const placefact = document.getElementById('placefact')?.value || '';
+    const samedeliveryadress = document.getElementById('samedeliveryadress')?.checked || false;
+    const deliverystreetnr = document.getElementById('deliverystreetnr')?.value || '';
+    const deliverypostcode = document.getElementById('deliverypostcode')?.value || '';
+    const deliveryplace = document.getElementById('deliveryplace')?.value || '';
 
     progressText.style.display = 'block';
     productAddLoading.style.display = 'block';
     progressText.innerHTML = '0%';
 
     try {
-      uploadTask.on('state_changed',
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          progressText.innerHTML = 'Opladen: ' + Math.round(progress) + '%';
-        },
-        (error) => {
-          console.error('Upload failed', error);
-          alert('Upload failed: ' + error.message);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log('File available at', downloadURL);
+  // Wrap the async function and execute it immediately
+  (async () => {
+    const type = document.querySelector('input[name="type"]:checked')?.value || '';
+    const email = document.getElementById('email')?.value.toLowerCase() || ''; // Ensure email is lowercase and used as the doc ID
+    const firstname = document.getElementById('firstname')?.value || '';
+    const name = document.getElementById('name')?.value || '';
+    const telephone = document.getElementById('telephone')?.value || '';
+    const companyname = document.getElementById('companyname')?.value || '';
+    const btwnr = document.getElementById('btwnr')?.value || '';
+    const streetnrfact = document.getElementById('streetnrfact')?.value || '';
+    const postcodefact = document.getElementById('postcodefact')?.value || '';
+    const placefact = document.getElementById('placefact')?.value || '';
+    const samedeliveryadress = document.getElementById('samedeliveryadress')?.checked || false;
+    const deliverystreetnr = document.getElementById('deliverystreetnr')?.value || '';
+    const deliverypostcode = document.getElementById('deliverypostcode')?.value || '';
+    const deliveryplace = document.getElementById('deliveryplace')?.value || '';
 
-          await addDoc(collection(db, "Producten"), {
-            naamNL,
-            beschrijvingNL,
-            naamFR,
-            beschrijvingFR,
-            naamEN,
-            beschrijvingEN,
-            prijs,
-            aantal,
-            gewicht,
-            tijd,
-            temperatuur,
-            ovenTemp,
-            type,
-            leverancier,
-            afbeeldingURL: downloadURL, // Store image URL in Firestore
-            verwijderd: false // Add a flag for deletion status
-          });
+    // Add document to Firestore with email as the document ID
+    await setDoc(doc(db, "Users", email), {
+      type,
+      firstname,
+      name,
+      telephone,
+      companyname,
+      btwnr,
+      streetnrfact,
+      postcodefact,
+      placefact,
+      samedeliveryadress,
+      deliverystreetnr,
+      deliverypostcode,
+      deliveryplace,
+      verwijderd: false
+    });
 
-          progressText.innerHTML = 'Product toegevoegd';
-          productAddLoading.style.display = 'none';
-          document.getElementById('popupaddproduct').style.opacity = 0;
-          document.getElementById('popupaddproduct').style.visibility = 'hidden';
-          
-          // Optionally, clear form fields
-          document.getElementById('naamnewNL').value = '';
-          document.getElementById('beschrijvingnewNL').value = '';
-          document.getElementById('naamnewFR').value = '';
-          document.getElementById('beschrijvingnewFR').value = '';
-          document.getElementById('naamnewEN').value = '';
-          document.getElementById('beschrijvingnewEN').value = '';
-          document.getElementById('prijsnew').value = '';
-          document.getElementById('aantalnew').value = '';
-          document.getElementById('gewichtnew').value = '';
-          document.getElementById('tijdnew').value = '';
-          document.getElementById('temperatuurnew').value = '';
-          document.getElementById('oventemperatuurnew').value = '';
-          document.getElementById('leveranciernew').value = '';
-          fileInput.value = '';
-          progressText.innerHTML = '';
-          displayProducts();
-        }
-      );
-    } catch (e) {
-      console.error('Error adding product: ', e);
-      alert('Error adding product.');
-    }
-  }
+    // After successful add, hide the loader and form
+    productAddLoading.style.display = 'none';
+    document.getElementById('popupaddproduct').style.opacity = 0;
+    document.getElementById('popupaddproduct').style.visibility = 'hidden';
+    
+    // Optionally, clear form fields
+    document.getElementById('email').value = '';
+    document.getElementById('firstname').value = '';
+    document.getElementById('name').value = '';
+    document.getElementById('telephone').value = '';
+    document.getElementById('companyname').value = '';
+    document.getElementById('btwnr').value = '';
+    document.getElementById('streetnrfact').value = '';
+    document.getElementById('postcodefact').value = '';
+    document.getElementById('placefact').value = '';
+    document.getElementById('samedeliveryadress').checked = false;
+    document.getElementById('deliverystreetnr').value = '';
+    document.getElementById('deliverypostcode').value = '';
+    document.getElementById('deliveryplace').value = '';
+
+    displayKlanten(); // Call function to refresh displayed users
+  })();
+} catch (e) {
+  console.error('Error adding klant: ', e);
+  alert('Error bij toevoegen klant.');
+}
+
     
 async function displayKlanten() {
-    const addProductBtn = document.querySelector('#addproductbtn');
     // const klantenLoading = document.getElementById('klantenloading');
     const klantenTable = document.getElementById('klantenTable'); // Table container
 
-    const fragment = document.createDocumentFragment();
+    // const fragment = document.createDocumentFragment();
     const tableFragment = document.createDocumentFragment(); // Fragment for table rows
 
     try {
@@ -567,125 +581,20 @@ window.updateProduct = async function updateProduct() {
 }
 </script>
 <script>
-  function showPart(part) {
-    const parts = document.querySelectorAll('[addparts]');
-    parts.forEach((el) => {
-      const partNum = el.getAttribute('addparts');
-      if (partNum == part) {
-        el.style.display = 'flex'; // Show the current part
-      } else {
-        el.style.display = 'none'; // Hide all other parts
-      }
-    });
-  }
-
-  function validateCurrentPart(part) {
-    const currentPart = document.querySelector(`[addparts="${part}"]`);
-    const inputs = currentPart.querySelectorAll('input, textarea'); // Get all inputs and textareas in the current part
-    let allFilled = true;
-
-    inputs.forEach(input => {
-      if (input.value.trim() === "") {
-        input.style.border = "2px solid red"; // Highlight empty inputs
-        allFilled = false;
-      } else {
-        input.style.border = ""; // Reset border if filled
-      }
-    });
-
-    return allFilled;
-  }
 
   document.getElementById('addklant').addEventListener("click", function() {
-    const popupAddProduct = document.getElementById("popupaddproduct");
-    popupAddProduct.style.opacity = 1;
-    popupAddProduct.style.visibility = "visible";
-    showPart(1); // Show the first part
+    const popupAddKlant = document.getElementById("popupaddklant");
+    popupAddKlant.style.opacity = 1;
+    popupAddKlant.style.visibility = "visible";
   });
 
   
 
   document.getElementById("closepopupaddproduct").addEventListener("click", function() {
-    const popupAddProduct = document.getElementById("popupaddproduct");
-    popupAddProduct.style.opacity = 0;
-    popupAddProduct.style.visibility = "hidden";
+    const popupAddKlant = document.getElementById("popupaddklant");
+    popupAddKlant.style.opacity = 0;
+    popupAddKlant.style.visibility = "hidden";
   });
-
-  document.querySelectorAll("[nextpart]").forEach(button => {
-    button.addEventListener("click", function() {
-      const currentPart = document.querySelector('[addparts]:not([style*="none"])');
-      const currentPartNum = parseInt(currentPart.getAttribute('addparts'));
-
-      if (validateCurrentPart(currentPartNum)) {
-        const nextPart = currentPartNum + 1;
-        showPart(nextPart);
-      } else {
-        alert("Please fill in all the fields before proceeding.");
-      }
-    });
-  });
-
-  document.querySelectorAll("[prevpart]").forEach(button => {
-    button.addEventListener("click", function() {
-      const currentPart = document.querySelector('[addparts]:not([style*="none"])');
-      const prevPart = parseInt(currentPart.getAttribute('addparts')) - 1;
-      showPart(prevPart);
-    });
-  });
-
-// Function to show a specific part
-function showEditPart(part) {
-    const parts = document.querySelectorAll('[editparts]');
-    parts.forEach((el) => {
-        const partNum = parseInt(el.getAttribute('editparts'));
-        if (partNum === part) {
-            el.style.display = 'block'; // Show the current part
-        } else {
-            el.style.display = 'none'; // Hide all other parts
-        }
-    });
-}
-
-// Function to validate the current part
-function validateEditPart(part) {
-    const currentPart = document.querySelector(`[editparts="${part}"]`);
-    const inputs = currentPart.querySelectorAll('input, textarea'); // Get all inputs and textareas in the current part
-    let allFilled = true;
-
-    inputs.forEach(input => {
-        if (input.value.trim() === "") {
-            input.style.border = "2px solid red"; // Highlight empty inputs
-            allFilled = false;
-        } else {
-            input.style.border = ""; // Reset border if filled
-        }
-    });
-
-    return allFilled;
-}
-
-// Event listeners for navigation between edit parts
-document.querySelectorAll('[nexteditpart]').forEach(button => {
-    button.addEventListener('click', function() {
-        const currentPart = parseInt(document.querySelector('[editparts]:not([style*="display: none"])').getAttribute('editparts'));
-        console.log('Current Part:', currentPart); // Debugging
-        if (validateEditPart(currentPart)) {
-            const nextPart = currentPart + 1;
-            console.log('Next Part:', nextPart); // Debugging
-            showEditPart(nextPart);
-        } else {
-            alert("Please fill in all the fields before proceeding.");
-        }
-    });
-});
-
-document.querySelectorAll('[preveditpart]').forEach(button => {
-    button.addEventListener('click', function() {
-        const currentPart = parseInt(document.querySelector('[editparts]:not([style*="display: none"])').getAttribute('editparts'));
-        const prevPart = currentPart - 1;
-        showEditPart(prevPart);
-    });
-});
 
 
 
@@ -696,6 +605,78 @@ document.getElementById('closepopupeditproduct').addEventListener('click', funct
 });
 
 
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+ const personalDiv = document.getElementById('personaldiv');
+ const businessDiv = document.getElementById('businessdiv');
+ const personalRadio = document.querySelector('input[value="personal"]');
+ const businessRadio = document.querySelector('input[value="business"]');
+ const sameDeliveryCheckbox = document.getElementById('samedeliveryadress');
+ const deliveryAddressDiv = document.getElementById('deliveryadress');
+
+ const factStreet = document.getElementById('streetnrfact');
+ const factPostcode = document.getElementById('postcodefact');
+ const factPlace = document.getElementById('placefact');
+
+ const deliveryStreet = document.getElementById('deliverystreetnr');
+ const deliveryPostcode = document.getElementById('deliverypostcode');
+ const deliveryPlace = document.getElementById('deliveryplace');
+
+ function toggleAccountDivs() {
+   if (personalRadio.checked) {
+     personalDiv.style.display = 'block';
+     businessDiv.style.display = 'none';
+     setRequiredFields(personalDiv, true);
+     setRequiredFields(businessDiv, false);
+   } else if (businessRadio.checked) {
+     personalDiv.style.display = 'none';
+     businessDiv.style.display = 'block';
+     setRequiredFields(personalDiv, false);
+     setRequiredFields(businessDiv, true);
+   }
+ }
+
+ function setRequiredFields(div, isRequired) {
+   const inputs = div.querySelectorAll('input, select, textarea');
+   inputs.forEach(input => {
+     if (isRequired) {
+       input.setAttribute('required', 'required');
+     } else {
+       input.removeAttribute('required');
+     }
+   });
+ }
+
+ function updateDeliveryAddress() {
+   if (sameDeliveryCheckbox.checked) {
+     deliveryStreet.value = factStreet.value;
+     deliveryPostcode.value = factPostcode.value;
+     deliveryPlace.value = factPlace.value;
+   }
+ }
+
+ function toggleDeliveryAddressDiv() {
+   if (sameDeliveryCheckbox.checked) {
+     deliveryAddressDiv.style.display = 'none';
+     updateDeliveryAddress();
+   } else {
+     deliveryAddressDiv.style.display = 'block';
+   }
+ }
+
+ personalRadio.addEventListener('change', toggleAccountDivs);
+ businessRadio.addEventListener('change', toggleAccountDivs);
+ sameDeliveryCheckbox.addEventListener('change', toggleDeliveryAddressDiv);
+
+ factStreet.addEventListener('input', updateDeliveryAddress);
+ factPostcode.addEventListener('input', updateDeliveryAddress);
+ factPlace.addEventListener('input', updateDeliveryAddress);
+
+ toggleAccountDivs();
+ toggleDeliveryAddressDiv();
+});
 </script>
 
 </html>
