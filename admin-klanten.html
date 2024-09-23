@@ -20,7 +20,7 @@
 <body class="body">
 <div id="popupaddklant" class="popupholder">
     <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupaddproduct">X</div>
+        <div class="closebtn" id="closepopupaddklant">X</div>
           <div class="leftalignflexvert overflow">
             <div id="accountSetupForm">
                <div class="radio-container">
@@ -94,103 +94,6 @@
     </div>
   </div>
 </div>
-  <div id="popupeditproduct" class="popupholder">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupeditproduct">X</div>
-        <input type="hidden" id="editProductId">
-        <div class="leftalignflexvert overflow" editparts="1">
-            
-            <label class="brownundertitle">naam PRODUCT (NL)</label>
-            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamNL">
-            <label class="brownundertitle">Beschrijving (NL)</label>
-            <textarea placeholder="" maxlength="5000" id="editbeschrijvingNL" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
-            </div>
-        </div>
-        <div class="leftalignflexvert overflow" editparts="2">
-            <label class="brownundertitle">naam PRODUCT (FR)</label>
-            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamFR">
-            <label class="brownundertitle">Beschrijving (FR)</label>
-            <textarea placeholder="" maxlength="5000" id="editbeschrijvingFR" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
-                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
-            </div>
-        </div>
-        <div class="leftalignflexvert overflow" editparts="3">
-            <label class="brownundertitle">naam PRODUCT (EN)</label>
-            <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamEN">
-            <label class="brownundertitle">Beschrijving (EN)</label>
-            <textarea placeholder="" maxlength="5000" id="editbeschrijvingEN" class="textarea w-input"></textarea>
-            <div class="alwaysflexhorizontal nextprev">
-                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
-                <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
-            </div>
-        </div>
-        <div class="leftalignflexvert overflow" editparts="4">
-            <label class="brownundertitle">Type</label>
-            <select class="text-field w-input" id="edittype" required>
-                <option value="" disabled>Selecteer type</option>
-                <option value="Brood">Brood</option>
-                <option value="Viennoiserie">Viennoiserie</option>
-                <option value="Stokbrood">Stokbrood</option>
-                <option value="Gebak">Gebak</option>
-                <option value="Ijsjes">Ijsjes</option>
-                <option value="Smoothies">Smoothies</option>
-            </select>
-            <label class="brownundertitle">Leverancier</label>
-            <select class="text-field w-input" id="editleverancier" required>
-                <option value="" disabled>Selecteer leverancier</option>
-
-            </select>
-            <label class="brownundertitle">Afbeelding</label>
-            <input type="file" id="editFileInput" style="width: 90%; padding-bottom: 20px;">
-            <img id="currentImage" src="" style="width: 100px; height: 100px; display: none;">
-            <label class="brownundertitle">Prijs</label>
-            <input class="text-field w-input" maxlength="256" placeholder="" type="number" id="editprijs" required="">
-            <label for="Aantal" class="brownundertitle">Aantal stuks per doos</label>
-            <input class="text-field w-input" maxlength="256" placeholder="" type="number" id="editaantal" required="">
-            <label class="brownundertitle">Specificaties</label>
-            <div class="alwaysflexhorizontal">
-                <div class="iconspecs"><img src="/images/weight-kg.svg" loading="lazy" alt=""></div>
-                <input class="noclass w-input" maxlength="256" placeholder="in gram" type="number" id="editgewicht" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-                <div class="iconspecs"><img src="/images/time.svg" loading="lazy" alt=""></div>
-                <input class="noclass w-input" maxlength="256" name="tijd" data-name="tijd" placeholder="in minuten" type="number" id="edittijd" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-                <div class="iconspecs"><img src="/images/temperature.svg" loading="lazy" width="18" alt=""></div>
-                <input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="edittemperatuur" required>
-            </div>
-            <div class="alwaysflexhorizontal">
-                <div class="iconspecs"><img src="/images/753124_microwave_oven_cook_cooking_kitchen_icon.svg" loading="lazy" alt=""></div>
-                <input class="noclass w-input" maxlength="256" placeholder="in graden" type="number" id="editoventemperatuur" required>
-            </div>
-            <div class="alwaysflexhorizontal nextprev">
-                <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
-                <button class="button intypeholder notabs w-button" onclick="updateProduct()">Product bijwerken</button>
-            </div>
-            <div class="loading" id="producteditloading">
-                <lottie-player
-                    src="/images/loading.json"
-                    background="transparent"
-                    speed="1"
-                    loop
-                    autoplay>
-                </lottie-player>
-            </div>
-            <div id="editProgressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
-        </div>
-    </div>
-</div>
-  <div id="popupdeleteproduct" class="popupholder">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupdeleteproduct">X</div>
-        <div id="confirmDeleteBox"></div>
-    </div>
-</div>
   
   <div class="_100-widthcenter">
     <div class="containcenter dashboard">
@@ -242,6 +145,7 @@
                             <th>Type</th>
                             <th>Email</th>
                             <th>Telefoon</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -368,100 +272,83 @@
     const klantenTable = document.getElementById('klantenTable'); // Table container
     const tableFragment = document.createDocumentFragment(); // Fragment for table rows
 
-    try {
-      const querySnapshot = await getDocs(collection(db, "Users"));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log(data);
+     try {
+    const querySnapshot = await getDocs(collection(db, "Users"));
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      console.log(data);
 
-        if (!data.verwijderd) { // Only include users that are not marked as deleted
-          const klantType = data.type;
-          const klantPhone = data.telephone;
-          const klantEmail = doc.id;
-          const klantBedrijf = data.companyname;
-          const klantVoornaam = data.firstname;
-          const klantNaam = data.name;
+      if (!data.verwijderd) { // Only include users that are not marked as deleted
+        const klantType = data.type;
+        const klantPhone = data.telephone;
+        const klantEmail = doc.id;
+        const klantBedrijf = data.companyname;
+        const klantVoornaam = data.firstname;
+        const klantNaam = data.name;
 
-          // Create table row for the user
-          const tableRow = document.createElement('tr');
+        // Create table row for the user
+        const tableRow = document.createElement('tr');
 
-          // Make the row clickable for editing the user
-          tableRow.addEventListener('click', () => {
-            // editProduct(doc.id, klantVoornaam, klantNaam);
-          });
+        // Make the row clickable for editing the user
+        tableRow.addEventListener('click', () => {
+          // editProduct(doc.id, klantVoornaam, klantNaam);
+        });
 
-          // Prevent row click when clicking the delete icon
-          const deleteCell = document.createElement('td');
-          deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete">`;
+        // Create billing and delivery cells
+        const billingCell = document.createElement('td');
+        const deliveryCell = document.createElement('td');
 
-          // Add table row content (except for delete button)
-          tableRow.innerHTML = `
-            <td>${klantVoornaam} ${klantNaam} ${klantBedrijf}</td>
-            <td>${klantType}</td>
-            <td>${klantEmail}</td>
-            <td>${klantPhone}</td>
-          `;
+        // Set up billing and delivery addresses
+        const billingAddress = `${data.streetnrfact}, ${data.postcodefact} ${data.placefact}`;
+        const deliveryAddress = data.samedeliveryadress ? billingAddress : `${data.deliverystreetnr}, ${data.deliverypostcode} ${data.deliveryplace}`;
 
-          // Append the delete button as the last cell in the row
-          tableRow.appendChild(deleteCell);
+        // Create tooltips
+        const billingTooltip = document.createElement('span');
+        billingTooltip.className = 'tooltip';
+        billingTooltip.innerText = billingAddress;
+        billingCell.appendChild(billingTooltip);
+        billingCell.innerHTML += `<img class="deleteicon" src="/images/billing-address.png" loading="lazy">`;
 
-          // Append the row to the table fragment
-          tableFragment.appendChild(tableRow);
-        }
-      });
+        const deliveryTooltip = document.createElement('span');
+        deliveryTooltip.className = 'tooltip';
+        deliveryTooltip.innerText = deliveryAddress;
+        deliveryCell.appendChild(deliveryTooltip);
+        deliveryCell.innerHTML += `<img class="deleteicon" src="/images/delivery-address.png" loading="lazy">`;
 
-    } catch (error) {
-      console.error('Error fetching documents: ', error);
-    }
+        // Add mouseover and mouseout events for the tooltips
+        billingCell.onmouseover = () => { billingTooltip.style.display = 'block'; };
+        billingCell.onmouseout = () => { billingTooltip.style.display = 'none'; };
 
-    // Update the table
-    const tableBody = klantenTable.querySelector('tbody');
-    tableBody.innerHTML = ''; // Clear existing table rows
-    tableBody.appendChild(tableFragment); // Add new rows to the table
+        deliveryCell.onmouseover = () => { deliveryTooltip.style.display = 'block'; };
+        deliveryCell.onmouseout = () => { deliveryTooltip.style.display = 'none'; };
+
+        // Add table row content (except for delete button)
+        tableRow.innerHTML = `
+          <td>${klantVoornaam} ${klantNaam} ${klantBedrijf}</td>
+          <td>${klantType}</td>
+          <td>${klantEmail}</td>
+          <td>${klantPhone}</td>
+        `;
+
+        // Append the cells to the row
+        tableRow.appendChild(billingCell);
+        tableRow.appendChild(deliveryCell);
+
+        // Append the row to the table fragment
+        tableFragment.appendChild(tableRow);
+      }
+    });
+
+  } catch (error) {
+    console.error('Error fetching documents: ', error);
   }
 
-  // Function to confirm and delete a product
-  window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
-    const confirmBox = document.getElementById('confirmDeleteBox');
-    const popupDeleteProduct = document.getElementById('popupdeleteproduct');
-    popupDeleteProduct.style.opacity = 1;
-    popupDeleteProduct.style.visibility = 'visible';
+  // Update the table
+  const tableBody = klantenTable.querySelector('tbody');
+  tableBody.innerHTML = ''; // Clear existing table rows
+  tableBody.appendChild(tableFragment); // Add new rows to the table
+}
 
-    confirmBox.innerHTML = `
-      <div class="confirm-delete-content">
-        <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
-        <div class="flexholder">
-          <button id="confirmDelete" class="button intypeholder notabs delete w-button">Ja, verwijder</button>
-        </div>
-      </div>
-    `;
-
-    document.getElementById('confirmDelete').onclick = function() {
-      deleteProduct(productId);
-      document.getElementById('popupdeleteproduct').style.opacity = 0;
-      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
-    };
-
-    document.getElementById('closepopupdeleteproduct').onclick = function() {
-      document.getElementById('popupdeleteproduct').style.opacity = 0;
-      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
-    };
-  };
-
-  // Function to delete a product
-  window.deleteProduct = async function deleteProduct(productId) {
-    try {
-      const productRef = doc(db, "Users", productId);
-      await updateDoc(productRef, {
-        verwijderd: true
-      });
-      console.log("Product successfully deleted!");
-
-      displayKlanten(); // Refresh the table after deletion
-    } catch (error) {
-      console.error('Error deleting product: ', error);
-    }
-  };
 </script>
 
 <script>
@@ -474,19 +361,13 @@
 
   
 
-  document.getElementById("closepopupaddproduct").addEventListener("click", function() {
+  document.getElementById("closepopupaddklant").addEventListener("click", function() {
     const popupAddKlant = document.getElementById("popupaddklant");
     popupAddKlant.style.opacity = 0;
     popupAddKlant.style.visibility = "hidden";
   });
 
 
-
-// Close edit popup
-document.getElementById('closepopupeditproduct').addEventListener('click', function() {
-    document.getElementById('popupeditproduct').style.opacity = 0;
-    document.getElementById('popupeditproduct').style.visibility = "hidden";
-});
 
 
 </script>
