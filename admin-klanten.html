@@ -272,7 +272,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
   import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-  import { getFirestore, collection, addDoc, getDocs, getDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, getDoc, updateDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
   // Firebase configuration
   const firebaseConfig = {
@@ -306,6 +306,7 @@
     displayKlanten();
   };
 
+  // Function to add klant to Firestore and Storage
   window.addKlant = async function addKlant() {
     const type = document.querySelector('input[name="type"]:checked')?.value;
     const email = document.getElementById('email')?.value.toLowerCase() || ''; // Ensure email is lowercase and used as the doc ID
@@ -372,70 +373,62 @@
     }
   };
 
-    
-async function displayKlanten() {
-    // const klantenLoading = document.getElementById('klantenloading');
+  // Function to display klanten
+  async function displayKlanten() {
     const klantenTable = document.getElementById('klantenTable'); // Table container
-
-    // const fragment = document.createDocumentFragment();
     const tableFragment = document.createDocumentFragment(); // Fragment for table rows
 
     try {
-        const querySnapshot = await getDocs(collection(db, "Users"));
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            console.log(data);
-        
-            if (!data.verwijderd) { // Only include products that are not marked as deleted
-                const klantType = data.type;
-                const klantPhone = data.telephone;
-                const klantEmail = doc.id;
-                const klantBedrijf = data.companyname;
-                const klantBtw = data.btwnr;
-                const klantVoornaam = data.firstname;
-                const klantNaam = data.name;
-        
-                // Create table row for the product (UPDATED)
-                const tableRow = document.createElement('tr');
-        
-                // Make the row clickable for editing the product
-                tableRow.addEventListener('click', () => {
-                    // editProduct(doc.id, productName, productImage);
-                });
-        
-                // Prevent row click when clicking the delete icon
-                const deleteCell = document.createElement('td');
-                deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete">`;
-        
-                // Add table row content (except for delete button)
-                tableRow.innerHTML = `
-                    <td>${klantVoornaam} ${klantNaam} ${klantBedrijf}</td>
-                    <td>${klantType}</td>
-                    <td>${klantEmail}</td>
-                    <td>${klantPhone}</td>
-                `;
-                
-                // Append the delete button as the last cell in the row
-                tableRow.appendChild(deleteCell);
-                
-                // Append the row to the table fragment
-                tableFragment.appendChild(tableRow);
-            }
-        });
+      const querySnapshot = await getDocs(collection(db, "Users"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        console.log(data);
+
+        if (!data.verwijderd) { // Only include users that are not marked as deleted
+          const klantType = data.type;
+          const klantPhone = data.telephone;
+          const klantEmail = doc.id;
+          const klantBedrijf = data.companyname;
+          const klantVoornaam = data.firstname;
+          const klantNaam = data.name;
+
+          // Create table row for the user
+          const tableRow = document.createElement('tr');
+
+          // Make the row clickable for editing the user
+          tableRow.addEventListener('click', () => {
+            // editProduct(doc.id, klantVoornaam, klantNaam);
+          });
+
+          // Prevent row click when clicking the delete icon
+          const deleteCell = document.createElement('td');
+          deleteCell.innerHTML = `<img class="deleteicon" src="/images/deleteicon.svg" loading="lazy" alt="Delete">`;
+
+          // Add table row content (except for delete button)
+          tableRow.innerHTML = `
+            <td>${klantVoornaam} ${klantNaam} ${klantBedrijf}</td>
+            <td>${klantType}</td>
+            <td>${klantEmail}</td>
+            <td>${klantPhone}</td>
+          `;
+
+          // Append the delete button as the last cell in the row
+          tableRow.appendChild(deleteCell);
+
+          // Append the row to the table fragment
+          tableFragment.appendChild(tableRow);
+        }
+      });
 
     } catch (error) {
-        console.error('Error fetching documents: ', error);
-    } finally {
+      console.error('Error fetching documents: ', error);
     }
-
 
     // Update the table
     const tableBody = klantenTable.querySelector('tbody');
     tableBody.innerHTML = ''; // Clear existing table rows
     tableBody.appendChild(tableFragment); // Add new rows to the table
-}
-
-
+  }
 
   // Function to confirm and delete a product
   window.confirmDeleteProduct = function confirmDeleteProduct(productId, productName) {
@@ -443,7 +436,7 @@ async function displayKlanten() {
     const popupDeleteProduct = document.getElementById('popupdeleteproduct');
     popupDeleteProduct.style.opacity = 1;
     popupDeleteProduct.style.visibility = 'visible';
-  
+
     confirmBox.innerHTML = `
       <div class="confirm-delete-content">
         <p>Zeker dat u <strong>${productName}</strong> wil verwijderen?</p>
@@ -452,7 +445,7 @@ async function displayKlanten() {
         </div>
       </div>
     `;
-    
+
     document.getElementById('confirmDelete').onclick = function() {
       deleteProduct(productId);
       document.getElementById('popupdeleteproduct').style.opacity = 0;
@@ -468,100 +461,19 @@ async function displayKlanten() {
   // Function to delete a product
   window.deleteProduct = async function deleteProduct(productId) {
     try {
-      const productRef = doc(db, "Producten", productId);
-      await updateDoc(productRef, { verwijderd: true });
-      console.log('Product marked as deleted:', productId);
-      document.getElementById('popupdeleteproduct').style.opacity = 0;
-      document.getElementById('popupdeleteproduct').style.visibility = "hidden";
-      displayProducts();
+      const productRef = doc(db, "Users", productId);
+      await updateDoc(productRef, {
+        verwijderd: true
+      });
+      console.log("Product successfully deleted!");
+
+      displayKlanten(); // Refresh the table after deletion
     } catch (error) {
-      console.error('Error marking product as deleted: ', error);
-      alert('Error marking product as deleted: ' + error.message);
+      console.error('Error deleting product: ', error);
     }
   };
-
-  window.editProduct = async function editProduct(productId, productName, productImage) {
-    const popupEditProduct = document.getElementById("popupeditproduct");
-    popupEditProduct.style.opacity = 1;
-    popupEditProduct.style.visibility = "visible";
-
-    const productRef = doc(db, "Producten", productId);
-    const productDoc = await getDoc(productRef);
-    const data = productDoc.data();
-
-    
-    document.getElementById('editProductId').value = productId;
-    document.getElementById('editnaamNL').value = data.naamNL || '';
-    document.getElementById('editbeschrijvingNL').value = data.beschrijvingNL || '';
-    document.getElementById('editnaamFR').value = data.naamFR || '';
-    document.getElementById('editbeschrijvingFR').value = data.beschrijvingFR || '';
-    document.getElementById('editnaamEN').value = data.naamEN || '';
-    document.getElementById('editbeschrijvingEN').value = data.beschrijvingEN || '';
-    document.getElementById('editprijs').value = data.prijs || '';
-    document.getElementById('editaantal').value = data.aantal || '';
-    document.getElementById('editgewicht').value = data.gewicht || '';
-    document.getElementById('edittijd').value = data.tijd || '';
-    document.getElementById('edittemperatuur').value = data.temperatuur || '';
-    document.getElementById('editoventemperatuur').value = data.ovenTemp || '';
-    document.getElementById('edittype').value = data.type || '';
-    document.getElementById('editleverancier').value = data.leverancier || '';
-    
-    const currentImage = document.getElementById('currentImage');
-    currentImage.src = productImage;
-    currentImage.style.display = 'block';
-
-    document.getElementById('editFileInput').value = ''; // Clear file input
-    showEditPart(1);
-}
-
-// Function to update product details
-window.updateProduct = async function updateProduct() {
-    document.getElementById('producteditloading').style.display = 'block';
-    const productId = document.getElementById('editProductId').value;
-    const naamNL = document.getElementById('editnaamNL').value;
-    const beschrijvingNL = document.getElementById('editbeschrijvingNL').value;
-    const naamFR = document.getElementById('editnaamFR').value;
-    const beschrijvingFR = document.getElementById('editbeschrijvingFR').value;
-    const naamEN = document.getElementById('editnaamEN').value;
-    const beschrijvingEN = document.getElementById('editbeschrijvingEN').value;
-    const prijs = document.getElementById('editprijs').value;
-    const aantal = document.getElementById('editaantal').value;
-    const gewicht = document.getElementById('editgewicht').value;
-    const tijd = document.getElementById('edittijd').value;
-    const temperatuur = document.getElementById('edittemperatuur').value;
-    const ovenTemp = document.getElementById('editoventemperatuur').value;
-    const type = document.getElementById('edittype').value;
-    const leverancier = document.getElementById('editleverancier').value;
-    const fileEditInput = document.getElementById('editFileInput');
-    
-    const productRef = doc(db, "Producten", productId);
-    
-    let updateData = {
-        naamNL,
-        beschrijvingNL,
-        naamFR,
-        beschrijvingFR,
-        naamEN,
-        beschrijvingEN,
-        prijs,
-        aantal,
-        gewicht,
-        tijd,
-        temperatuur,
-        ovenTemp,
-        type,
-        leverancier
-    };
-
-    // Hide the popup and reset fields
-    document.getElementById('popupeditproduct').style.opacity = 0;
-    document.getElementById('popupeditproduct').style.visibility = "hidden";
-    document.getElementById('producteditloading').style.display = 'none';
-    
-    // Refresh the displayed products
-    displayKlanten();
-}
 </script>
+
 <script>
 
   document.getElementById('addklant').addEventListener("click", function() {
