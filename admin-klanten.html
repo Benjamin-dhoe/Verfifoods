@@ -306,10 +306,9 @@
     displayKlanten();
   };
 
-  // Function to add product to Firestore and Storage
   window.addKlant = async function addKlant() {
     const type = document.querySelector('input[name="type"]:checked')?.value;
-    const email = document.getElementById('email')?.value || '';
+    const email = document.getElementById('email')?.value.toLowerCase() || ''; // Ensure email is lowercase and used as the doc ID
     const firstname = document.getElementById('firstname')?.value || '';
     const name = document.getElementById('name')?.value || '';
     const telephone = document.getElementById('telephone')?.value || '';
@@ -328,67 +327,50 @@
     progressText.innerHTML = '0%';
 
     try {
-  // Wrap the async function and execute it immediately
-  (async () => {
-    const type = document.querySelector('input[name="type"]:checked')?.value || '';
-    const email = document.getElementById('email')?.value.toLowerCase() || ''; // Ensure email is lowercase and used as the doc ID
-    const firstname = document.getElementById('firstname')?.value || '';
-    const name = document.getElementById('name')?.value || '';
-    const telephone = document.getElementById('telephone')?.value || '';
-    const companyname = document.getElementById('companyname')?.value || '';
-    const btwnr = document.getElementById('btwnr')?.value || '';
-    const streetnrfact = document.getElementById('streetnrfact')?.value || '';
-    const postcodefact = document.getElementById('postcodefact')?.value || '';
-    const placefact = document.getElementById('placefact')?.value || '';
-    const samedeliveryadress = document.getElementById('samedeliveryadress')?.checked || false;
-    const deliverystreetnr = document.getElementById('deliverystreetnr')?.value || '';
-    const deliverypostcode = document.getElementById('deliverypostcode')?.value || '';
-    const deliveryplace = document.getElementById('deliveryplace')?.value || '';
+      // Add document to Firestore with email as the document ID
+      await setDoc(doc(db, "Users", email), {
+        type,
+        firstname,
+        name,
+        telephone,
+        companyname,
+        btwnr,
+        streetnrfact,
+        postcodefact,
+        placefact,
+        samedeliveryadress,
+        deliverystreetnr,
+        deliverypostcode,
+        deliveryplace,
+        verwijderd: false
+      });
 
-    // Add document to Firestore with email as the document ID
-    await setDoc(doc(db, "Users", email), {
-      type,
-      firstname,
-      name,
-      telephone,
-      companyname,
-      btwnr,
-      streetnrfact,
-      postcodefact,
-      placefact,
-      samedeliveryadress,
-      deliverystreetnr,
-      deliverypostcode,
-      deliveryplace,
-      verwijderd: false
-    });
+      // After successful add, hide the loader and form
+      productAddLoading.style.display = 'none';
+      document.getElementById('popupaddproduct').style.opacity = 0;
+      document.getElementById('popupaddproduct').style.visibility = 'hidden';
 
-    // After successful add, hide the loader and form
-    productAddLoading.style.display = 'none';
-    document.getElementById('popupaddproduct').style.opacity = 0;
-    document.getElementById('popupaddproduct').style.visibility = 'hidden';
-    
-    // Optionally, clear form fields
-    document.getElementById('email').value = '';
-    document.getElementById('firstname').value = '';
-    document.getElementById('name').value = '';
-    document.getElementById('telephone').value = '';
-    document.getElementById('companyname').value = '';
-    document.getElementById('btwnr').value = '';
-    document.getElementById('streetnrfact').value = '';
-    document.getElementById('postcodefact').value = '';
-    document.getElementById('placefact').value = '';
-    document.getElementById('samedeliveryadress').checked = false;
-    document.getElementById('deliverystreetnr').value = '';
-    document.getElementById('deliverypostcode').value = '';
-    document.getElementById('deliveryplace').value = '';
+      // Optionally, clear form fields
+      document.getElementById('email').value = '';
+      document.getElementById('firstname').value = '';
+      document.getElementById('name').value = '';
+      document.getElementById('telephone').value = '';
+      document.getElementById('companyname').value = '';
+      document.getElementById('btwnr').value = '';
+      document.getElementById('streetnrfact').value = '';
+      document.getElementById('postcodefact').value = '';
+      document.getElementById('placefact').value = '';
+      document.getElementById('samedeliveryadress').checked = false;
+      document.getElementById('deliverystreetnr').value = '';
+      document.getElementById('deliverypostcode').value = '';
+      document.getElementById('deliveryplace').value = '';
 
-    displayKlanten(); // Call function to refresh displayed users
-  })();
-} catch (e) {
-  console.error('Error adding klant: ', e);
-  alert('Error bij toevoegen klant.');
-}
+      displayKlanten(); // Call function to refresh displayed users
+    } catch (e) {
+      console.error('Error adding klant: ', e);
+      alert('Error bij toevoegen klant.');
+    }
+  };
 
     
 async function displayKlanten() {
