@@ -122,6 +122,13 @@
             <div class="typefoodicon dash"><img src="/images/breadicon.svg" loading="lazy" alt=""></div>
             <div class="brownundertitle blue">Leveranciers</div>
           </a>
+          <div class="spacer10px"></div>
+          <div class="spacer10px"></div>
+          <div class="spacer10px"></div>
+          <button id="logoutBtn" class="mapslink _10down">
+            <div class="typefoodicon dash"><img src="/images/breadicon.svg" loading="lazy" alt=""></div>
+            <div class="brownundertitle blue">Uitloggen</div>
+          </button>
         </div>
         <div class="holderappdashboard">
           <div class="holderapptop">
@@ -164,8 +171,7 @@
   // Import Firebase SDK and initialize the app
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-  import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-  import { getFirestore, collection, addDoc, getDocs, getDoc, updateDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, getDoc, updateDoc, doc, setDoc, signOut  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
   // Firebase configuration
   const firebaseConfig = {
@@ -180,7 +186,6 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const storage = getStorage(app);
   const db = getFirestore(app);
   const auth = getAuth(app);
 
@@ -348,6 +353,25 @@
   tableBody.innerHTML = ''; // Clear existing table rows
   tableBody.appendChild(tableFragment); // Add new rows to the table
 }
+
+    function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', () => {
+                signOut(auth).then(() => {
+                    console.log('User signed out.');
+                    deleteCookie('token');
+                    deleteCookie('userid');
+                    // Redirect to login page
+                    window.location.href = '/index';
+                }).catch((error) => {
+                    console.error('Error signing out:', error);
+                });
+            });
+        });
 
 </script>
 
