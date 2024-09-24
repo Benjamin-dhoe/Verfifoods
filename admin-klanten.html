@@ -151,7 +151,7 @@
                     <thead>
                         <tr>
                             <th>Klant</th>
-                            <th>KlantID</th>
+                            <th>UserID</th>
                             <th>Admin/user</th>
                             <th>Type</th>
                             <th>Email</th>
@@ -320,7 +320,7 @@
 
         // Make the row clickable for editing the user
         tableRow.addEventListener('click', () => {
-          // editProduct(doc.id, klantVoornaam, klantNaam);
+          window.location.href = `/admin/klant?id=${klantEmail}`;
         });
 
         // Create billing and delivery cells
