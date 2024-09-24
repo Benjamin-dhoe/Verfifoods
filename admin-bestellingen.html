@@ -34,6 +34,16 @@
                    B2B-bestelling
                  </label>
                </div>
+              <div class="radio-container">
+                <label class="radio-label">
+                  <input type="radio" name="delivery" value="delivery" class="radio-input" required="">
+                  Levering
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="delivery" value="pickup" class="radio-input" required="">
+                  Afhaling
+                </label>
+              </div>
                <div class="spacer10px"></div>
                 <label class="brownundertitle">Email</label>
                <input class="text-field w-input" maxlength="256" type="text" id="email" name="email" required>
@@ -218,6 +228,7 @@
         const bestellingType = data.type;
         const bestellingPhone = data.telephone;
         const bestellingEmail = data.email;
+        const bestellingDeliveryPickup = data.deliveryPickup;
         const bestellingBedrijf = data.companyname;
         const bestellingVoornaam = data.firstname;
         const bestellingNaam = data.name;
@@ -246,60 +257,64 @@
 
         // Create table row for the user
         const tableRow = document.createElement('tr');
-
+        
         // Make the row clickable for editing the user
         tableRow.addEventListener('click', () => {
+          // Populate the popup with the selected order's details
+          populatePopup(data, bestellingType, bestellingId);
+        
+          // Show the popup
           const popupEditBestelling = document.getElementById("popupeditbestelling");
           popupEditBestelling.style.opacity = 1;
           popupEditBestelling.style.visibility = "visible";
         });
-
+        
         // Create billing and delivery cells
         const billingCell = document.createElement('td');
         const deliveryCell = document.createElement('td');
-
+        
         // Set up billing and delivery addresses
         const billingAddress = `${data.streetnrfact}, ${data.postcodefact} ${data.placefact}`;
         const deliveryAddress = data.samedeliveryadress ? billingAddress : `${data.deliverystreetnr}, ${data.deliverypostcode} ${data.deliveryplace}`;
-
+        
         // Create tooltips
         const billingTooltip = document.createElement('span');
         billingTooltip.className = 'tooltip';
         billingTooltip.innerText = billingAddress;
         billingCell.appendChild(billingTooltip);
         billingCell.innerHTML += `<img class="deleteicon" src="/images/billing-address.png" loading="lazy">`;
-
+        
         const deliveryTooltip = document.createElement('span');
         deliveryTooltip.className = 'tooltip';
         deliveryTooltip.innerText = deliveryAddress;
         deliveryCell.appendChild(deliveryTooltip);
         deliveryCell.innerHTML += `<img class="deleteicon" src="/images/delivery-address.png" loading="lazy">`;
-
+        
         // Add mouseover and mouseout events for the tooltips
         billingCell.onmouseover = () => { billingTooltip.style.display = 'block'; };
         billingCell.onmouseout = () => { billingTooltip.style.display = 'none'; };
-
+        
         deliveryCell.onmouseover = () => { deliveryTooltip.style.display = 'block'; };
         deliveryCell.onmouseout = () => { deliveryTooltip.style.display = 'none'; };
-
+        
         // Add table row content (except for delete button)
         tableRow.innerHTML = `
           <td>${bestellingAanspreking}</td>
           <td>${bestellingId}</td>
           <td>${bestellingAdminUserGast}</td>
-          <td>te doen nog</td>
+          <td>${bestellingDeliveryPickup}</td>
           <td>${bestellingTypeB2BC}</td>
           <td>${bestellingStatus}</td>
           <td>${bestellingPrijs}</td>
           <td>${bestellingDozen}</td>
-          <td>bestellingEmail</td>
+          <td>${bestellingEmail}</td>
           <td>${bestellingPhone}</td>
         `;
-
+        
         // Append the cells to the row
         tableRow.appendChild(billingCell);
         tableRow.appendChild(deliveryCell);
-
+        
         // Append the row to the table fragment
         tableFragment.appendChild(tableRow);
       }
@@ -343,7 +358,50 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+function populatePopup(data, bestellingType, bestellingId) {
+  // Set the radio buttons based on bestelling type
+  const personalRadio = document.querySelector('input[name="type"][value="personal"]');
+  const businessRadio = document.querySelector('input[name="type"][value="business"]');
+  personalRadio.checked = (bestellingType === 'personal');
+  businessRadio.checked = (bestellingType === 'business');
 
+  // Show/hide fields based on type
+  toggleBusinessPersonalFields(bestellingType);
+
+  // Populate fields with order data
+  document.getElementById('email').value = data.email || '';
+  document.getElementById('telephone').value = data.telephone || '';
+  
+  if (bestellingType === 'personal') {
+    document.getElementById('firstname').value = data.firstname || '';
+    document.getElementById('name').value = data.name || '';
+  } else if (bestellingType === 'business') {
+    document.getElementById('companyname').value = data.companyname || '';
+    document.getElementById('btwnr').value = data.btwnr || '';
+  }
+  
+  // Populate billing address
+  document.getElementById('streetnrfact').value = data.streetnrfact || '';
+  document.getElementById('postcodefact').value = data.postcodefact || '';
+  document.getElementById('placefact').value = data.placefact || '';
+
+  // Populate delivery address
+  document.getElementById('deliverystreetnr').value = data.deliverystreetnr || '';
+  document.getElementById('deliverypostcode').value = data.deliverypostcode || '';
+  document.getElementById('deliveryplace').value = data.deliveryplace || '';
+}
+
+function toggleBusinessPersonalFields(type) {
+  const personalDiv = document.getElementById('personaldiv');
+  const businessDiv = document.getElementById('businessdiv');
+  if (type === 'personal') {
+    personalDiv.style.display = 'block';
+    businessDiv.style.display = 'none';
+  } else if (type === 'business') {
+    personalDiv.style.display = 'none';
+    businessDiv.style.display = 'block';
+  }
+}
 
 </script>
 
