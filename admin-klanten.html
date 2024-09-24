@@ -16,6 +16,7 @@
   <link href="/images/webclip.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://use.typekit.net/nnx8vsx.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body class="body">
 <div id="popupaddklant" class="popupholder">
@@ -143,9 +144,10 @@
           <div class="holderappresults">
             <div class="100widthcenter">
               <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>
+              <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('myTable')">Exporteer naar excel</button>
             </div>
             <div class="table-container" id="klantenTable">
-                <table class="styled-table">
+                <table class="styled-table" id="tableXL">
                     <thead>
                         <tr>
                             <th>Klant</th>
@@ -466,6 +468,12 @@ document.addEventListener('DOMContentLoaded', () => {
  toggleAccountDivs();
  toggleDeliveryAddressDiv();
 });
+
+function exportTableToXLSX(tableId) {
+    const table = document.getElementById(tableId);
+    const workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+    XLSX.writeFile(workbook, "backup.xlsx");
+}
 </script>
 
 </html>
