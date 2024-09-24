@@ -19,19 +19,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
 <body class="body">
-<div id="popupaddklant" class="popupholder">
+<div id="popupeditbestelling" class="popupholder">
     <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupaddklant">X</div>
+        <div class="closebtn" id="closepopupeditbestelling">X</div>
           <div class="leftalignflexvert overflow">
             <div id="accountSetupForm">
                <div class="radio-container">
                  <label class="radio-label">
                    <input type="radio" name="type" value="personal" class="radio-input" required>
-                   B2C-klant
+                   B2C-bestelling
                  </label>
                  <label class="radio-label">
                    <input type="radio" name="type" value="business" class="radio-input" required>
-                   B2B-klant
+                   B2B-bestelling
                  </label>
                </div>
                <div class="spacer10px"></div>
@@ -63,15 +63,6 @@
                  <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" required>
                  <div class="spacer10px"></div>
                  <label class="brownundertitle bold-text">Leveringsadres</label>
-                 <label>
-                   <input type="checkbox" id="samedeliveryadress" name="samedeliveryadress">
-                   <span></span>
-                   Identiek aan factuuradres
-                 </label>
-                 <div class="spacer10px"></div>
-               </div>  
-               
-               <div id="deliveryadress">
                    <label class="brownundertitle">Straat en huisnummer</label>
                    <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
                    <label class="brownundertitle">Postcode</label>
@@ -80,7 +71,7 @@
                    <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
                  </div>
                <div class="spacer10px"></div>
-               <div class="loading" id="loadingaddklant" style="display: none;">
+               <div class="loading" id="loadingeditbestelling" style="display: none;">
                    <lottie-player
                        src="/images/loading.json"
                        background="transparent"
@@ -89,8 +80,7 @@
                        autoplay>
                    </lottie-player>
                </div>
-               <button type="submit" class="button intypeholder notabs w-button" onClick="addKlant()">Klant toevoegen</button>
-                <div id="progressText" style="margin-top: 5px; font-size: 14px; display: none;"></div>
+               <button type="submit" class="button intypeholder notabs w-button" onClick="editBestelling()">Aanpassingen opslagen</button>
           </div>
     </div>
   </div>
@@ -143,7 +133,7 @@
           </div>
           <div class="holderappresults">
             <div class="100widthcenter">
-              <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>
+              <a class="button intypeholder notabs w-button" href="/nl/aanbod">Maak nieuwe bestelling</a>
               <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
             </div>
             <div class="table-container" id="bestellingenTable">
@@ -227,6 +217,7 @@
         const bestellingId = doc.id;
         const bestellingType = data.type;
         const bestellingPhone = data.telephone;
+        const bestellingEmail = data.email;
         const bestellingBedrijf = data.companyname;
         const bestellingVoornaam = data.firstname;
         const bestellingNaam = data.name;
@@ -258,7 +249,9 @@
 
         // Make the row clickable for editing the user
         tableRow.addEventListener('click', () => {
-          
+          const popupEditBestelling = document.getElementById("popupeditbestelling");
+          popupEditBestelling.style.opacity = 1;
+          popupEditBestelling.style.visibility = "visible";
         });
 
         // Create billing and delivery cells
@@ -299,7 +292,7 @@
           <td>${bestellingStatus}</td>
           <td>${bestellingPrijs}</td>
           <td>${bestellingDozen}</td>
-          <td>te doen nog</td>
+          <td>bestellingEmail</td>
           <td>${bestellingPhone}</td>
         `;
 
@@ -341,22 +334,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-</script>
-
-<script>
-
-  document.getElementById('addklant').addEventListener("click", function() {
-    const popupAddKlant = document.getElementById("popupaddklant");
-    popupAddKlant.style.opacity = 1;
-    popupAddKlant.style.visibility = "visible";
-  });
-
   
 
-  document.getElementById("closepopupaddklant").addEventListener("click", function() {
-    const popupAddKlant = document.getElementById("popupaddklant");
-    popupAddKlant.style.opacity = 0;
-    popupAddKlant.style.visibility = "hidden";
+  document.getElementById("closepopupeditbestelling").addEventListener("click", function() {
+    const popupEditBestelling = document.getElementById("popupeditbestelling");
+    popupEditBestelling.style.opacity = 0;
+    popupEditBestelling.style.visibility = "hidden";
   });
 
 
