@@ -146,7 +146,7 @@
               <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>
               <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
             </div>
-            <div class="table-container" id="klantenTable">
+            <div class="table-container" id="bestellingenTable">
                 <table class="styled-table" id="tableXL">
                     <thead>
                         <tr>
@@ -214,7 +214,7 @@
 
   // Function to display klanten
   async function displayBestellingen() {
-    const klantenTable = document.getElementById('bestellingenTable'); // Table container
+    const bestellingenTable = document.getElementById('bestellingenTable'); // Table container
     const tableFragment = document.createDocumentFragment(); // Fragment for table rows
 
      try {
@@ -317,7 +317,7 @@
   }
 
   // Update the table
-  const tableBody = klantenTable.querySelector('tbody');
+  const tableBody = bestellingenTable.querySelector('tbody');
   tableBody.innerHTML = ''; // Clear existing table rows
   tableBody.appendChild(tableFragment); // Add new rows to the table
 }
