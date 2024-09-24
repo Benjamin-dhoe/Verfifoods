@@ -151,11 +151,14 @@
                     <thead>
                         <tr>
                             <th>Klant</th>
+                            <th>KlantID</th>
+                            <th>Admin/user</th>
                             <th>Type</th>
                             <th>Email</th>
                             <th>Telefoon</th>
-                            <th></th>
-                            <th></th>
+                            <th>Setup</th>
+                            <th>Fact</th>
+                            <th>Lev</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -286,12 +289,31 @@
       console.log(data);
 
       if (!data.verwijderd) { // Only include users that are not marked as deleted
+        const klantUid = data.uid || "";
+        const klantSetup = data.setupdone || false;
         const klantType = data.type;
         const klantPhone = data.telephone;
         const klantEmail = doc.id;
         const klantBedrijf = data.companyname;
         const klantVoornaam = data.firstname;
         const klantNaam = data.name;
+        const klantDateSetup = data.dateTimeSetup || "";
+        let klantAanspreking;
+        let klantTypeB2BC;
+        let klantAdminUser;
+        if (klantType === "business") {
+          klantAanspreking = klantBedrijf;
+          klantTypeB2BC = "B2B";
+        } else if (klantType === "personal") {
+          klantAanspreking = = klantVoornaam + " " + klantNaam;
+          klantTypeB2BC = "B2C";
+        }
+
+        if (klantSetup) {
+          klantAdminUser = "user";
+        } else {
+          klantAdminUser = "admin";
+        }
 
         // Create table row for the user
         const tableRow = document.createElement('tr');
@@ -331,10 +353,13 @@
 
         // Add table row content (except for delete button)
         tableRow.innerHTML = `
-          <td>${klantVoornaam} ${klantNaam} ${klantBedrijf}</td>
-          <td>${klantType}</td>
+          <td>${klantAanspreking}</td>
+          <td>${klantUid}</td>
+          <td>${klantAdminUser}</td>
+          <td>${klantTypeB2BC}</td>
           <td>${klantEmail}</td>
           <td>${klantPhone}</td>
+          <td>${klantDateSetup}</td>
         `;
 
         // Append the cells to the row
