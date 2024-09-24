@@ -65,10 +65,12 @@ function updateContent() {
         textElement.textContent = "Uw bestelling wordt voorbereid ...";
 
     } else if (queryParams.lang === 'fr') {
+        link.href = '/index.html';
         link.textContent = "Retourner à la page d'accueil";
         titleElement.textContent = "Nous avons reçu votre paiement";
         textElement.textContent = "Votre commande est en cours de préparation...";
     } else {
+        link.href = '/en/index.html';
         link.textContent = "Return to the homepage";
         titleElement.textContent = "We have received your payment";
         textElement.textContent = "Your order is being prepared...";
