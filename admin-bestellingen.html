@@ -432,11 +432,11 @@
     table.innerHTML = `
         <thead>
             <tr>
+                <th>Product</th>
                 <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th>Qty</th>
+                <th>Prijs</th>
+                <th>Totaal</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -447,8 +447,8 @@
     data.products.forEach(product => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${product.productId}</td>
             <td>${product.name}</td>
+            <td>${product.productId}</td>
             <td>${product.quantity}</td>
             <td>${product.price}</td>
             <td>${product.total}</td>
