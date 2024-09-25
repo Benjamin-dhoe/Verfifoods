@@ -340,7 +340,9 @@
           
           // Append the cells to the row
           tableRow.appendChild(billingCell);
-          tableRow.appendChild(deliveryCell);
+          if (bestellingDeliveryPickup === "delivery) {
+            tableRow.appendChild(deliveryCell);
+          }
           
           // Append the row to the table fragment
           tableFragment.appendChild(tableRow);
