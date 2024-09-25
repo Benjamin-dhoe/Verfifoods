@@ -93,6 +93,7 @@
                        autoplay>
                    </lottie-player>
                </div>
+              <div id="succesvolleupdate" class="w-form-done">Bestelling succesvol geupdate!</div>
                <button type="submit" class="button intypeholder notabs w-button" onClick="updateBestelling()">Aanpassingen opslagen</button>
           </div>
     </div>
@@ -137,14 +138,15 @@
         <div class="holderappdashboard">
           <div class="holderapptop">
             <div class="mapslink _10down">
-              <div class="typefoodicon dash"><img src="/images/usericon.svg" loading="lazy" alt=""></div>
-              <div class="brownundertitle bold-text">Klanten</div>
+              <div class="typefoodicon dash"><img src="/images/ordericon.svg" loading="lazy" alt=""></div>
+              <div class="brownundertitle bold-text">Bestellingen</div>
             </div>
             <div class="menuicondash" opensidemenu>
               <img src="/images/listicon.svg" loading="lazy" alt="">
             </div>
           </div>
-          <div class="holderappresults">
+          
+          <div class="holderappresults" id="mainresults">
             <div class="100widthcenter">
               <a class="button intypeholder notabs w-button" href="/nl/aanbod">Maak nieuwe bestelling</a>
               <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
@@ -173,6 +175,86 @@
                 </table>
               </div>
         </div>
+
+        <div id="popupeditbestelling" class="holderappresults" style="display: none;">
+                <div class="bold-text brown-text" id="detailbestid"></div>
+                <div id="closepopupeditbestelling">< Terug naar overzicht</div>
+                <div class="leftalignflexvert overflow">
+                  <div id="accountSetupForm">
+                     <div class="radio-container">
+                       <label class="radio-label">
+                         <input type="radio" name="type" value="personal" class="radio-input" required>
+                         B2C-bestelling
+                       </label>
+                       <label class="radio-label">
+                         <input type="radio" name="type" value="business" class="radio-input" required>
+                         B2B-bestelling
+                       </label>
+                     </div>
+                    <label class="brownundertitle">Levering of afhaling?</label>
+                    <div class="radio-container">
+                      <label class="radio-label">
+                        <input type="radio" name="delivery" value="delivery" class="radio-input" required="">
+                        Levering
+                      </label>
+                      <label class="radio-label">
+                        <input type="radio" name="delivery" value="pickup" class="radio-input" required="">
+                        Afhaling
+                      </label>
+                    </div>
+                     <div class="spacer10px"></div>
+                      <label class="brownundertitle">Email</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="email" name="email" required>
+                     <label class="brownundertitle">Telefoon</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" required>
+                     <div id="personaldiv" style="display: none;">
+                       <label class="brownundertitle">Voornaam</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
+                       <label class="brownundertitle">Naam</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
+                     </div>
+                     <div id="businessdiv" style="display: none;">
+                       <label class="brownundertitle">Bedrijfsnaam</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="companyname" name="companyname" required>
+                       <label class="brownundertitle">BTW nummer</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="btwnr" name="btwnr" required>
+                       
+                     </div>
+                     <div>
+                       <div class="spacer10px"></div>
+                       <label class="brownundertitle bold-text">Factuuradres</label>
+                       <label class="brownundertitle">Straat en huisnummer</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="streetnrfact" name="streetnrfact" required>
+                       <label class="brownundertitle">Postcode</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="postcodefact" name="postcodefact" required>
+                       <label class="brownundertitle">Plaats</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" required>
+                       <div class="spacer10px"></div>
+                       <div id="deliverydiv">
+                       <label class="brownundertitle bold-text">Leveringsadres</label>
+                         <label class="brownundertitle">Straat en huisnummer</label>
+                         <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
+                         <label class="brownundertitle">Postcode</label>
+                         <input class="text-field w-input" maxlength="256" type="text" id="deliverypostcode" name="deliverypostcode" required>
+                         <label class="brownundertitle">Plaats</label>
+                         <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
+                       </div>
+                     </div>
+                     <div class="spacer10px"></div>
+                     <div class="loading" id="loadingeditbestelling" style="display: none;">
+                         <lottie-player
+                             src="/images/loading.json"
+                             background="transparent"
+                             speed="1"
+                             loop
+                             autoplay>
+                         </lottie-player>
+                     </div>
+                     <button type="submit" class="button intypeholder notabs w-button" onClick="updateBestelling()">Aanpassingen opslagen</button>
+                </div>
+          </div>
+        </div>
+          
       </div>
     </div>
   </div>
@@ -281,8 +363,9 @@
           
             // Show the popup
             const popupEditBestelling = document.getElementById("popupeditbestelling");
-            popupEditBestelling.style.opacity = 1;
-            popupEditBestelling.style.visibility = "visible";
+            const mainResultsDiv = document.getElementById("mainresults");
+            mainResultsDiv.style.display = "none";
+            popupEditBestelling.style.display = "flex";
           });
           
           // Create billing and delivery cells
@@ -367,8 +450,9 @@
 
   document.getElementById("closepopupeditbestelling").addEventListener("click", function() {
     const popupEditBestelling = document.getElementById("popupeditbestelling");
-    popupEditBestelling.style.opacity = 0;
-    popupEditBestelling.style.visibility = "hidden";
+    popupEditBestelling.style.display = "none":
+    const mainResultsDiv = document.getElementById("mainresults");
+    mainResultsDiv.style.display = "none";
   });
 
   function populatePopup(data, bestellingType, bestellingId, bestellingDeliveryPickup) {
@@ -454,9 +538,11 @@
       console.log('Bestelling updated successfully!');
       // Optionally refresh the display or close the popup
       displayBestellingen();
-      const popupEditBestelling = document.getElementById("popupeditbestelling");
-      popupEditBestelling.style.opacity = 0;
-      popupEditBestelling.style.visibility = "hidden";
+      const succesvolleupdate = document.getElementById("succesvolleupdate");
+      succesvolleupdate.style.display = "block";
+      setTimeout(() => {
+        popupEditBestelling.style.display = "none";
+      }, 5000);
     } catch (error) {
       console.error('Error updating bestelling: ', error);
     }
