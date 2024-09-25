@@ -484,6 +484,8 @@
 
   // Function to update bestellingen
   async function updateBestelling(bestellingId) {
+    document.getElementById('updateBestellingBtn').style.display = "none";
+    document.getElementById('loadingeditbestelling').style.display = "block";
     const bestellingType = document.querySelector('input[name="type"]:checked').value;
     const bestellingDeliveryPickup = document.querySelector('input[name="delivery"]:checked').value;
 
@@ -512,12 +514,14 @@
       // Optionally refresh the display or close the popup
       displayBestellingen();
       const succesvolleupdate = document.getElementById("succesvolleupdate");
+      document.getElementById('loadingeditbestelling').style.display = "none";
       succesvolleupdate.style.display = "block";
       setTimeout(() => {
-        popupEditBestelling.style.display = "none";
+        succesvolleupdate.style.display = "none";
       }, 5000);
     } catch (error) {
       console.error('Error updating bestelling: ', error);
+      document.getElementById('updateBestellingBtn').style.display = "block";
     }
   }
 
