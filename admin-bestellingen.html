@@ -178,6 +178,7 @@
 
         <div id="popupeditbestelling" class="holderappresults" style="display: none;">
                 <div class="bold-text brown-text" id="detailbestid"></div>
+                <input type="hidden" id="updateid" value="">
                 <div id="closepopupeditbestelling">< Terug naar overzicht</div>
                 <div class="leftalignflexvert overflow">
                   <div id="accountSetupForm">
@@ -472,6 +473,8 @@
     toggleDeliveryFields(bestellingDeliveryPickup);
 
     // Populate fields with order data
+    document.getElementById('detailbestid').textContent = bestellingId;
+    document.getElementById('updateid').value = bestellingId;
     document.getElementById('email').value = data.email || '';
     document.getElementById('telephone').value = data.telephone || '';
     document.getElementById('firstname').value = data.firstname || '';
@@ -550,7 +553,7 @@
 
   // Add event listener for the update button in the popup
   document.getElementById('updateBestellingBtn').addEventListener('click', () => {
-    const bestellingId = document.querySelector('.selected-bestelling-id').value; // Replace with actual way to get ID
+    const bestellingId = document.querySelector('updateid').value; // Replace with actual way to get ID
     updateBestelling(bestellingId);
   });
 
