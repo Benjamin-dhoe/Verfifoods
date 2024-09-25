@@ -36,6 +36,24 @@
     display: flex;
 }
 
+.progress-container {
+    width: 80%;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #3b82f6;
+    border-radius: 25px;
+    transition: width 0.1s;
+}
+
 .partners-holder {
     justify-content: center;
     align-items: center;
