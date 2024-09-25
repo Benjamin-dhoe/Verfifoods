@@ -1411,6 +1411,10 @@ td:hover .tooltip {
   margin-bottom: 60px;
 }
 
+.holderappresults.spacebetween {
+  justify-content: space-between;
+}
+
 .menuitem {
   border: 1px solid var(--brown);
   background-color: var(--white);
