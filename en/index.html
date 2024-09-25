@@ -142,15 +142,27 @@
       </div>
       <div class="doublepartsside right">
         <div class="centered-text100"></div>
-        <div class="alwaysflexhorizontal"><img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" alt="" class="teammemberimage">
-          <div>
-            <div class="brownundertitle blue">Philippe Van Eeckhoudt</div>
-            <div class="brownundertitle smaller">Founder Verfifoods</div>
-          </div>
+        <div class="alwaysflexhorizontal">
+            <img src="https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg" loading="lazy" alt="" class="teammemberimage" id="member-image">
+            <div>
+                <div class="brownundertitle blue" id="member-name">Philippe Van Eeckhoudt</div>
+                <div class="brownundertitle smaller" id="member-title">Verfifoods founder</div>
+            </div>
         </div>
         <div class="spacer10px"></div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. </p>
-      </div>
+        <p id="member-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
+        <div class="spacer10px"></div>
+        <div class="spacer10px"></div>
+        <div class="center100width">
+            <div class="alwaysflexhorizontal">
+                <div class="prevnextbtn" id="prevmember">&lt;</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="prevnextbtn" id="nextmember">&gt;</div>
+            </div>
+        </div>
+    </div>
     </div>
   </section>
   <section class="section-blue-parent">
@@ -326,5 +338,86 @@
   </script>
   <script src="/js/index.js" type="text/javascript"></script>
   <script type="module" src="/js/productreels.js"></script>
+    <script>
+const members = [
+    {
+        name: 'Philippe Van Eeckhoudt',
+        title: 'Verfifoods founder',
+        image: 'https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet.'
+    },
+    {
+        name: 'Sarah Van Eeckhoudt',
+        title: 'Klanten',
+        image: 'https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet.'
+    },
+    {
+        name: 'Bram Stroobants',
+        title: 'XXX',
+        image: 'https://d3e54v103j8qbb.cloudfront.net/plugins/Basic/assets/placeholder.60f9b1840c.svg',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet.'
+    }
+];
+
+const progressBar = document.getElementById('progress-bar');
+const prevBtn = document.getElementById('prevmember');
+const nextBtn = document.getElementById('nextmember');
+const memberImage = document.getElementById('member-image');
+const memberName = document.getElementById('member-name');
+const memberTitle = document.getElementById('member-title');
+const memberText = document.getElementById('member-text');
+
+let currentIndex = 0;
+let duration = 15000; // 15 seconds in milliseconds
+let timeLeft = duration;
+let intervalId;
+
+const updateMember = (index) => {
+    const member = members[index];
+    memberImage.src = member.image;
+    memberName.textContent = member.name;
+    memberTitle.textContent = member.title;
+    memberText.textContent = member.text;
+};
+
+const resetProgressBar = () => {
+    clearInterval(intervalId); // Clear any existing interval
+    timeLeft = duration;
+    progressBar.style.width = '0%';
+
+    intervalId = setInterval(updateProgressBar, 10);
+};
+
+const updateProgressBar = () => {
+    let percentage = ((duration - timeLeft) / duration) * 100;
+    progressBar.style.width = percentage + '%';
+
+    if (timeLeft > 0) {
+        timeLeft -= 10;
+    } else {
+        clearInterval(intervalId);
+        nextMember();
+    }
+};
+
+const nextMember = () => {
+    currentIndex = (currentIndex + 1) % members.length; // Cycle to next member
+    updateMember(currentIndex);
+    resetProgressBar();
+};
+
+const prevMember = () => {
+    currentIndex = (currentIndex - 1 + members.length) % members.length;
+    updateMember(currentIndex);
+    resetProgressBar();
+};
+
+prevBtn.addEventListener('click', prevMember);
+nextBtn.addEventListener('click', nextMember);
+
+updateMember(currentIndex);
+resetProgressBar();
+  </script>
 </body>
 </html>
