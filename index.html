@@ -379,7 +379,6 @@ let duration = 15000; // 15 seconds in milliseconds
 let timeLeft = duration;
 let intervalId;
 
-// Function to update member data
 const updateMember = (index) => {
     const member = members[index];
     memberImage.src = member.image;
@@ -388,48 +387,41 @@ const updateMember = (index) => {
     memberText.textContent = member.text;
 };
 
-// Reset progress bar and start countdown again
 const resetProgressBar = () => {
     clearInterval(intervalId); // Clear any existing interval
     timeLeft = duration;
-    progressBar.style.width = '0%'; // Reset the width of the progress bar
+    progressBar.style.width = '0%';
 
-    // Start the progress bar again
     intervalId = setInterval(updateProgressBar, 10);
 };
 
-// Function to update the progress bar
 const updateProgressBar = () => {
     let percentage = ((duration - timeLeft) / duration) * 100;
     progressBar.style.width = percentage + '%';
 
     if (timeLeft > 0) {
-        timeLeft -= 10; // Decrease time left by 10ms
+        timeLeft -= 10;
     } else {
         clearInterval(intervalId);
-        nextMember(); // Auto-switch to the next member when time is up
+        nextMember();
     }
 };
 
-// Function to handle next member
 const nextMember = () => {
     currentIndex = (currentIndex + 1) % members.length; // Cycle to next member
-    updateMember(currentIndex); // Update member info
-    resetProgressBar(); // Reset and restart the progress bar
+    updateMember(currentIndex);
+    resetProgressBar();
 };
 
-// Function to handle previous member
 const prevMember = () => {
-    currentIndex = (currentIndex - 1 + members.length) % members.length; // Cycle to previous member
-    updateMember(currentIndex); // Update member info
-    resetProgressBar(); // Reset and restart the progress bar
+    currentIndex = (currentIndex - 1 + members.length) % members.length;
+    updateMember(currentIndex);
+    resetProgressBar();
 };
 
-// Event listeners for the previous and next buttons
 prevBtn.addEventListener('click', prevMember);
 nextBtn.addEventListener('click', nextMember);
 
-// Initialize with the first member and start the progress bar
 updateMember(currentIndex);
 resetProgressBar();
   </script>
