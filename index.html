@@ -375,7 +375,7 @@ const memberTitle = document.getElementById('member-title');
 const memberText = document.getElementById('member-text');
 
 let currentIndex = 0;
-let duration = 15000; // 15 seconds in milliseconds
+let duration = 150000;
 let timeLeft = duration;
 let intervalId;
 
@@ -392,7 +392,7 @@ const resetProgressBar = () => {
     timeLeft = duration;
     progressBar.style.width = '0%';
 
-    intervalId = setInterval(updateProgressBar, 10);
+    intervalId = setInterval(updateProgressBar, 1);
 };
 
 const updateProgressBar = () => {
