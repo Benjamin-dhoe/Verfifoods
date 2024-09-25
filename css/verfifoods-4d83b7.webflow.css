@@ -9,6 +9,32 @@
   --darker-background: #fcf3e7;
 }
 
+.holderleveranciers {
+    background-color: var(--darker-background);
+    border-radius: 20px;
+    flex-flow: wrap;
+    align-items: flex-start;
+    padding: 20px;
+    display: flex;
+}
+
+.leverancier {
+    background-color: var(--white);
+    border-radius: 10px;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 200px;
+    max-width: 40vw;
+    height: 200px;
+    max-height: 40vw;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px 20px 60px;
+    display: flex;
+    position: relative;
+}
+
 [showproducts] {
     transition: opacity 0.3s ease;
     opacity: 1;
