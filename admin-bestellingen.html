@@ -176,7 +176,11 @@
                      </div>
                      <button type="submit" class="button intypeholder notabs w-button" id="updateBestellingBtn">Aanpassingen opslagen</button>
                 </div>
-          </div>
+            </div>
+
+            <div id="orderdetails">
+                
+            </div>
         </div>
           
       </div>
@@ -412,7 +416,43 @@
     document.getElementById('deliverystreetnr').value = data.deliverystreetnr || '';
     document.getElementById('deliverypostcode').value = data.deliverypostcode || '';
     document.getElementById('deliveryplace').value = data.deliveryplace || '';
-  }
+
+    // Populate order details table
+    const orderDetailsDiv = document.getElementById('orderdetails');
+    orderDetailsDiv.innerHTML = '';  // Clear any existing content
+
+    // Create table structure
+    const table = document.createElement('table');
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
+    const tbody = table.querySelector('tbody');
+
+    // Loop through each product and create table rows
+    data.products.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${product.productId}</td>
+            <td>${product.name}</td>
+            <td>${product.quantity}</td>
+            <td>${product.price}</td>
+            <td>${product.total}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    // Append the table to the orderdetails div
+    orderDetailsDiv.appendChild(table);
+}
 
   function toggleBusinessPersonalFields(type) {
     const personalDiv = document.getElementById('personaldiv');
