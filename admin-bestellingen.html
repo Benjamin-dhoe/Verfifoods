@@ -65,7 +65,7 @@
             </div>
           </div>
           
-          <div class="holderappresults" id="mainresults">
+          <div class="holderappresults" id="mainresults" style="min-width: 40%;">
             <div class="100widthcenter">
               <a class="button intypeholder notabs w-button" href="/nl/aanbod">Maak nieuwe bestelling</a>
               <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
@@ -95,7 +95,7 @@
               </div>
         </div>
 
-        <div id="popupeditbestelling" class="holderappresults" style="display: none;">
+        <div id="popupeditbestelling" class="holderappresults" style="display: none; min-width: 40%;">
           <div class="closebtn" id="closepopupeditbestelling">X</div>
           <div class="leftalignflexvert">
                 <div class="bold-text brown-text" id="detailbestid"></div>
@@ -178,7 +178,7 @@
                 </div>
             </div>
 
-            <div id="orderdetails">
+            <div class="table-container" id="orderdetails">
                 
             </div>
         </div>
@@ -423,6 +423,7 @@
 
     // Create table structure
     const table = document.createElement('table');
+    table.classList.add('styled-table');
     table.innerHTML = `
         <thead>
             <tr>
