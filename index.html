@@ -155,12 +155,14 @@
         </div>
         <div class="spacer10px"></div>
         <p membertext>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. </p>
-        <div class="alwaysflexhorizontal">
-          <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-          </div>
+        <div class="spacer10px"></div>
+        <div class="spacer10px"></div>
+        <div class="center100width">
           <div class="alwaysflexhorizontal">
             <div class="prevnextbtn" prevmember>&lt;</div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
             <div class="prevnextbtn" nextmember>&gt;</div>
           </div>
         </div>
@@ -361,7 +363,7 @@ const updateProgressBar = () => {
 };
 
 // Update progress bar every 1 second
-const progressInterval = setInterval(updateProgressBar, 1000);
+const progressInterval = setInterval(updateProgressBar, 10);
   </script>
 </body>
 </html>
