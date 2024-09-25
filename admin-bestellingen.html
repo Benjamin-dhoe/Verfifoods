@@ -18,88 +18,7 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 </head>
-<body class="body">
-<div id="popupeditbestelling" class="popupholder">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupeditbestelling">X</div>
-          <div class="leftalignflexvert overflow">
-            <div id="accountSetupForm">
-               <div class="radio-container">
-                 <label class="radio-label">
-                   <input type="radio" name="type" value="personal" class="radio-input" required>
-                   B2C-bestelling
-                 </label>
-                 <label class="radio-label">
-                   <input type="radio" name="type" value="business" class="radio-input" required>
-                   B2B-bestelling
-                 </label>
-               </div>
-              <label class="brownundertitle">Levering of afhaling?</label>
-              <div class="radio-container">
-                <label class="radio-label">
-                  <input type="radio" name="delivery" value="delivery" class="radio-input" required="">
-                  Levering
-                </label>
-                <label class="radio-label">
-                  <input type="radio" name="delivery" value="pickup" class="radio-input" required="">
-                  Afhaling
-                </label>
-              </div>
-               <div class="spacer10px"></div>
-                <label class="brownundertitle">Email</label>
-               <input class="text-field w-input" maxlength="256" type="text" id="email" name="email" required>
-               <label class="brownundertitle">Telefoon</label>
-               <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" required>
-               <div id="personaldiv" style="display: none;">
-                 <label class="brownundertitle">Voornaam</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="firstname" name="firstname" required>
-                 <label class="brownundertitle">Naam</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="name" name="name" required>
-               </div>
-               <div id="businessdiv" style="display: none;">
-                 <label class="brownundertitle">Bedrijfsnaam</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="companyname" name="companyname" required>
-                 <label class="brownundertitle">BTW nummer</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="btwnr" name="btwnr" required>
-                 
-               </div>
-               <div>
-                 <div class="spacer10px"></div>
-                 <label class="brownundertitle bold-text">Factuuradres</label>
-                 <label class="brownundertitle">Straat en huisnummer</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="streetnrfact" name="streetnrfact" required>
-                 <label class="brownundertitle">Postcode</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="postcodefact" name="postcodefact" required>
-                 <label class="brownundertitle">Plaats</label>
-                 <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" required>
-                 <div class="spacer10px"></div>
-                 <div id="deliverydiv">
-                 <label class="brownundertitle bold-text">Leveringsadres</label>
-                   <label class="brownundertitle">Straat en huisnummer</label>
-                   <input class="text-field w-input" maxlength="256" type="text" id="deliverystreetnr" name="deliverystreetnr" required>
-                   <label class="brownundertitle">Postcode</label>
-                   <input class="text-field w-input" maxlength="256" type="text" id="deliverypostcode" name="deliverypostcode" required>
-                   <label class="brownundertitle">Plaats</label>
-                   <input class="text-field w-input" maxlength="256" type="text" id="deliveryplace" name="deliveryplace" required>
-                 </div>
-               </div>
-               <div class="spacer10px"></div>
-               <div class="loading" id="loadingeditbestelling" style="display: none;">
-                   <lottie-player
-                       src="/images/loading.json"
-                       background="transparent"
-                       speed="1"
-                       loop
-                       autoplay>
-                   </lottie-player>
-               </div>
-              <div id="succesvolleupdate" class="w-form-done">Bestelling succesvol geupdate!</div>
-               <button type="submit" class="button intypeholder notabs w-button" id="updateBestellingBtn">Aanpassingen opslagen</button>
-          </div>
-    </div>
-  </div>
-</div>
-  
+<body class="body">  
   <div class="_100-widthcenter">
     <div class="containcenter dashboard">
       <div class="holdertopdashboard">
@@ -177,10 +96,10 @@
         </div>
 
         <div id="popupeditbestelling" class="holderappresults" style="display: none;">
+          <div class="leftalignflexvert">
                 <div class="bold-text brown-text" id="detailbestid"></div>
                 <input type="hidden" id="updateid" value="">
                 <div id="closepopupeditbestelling">< Terug naar overzicht</div>
-                <div class="leftalignflexvert overflow">
                   <div id="accountSetupForm">
                      <div class="radio-container">
                        <label class="radio-label">
