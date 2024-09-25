@@ -522,7 +522,7 @@
 
   // Add event listener for the update button in the popup
   document.getElementById('updateBestellingBtn').addEventListener('click', () => {
-    const bestellingId = document.querySelector('updateid').value; // Replace with actual way to get ID
+    const bestellingId = document.getElementById('updateid').value; // Replace with actual way to get ID
     updateBestelling(bestellingId);
   });
 
