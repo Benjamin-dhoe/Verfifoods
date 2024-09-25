@@ -518,6 +518,7 @@
       succesvolleupdate.style.display = "block";
       setTimeout(() => {
         succesvolleupdate.style.display = "none";
+        document.getElementById('updateBestellingBtn').style.display = "block";
       }, 5000);
     } catch (error) {
       console.error('Error updating bestelling: ', error);
