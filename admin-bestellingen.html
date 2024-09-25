@@ -96,11 +96,14 @@
         </div>
 
         <div id="popupeditbestelling" class="holderappresults" style="display: none;">
+          <div class="closebtn" id="closepopupeditbestelling">X</div>
           <div class="leftalignflexvert">
                 <div class="bold-text brown-text" id="detailbestid"></div>
+                <div class="spacer10px"></div>
                 <input type="hidden" id="updateid" value="">
-                <div id="closepopupeditbestelling">< Terug naar overzicht</div>
+                
                   <div id="accountSetupForm">
+                    <label class="brownundertitle">B2B of B2C?</label>
                      <div class="radio-container">
                        <label class="radio-label">
                          <input type="radio" name="type" value="personal" class="radio-input" required>
@@ -111,6 +114,7 @@
                          B2B-bestelling
                        </label>
                      </div>
+                    <div class="spacer10px"></div>
                     <label class="brownundertitle">Levering of afhaling?</label>
                     <div class="radio-container">
                       <label class="radio-label">
@@ -170,7 +174,7 @@
                              autoplay>
                          </lottie-player>
                      </div>
-                     <button type="submit" class="button intypeholder notabs w-button" onClick="updateBestelling()">Aanpassingen opslagen</button>
+                     <button type="submit" class="button intypeholder notabs w-button" id="updateBestellingBtn">Aanpassingen opslagen</button>
                 </div>
           </div>
         </div>
@@ -392,7 +396,7 @@
     toggleDeliveryFields(bestellingDeliveryPickup);
 
     // Populate fields with order data
-    document.getElementById('detailbestid').textContent = bestellingId;
+    document.getElementById('detailbestid').textContent = `Bestelling ID: ${bestellingId}`;
     document.getElementById('updateid').value = bestellingId;
     document.getElementById('email').value = data.email || '';
     document.getElementById('telephone').value = data.telephone || '';
