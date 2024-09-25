@@ -2164,6 +2164,10 @@ select {
     min-height: 90vh;
   }
 
+  .holderleveranciers {
+    justify-content: center;
+}
+
   .leverancier {
     width: 80vw;
     max-width: 80vw;
