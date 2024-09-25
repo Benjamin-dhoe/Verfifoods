@@ -2167,6 +2167,7 @@ select {
   .leverancier {
     width: 80vw;
     max-width: 80vw;
+    max-height: 80vw;
     height: 80vw;
 }
 
