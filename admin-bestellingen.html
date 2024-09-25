@@ -342,6 +342,9 @@
           tableRow.appendChild(billingCell);
           if (bestellingDeliveryPickup === "delivery") {
             tableRow.appendChild(deliveryCell);
+          } else {
+            const emptyCell = document.createElement('td');
+            tableRow.appendChild(emptyCell);
           }
           
           // Append the row to the table fragment
