@@ -188,8 +188,6 @@
                      </label>
                    </div>
                    <div class="spacer10px"></div>
-                    <label class="brownundertitle">Email</label>
-                   <input class="text-field w-input" maxlength="256" type="text" id="editemail" name="email" required>
                    <label class="brownundertitle">Telefoon</label>
                    <input class="text-field w-input" maxlength="256" type="text" id="edittelephone" name="telephone" required>
                    <div id="editpersonaldiv" style="display: none;">
@@ -497,7 +495,6 @@ async function populatePopup(data, klantEmail) {
     // Populate fields with order data
     document.getElementById('detailklantid').textContent = `Klant: ${klantEmail}`;
     document.getElementById('updateid').value = klantEmail;
-    document.getElementById('editemail').value = klantEmail;
     document.getElementById('edittelephone').value = data.telephone || '';
     document.getElementById('editfirstname').value = data.firstname || '';
     document.getElementById('editname').value = data.name || '';
@@ -586,7 +583,6 @@ klantOrdersDiv.appendChild(table);
     // Gather updated data from the form
     const updatedData = {
       type: klantType,
-      email: document.getElementById('editemail').value,
       telephone: document.getElementById('edittelephone').value,
       firstname: document.getElementById('editfirstname').value,
       name: document.getElementById('editname').value,
