@@ -287,7 +287,7 @@
           
           // Make the row clickable for editing the user
           tableRow.addEventListener('click', () => {
-            populatePopup(data, klantEmail);
+            populatePopup(bestellingId);
           
             const popupEditBestelling = document.getElementById("popupeditbestelling");
             const mainResultsDiv = document.getElementById("mainresults");
@@ -380,14 +380,29 @@
     });
   });
 
+  const currentUrl = window.location.href;
+  const url = new URL(currentUrl);
+  const passedid = url.searchParams.get("id");
+  const passeduser = url.searchParams.get("user");
+  
   document.getElementById("closepopupeditbestelling").addEventListener("click", function() {
-    const popupEditBestelling = document.getElementById("popupeditbestelling");
-    popupEditBestelling.style.display = "none";
-    const mainResultsDiv = document.getElementById("mainresults");
-    mainResultsDiv.style.display = "flex";
+    if (id) {
+      window.location.href = `/admin/klanten?id=${passeduser}`
+    } else {
+      const popupEditBestelling = document.getElementById("popupeditbestelling");
+      popupEditBestelling.style.display = "none";
+      const mainResultsDiv = document.getElementById("mainresults");
+      mainResultsDiv.style.display = "flex";
+    }
   });
 
-  function populatePopup(data, bestellingType, bestellingId, bestellingDeliveryPickup) {
+async function populatePopup(bestellingId) {
+    const bestellingDocRef = doc(db, "Bestellingen", bestellingId);
+  try {
+    const bestellingDoc = await getDoc(bestellingDocRef);
+    const data = bestellingDoc.data();
+    const bestellingType = data.type;
+    const bestellingDeliveryPickup = data.deliveryPickup;
     // Set the radio buttons based on bestelling type
     const personalRadio = document.querySelector('input[name="type"][value="personal"]');
     const businessRadio = document.querySelector('input[name="type"][value="business"]');
@@ -457,6 +472,15 @@
 
     // Append the table to the orderdetails div
     orderDetailsDiv.appendChild(table);
+  }
+}
+
+if (id) {
+    populatePopup(id);
+    const popupEditBestelling = document.getElementById("popupeditbestelling");
+    const mainResultsDiv = document.getElementById("mainresults");
+    mainResultsDiv.style.display = "none";
+    popupEditBestelling.style.display = "flex";
 }
 
   function toggleBusinessPersonalFields(type) {
