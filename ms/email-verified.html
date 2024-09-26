@@ -77,7 +77,8 @@
           console.log("Email verification applied successfully.");
 
           // Reload the user to fetch the updated emailVerified status
-          await user.reload();
+          await user.getIdToken(true);
+          
 
           if (user.emailVerified) {
             console.log("Email is verified:", user);
