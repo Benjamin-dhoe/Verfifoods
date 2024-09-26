@@ -232,7 +232,7 @@
     const bestellingDocRef = doc(db, "Bestellingen", bestellingId);
   try {
     const bestellingDoc = await getDoc(bestellingDocRef);
-    data = bestellingDocRef.data();
+    data = bestellingDoc.data();
     const bestellingType = data.type;
     const bestellingDeliveryPickup = data.deliveryPickup;
     // Set the radio buttons based on bestelling type
