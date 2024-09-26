@@ -522,12 +522,12 @@ async function populatePopup(data, klantEmail) {
     table.innerHTML = `
         <thead>
             <tr>
-                <td>Levering/afhaling</td>
-                <td>Type</td>
-                <td>Status</td>
-                <td>Prijs</td>
-                <td>Dozen</td>
-                <td>Bestelling ID</td>
+                <th>Levering/afhaling</td>
+                <th>Type</td>
+                <th>Status</td>
+                <th>Prijs</td>
+                <th>Dozen</td>
+                <th>Bestelling ID</td>
             </tr>
         </thead>
         <tbody></tbody>
@@ -577,6 +577,51 @@ klantOrdersDiv.appendChild(table);
       businessEditDiv.style.display = 'block';
     }
   }
+
+    async function updateKlant(klantId) {
+    document.getElementById('updateKlantBtn').style.display = "none";
+    document.getElementById('loadingeditklant').style.display = "block";
+    const klantType = document.querySelector('input[name="edittype"]:checked').value;
+
+    // Gather updated data from the form
+    const updatedData = {
+      type: klantType,
+      email: document.getElementById('editemail').value,
+      telephone: document.getElementById('edittelephone').value,
+      firstname: document.getElementById('editfirstname').value,
+      name: document.getElementById('editname').value,
+      companyname: document.getElementById('editcompanyname').value,
+      btwnr: document.getElementById('editbtwnr').value,
+      streetnrfact: document.getElementById('editstreetnrfact').value,
+      postcodefact: document.getElementById('editpostcodefact').value,
+      placefact: document.getElementById('editplacefact').value,
+      deliverystreetnr: document.getElementById('editdeliverystreetnr').value,
+      deliverypostcode: document.getElementById('editdeliverypostcode').value,
+      deliveryplace: document.getElementById('editdeliveryplace').value,
+    };
+
+    try {
+      const docRef = doc(db, "Users", klantId);
+      await updateDoc(docRef, updatedData);
+      const succesvolleupdate = document.getElementById("succesvolleupdate");
+      document.getElementById('loadingeditklant').style.display = "none";
+      succesvolleupdate.style.display = "block";
+      setTimeout(() => {
+        succesvolleupdate.style.display = "none";
+        document.getElementById('updateKlantBtn').style.display = "block";
+      }, 5000);
+    } catch (error) {
+      console.error('Error updating klant: ', error);
+      document.getElementById('updateKlantBtn').style.display = "block";
+    }
+  }
+
+  // Add event listener for the update button in the popup
+  document.getElementById('updateKlantBtn').addEventListener('click', () => {
+    const klantId = document.getElementById('updateid').value; // Replace with actual way to get ID
+    updateKlant(klantId);
+  });
+
   
 </script>
 
