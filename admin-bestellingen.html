@@ -287,14 +287,7 @@
           
           // Make the row clickable for editing the user
           tableRow.addEventListener('click', () => {
-            // Populate the popup with the selected order's details
-            populatePopup(data, bestellingType, bestellingId, bestellingDeliveryPickup);
-          
-            // Show the popup
-            const popupEditBestelling = document.getElementById("popupeditbestelling");
-            const mainResultsDiv = document.getElementById("mainresults");
-            mainResultsDiv.style.display = "none";
-            popupEditBestelling.style.display = "flex";
+            window.location.href = `/admin/bestelling?id=${bestellingId}`;
           });
           
           // Create billing and delivery cells
