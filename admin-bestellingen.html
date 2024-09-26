@@ -69,7 +69,7 @@
             <div class="100widthcenter">
               <a class="button intypeholder notabs w-button" href="/nl/aanbod">Maak nieuwe bestelling</a>
               <div class="spacer10px"></div>
-              <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
+              <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer tabel naar excel</button>
             </div>
             <div class="table-container" id="bestellingenTable">
                 <table class="styled-table" id="tableXL">
@@ -435,10 +435,10 @@
         <thead>
             <tr>
                 <th>Product</th>
-                <th>Product ID</th>
                 <th>Qty</th>
                 <th>Prijs</th>
                 <th>Totaal</th>
+                <th>Product ID</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -450,10 +450,10 @@
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${product.name}</td>
-            <td>${product.productId}</td>
             <td>${product.quantity}</td>
             <td>${product.price}</td>
             <td>${product.total}</td>
+            <td>${product.productId}</td>
         `;
         tbody.appendChild(row);
     });
