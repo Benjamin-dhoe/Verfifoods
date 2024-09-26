@@ -42,7 +42,7 @@
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66d843f7aa41c71a1134cb81" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script type="module">
   import { auth } from '/js/firebase.js';
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  import { onAuthStateChanged, applyActionCode } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
   const language = localStorage.getItem('language') || 'en';
   const titleElement = document.getElementById("title");
@@ -61,50 +61,63 @@
 
   const userId = getCookie('userId');
 
+  // Extract `oobCode` from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const oobCode = urlParams.get('oobCode');
+
+  // Ensure the user is signed in and handle email verification
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       console.log("User is signed in:", user);
 
-      // Reload user data to check the latest email verification status
-      await user.reload();
+      if (oobCode) {
+        try {
+          // Apply the action code from the email verification link
+          await applyActionCode(auth, oobCode);
+          console.log("Email verification applied successfully.");
 
-      if (user.emailVerified) {
-        console.log("Email is verified:", user);
-        
-        // Update UI text based on language and redirect after 3 seconds
-        if (language === 'nl') {
-          titleElement.textContent = "Email succesvol geverifieerd";
-          textElement.textContent = "U wordt zometeen herleid naar uw dashboard ...";
-        } else if (language === 'fr') {
-          titleElement.textContent = "E-mail vérifiée avec succès";
-          textElement.textContent = "Vous serez redirigé vers votre tableau de bord sous peu...";
-        } else {
-          titleElement.textContent = "Email successfully verified";
-          textElement.textContent = "You will be redirected to your dashboard shortly...";
-        }
+          // Reload the user to fetch the updated emailVerified status
+          await user.reload();
 
-        setTimeout(() => {
-          if (userId) {
-            // Redirect to the user's dashboard if userId exists
-            window.location.href = `/${language}/users/${userId}`;
+          if (user.emailVerified) {
+            console.log("Email is verified:", user);
+
+            // Update UI text based on language and redirect after 3 seconds
+            if (language === 'nl') {
+              titleElement.textContent = "Email succesvol geverifieerd";
+              textElement.textContent = "U wordt zometeen herleid naar uw dashboard ...";
+            } else if (language === 'fr') {
+              titleElement.textContent = "E-mail vérifiée avec succès";
+              textElement.textContent = "Vous serez redirigé vers votre tableau de bord sous peu...";
+            } else {
+              titleElement.textContent = "Email successfully verified";
+              textElement.textContent = "You will be redirected to your dashboard shortly...";
+            }
+
+            setTimeout(() => {
+              if (userId) {
+                window.location.href = `/${language}/users/${userId}`;
+              } else {
+                const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+                window.location.href = loginPage;
+              }
+            }, 3000);
           } else {
-            // Redirect to the login page if no userId
-            const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
-            window.location.href = loginPage;
+            console.log("Email is not verified yet.");
           }
-        }, 3000);
-      } else {
-        console.log("Email is not verified yet.");
-        // Optionally, display a message or handle unverified email scenario
+        } catch (error) {
+          console.error("Error applying action code for email verification:", error);
+          // Optionally, you can show an error message to the user here
+        }
       }
     } else {
       console.log("No user is signed in.");
-      // Redirect to login page if no user is signed in
       const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
       window.location.href = loginPage;
     }
   });
 </script>
+
 
 </body>
 </html>
