@@ -100,6 +100,8 @@
           <div class="leftalignflexvert" style="min-width: 40%;">
                 <div class="bold-text brown-text" id="detailbestid"></div>
                 <div class="spacer10px"></div>
+                <div class="brownundertitle blue" id="email"></div>
+                <div class="spacer10px"></div>
                 <input type="hidden" id="updateid" value="">
                 
                   <div id="accountSetupForm">
@@ -127,8 +129,6 @@
                       </label>
                     </div>
                      <div class="spacer10px"></div>
-                      <label class="brownundertitle">Email</label>
-                     <input class="text-field w-input" maxlength="256" type="text" id="email" name="email" required>
                      <label class="brownundertitle">Telefoon</label>
                      <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" required>
                      <div id="personaldiv" style="display: none;">
@@ -406,7 +406,7 @@
     // Populate fields with order data
     document.getElementById('detailbestid').textContent = `Bestelling ID: ${bestellingId}`;
     document.getElementById('updateid').value = bestellingId;
-    document.getElementById('email').value = data.email || '';
+    document.getElementById('email').textContent = `User: ${data.email}`;
     document.getElementById('telephone').value = data.telephone || '';
     document.getElementById('firstname').value = data.firstname || '';
     document.getElementById('name').value = data.name || '';
@@ -491,7 +491,6 @@
     const updatedData = {
       type: bestellingType,
       deliveryPickup: bestellingDeliveryPickup,
-      email: document.getElementById('email').value,
       telephone: document.getElementById('telephone').value,
       firstname: document.getElementById('firstname').value,
       name: document.getElementById('name').value,
