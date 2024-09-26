@@ -48,6 +48,23 @@
   const titleElement = document.getElementById("title");
   const textElement = document.getElementById("text");
 
+  // Function to set the initial "verifying" message based on the language
+  function setVerifyingMessage() {
+    if (language === 'nl') {
+      titleElement.textContent = "Uw email wordt geverifieerd...";
+      textElement.textContent = "Even geduld, dit kan een paar seconden duren.";
+    } else if (language === 'fr') {
+      titleElement.textContent = "Votre email est en cours de vérification...";
+      textElement.textContent = "Veuillez patienter, cela peut prendre quelques secondes.";
+    } else {
+      titleElement.textContent = "Your email is being verified...";
+      textElement.textContent = "Please wait, this may take a few seconds.";
+    }
+  }
+
+  // Call the function to set the verifying message immediately when the page loads
+  setVerifyingMessage();
+
   function getCookie(name) {
     let cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
@@ -57,6 +74,10 @@
       }
     }
     return null;
+  }
+
+  function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   const userId = getCookie('userId');
@@ -78,43 +99,30 @@
 
           // Reload the user to fetch the updated emailVerified status
           await user.reload();
-          
 
           if (user.emailVerified) {
             console.log("Email is verified:", user);
-            await user.getIdToken(true);
+            deleteCookie('token');
+            deleteCookie('userId');
 
-            // Update UI text based on language and redirect after 3 seconds
+            // Update UI text based on language and inform the user they need to log in again
             if (language === 'nl') {
               titleElement.textContent = "Email succesvol geverifieerd";
-              textElement.textContent = "U wordt zometeen herleid naar uw dashboard ...";
+              textElement.textContent = "U wordt zometeen herleid naar de login pagina...";
             } else if (language === 'fr') {
               titleElement.textContent = "E-mail vérifiée avec succès";
-              textElement.textContent = "Vous serez redirigé vers votre tableau de bord sous peu...";
+              textElement.textContent = "Vous serez redirigé vers la page de connexion sous peu...";
             } else {
               titleElement.textContent = "Email successfully verified";
-              textElement.textContent = "You will be redirected to your dashboard shortly...";
+              textElement.textContent = "You will be redirected to the login page shortly...";
             }
 
+            // Redirect to login page after 3 seconds to force token refresh
             setTimeout(() => {
-              if (userId) {
-                // Handle language-specific redirect URLs
-                let redirectUrl;
-                if (language === 'nl') {
-                  redirectUrl = `/nl/users/${userId}`;
-                } else if (language === 'fr') {
-                  redirectUrl = `/users/${userId}`; // French doesn't have '/fr/' prefix
-                } else {
-                  redirectUrl = `/en/users/${userId}`; // Default to English
-                }
-                window.location.href = redirectUrl;
-              } else {
-                // Redirect to the appropriate login page based on language
-                const loginPage = language === 'nl' 
-                    ? '/nl/login.html' 
-                    : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
-                window.location.href = loginPage;
-              }
+              const loginPage = language === 'nl' 
+                  ? '/nl/login.html' 
+                  : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+              window.location.href = loginPage;
             }, 3000);
           } else {
             console.log("Email is not verified yet.");
@@ -133,6 +141,7 @@
     }
   });
 </script>
+
 
 
 
