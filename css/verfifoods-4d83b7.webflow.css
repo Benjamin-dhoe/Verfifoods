@@ -771,6 +771,10 @@ td:hover .tooltip {
   height: 10px;
 }
 
+.spacer10px.hor {
+  width: 10px;
+}
+
 .socialmediaholder {
   justify-content: space-between;
   align-items: stretch;
