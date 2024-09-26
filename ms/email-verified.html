@@ -82,6 +82,7 @@
 
           if (user.emailVerified) {
             console.log("Email is verified:", user);
+            await user.getIdToken(true);
 
             // Update UI text based on language and redirect after 3 seconds
             if (language === 'nl') {
