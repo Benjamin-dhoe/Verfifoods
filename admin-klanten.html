@@ -606,6 +606,7 @@ klantOrdersDiv.appendChild(table);
       const succesvolleupdate = document.getElementById("succesvolleupdate");
       document.getElementById('loadingeditklant').style.display = "none";
       succesvolleupdate.style.display = "block";
+      displayKlanten();
       setTimeout(() => {
         succesvolleupdate.style.display = "none";
         document.getElementById('updateKlantBtn').style.display = "block";
