@@ -96,9 +96,21 @@
 
             setTimeout(() => {
               if (userId) {
-                window.location.href = `/${language}/users/${userId}`;
+                // Handle language-specific redirect URLs
+                let redirectUrl;
+                if (language === 'nl') {
+                  redirectUrl = `/nl/users/${userId}`;
+                } else if (language === 'fr') {
+                  redirectUrl = `/users/${userId}`; // French doesn't have '/fr/' prefix
+                } else {
+                  redirectUrl = `/en/users/${userId}`; // Default to English
+                }
+                window.location.href = redirectUrl;
               } else {
-                const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+                // Redirect to the appropriate login page based on language
+                const loginPage = language === 'nl' 
+                    ? '/nl/login.html' 
+                    : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
                 window.location.href = loginPage;
               }
             }, 3000);
@@ -107,16 +119,19 @@
           }
         } catch (error) {
           console.error("Error applying action code for email verification:", error);
-          // Optionally, you can show an error message to the user here
+          // Optionally, show an error message here
         }
       }
     } else {
       console.log("No user is signed in.");
-      const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+      const loginPage = language === 'nl' 
+          ? '/nl/login.html' 
+          : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
       window.location.href = loginPage;
     }
   });
 </script>
+
 
 
 </body>
