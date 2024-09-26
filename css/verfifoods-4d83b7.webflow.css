@@ -771,8 +771,8 @@ td:hover .tooltip {
   height: 10px;
 }
 
-.spacer10px.hor {
-  width: 10px;
+.spacer10px.inline {
+  display: inline-block;
 }
 
 .socialmediaholder {
