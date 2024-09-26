@@ -78,7 +78,7 @@ function getCookie(name) {
         setTimeout(() => {
           if (userId) {
             // Redirect to the user's dashboard if userId exists
-            window.location.href = /nl/users/${userId};
+            window.location.href = `/nl/users/${userId}`;
           } else {
             // Otherwise, redirect to the login page
             window.location.href = '/nl/login.html';
@@ -90,7 +90,7 @@ function getCookie(name) {
         setTimeout(() => {
           if (userId) {
             // Redirect to the user's dashboard if userId exists
-            window.location.href = /users/${userId};
+            window.location.href = `/users/${userId}`;
           } else {
             // Otherwise, redirect to the login page
             window.location.href = '/se-connecter.html';
@@ -102,7 +102,7 @@ function getCookie(name) {
         setTimeout(() => {
           if (userId) {
             // Redirect to the user's dashboard if userId exists
-            window.location.href = /en/users/${userId};
+            window.location.href = `/en/users/${userId}`;
           } else {
             // Otherwise, redirect to the login page
             window.location.href = '/en/login.html';
