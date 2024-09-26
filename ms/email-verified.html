@@ -97,47 +97,6 @@ function getCookie(name) {
           }
         }, 3000);
     }
-
-function updateContent() {
-    const queryParams = getQueryParams();
-    
-    const titleElement = document.getElementById("title");
-    const textElement = document.getElementById("text");
-    const loginlink = document.getElementById("loginlink");
-
-    // Check the 'lang' query value first
-    if (queryParams.lang === 'nl') {
-        loginlink.href = '/nl/index.html';
-        if (queryParams.action === 'reset') {
-            titleElement.textContent = "Reset paswoord via email";
-            textElement.textContent = "We hebben u zonet een email gestuurd";
-        } else if (queryParams.action === 'setup') {
-            titleElement.textContent = "Verifieer uw emailadres";
-            textElement.textContent = "We hebben u zonet een email gestuurd";
-        }
-
-    } else if (queryParams.lang === 'fr') {
-        loginlink.href = '/index.html';
-        if (queryParams.action === 'reset') {
-            titleElement.textContent = "Réinitialiser le mot de passe par e-mail";
-            textElement.textContent = "Nous venons de vous envoyer un e-mail";
-        } else if (queryParams.action === 'setup') {
-            titleElement.textContent = "Vérifiez votre adresse e-mail";
-            textElement.textContent = "Nous venons de vous envoyer un e-mail";
-        }
-    } else {
-        loginlink.href = '/en/index.html';
-        if (queryParams.action === 'reset') {
-            titleElement.textContent = "Reset your paswoord";
-            textElement.textContent = "We've sent you an email";
-        } else if (queryParams.action === 'setup') {
-            titleElement.textContent = "Verify your email";
-            textElement.textContent = "We've sent you an email";
-        }
-    }
-}
-
-window.onload = updateContent;
 </script>
 </body>
 </html>
