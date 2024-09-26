@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 // klant aanpassen
-function populatePopup(data, klantEmail) {
+async function populatePopup(data, klantEmail) {
     // Set the radio buttons based on bestelling type
     const klantType = data.type;
     const personalEditRadio = document.querySelector('input[name="edittype"][value="personal"]');
