@@ -917,6 +917,10 @@ td:hover .tooltip {
   display: flex;
 }
 
+.flexhorizontalwrap.gap {
+  gap: 10px;
+}
+
 .flexhorizontalwrap.left {
   flex-flow: row;
   align-items: flex-start;
