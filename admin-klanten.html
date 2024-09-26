@@ -536,23 +536,34 @@ async function populatePopup(data, klantEmail) {
 
     const q = query(collection(db, 'Bestellingen'), where("email", "==", klantEmail));
     const userordersSnapshot = await getDocs(q);
-      
-    userordersSnapshot.docs.forEach(doc => {
-        const bestelling = doc.data();
+    
+    // Check if there are any orders
+    if (userordersSnapshot.empty) {
+        // Create a row with a message if no orders found
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${bestelling.deliveryPickup}</td>
-            <td>${bestelling.type}</td>
-            <td>${bestelling.status}</td>
-            <td>${bestelling.totalPrice}</td>
-            <td>${bestelling.totalBoxes}</td>
-            <td>${doc.id}</td>
+            <td colspan="6" style="text-align: center;">Deze klant heeft geen bestellingen.</td>
         `;
         tbody.appendChild(row);
-    });
+    } else {
+        // Populate table rows with order data if orders are found
+        userordersSnapshot.docs.forEach(doc => {
+            const bestelling = doc.data();
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${bestelling.deliveryPickup || ''}</td>
+                <td>${bestelling.type || ''}</td>
+                <td>${bestelling.status || ''}</td>
+                <td>${bestelling.totalPrice || ''}</td>
+                <td>${bestelling.totalBoxes || ''}</td>
+                <td>${doc.id}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
 
-    // Append the table to the orderdetails div
-    klantOrdersDiv.appendChild(table);
+// Append the table to the klantOrdersDiv
+klantOrdersDiv.appendChild(table);
 }
 
     function toggleBusinessPersonalFields(type) {
