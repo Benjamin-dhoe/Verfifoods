@@ -44,71 +44,67 @@
   import { auth } from '/js/firebase.js';
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("User is signed in:", user);
-    } else {
-        console.log("No user is signed in.");
-    }
-});
-</script>
-  <script>
-const language = localStorage.getItem('language') || 'en';
-    
-const titleElement = document.getElementById("title");
-const textElement = document.getElementById("text");
+  const language = localStorage.getItem('language') || 'en';
+  const titleElement = document.getElementById("title");
+  const textElement = document.getElementById("text");
 
-function getCookie(name) {
+  function getCookie(name) {
     let cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
       let cookie = cookies[i].trim();
-      // Check if the cookie's name matches the given name
       if (cookie.startsWith(name + '=')) {
         return cookie.split('=')[1];
       }
     }
-    return null; // Return null if cookie is not found
+    return null;
   }
 
   const userId = getCookie('userId');
-    // Check the 'lang' query value first
-    if (language === 'nl') {
-        titleElement.textContent = "Email succesvol geverifieerd";
-        textElement.textContent = "U wordt zometeen herleid naar uw dashboard ...";
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      console.log("User is signed in:", user);
+
+      // Reload user data to check the latest email verification status
+      await user.reload();
+
+      if (user.emailVerified) {
+        console.log("Email is verified:", user);
+        
+        // Update UI text based on language and redirect after 3 seconds
+        if (language === 'nl') {
+          titleElement.textContent = "Email succesvol geverifieerd";
+          textElement.textContent = "U wordt zometeen herleid naar uw dashboard ...";
+        } else if (language === 'fr') {
+          titleElement.textContent = "E-mail vérifiée avec succès";
+          textElement.textContent = "Vous serez redirigé vers votre tableau de bord sous peu...";
+        } else {
+          titleElement.textContent = "Email successfully verified";
+          textElement.textContent = "You will be redirected to your dashboard shortly...";
+        }
+
         setTimeout(() => {
           if (userId) {
             // Redirect to the user's dashboard if userId exists
-            window.location.href = `/nl/users/${userId}`;
+            window.location.href = `/${language}/users/${userId}`;
           } else {
-            // Otherwise, redirect to the login page
-            window.location.href = '/nl/login.html';
+            // Redirect to the login page if no userId
+            const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+            window.location.href = loginPage;
           }
         }, 3000);
-    } else if (language === 'fr') {
-        titleElement.textContent = "E-mail vérifiée avec succès";
-        textElement.textContent = "Vous serez redirigé vers votre tableau de bord sous peu...";
-        setTimeout(() => {
-          if (userId) {
-            // Redirect to the user's dashboard if userId exists
-            window.location.href = `/users/${userId}`;
-          } else {
-            // Otherwise, redirect to the login page
-            window.location.href = '/se-connecter.html';
-          }
-        }, 3000);
+      } else {
+        console.log("Email is not verified yet.");
+        // Optionally, display a message or handle unverified email scenario
+      }
     } else {
-        titleElement.textContent = "Email succesfully verified";
-        textElement.textContent = "You will be redirected to your dashboard shortly...";
-        setTimeout(() => {
-          if (userId) {
-            // Redirect to the user's dashboard if userId exists
-            window.location.href = `/en/users/${userId}`;
-          } else {
-            // Otherwise, redirect to the login page
-            window.location.href = '/en/login.html';
-          }
-        }, 3000);
+      console.log("No user is signed in.");
+      // Redirect to login page if no user is signed in
+      const loginPage = language === 'nl' ? '/nl/login.html' : (language === 'fr' ? '/se-connecter.html' : '/en/login.html');
+      window.location.href = loginPage;
     }
+  });
 </script>
+
 </body>
 </html>
