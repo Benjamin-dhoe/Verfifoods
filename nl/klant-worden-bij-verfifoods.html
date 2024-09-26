@@ -220,6 +220,7 @@ function signUpWithEmail(event) {
 
         sendEmailVerification(user)
           .then(() => {
+            localStorage.setItem('language', 'nl');
             window.location.href = "/ms/verify-email?lang=fr&action=setup";
           })
           .catch((error) => {
