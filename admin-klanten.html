@@ -547,6 +547,9 @@ async function populatePopup(data, klantEmail) {
         userordersSnapshot.docs.forEach(doc => {
             const bestelling = doc.data();
             const row = document.createElement('tr');
+            row.addEventListener('click', () => {
+              window.location.href = `/admin/bestellingen?id=${doc.id}&user=${klantEmail}`
+            });
             row.innerHTML = `
                 <td>${bestelling.deliveryPickup || ''}</td>
                 <td>${bestelling.type || ''}</td>
