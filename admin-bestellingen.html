@@ -287,7 +287,12 @@
           
           // Make the row clickable for editing the user
           tableRow.addEventListener('click', () => {
-            window.location.href = `/admin/bestelling?id=${bestellingId}`;
+            populatePopup(data, klantEmail);
+          
+            const popupEditBestelling = document.getElementById("popupeditbestelling");
+            const mainResultsDiv = document.getElementById("mainresults");
+            mainResultsDiv.style.display = "none";
+            popupEditBestelling.style.display = "flex";
           });
           
           // Create billing and delivery cells
