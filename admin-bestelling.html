@@ -64,38 +64,9 @@
               <img src="/images/listicon.svg" loading="lazy" alt="">
             </div>
           </div>
-          
-          <div class="holderappresults" id="mainresults">
-            <div class="flexhorizontalwrap gap left">
-              <a class="button intypeholder notabs w-button" href="/nl/aanbod">Maak nieuwe bestelling</a>
-              <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer tabel naar excel</button>
-            </div>
-            <div class="table-container" id="bestellingenTable">
-                <table class="styled-table" id="tableXL">
-                    <thead>
-                        <tr>
-                            <th>Klant</th>
-                            <th>BestellingID</th>
-                            <th>Admin/user/gast</th>
-                            <th>Levering/afhaling</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Totale prijs</th>
-                            <th># dozen</th>
-                            <th>Email</th>
-                            <th>Telefoon</th>
-                            <th>Fact</th>
-                            <th>Lev</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Rows will be dynamically added here by the script -->
-                    </tbody>
-                </table>
-              </div>
-        </div>
+        
 
-        <div id="popupeditbestelling" class="holderappresults spacebetween" style="display: none;">
+        <div id="popupeditbestelling" class="holderappresults spacebetween">
           <div class="closebtn" id="closepopupeditbestelling">X</div>
           <div class="leftalignflexvert" style="min-width: 40%;">
                 <div class="bold-text brown-text" id="detailbestid"></div>
