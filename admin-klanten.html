@@ -141,7 +141,7 @@
               <img src="/images/listicon.svg" loading="lazy" alt="">
             </div>
           </div>
-          <div class="holderappresults">
+          <div class="holderappresults" id="mainresults">
             <div class="flexhorizontalwrap gap left">
               <button class="button intypeholder notabs w-button" id="addklant">Voeg klant toe</button>
               <button class="button intypeholder notabs grey w-button" onclick="exportTableToXLSX('tableXL')">Exporteer naar excel</button>
@@ -167,6 +167,84 @@
                 </table>
               </div>
         </div>
+
+        <div id="popupeditklant" class="holderappresults spacebetween" style="display: none;">
+          <div class="closebtn" id="closepopupeditklant">X</div>
+          <div class="leftalignflexvert" style="min-width: 40%;">
+                <div class="bold-text brown-text" id="detailklantid"></div>
+                <div class="spacer10px"></div>
+                <div id="duidingklant"></div>
+                <input type="hidden" id="updateid" value="">
+                
+                  <div id="accountEditForm">
+                   <div class="radio-container">
+                     <label class="radio-label">
+                       <input type="radio" name="edittype" value="personal" class="radio-input" required>
+                       B2C-klant
+                     </label>
+                     <label class="radio-label">
+                       <input type="radio" name="edittype" value="business" class="radio-input" required>
+                       B2B-klant
+                     </label>
+                   </div>
+                   <div class="spacer10px"></div>
+                    <label class="brownundertitle">Email</label>
+                   <input class="text-field w-input" maxlength="256" type="text" id="editemail" name="email" required>
+                   <label class="brownundertitle">Telefoon</label>
+                   <input class="text-field w-input" maxlength="256" type="text" id="edittelephone" name="telephone" required>
+                   <div id="editpersonaldiv" style="display: none;">
+                     <label class="brownundertitle">Voornaam</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editfirstname" name="firstname" required>
+                     <label class="brownundertitle">Naam</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editname" name="name" required>
+                   </div>
+                   <div id="editbusinessdiv" style="display: none;">
+                     <label class="brownundertitle">Bedrijfsnaam</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editcompanyname" name="companyname" required>
+                     <label class="brownundertitle">BTW nummer</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editbtwnr" name="btwnr" required>
+                     
+                   </div>
+                   <div>
+                     <div class="spacer10px"></div>
+                     <label class="brownundertitle bold-text">Factuuradres</label>
+                     <label class="brownundertitle">Straat en huisnummer</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editstreetnrfact" name="streetnrfact" required>
+                     <label class="brownundertitle">Postcode</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editpostcodefact" name="postcodefact" required>
+                     <label class="brownundertitle">Plaats</label>
+                     <input class="text-field w-input" maxlength="256" type="text" id="editplacefact" name="placefact" required>
+                     <div class="spacer10px"></div>
+                     <label class="brownundertitle bold-text">Leveringsadres</label>
+                     <div class="spacer10px"></div>
+                   </div>  
+                       <label class="brownundertitle">Straat en huisnummer</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="editdeliverystreetnr" name="deliverystreetnr" required>
+                       <label class="brownundertitle">Postcode</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="editdeliverypostcode" name="deliverypostcode" required>
+                       <label class="brownundertitle">Plaats</label>
+                       <input class="text-field w-input" maxlength="256" type="text" id="editdeliveryplace" name="deliveryplace" required>
+                   <div class="spacer10px"></div>
+                     <div class="loading" id="loadingeditklant" style="display: none;">
+                         <lottie-player
+                             src="/images/loading.json"
+                             background="transparent"
+                             speed="1"
+                             loop
+                             autoplay>
+                         </lottie-player>
+                     </div>
+                      <div id="succesvolleupdate" class="w-form-done">Klant succesvol geupdate!</div>
+                     <button type="submit" class="button intypeholder notabs w-button" id="updateKlantBtn">Aanpassingen opslagen</button>
+                </div>
+            </div>
+
+            <div id="klantorders" style="min-width: 40%; overflow: scroll">
+                
+            </div>
+        </div>
+
+          
       </div>
     </div>
   </div>
@@ -320,8 +398,13 @@
 
         // Make the row clickable for editing the user
         tableRow.addEventListener('click', () => {
-          window.location.href = `/admin/klant?id=${klantEmail}`;
-        });
+            populatePopup(data, klantEmail);
+          
+            const popupEditKlant = document.getElementById("popupeditklant");
+            const mainResultsDiv = document.getElementById("mainresults");
+            mainResultsDiv.style.display = "none";
+            popupEditKlant.style.display = "flex";
+          });
 
         // Create billing and delivery cells
         const billingCell = document.createElement('td');
@@ -400,6 +483,90 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+// klant aanpassen
+function populatePopup(data, klantEmail) {
+    // Set the radio buttons based on bestelling type
+    const klantType = data.type;
+    const personalEditRadio = document.querySelector('input[name="edittype"][value="personal"]');
+    const businessEditRadio = document.querySelector('input[name="edittype"][value="business"]');
+    personalEditRadio.checked = (klantType === 'personal');
+    businessEditRadio.checked = (klantType === 'business');
+    
+    toggleBusinessPersonalFields(klantType);
+  
+    // Populate fields with order data
+    document.getElementById('detailklantid').textContent = `Klant: ${klantEmail}`;
+    document.getElementById('updateid').value = klantEmail;
+    document.getElementById('editemail').value = klantEmail;
+    document.getElementById('edittelephone').value = data.telephone || '';
+    document.getElementById('editfirstname').value = data.firstname || '';
+    document.getElementById('editname').value = data.name || '';
+    document.getElementById('editcompanyname').value = data.companyname || '';
+    document.getElementById('editbtwnr').value = data.btwnr || '';
+    document.getElementById('editstreetnrfact').value = data.streetnrfact || '';
+    document.getElementById('editpostcodefact').value = data.postcodefact || '';
+    document.getElementById('editplacefact').value = data.placefact || '';
+
+    // Populate delivery address
+    document.getElementById('editdeliverystreetnr').value = data.deliverystreetnr || '';
+    document.getElementById('editdeliverypostcode').value = data.deliverypostcode || '';
+    document.getElementById('editdeliveryplace').value = data.deliveryplace || '';
+
+    // Populate order details table
+    const klantOrdersDiv = document.getElementById('klantorders');
+    klantOrdersDiv.innerHTML = '<div class="spacer10px"></div><div>Bestellingen van deze klant</div><div class="spacer10px"></div>';
+
+    // Create table structure
+    const table = document.createElement('table');
+    table.classList.add('styled-table');
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <td>Levering/afhaling</td>
+                <td>Type</td>
+                <td>Status</td>
+                <td>Prijs</td>
+                <td>Dozen</td>
+                <td>Bestelling ID</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
+    const tbody = table.querySelector('tbody');
+
+    const q = query(collection(db, 'Bestellingen'), where("email", "==", klantEmail));
+    const userordersSnapshot = await getDocs(q);
+      
+    userordersSnapshot.docs.forEach(doc => {
+        const bestelling = doc.data();
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${bestelling.deliveryPickup}</td>
+            <td>${bestelling.type}</td>
+            <td>${bestelling.status}</td>
+            <td>${bestelling.totalPrice}</td>
+            <td>${bestelling.totalBoxes}</td>
+            <td>${doc.id}</td>
+        `;
+        tbody.appendChild(row);
+    });
+
+    // Append the table to the orderdetails div
+    klantOrdersDiv.appendChild(table);
+}
+
+    function toggleBusinessPersonalFields(type) {
+    const personalEditDiv = document.getElementById('personaleditdiv');
+    const businessEditDiv = document.getElementById('businesseditdiv');
+    if (type === 'personal') {
+      personalEditDiv.style.display = 'block';
+      businessEditDiv.style.display = 'none';
+    } else if (type === 'business') {
+      personalEditDiv.style.display = 'none';
+      businessEditDiv.style.display = 'block';
+    }
+  }
+  
 </script>
 
 <script>
@@ -418,6 +585,12 @@ document.addEventListener('DOMContentLoaded', () => {
     popupAddKlant.style.visibility = "hidden";
   });
 
+    document.getElementById("closepopupeditklant").addEventListener("click", function() {
+    const popupEditKlant = document.getElementById("popupeditklant");
+    popupEditKlant.style.display = "none";
+    const mainResultsDiv = document.getElementById("mainresults");
+    mainResultsDiv.style.display = "flex";
+  });
 
 
 
@@ -427,8 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('DOMContentLoaded', function () {
  const personalDiv = document.getElementById('personaldiv');
  const businessDiv = document.getElementById('businessdiv');
- const personalRadio = document.querySelector('input[value="personal"]');
- const businessRadio = document.querySelector('input[value="business"]');
+ const personalRadio = document.querySelector('input[type="radio"][name="type"][value="personal"]');
+ const businessRadio = document.querySelector('input[type="radio"][name="type"][value="business"]');
  const sameDeliveryCheckbox = document.getElementById('samedeliveryadress');
  const deliveryAddressDiv = document.getElementById('deliveryadress');
 
@@ -492,6 +665,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
  toggleAccountDivs();
  toggleDeliveryAddressDiv();
+});
+
+  document.addEventListener('DOMContentLoaded', function () {
+ const personalEditDiv = document.getElementById('editpersonaldiv');
+ const businessEditDiv = document.getElementById('editbusinessdiv');
+ const personalEditRadio = document.querySelector('input[type="radio"][name="edittype"][value="personal"]');
+ const businessEditRadio = document.querySelector('input[type="radio"][name="edittype"][value="business"]');
+
+ function toggleEditAccountDivs() {
+   if (personalEditRadio.checked) {
+     personalEditDiv.style.display = 'block';
+     businessEditDiv.style.display = 'none';
+     setEditRequiredFields(personalEditDiv, true);
+     setEditRequiredFields(businessEditDiv, false);
+   } else if (businessEditRadio.checked) {
+     personalEditDiv.style.display = 'none';
+     businessEditDiv.style.display = 'block';
+     setEditRequiredFields(personalEditDiv, false);
+     setEditRequiredFields(businessEditDiv, true);
+   }
+ }
+
+ function setEditRequiredFields(div, isRequired) {
+   const inputs = div.querySelectorAll('input, select, textarea');
+   inputs.forEach(input => {
+     if (isRequired) {
+       input.setAttribute('required', 'required');
+     } else {
+       input.removeAttribute('required');
+     }
+   });
+ }
+
+ personalEditRadio.addEventListener('change', toggleEditAccountDivs);
+ businessEditRadio.addEventListener('change', toggleEditAccountDivs);
+
+ toggleEditAccountDivs();
 });
 
 function exportTableToXLSX(tableId) {
