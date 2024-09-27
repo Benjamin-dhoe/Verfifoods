@@ -9,6 +9,37 @@
   --darker-background: #fcf3e7;
 }
 
+.tab-label {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            display: inline-block;
+            margin-right: -1px;
+            border-bottom: none;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Show the tab content when its associated radio button is checked */
+        input[type="radio"]:checked + label {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        input[type="radio"]:checked + label + .tab-content {
+            display: block;
+        }
+
 .holderleveranciers {
     border-radius: 20px;
     flex-flow: wrap;
