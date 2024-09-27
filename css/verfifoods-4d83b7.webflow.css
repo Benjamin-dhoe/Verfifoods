@@ -14,6 +14,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .tabBtn {
@@ -34,46 +36,6 @@
   color: var(--white);
   background-color: var(--brown);
 }
-
-.tab-labels {
-            display: flex;
-        }
-
-        .tab-label {
-            cursor: pointer;
-            padding: 10px 20px;
-            background-color: #ddd;
-            border: 1px solid #ccc;
-            display: inline-block;
-            margin-right: -1px;
-            border-bottom: none;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-
-        input[type="radio"] {
-            display: none;
-        }
-
-        /* Show the tab content when its associated radio button is checked */
-        input[type="radio"]:checked + label {
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #f9f9f9;
-        }
-
-        input[type="radio"]:checked + label + .tab-content {
-            display: block;
-        }
-
-        /* Keep content below labels */
-        .tab-container {
-            border-top: 1px solid #ccc;
-        }
 
 .holderleveranciers {
     border-radius: 20px;
