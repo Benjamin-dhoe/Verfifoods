@@ -660,6 +660,26 @@ klantOrdersDiv.appendChild(table);
     updateKlant(klantId);
   });
 
+
+    function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (hours * 60 * 60 * 1000)); // Set expiration time
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/"; // Create the cookie
+        }
+
+        // Function to handle click event
+        function adminOrder() {
+            const adminTakeId = document.getElementById("updateid").value;
+            setCookie("adminOrder", adminTakeId, 1);
+            window.location.href = "/nl/aanbod";
+        }
+
+        // Add event listener once the DOM is fully loaded
+        window.onload = function() {
+            document.getElementById("adminOrder").addEventListener("click", adminOrder);
+        };
+
   
 </script>
 
