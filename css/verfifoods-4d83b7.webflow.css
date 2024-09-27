@@ -14,7 +14,7 @@
     border-radius: 20px;
     flex-flow: wrap;
     align-items: flex-start;
-    padding: 20px;
+    padding: 20px 10px;
     display: flex;
     margin-bottom: 40px;
 }
@@ -26,16 +26,16 @@
     justify-content: space-around;
     align-items: flex-start;
     width: 200px;
-    max-width: 40vw;
     height: 200px;
-    max-height: 40vw;
     margin-bottom: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     padding: 40px;
     display: flex;
     position: relative;
     transition: border 0.5s ease, padding 0.5s ease;
 }
+
 .leverancier:hover {
     border: 1px solid var(--brown);
     padding: 60px;
@@ -661,6 +661,12 @@ td:hover .tooltip {
 
 .containcenter {
   width: 80vw;
+}
+
+.containcenter.left {
+  flex-flow: column;
+  align-items: flex-start;
+  display: flex;
 }
 
 .containcenter.smallcenter {
@@ -2188,13 +2194,6 @@ select {
 
   .holderleveranciers {
     justify-content: center;
-}
-
-  .leverancier {
-    width: 80vw;
-    max-width: 80vw;
-    max-height: 80vw;
-    height: 80vw;
 }
 
   input,
