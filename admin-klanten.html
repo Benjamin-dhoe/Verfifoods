@@ -185,17 +185,17 @@
 
         <div id="popupeditklant" class="holderappresults spacebetween" style="display: none;">
           <div class="closebtn" id="closepopupeditklant">X</div>
+          <div class="bold-text brown-text" id="detailklantid"></div>
+          <div class="spacer10px"></div>
+          <div id="duidingklant"></div>
           <div data-role="tabs" class="tabBtnHolder">
               <div class="tabBtn" data-role="tab-label" data-target="tab1">Gegevens</div>
               <div class="tabBtn" data-role="tab-label" data-target="tab2">Bestellingen</div>
               <div class="tabBtn" id="adminOrder">Maak bestelling voor deze klant</div>
           </div>
           
-          <div data-role="tab-content" data-content="tab1">
-              <div class="leftalignflexvert" style="min-width: 40%;">
-                      <div class="bold-text brown-text" id="detailklantid"></div>
-                      <div class="spacer10px"></div>
-                      <div id="duidingklant"></div>
+          <div data-role="tab-content" data-content="tab1" style="width: 100%;">
+              <div class="leftalignflexvert">
                       <input type="hidden" id="updateid" value="">
                       
                         <div id="accountEditForm">
@@ -272,10 +272,7 @@
               </div>
           </div>
           <div data-role="tab-content" data-content="tab2">
-              <div id="klantorders" style="min-width: 40%; overflow: scroll"></div>
-          </div>
-          <div data-role="tab-content" data-content="tab3">
-              <p>This is the content of Tab 3.</p>
+              <div id="klantorders" class="styled-table"></div>
           </div>
 
           
@@ -550,7 +547,7 @@ async function populatePopup(data, klantEmail) {
 
     // Populate order details table
     const klantOrdersDiv = document.getElementById('klantorders');
-    klantOrdersDiv.innerHTML = '<div class="spacer10px"></div><div>Bestellingen van deze klant</div><div class="spacer10px"></div>';
+    klantOrdersDiv.innerHTML = '';
 
     // Create table structure
     const table = document.createElement('table');
