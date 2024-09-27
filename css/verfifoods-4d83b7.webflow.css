@@ -34,6 +34,11 @@
     padding: 40px;
     display: flex;
     position: relative;
+    transition: border 0.5s ease, padding 0.5s ease;
+}
+.leverancier:hover {
+    border: 1px solid var(--brown);
+    padding: 60px;
 }
 
 [showproducts] {
