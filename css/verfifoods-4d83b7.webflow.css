@@ -9,6 +9,32 @@
   --darker-background: #fcf3e7;
 }
 
+.tabBtnHolder {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  border: 1px solid var(--darkest-blue);
+  border-radius: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tabBtn:hover {
+  border: 1px solid var(--brown);
+  color: var(--brown);
+}
+
+.tabBtn[data-active="true"] {
+  border: 1px solid var(--brown);
+  color: var(--white);
+  background-color: var(--brown);
+}
+
 .tab-labels {
             display: flex;
         }
