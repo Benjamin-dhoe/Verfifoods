@@ -1,18 +1,5 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-import { getFirestore, collection, getDocs, query, where, limit } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMy3JuNr4",
-    authDomain: "test-9efbe.firebaseapp.com",
-    projectId: "test-9efbe",
-    storageBucket: "test-9efbe.appspot.com",
-    messagingSenderId: "218327249026",
-    appId: "1:218327249026:web:0d48fa588ac45ef557049b",
-    measurementId: "G-2ZTZCL27TE"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { app } from '/js/firebase.js';
+import { getFirestore, collection, getDocs, query, where, limit } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
 
 let cachedProducts = {};  // Store fetched products by type or supplier
 let currentIndex = {};    // Track current index for each type or supplier
