@@ -1,22 +1,9 @@
 // Import Firebase modules
-import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-import { getAuth, onAuthStateChanged, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+import { auth, app } from '/js/firebase.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
+import { onAuthStateChanged, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
 
-// Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyCIQlfqz-Hd-Oe0tNjnEfJdwHwMyJuNr4",
-    authDomain: "test-9efbe.firebaseapp.com",
-    projectId: "test-9efbe",
-    storageBucket: "test-9efbe.appspot.com",
-    messagingSenderId: "218327249026",
-    appId: "1:218327249026:web:0d48fa588ac45ef557049b",
-    measurementId: "G-2ZTZCL27TE"
-};
-
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
 
 // Function to show the loading spinner
 function showLoadingSpinner() {
