@@ -186,101 +186,113 @@
         <div id="popupeditklant" class="holderappresults spacebetween" style="display: none;">
           <div class="closebtn" id="closepopupeditklant">X</div>
           <div class="tabs">
+            <!-- Radio buttons for the tabs -->
             <input type="radio" name="tab-group" id="tab-1" checked>
-            <label for="tab-1" class="tab-label">Gegevens</label>
-            <div class="tab-content">
-                <div class="leftalignflexvert" style="min-width: 40%;">
-                  <div class="bold-text brown-text" id="detailklantid"></div>
-                  <div class="spacer10px"></div>
-                  <div id="duidingklant"></div>
-                  <input type="hidden" id="updateid" value="">
-                  
-                    <div id="accountEditForm">
-                     <div class="radio-container">
-                       <label class="radio-label">
-                         <input type="radio" name="edittype" value="personal" class="radio-input" required>
-                         B2C-klant
-                       </label>
-                       <label class="radio-label">
-                         <input type="radio" name="edittype" value="business" class="radio-input" required>
-                         B2B-klant
-                       </label>
-                     </div>
-                    <div class="spacer10px"></div>
-                    <label class="brownundertitle">Mag deze klant via overschrijving betalen?</label>
-                    <div class="radio-container">
-                       <label class="radio-label">
-                         <input type="radio" name="editbetaling" value="false" class="radio-input" required>
-                         Klant moet online betalen
-                       </label>
-                       <label class="radio-label">
-                         <input type="radio" name="editbetaling" value="true" class="radio-input" required>
-                         Klant mag via overschrijving betalen
-                       </label>
-                     </div>
-                     <div class="spacer10px"></div>
-                     <label class="brownundertitle">Telefoon</label>
-                     <input class="text-field w-input" maxlength="256" type="text" id="edittelephone" name="telephone" required>
-                     <div id="editpersonaldiv" style="display: none;">
-                       <label class="brownundertitle">Voornaam</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editfirstname" name="firstname" required>
-                       <label class="brownundertitle">Naam</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editname" name="name" required>
-                     </div>
-                     <div id="editbusinessdiv" style="display: none;">
-                       <label class="brownundertitle">Bedrijfsnaam</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editcompanyname" name="companyname" required>
-                       <label class="brownundertitle">BTW nummer</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editbtwnr" name="btwnr" required>
-                       
-                     </div>
-                     <div>
-                       <div class="spacer10px"></div>
-                       <label class="brownundertitle bold-text">Factuuradres</label>
-                       <label class="brownundertitle">Straat en huisnummer</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editstreetnrfact" name="streetnrfact" required>
-                       <label class="brownundertitle">Postcode</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editpostcodefact" name="postcodefact" required>
-                       <label class="brownundertitle">Plaats</label>
-                       <input class="text-field w-input" maxlength="256" type="text" id="editplacefact" name="placefact" required>
-                       <div class="spacer10px"></div>
-                       <label class="brownundertitle bold-text">Leveringsadres</label>
-                       <div class="spacer10px"></div>
-                     </div>  
-                         <label class="brownundertitle">Straat en huisnummer</label>
-                         <input class="text-field w-input" maxlength="256" type="text" id="editdeliverystreetnr" name="deliverystreetnr" required>
-                         <label class="brownundertitle">Postcode</label>
-                         <input class="text-field w-input" maxlength="256" type="text" id="editdeliverypostcode" name="deliverypostcode" required>
-                         <label class="brownundertitle">Plaats</label>
-                         <input class="text-field w-input" maxlength="256" type="text" id="editdeliveryplace" name="deliveryplace" required>
-                     <div class="spacer10px"></div>
-                       <div class="loading" id="loadingeditklant" style="display: none;">
-                           <lottie-player
-                               src="/images/loading.json"
-                               background="transparent"
-                               speed="1"
-                               loop
-                               autoplay>
-                           </lottie-player>
-                       </div>
-                        <div id="succesvolleupdate" class="w-form-done">Klant succesvol geupdate!</div>
-                       <button type="submit" class="button intypeholder notabs w-button" id="updateKlantBtn">Aanpassingen opslagen</button>
-                  </div>
-              </div>
-            </div>
-        
             <input type="radio" name="tab-group" id="tab-2">
-            <label for="tab-2" class="tab-label">Bestellingen</label>
-            <div class="tab-content">
-                <div id="klantorders" style="min-width: 40%; overflow: scroll"></div>
+            <input type="radio" name="tab-group" id="tab-3">
+        
+            <!-- Tab labels (the buttons at the top) -->
+            <div class="tab-labels">
+                <label for="tab-1" class="tab-label">Gegevens</label>
+                <label for="tab-2" class="tab-label">Tab 2</label>
+                <label for="tab-3" class="tab-label">Tab 3</label>
             </div>
         
-            <input type="radio" name="tab-group" id="tab-3">
-            <label for="tab-3" class="tab-label">Tab 3</label>
-            <div class="tab-content">
-                <p>This is the content of Tab 3.</p>
+            <!-- Tab content (below the buttons) -->
+            <div class="tab-container">
+                <div class="tab-content">
+                    <div class="leftalignflexvert" style="min-width: 40%;">
+                      <div class="bold-text brown-text" id="detailklantid"></div>
+                      <div class="spacer10px"></div>
+                      <div id="duidingklant"></div>
+                      <input type="hidden" id="updateid" value="">
+                      
+                        <div id="accountEditForm">
+                         <div class="radio-container">
+                           <label class="radio-label">
+                             <input type="radio" name="edittype" value="personal" class="radio-input" required>
+                             B2C-klant
+                           </label>
+                           <label class="radio-label">
+                             <input type="radio" name="edittype" value="business" class="radio-input" required>
+                             B2B-klant
+                           </label>
+                         </div>
+                        <div class="spacer10px"></div>
+                        <label class="brownundertitle">Mag deze klant via overschrijving betalen?</label>
+                        <div class="radio-container">
+                           <label class="radio-label">
+                             <input type="radio" name="editbetaling" value="false" class="radio-input" required>
+                             Klant moet online betalen
+                           </label>
+                           <label class="radio-label">
+                             <input type="radio" name="editbetaling" value="true" class="radio-input" required>
+                             Klant mag via overschrijving betalen
+                           </label>
+                         </div>
+                         <div class="spacer10px"></div>
+                         <label class="brownundertitle">Telefoon</label>
+                         <input class="text-field w-input" maxlength="256" type="text" id="edittelephone" name="telephone" required>
+                         <div id="editpersonaldiv" style="display: none;">
+                           <label class="brownundertitle">Voornaam</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editfirstname" name="firstname" required>
+                           <label class="brownundertitle">Naam</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editname" name="name" required>
+                         </div>
+                         <div id="editbusinessdiv" style="display: none;">
+                           <label class="brownundertitle">Bedrijfsnaam</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editcompanyname" name="companyname" required>
+                           <label class="brownundertitle">BTW nummer</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editbtwnr" name="btwnr" required>
+                           
+                         </div>
+                         <div>
+                           <div class="spacer10px"></div>
+                           <label class="brownundertitle bold-text">Factuuradres</label>
+                           <label class="brownundertitle">Straat en huisnummer</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editstreetnrfact" name="streetnrfact" required>
+                           <label class="brownundertitle">Postcode</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editpostcodefact" name="postcodefact" required>
+                           <label class="brownundertitle">Plaats</label>
+                           <input class="text-field w-input" maxlength="256" type="text" id="editplacefact" name="placefact" required>
+                           <div class="spacer10px"></div>
+                           <label class="brownundertitle bold-text">Leveringsadres</label>
+                           <div class="spacer10px"></div>
+                         </div>  
+                             <label class="brownundertitle">Straat en huisnummer</label>
+                             <input class="text-field w-input" maxlength="256" type="text" id="editdeliverystreetnr" name="deliverystreetnr" required>
+                             <label class="brownundertitle">Postcode</label>
+                             <input class="text-field w-input" maxlength="256" type="text" id="editdeliverypostcode" name="deliverypostcode" required>
+                             <label class="brownundertitle">Plaats</label>
+                             <input class="text-field w-input" maxlength="256" type="text" id="editdeliveryplace" name="deliveryplace" required>
+                         <div class="spacer10px"></div>
+                           <div class="loading" id="loadingeditklant" style="display: none;">
+                               <lottie-player
+                                   src="/images/loading.json"
+                                   background="transparent"
+                                   speed="1"
+                                   loop
+                                   autoplay>
+                               </lottie-player>
+                           </div>
+                            <div id="succesvolleupdate" class="w-form-done">Klant succesvol geupdate!</div>
+                           <button type="submit" class="button intypeholder notabs w-button" id="updateKlantBtn">Aanpassingen opslagen</button>
+                      </div>
+                  </div>
+                </div>
+        
+                <div class="tab-content">
+                    <div id="klantorders" style="min-width: 40%; overflow: scroll"></div>
+                </div>
+        
+                <div class="tab-content">
+                    <p>This is the content of Tab 3.</p>
+                </div>
             </div>
         </div>
+
+          
+          
           
 
         </div>
