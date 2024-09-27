@@ -1257,6 +1257,11 @@ td:hover .tooltip {
   display: flex;
 }
 
+.mapslink[data-active="true"] .brownundertitle.blue {
+  color: var(--brown);
+  font-weight: 700;
+}
+
 .mapslink.google {
   border: 1px solid var(--semi-grey);
   background-color: var(--white);
