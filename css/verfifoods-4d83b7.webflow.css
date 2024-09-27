@@ -10,7 +10,6 @@
 }
 
 .holderleveranciers {
-    background-color: var(--darker-background);
     border-radius: 20px;
     flex-flow: wrap;
     align-items: flex-start;
@@ -21,6 +20,7 @@
 
 .leverancier {
     background-color: var(--white);
+    border: 1px solid var(--darker-background);
     border-radius: 10px;
     flex-flow: column;
     justify-content: space-around;
