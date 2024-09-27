@@ -1,6 +1,8 @@
 import { app } from '/js/firebase.js';
 import { getFirestore, collection, getDocs, query, where, limit } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
 
+const db = getFirestore(app);
+
 let cachedProducts = {};  // Store fetched products by type or supplier
 let currentIndex = {};    // Track current index for each type or supplier
 
