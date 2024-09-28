@@ -173,55 +173,59 @@ function deleteCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
 
-// Function to show the order details when a row is clicked
 function showOrderDetails(bestellingId) {
     // Hide the main results section
     document.getElementById("mainresults").style.display = "none";
 
     // Get the clicked row's data-products attribute
-    const row = document.querySelector(`tr[data-products] td:first-child:contains('${bestellingId}')`).parentElement;
-    const products = JSON.parse(row.getAttribute("data-products")); // Parse the JSON stored in data-products
-
-    // Clear previous details
-    const orderDetailsDiv = document.getElementById("orderdetails");
-    orderDetailsDiv.innerHTML = "";
-
-    // Populate the order details
-    let orderDetailsHtml = `
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-    // Iterate through the products array and display product details
-    products.forEach(product => {
-        orderDetailsHtml += `
-            <tr>
-                <td>${product.name}</td>
-                <td>${product.quantity}</td>
-                <td>${product.price}</td>
-                <td>${product.total}</td>
-            </tr>
-        `;
+    const row = Array.from(document.querySelectorAll('tr[data-products]')).find(r => {
+        return r.children[0].textContent === bestellingId; // Find the row with the matching Order ID
     });
 
-    orderDetailsHtml += `
-            </tbody>
-        </table>
-    `;
+    if (row) {
+        const products = JSON.parse(row.getAttribute("data-products")); // Parse the JSON stored in data-products
 
-    // Insert the HTML into the order details div
-    orderDetailsDiv.innerHTML = orderDetailsHtml;
+        // Clear previous details
+        const orderDetailsDiv = document.getElementById("orderdetails");
+        orderDetailsDiv.innerHTML = "";
 
-    // Show the popup with order details
-    document.getElementById("popupbestelling").style.display = "block";
+        // Populate the order details
+        let orderDetailsHtml = `
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        // Iterate through the products array and display product details
+        products.forEach(product => {
+            orderDetailsHtml += `
+                <tr>
+                    <td>${product.name}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.price}</td>
+                    <td>${product.total}</td>
+                </tr>
+            `;
+        });
+
+        orderDetailsHtml += `
+                </tbody>
+            </table>
+        `;
+
+        // Insert the HTML into the order details div
+        orderDetailsDiv.innerHTML = orderDetailsHtml;
+
+        // Show the popup with order details
+        document.getElementById("popupbestelling").style.display = "block";
+    }
 }
 
 // Close the popup and show the main results again
