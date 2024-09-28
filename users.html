@@ -169,86 +169,84 @@
   <script type="module">
   import { auth, app } from '/js/firebase.js';
 
-      function deleteCookie(name) {
+function deleteCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-            const logoutBtn = document.getElementById('logoutBtn');
-            logoutBtn.addEventListener('click', () => {
-                signOut(auth).then(() => {
-                    console.log('User signed out.');
-                    deleteCookie('token');
-                    deleteCookie('userId');
-                    // Redirect to login page
-                    window.location.href = '/index';
-                }).catch((error) => {
-                    console.error('Error signing out:', error);
-                });
-            });
+// Function to show the order details when a row is clicked
+function showOrderDetails(bestellingId) {
+    // Hide the main results section
+    document.getElementById("mainresults").style.display = "none";
 
-    // Function to show the order details when a row is clicked
-    function showOrderDetails(bestellingId) {
-      // Hide the main results section
-      document.getElementById("mainresults").style.display = "none";
-  
-      // Get the clicked row's data-products attribute
-      const row = document.querySelector(`tr[onclick="showOrderDetails('${bestellingId}')"]`);
-      const products = JSON.parse(row.getAttribute("data-products")); // Parse the JSON stored in data-products
-  
-      // Clear previous details
-      const orderDetailsDiv = document.getElementById("orderdetails");
-      orderDetailsDiv.innerHTML = "";
-  
-      // Populate the order details
-      let orderDetailsHtml = `
+    // Get the clicked row's data-products attribute
+    const row = document.querySelector(`tr[data-products] td:first-child:contains('${bestellingId}')`).parentElement;
+    const products = JSON.parse(row.getAttribute("data-products")); // Parse the JSON stored in data-products
+
+    // Clear previous details
+    const orderDetailsDiv = document.getElementById("orderdetails");
+    orderDetailsDiv.innerHTML = "";
+
+    // Populate the order details
+    let orderDetailsHtml = `
         <table class="styled-table">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-  
-      // Iterate through the products array and display product details
-      products.forEach(product => {
-        orderDetailsHtml += `
-          <tr>
-            <td>${product.name}</td>
-            <td>${product.quantity}</td>
-            <td>${product.price}</td>
-            <td>${product.total}</td>
-          </tr>
-        `;
-      });
-  
-      orderDetailsHtml += `
-          </tbody>
-        </table>
-      `;
-  
-      // Insert the HTML into the order details div
-      orderDetailsDiv.innerHTML = orderDetailsHtml;
-  
-      // Show the popup with order details
-      document.getElementById("popupbestelling").style.display = "block";
-    }
-  
-    // Close the popup and show the main results again
-    document.getElementById("closepopupbestelling").addEventListener("click", () => {
-      document.getElementById("popupbestelling").style.display = "none";
-      document.getElementById("mainresults").style.display = "block";
-    });
-});
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
 
-    document.addEventListener('DOMContentLoaded', () => {
-    const rows = document.querySelectorAll('#ordersTable tbody tr');
+    // Iterate through the products array and display product details
+    products.forEach(product => {
+        orderDetailsHtml += `
+            <tr>
+                <td>${product.name}</td>
+                <td>${product.quantity}</td>
+                <td>${product.price}</td>
+                <td>${product.total}</td>
+            </tr>
+        `;
+    });
+
+    orderDetailsHtml += `
+            </tbody>
+        </table>
+    `;
+
+    // Insert the HTML into the order details div
+    orderDetailsDiv.innerHTML = orderDetailsHtml;
+
+    // Show the popup with order details
+    document.getElementById("popupbestelling").style.display = "block";
+}
+
+// Close the popup and show the main results again
+function closePopup() {
+    document.getElementById("popupbestelling").style.display = "none";
+    document.getElementById("mainresults").style.display = "block";
+}
+
+// Document ready function
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', () => {
+        signOut(auth).then(() => {
+            console.log('User signed out.');
+            deleteCookie('token');
+            deleteCookie('userId');
+            // Redirect to login page
+            window.location.href = '/index';
+        }).catch((error) => {
+            console.error('Error signing out:', error);
+        });
+    });
 
     // Add click event to each row
+    const rows = document.querySelectorAll('#ordersTable tbody tr');
     rows.forEach(row => {
         row.addEventListener('click', () => {
             const bestellingId = row.children[0].textContent; // Get the Order ID from the first cell
@@ -256,11 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Close the popup and show the main results again
-    document.getElementById("closepopupbestelling").addEventListener("click", () => {
-        document.getElementById("popupbestelling").style.display = "none";
-        document.getElementById("mainresults").style.display = "block";
-    });
+    // Add event listener to close the popup
+    document.getElementById("closepopupbestelling").addEventListener("click", closePopup);
 });
 
 document.addEventListener('DOMContentLoaded', function() {
