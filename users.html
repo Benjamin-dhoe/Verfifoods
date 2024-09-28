@@ -75,7 +75,7 @@
                     </thead>
                     <tbody>
                         
-          <tr onclick="showOrderDetails('DwCvk7kKzbhSCdgRy4i1')" data-products="[{&quot;total&quot;:1230,&quot;quantity&quot;:10,&quot;productId&quot;:&quot;0i88m40IwAULkoWXRIIL&quot;,&quot;price&quot;:&quot;123&quot;,&quot;name&quot;:&quot;Caribbean kiss smoothie&quot;}]">
+          <tr data-products="[{&quot;total&quot;:1230,&quot;quantity&quot;:10,&quot;productId&quot;:&quot;0i88m40IwAULkoWXRIIL&quot;,&quot;price&quot;:&quot;123&quot;,&quot;name&quot;:&quot;Caribbean kiss smoothie&quot;}]">
             <td>DwCvk7kKzbhSCdgRy4i1</td>
             <td>Livraison</td>
             <td><img src="/images/payok.svg" alt="Paid" style="width: 20px; height: 20px;"></td>
@@ -84,7 +84,7 @@
             <td>Louwijn 80, Asse, 1730</td>
           </tr>
         
-          <tr onclick="showOrderDetails('L7wRiyElng5B5EJfcpzg')" data-products="[{&quot;total&quot;:1230,&quot;quantity&quot;:10,&quot;productId&quot;:&quot;9tkP5MEe20yezY9ycQep&quot;,&quot;price&quot;:&quot;123&quot;,&quot;name&quot;:&quot;Mango paradise smoothie&quot;}]">
+          <tr data-products="[{&quot;total&quot;:1230,&quot;quantity&quot;:10,&quot;productId&quot;:&quot;9tkP5MEe20yezY9ycQep&quot;,&quot;price&quot;:&quot;123&quot;,&quot;name&quot;:&quot;Mango paradise smoothie&quot;}]">
             <td>L7wRiyElng5B5EJfcpzg</td>
             <td>Retrait</td>
             <td></td>
@@ -242,6 +242,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("closepopupbestelling").addEventListener("click", () => {
       document.getElementById("popupbestelling").style.display = "none";
       document.getElementById("mainresults").style.display = "block";
+    });
+});
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const rows = document.querySelectorAll('#ordersTable tbody tr');
+
+    // Add click event to each row
+    rows.forEach(row => {
+        row.addEventListener('click', () => {
+            const bestellingId = row.children[0].textContent; // Get the Order ID from the first cell
+            showOrderDetails(bestellingId);
+        });
+    });
+
+    // Close the popup and show the main results again
+    document.getElementById("closepopupbestelling").addEventListener("click", () => {
+        document.getElementById("popupbestelling").style.display = "none";
+        document.getElementById("mainresults").style.display = "block";
     });
 });
 
