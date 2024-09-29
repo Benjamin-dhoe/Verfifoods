@@ -1856,7 +1856,7 @@ td:hover .tooltip {
   transition: opacity .25s;
   display: flex;
   position: relative;
-  max-height: 90vh;
+  max-height: 80vh;
 }
 
 .popupcontainer.vis {
