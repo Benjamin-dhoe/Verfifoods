@@ -9,6 +9,16 @@
   --darker-background: #fcf3e7;
 }
 
+.translatebtn {
+    margin-top: -10px;
+    background-color: transparent;
+    font-size: 12px;
+}
+
+.translatebtn:hover {
+    color: var(--brown);
+}
+
 .tabBtnHolder {
   width: 100%;
   display: flex;
