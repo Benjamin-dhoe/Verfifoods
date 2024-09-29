@@ -44,8 +44,10 @@
                     <div class="leftalignflexvert overflow" editparts="2">
                         <label class="brownundertitle">naam PRODUCT (FR)</label>
                         <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamFR">
+                        <button class="translatebtn" translate="editnaamFR">Vertaal van NL</button>
                         <label class="brownundertitle">Beschrijving (FR)</label>
                         <textarea placeholder="" maxlength="5000" id="editbeschrijvingFR" class="textarea w-input"></textarea>
+                        <button class="translatebtn" translate="editbeschrijvingFR">Vertaal van NL</button>
                         <div class="alwaysflexhorizontal nextprev">
                             <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
                             <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
@@ -54,8 +56,10 @@
                     <div class="leftalignflexvert overflow" editparts="3">
                         <label class="brownundertitle">naam PRODUCT (EN)</label>
                         <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="editnaamEN">
+                        <button class="translatebtn" translate="editnaamEN">Vertaal van NL</button>
                         <label class="brownundertitle">Beschrijving (EN)</label>
                         <textarea placeholder="" maxlength="5000" id="editbeschrijvingEN" class="textarea w-input"></textarea>
+                        <button class="translatebtn" translate="editbeschrijvingEN">Vertaal van NL</button>
                         <div class="alwaysflexhorizontal nextprev">
                             <button class="button intypeholder notabs grey w-button" preveditpart>Vorige</button>
                             <button class="button intypeholder notabs w-button" nexteditpart>Volgende</button>
@@ -132,13 +136,25 @@
                           <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
                         </div>
                       </div>
-                      <div class="leftalignflexvert inv overflow" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><button class="translatebtn" translate="naamnewFR">Vertaal van NL</button><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
+                      <div class="leftalignflexvert inv overflow" addparts="2">
+                                  <label class="brownundertitle">naam PRODUCT (FR)</label>
+                                  <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR">
+                                  <button class="translatebtn" translate="naamnewFR">Vertaal van NL</button>
+                                  <label class="brownundertitle">Beschrijving (FR)</label>
+                                  <textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
+                                  <button class="translatebtn" translate="beschrijvingnewFR">Vertaal van NL</button>
                         <div class="alwaysflexhorizontal nextprev">
                           <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
                           <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
                         </div>
                       </div>
-                      <div class="leftalignflexvert inv overflow" addparts="3"><label class="brownundertitle">naam PRODUCT (EN)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewEN"><label class="brownundertitle">Beschrijving (EN)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewEN" class="textarea w-input"></textarea>
+                      <div class="leftalignflexvert inv overflow" addparts="3">
+                                  <label class="brownundertitle">naam PRODUCT (EN)</label>
+                                  <input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewEN">
+                                  <button class="translatebtn" translate="naamnewEN">Vertaal van NL</button>
+                                  <label class="brownundertitle">Beschrijving (EN)</label>
+                                  <textarea placeholder="" maxlength="5000" id="beschrijvingnewEN" class="textarea w-input"></textarea>
+                                  <button class="translatebtn" translate="beschrijvingnewEN">Vertaal van NL</button>
                         <div class="alwaysflexhorizontal nextprev">
                           <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
                           <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
@@ -874,6 +890,7 @@
   function handleTranslateClick(event) {
     // Get the clicked element and its 'translate' attribute
     const translateElement = event.currentTarget;
+            translateElement.style.display ="none";
     const translateValue = translateElement.getAttribute('translate');
 
     // Extract language from the last two characters of the attribute value
@@ -882,7 +899,7 @@
     // Get the element with the same ID as the 'translate' attribute value
     const targetInput = document.getElementById(translateValue);
 
-    if (targetInput && targetInput.tagName === 'INPUT') {
+    if (targetInput) {
       // Set the input field to opacity 0
       targetInput.style.opacity = 0;
 
