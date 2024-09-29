@@ -964,6 +964,11 @@ td:hover .tooltip {
   justify-content: left;
 }
 
+.flexhorizontalwrap.delivery {
+    flex-flow: row;
+    align-items: flex-start;
+}
+
 .aanbodtypeholder {
   background-color: var(--background-color);
   border-radius: 10px;
