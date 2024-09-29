@@ -895,11 +895,9 @@
             console.log(nlInput);
 
         // Use the value of the "NL" input field if it exists
-        if (nlInput && nlInput.tagName === 'INPUT') {
           text = nlInput.value;
-        }
         // Default to the current value of the clicked input field
-        text = targetInput.value;
+            console.log(text);
 
       // Construct the URL with dynamic lang and text values
       const url = `https://hook.eu1.make.com/6iwp2ylbykofv8zt52lc54cxc7vp6ot1?lang=${lang}&text=${encodeURIComponent(text)}`;
