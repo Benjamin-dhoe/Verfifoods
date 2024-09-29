@@ -887,23 +887,19 @@
       targetInput.style.opacity = 0;
 
       let text;
-
-      // Check if the word 'title' is in the translate attribute value
-      if (translateValue.toLowerCase().includes('title')) {
         // Modify the last two characters of the attribute value to "NL"
         const nlId = translateValue.slice(0, -2) + 'NL';
 
         // Get the input field with this modified ID
         const nlInput = document.getElementById(nlId);
+            console.log(nlInput);
 
         // Use the value of the "NL" input field if it exists
         if (nlInput && nlInput.tagName === 'INPUT') {
           text = nlInput.value;
         }
-      } else {
         // Default to the current value of the clicked input field
         text = targetInput.value;
-      }
 
       // Construct the URL with dynamic lang and text values
       const url = `https://hook.eu1.make.com/6iwp2ylbykofv8zt52lc54cxc7vp6ot1?lang=${lang}&text=${encodeURIComponent(text)}`;
