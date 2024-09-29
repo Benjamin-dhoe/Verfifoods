@@ -132,7 +132,7 @@
                           <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
                         </div>
                       </div>
-                      <div class="leftalignflexvert inv overflow" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
+                      <div class="leftalignflexvert inv overflow" addparts="2"><label class="brownundertitle">naam PRODUCT (FR)</label><input class="text-field w-input" maxlength="256" placeholder="" type="text" id="naamnewFR"><button class="translatebtn" translate="naamnewFR">Vertaal van NL</button><label class="brownundertitle">Beschrijving (FR)</label><textarea placeholder="" maxlength="5000" id="beschrijvingnewFR" class="textarea w-input"></textarea>
                         <div class="alwaysflexhorizontal nextprev">
                           <button class="button intypeholder notabs grey w-button" prevpart>Vorige</button>
                           <button class="button intypeholder notabs w-button" nextpart>Volgende</button>
@@ -868,5 +868,79 @@
                       });
             
             </script>
+
+<script>
+  // Function to handle the translation click
+  function handleTranslateClick(event) {
+    // Get the clicked element and its 'translate' attribute
+    const translateElement = event.currentTarget;
+    const translateValue = translateElement.getAttribute('translate');
+
+    // Extract language from the last two characters of the attribute value
+    const lang = translateValue.slice(-2);
+
+    // Get the element with the same ID as the 'translate' attribute value
+    const targetInput = document.getElementById(translateValue);
+
+    if (targetInput && targetInput.tagName === 'INPUT') {
+      // Set the input field to opacity 0
+      targetInput.style.opacity = 0;
+
+      let text;
+
+      // Check if the word 'title' is in the translate attribute value
+      if (translateValue.toLowerCase().includes('title')) {
+        // Modify the last two characters of the attribute value to "NL"
+        const nlId = translateValue.slice(0, -2) + 'NL';
+
+        // Get the input field with this modified ID
+        const nlInput = document.getElementById(nlId);
+
+        // Use the value of the "NL" input field if it exists
+        if (nlInput && nlInput.tagName === 'INPUT') {
+          text = nlInput.value;
+        }
+      } else {
+        // Default to the current value of the clicked input field
+        text = targetInput.value;
+      }
+
+      // Construct the URL with dynamic lang and text values
+      const url = `https://hook.eu1.make.com/6iwp2ylbykofv8zt52lc54cxc7vp6ot1?lang=${lang}&text=${encodeURIComponent(text)}`;
+
+      // Make the HTTP request to the URL
+      fetch(url, {
+        method: 'GET',
+        redirect: 'follow' // Just in case there are redirects
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.text(); // Parse as plain text since the body is not JSON
+        } else {
+          throw new Error('Translation request failed');
+        }
+      })
+      .then(translatedText => {
+        // Set the translated text back into the input field
+        targetInput.value = translatedText;
+        // Set the input field opacity back to 1
+        targetInput.style.opacity = 1;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Set the opacity back to 1 even on error
+        targetInput.style.opacity = 1;
+      });
+    } else {
+      console.error(`Element with id "${translateValue}" is not an input field or does not exist.`);
+    }
+  }
+
+  // Attach event listeners to all elements with the 'translate' attribute
+  document.querySelectorAll('[translate]').forEach(element => {
+    element.addEventListener('click', handleTranslateClick);
+  });
+</script>
+
             
             </html>
