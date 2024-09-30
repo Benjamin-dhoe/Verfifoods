@@ -220,8 +220,6 @@ function login(event) {
     document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
     // Redirect the user
-    loginBtn.style.display = "block";
-    loginLoading.style.display = "none";
     window.location.href = `/users/${userId}`;
   })
   .catch((error) => {
