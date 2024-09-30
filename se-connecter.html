@@ -79,7 +79,7 @@
       </div>
       <div class="doublepartsside right centered">
         <div>
-          <div class="leftalignflexvert">
+          <form class="leftalignflexvert">
             <label for="Email" class="brownundertitle">Adresse e-mail</label>
             <input class="text-field w-input" maxlength="256" name="Email" type="email" id="Email" required>
             
@@ -95,11 +95,12 @@
                 autoplay>
               </lottie-player>
             </div>
-            <button class="button intypeholder notabs w-button" id="loginbtn">Se connecter</button>
+            <div class="w-form-fail" id="error-message"></div>
+            <button type="submit" class="button intypeholder notabs w-button" id="loginbtn">Se connecter</button>
             
-          </div>
+          </form>
         
-          <div class="w-form-fail" id="error-message"></div>
+         
         </div>
         <div class="holderoflines">
           <div class="line"></div>
@@ -294,6 +295,7 @@ function login(event) {
 }
 
     document.getElementById('googlelogin').addEventListener('click', loginWithGoogle);
+    
 </script>
 </body>
 </html>
