@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for authentication via cookies
     const userId = getCookie('userId');
 
-if (userId) {
+if (userId && document.querySelector('nav')) {
     // Query for the login link in different languages
     const navConnectLink = 
         document.querySelector('nav').querySelector('a[href="/se-connecter"]') || 
