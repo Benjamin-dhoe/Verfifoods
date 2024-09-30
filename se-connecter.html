@@ -86,7 +86,15 @@
             <label for="Password" class="brownundertitle">Mot de passe</label>
             <input class="w-input" maxlength="256" name="Password" type="password" id="Password" required>
             <div class="passwordresethold"><div id="openresetpaswoord">Oublié mot de passe?</div></div>
-        
+            <div class="loading" id="loginloading">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
             <button class="button intypeholder notabs w-button" id="loginbtn">Se connecter</button>
             
           </div>
@@ -188,6 +196,10 @@
 
 function login(event) {
   event.preventDefault();
+  const loginBtn = document.getElementById('loginbtn');
+  const loginLoading = document.getElementById('loginloading');
+  loginBtn.style.display = "none";
+  loginLoading.style.display = "block";
 
   const email = document.getElementById('Email').value;
   const password = document.getElementById('Password').value;
@@ -207,12 +219,16 @@ function login(event) {
     document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
     // Redirect the user
+    loginBtn.style.display = "block";
+    loginLoading.style.display = "none";
     window.location.href = `/users/${userId}`;
   })
   .catch((error) => {
     console.error("Login or redirect error:", error);
     errorMessageEl.textContent = "L'adresse e-mail ou le mot de passe que vous avez entré est incorrect.";
     errorMessageEl.style.display = "block";
+    loginBtn.style.display = "block";
+    loginLoading.style.display = "none";
   });
 }
   function resetPassword() {
