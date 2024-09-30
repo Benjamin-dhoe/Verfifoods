@@ -79,8 +79,8 @@
       </div>
       <div class="doublepartsside right centered">
         <div>
-          <div class="leftalignflexvert">
-        <label for="Email" class="brownundertitle">Email</label>
+          <form class="leftalignflexvert">
+            <label for="Email" class="brownundertitle">Email</label>
             <input class="text-field w-input" maxlength="256" name="Email" type="email" id="Email" required>
             
             <label for="Password" class="brownundertitle">Password</label>
@@ -95,10 +95,11 @@
                 autoplay>
               </lottie-player>
             </div>
+            <div class="w-form-fail" id="error-message"></div>
             <button class="button intypeholder notabs w-button" id="loginbtn">Login</button>
-           </div>
+           </form>
         
-          <div class="w-form-fail" id="error-message"></div>
+          
         </div>
         <div class="holderoflines">
           <div class="line"></div>
@@ -219,6 +220,8 @@ function login(event) {
     console.error("Login or redirect error:", error);
     errorMessageEl.textContent = "The email address or password you entered is incorrect. Please try again.";
     errorMessageEl.style.display = "block";
+    loginBtn.style.display = "block";
+    loginLoading.style.display = "none";
   });
 }
   function resetPassword() {
@@ -273,8 +276,6 @@ function login(event) {
       document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
       document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
-      loginBtn.style.display = "block";
-      loginLoading.style.display = "none";
       window.location.href = `/en/users/${userId}`;
     })
     .catch((error) => {
@@ -282,8 +283,6 @@ function login(event) {
       const errorMessageEl = document.getElementById('error-message');
       errorMessageEl.textContent = "Connection error with Google.";
       errorMessageEl.style.display = "block";
-      loginBtn.style.display = "block";
-      loginLoading.style.display = "none";
     });
 }
 
