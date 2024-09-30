@@ -86,7 +86,15 @@
             <label for="Password" class="brownundertitle">Password</label>
             <input class="w-input" maxlength="256" name="Password" type="password" id="Password" required>
             <div class="passwordresethold"><div id="openresetpaswoord">Forgot password?</div></div>
-        
+            <div class="loading" id="loginloading">
+              <lottie-player
+                src="/images/loading.json"
+                background="transparent"
+                speed="1"
+                loop
+                autoplay>
+              </lottie-player>
+            </div>
             <button class="button intypeholder notabs w-button" id="loginbtn">Login</button>
            </div>
         
@@ -265,6 +273,8 @@ function login(event) {
       document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
       document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
+      loginBtn.style.display = "block";
+      loginLoading.style.display = "none";
       window.location.href = `/en/users/${userId}`;
     })
     .catch((error) => {
@@ -272,6 +282,8 @@ function login(event) {
       const errorMessageEl = document.getElementById('error-message');
       errorMessageEl.textContent = "Connection error with Google.";
       errorMessageEl.style.display = "block";
+      loginBtn.style.display = "block";
+      loginLoading.style.display = "none";
     });
 }
 
