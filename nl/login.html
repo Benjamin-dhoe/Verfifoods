@@ -79,7 +79,7 @@
       </div>
       <div class="doublepartsside right centered">
         <div>
-          <div class="leftalignflexvert">
+          <form class="leftalignflexvert">
             <label for="Email" class="brownundertitle">Email</label>
             <input class="text-field w-input" maxlength="256" name="Email" type="email" id="Email" required>
             
@@ -95,11 +95,12 @@
                 autoplay>
               </lottie-player>
             </div>
+            <div class="w-form-fail" id="error-message"></div>
             <button class="button intypeholder notabs w-button" id="loginbtn">Inloggen</button>
             
-          </div>
+          </form>
         
-          <div class="w-form-fail" id="error-message"></div>
+          
         </div>
         <div class="holderoflines">
           <div class="line"></div>
@@ -218,8 +219,6 @@ function login(event) {
     document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
 
     // Redirect the user
-    loginBtn.style.display = "block";
-    loginLoading.style.display = "none";
     window.location.href = `/nl/users/${userId}`;
   })
   .catch((error) => {
