@@ -110,7 +110,7 @@ function showPopup(item, quantity) {
     const popupHTML = `
         <div class="productedselecteddiv" style="z-index: ${popupZIndex};">
             <div class="bold-text">${popupText[language]}</div>
-                <button class="button intypeholder" id="goToCartBtn">${goToCartText[language]}</button>
+                <button class="button intypeholder" id="goToCartBtn" style="color: #fff">${goToCartText[language]}</button>
             </div>
     `;
 
