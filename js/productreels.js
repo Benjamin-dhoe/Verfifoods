@@ -93,7 +93,7 @@ function updateProductsOnPage(products, element, count, lang) {
                 </div>
                 <div class="thumbproductshowcases">
                     <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
-                    <div class="brown-text bold-text">${productName}</div>
+                    <div class="bold-text">${productName}</div>
                 </div>
             `;
             element.appendChild(productElement);
