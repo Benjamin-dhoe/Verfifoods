@@ -17,6 +17,7 @@ document.querySelectorAll('.qtyhandlers').forEach(button => {
 // Function to handle adding to cart
 document.querySelectorAll('[data-cartbtn]').forEach(button => {
     const productId = button.getAttribute('data-cartbtn');
+    const productName = button.getAttribute('data-cartbtn-name');
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
 
     // Check if the product is already in the cart
@@ -29,7 +30,7 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
         const quantity = parseInt(qtyElement.textContent);
 
         if (quantity >= 1) {
-            addToCart(productId, quantity);
+            addToCart(productId, quantity, productName);
             // Add the check icon if it wasn't there before
             if (!button.nextElementSibling?.classList.contains("checkicon")) {
                 addCheckIcon(button);
@@ -48,7 +49,7 @@ function addCheckIcon(button) {
 }
 
 // Function to add items to the cart
-function addToCart(productId, quantity) {
+function addToCart(productId, quantity, productName) {
     let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
     // Update the cart with the new quantity
@@ -61,7 +62,7 @@ function addToCart(productId, quantity) {
     updateCartButton();
 
     // Show popup instead of alert
-    showPopup();
+    showPopup(productName, quantity);
 }
 
 // Function to update the shopping cart button
@@ -89,18 +90,12 @@ function updateCartButton() {
 }
 
 // Function to show the popup
-function showPopup() {
+function showPopup(item, quantity) {
     const language = getLanguage();
     const popupText = {
-        en: "Item added to cart",
-        nl: "Item toegevoegd aan winkelmand",
-        fr: "Article ajouté au panier"
-    };
-
-    const continueShoppingText = {
-        en: "Continue Shopping",
-        nl: "Verder winkelen",
-        fr: "Continuer vos achats"
+        en: `${quantity}x ${item} added to cart`,
+        nl: `${quantity}x ${item} toegevoegd aan winkelmand`,
+        fr: `${quantity}x ${item} ajouté au panier`
     };
 
     const goToCartText = {
@@ -110,18 +105,10 @@ function showPopup() {
     };
 
     const popupHTML = `
-        <div class="popupholder" style="display: flex; opacity: 100; visibility: visible;">
-            <div class="popupcontainer vis">
-                <div class="closebtn" id="closepopup">X</div>
-                <div class="leftalignflexvert">
-                    <div>${popupText[language]}</div>
-                    <div class="spacer10px"></div>
-                    <button class="button intypeholder notabs grey w-button" id="continueShoppingBtn">${continueShoppingText[language]}</button>
-                    <div class="spacer10px"></div>
-                    <button class="button intypeholder notabs w-button" id="goToCartBtn">${goToCartText[language]}</button>
-                </div>
+        <div class="productedselecteddiv">
+            <div class="bold-text">${popupText[language]}</div>
+                <button class="button intypeholder" id="goToCartBtn">${goToCartText[language]}</button>
             </div>
-        </div>
     `;
 
     // Append popup to body
