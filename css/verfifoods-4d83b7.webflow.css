@@ -608,7 +608,7 @@ td:hover .tooltip {
 
 .holderthumbnailproduct {
     color: var(--verfi-blue);
-    text-align: right;
+    text-align: center;
     cursor: pointer;
     background-color: #fff;
     background-position: 0 0, 50%;
