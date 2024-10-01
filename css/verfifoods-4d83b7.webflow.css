@@ -29,6 +29,7 @@
     border-radius: 9px;
     background-color: transparent;
     color: var(--darkest-blue);
+  border: 1px none #000;
 }
 
 .productedselecteddiv {
