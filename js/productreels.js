@@ -143,11 +143,11 @@ async function updatePartnerReel() {
 
         let partnerURL;
         if (lang === 'nl') {
-            partnerURL = `/nl/leverancier/${doc.id}`;
+            partnerURL = `/nl/leverancier/${partner.slug}`;
         } else if (lang === 'en') {
-            partnerURL = `/en/supplier/${doc.id}`;
+            partnerURL = `/en/supplier/${partner.slug}`;
         } else {
-            partnerURL = `/fournisseur/${doc.id}`;
+            partnerURL = `/fournisseur/${partner.slug}`;
         }
 
         partnerElement.href = partnerURL;
