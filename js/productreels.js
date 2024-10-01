@@ -94,7 +94,6 @@ function updateProductsOnPage(products, element, count, lang) {
                 <div class="thumbproductshowcases">
                     <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
                     <div class="brown-text bold-text">${productName}</div>
-                    <div class="small-text">${productBeschrijving}€</div>
                 </div>
             `;
             element.appendChild(productElement);
@@ -185,7 +184,7 @@ function adjustScrollSpeed(partnerCount) {
 updateProducts();
 updatePartnerReel();
 
-// setInterval(updateProducts, 10000);
+setInterval(updateProducts, 10000);
 
 
 
