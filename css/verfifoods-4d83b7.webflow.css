@@ -9,6 +9,20 @@
   --darker-background: #fcf3e7;
 }
 
+.productedselecteddiv {
+    z-index: 10;
+    border-style: solid none none;
+    border-width: 1px;
+    border-color: var(--brown) black black;
+    background-color: var(--darker-background);
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    display: none;
+    position: fixed;
+    inset: auto 0% 0%;
+}
+
 .translatebtn {
     margin-top: -10px;
     background-color: transparent;
