@@ -2393,8 +2393,9 @@ select {
   }
 
   .menuitemimage {
-    width: 50%;
     margin-bottom: 20px;
+    height: 100px;
+    width: auto;
     max-height: 100px;
     object-fit: contain;
   }
