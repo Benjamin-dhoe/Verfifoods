@@ -75,6 +75,10 @@ function updateContent() {
 
 window.onload = updateContent;
 localStorage.removeItem('cart');
+    function deleteCookie(name) {
+                            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                        }
+    deleteCookie("adminOrder");
 </script>
 </body>
 </html>
