@@ -73,15 +73,15 @@ function updateProductsOnPage(products, element, count, lang) {
             let productName;
             let productBeschrijving;
             if (lang === 'nl') {
-                productURL = `/nl/product/${product.id}`;
+                productURL = `/nl/product/${product.slugnl}`;
                 productName = product.naamNL;
                 productBeschrijving = product.beschrijvingNL;
             } else if (lang === 'en') {
-                productURL = `/en/product/${product.id}`;
+                productURL = `/en/product/${product.slugen}`;
                 productName = product.naamEN;
                 productBeschrijving = product.beschrijvingEN;
             } else {
-                productURL = `/product/${product.id}`;
+                productURL = `/product/${product.slugfr}`;
                 productName = product.naamFR;
                 productBeschrijving = product.beschrijvingFR;
             }
