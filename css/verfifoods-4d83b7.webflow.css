@@ -607,7 +607,7 @@ td:hover .tooltip {
 }
 
 .holderthumbnailproduct {
-    color: var(--verfi-blue);
+    color: var(--darkest-blue);
     text-align: center;
     cursor: pointer;
     background-color: #fff;
@@ -625,6 +625,10 @@ td:hover .tooltip {
     text-decoration: none;
     display: flex;
     position: relative;
+}
+
+.holderthumbnailproduct:hover {
+    color: var(--brown);
 }
 
 .holderthumbnailproduct.hero {
