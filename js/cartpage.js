@@ -73,7 +73,12 @@ async function displayCartItems() {
         const productInfo = await getProductFromFirestore(productId);
         if (!productInfo) {
             console.error(`Product with ID ${productId} not found or removed.`);
-            continue;
+            
+            // Remove the product from the cart in local storage
+            delete cart[productId];
+            localStorage.setItem('cart', JSON.stringify(cart)); // Update local storage
+            
+            continue; // Skip to the next product
         }
 
         const productPrice = productInfo.prijs * quantity;
