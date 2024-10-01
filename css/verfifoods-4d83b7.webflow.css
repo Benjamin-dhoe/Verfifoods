@@ -627,6 +627,8 @@ td:hover .tooltip {
     text-decoration: none;
     display: flex;
     position: relative;
+    background: radial-gradient(circle, white 60%, var(--darker-background) 100%);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .holderthumbnailproduct:hover {
