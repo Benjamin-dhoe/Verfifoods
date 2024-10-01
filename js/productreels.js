@@ -3,8 +3,8 @@ import { getFirestore, collection, getDocs, query, where, limit } from 'https://
 
 const db = getFirestore(app);
 
-let cachedProducts = {};  // Store fetched products by type or supplier
-let currentIndex = {};    // Track current index for each type or supplier
+let cachedProducts = {};
+let currentIndex = {};
 
 // Get language from URL
 function getLanguageFromURL() {
@@ -18,7 +18,6 @@ function getLanguageFromURL() {
     }
 }
 
-// Fetch products once based on type or supplier, with a maximum limit of 18
 async function fetchProducts(type = null, supplier = null) {
     let productsQuery = collection(db, 'Producten');
 
@@ -31,7 +30,6 @@ async function fetchProducts(type = null, supplier = null) {
         limit(18)
     );
     }
-    // Otherwise, if type is set, filter by type
     else if (type) {
         productsQuery = query(
             productsQuery,
@@ -40,7 +38,6 @@ async function fetchProducts(type = null, supplier = null) {
             limit(18)
         );
     } 
-    // If neither type nor supplier is set, fetch all products with a limit of 18
     else {
         productsQuery = query(
             productsQuery,
@@ -53,45 +50,39 @@ async function fetchProducts(type = null, supplier = null) {
     return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-// Function to update the products on the page
 function updateProductsOnPage(products, element, count, lang) {
     let cacheKey = element.getAttribute('type') || element.getAttribute('supplier'); 
-    let index = currentIndex[cacheKey] || 0; // Get the current index for the given type or supplier, or start at 0
+    let index = currentIndex[cacheKey] || 0;
 
     element.style.opacity = '0';
     setTimeout(() => {
         element.innerHTML = '';  // Clear previous content
 
-        // Slice out the correct amount of products, wrapping around if needed
         const selectedProducts = [];
         for (let i = 0; i < count; i++) {
             selectedProducts.push(products[(index + i) % products.length]);
         }
 
-        // Update current index for next rotation
         currentIndex[cacheKey] = (index + count) % products.length;
 
-        // Create product elements and append them to the container
         selectedProducts.forEach(product => {
             const productElement = document.createElement('a');
             productElement.className = 'holderthumbnailproduct';
 
             let productURL;
-            if (lang === 'nl') {
-                productURL = `/nl/product/${product.id}`;
-            } else if (lang === 'en') {
-                productURL = `/en/product/${product.id}`;
-            } else {
-                productURL = `/product/${product.id}`;
-            }
-
             let productName;
             if (lang === 'nl') {
+                productURL = `/nl/product/${product.id}`;
                 productName = product.naamNL;
+                productBeschrijving = product.beschrijvingNL;
             } else if (lang === 'en') {
+                productURL = `/en/product/${product.id}`;
                 productName = product.naamEN;
+                productBeschrijving = product.beschrijvingEN;
             } else {
+                productURL = `/product/${product.id}`;
                 productName = product.naamFR;
+                productBeschrijving = product.beschrijvingFR;
             }
 
             productElement.href = productURL;
@@ -99,40 +90,36 @@ function updateProductsOnPage(products, element, count, lang) {
                 <div class="shoppingcartbtn">
                     <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
                 </div>
-                <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
-                <div class="thumbproductoverlay showcase">
-                    <div class="mediumbold-text">${productName}</div>
-                    <div class="brown-text bold-text">${product.prijs}€</div>
+                <div class="thumbproductshowcases">
+                    <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
+                    <div class="brown-text bold-text">${productName}</div>
+                    <div class="small-text">${productBeschrijving}€</div>
                 </div>
             `;
             element.appendChild(productElement);
         });
 
         element.style.opacity = '1';
-    }, 300);  // Match this delay to your CSS transition
+    }, 300);
 }
 
-// Initial product fetch and rotation setup
 async function updateProducts() {
     const elements = document.querySelectorAll('[showproducts]');
     const lang = getLanguageFromURL();
 
     elements.forEach(async (element) => {
         const count = parseInt(element.getAttribute('showproducts'), 10);
-        const type = element.getAttribute('type');       // Get the 'type' attribute, if any
-        const supplier = element.getAttribute('supplier'); // Get the 'supplier' attribute, if any
+        const type = element.getAttribute('type');
+        const supplier = element.getAttribute('supplier');
 
-        // Determine cache key based on supplier or type
         const cacheKey = supplier || type || 'all'; 
 
-        // Check if products for the specific type or supplier are already cached
         if (!cachedProducts[cacheKey]) {
-            cachedProducts[cacheKey] = await fetchProducts(type, supplier);  // Fetch and cache the products
+            cachedProducts[cacheKey] = await fetchProducts(type, supplier);
         }
 
         const products = cachedProducts[cacheKey];
         
-        // Update products in the element
         if (products.length > 0) {
             updateProductsOnPage(products, element, count, lang);
         }
@@ -141,10 +128,10 @@ async function updateProducts() {
 
 async function updatePartnerReel() {
     const partnerReelElement = document.querySelector('[partnerreel]');
-    if (!partnerReelElement) return; // If no partnerreel element exists, exit
+    if (!partnerReelElement) return;
 
     const lang = getLanguageFromURL();
-    const partnersSnapshot = await getDocs(collection(db, 'Leveranciers'));  // Fetch all suppliers from the 'Leveranciers' collection
+    const partnersSnapshot = await getDocs(collection(db, 'Leveranciers'));
 
     const partnerElements = [];
 
@@ -172,26 +159,21 @@ async function updatePartnerReel() {
         partnerElements.push(partnerElement);
     });
 
-    // Append original partners
     partnerElements.forEach(element => partnerReelElement.appendChild(element));
 
-    // Append cloned partners for seamless scrolling
     partnerElements.forEach(element => {
         const clone = element.cloneNode(true);
         partnerReelElement.appendChild(clone);
     });
 
-    // Dynamically adjust the scroll animation duration based on the number of partners
     adjustScrollSpeed(partnerElements.length);
 }
 
-// Function to adjust the animation duration dynamically
 function adjustScrollSpeed(partnerCount) {
-    const partnerWidth = 207; // Assuming each partner is 207px wide (same as your image width)
-    const totalWidth = partnerCount * partnerWidth * 2; // Multiply by 2 to include cloned elements
+    const partnerWidth = 207;
+    const totalWidth = partnerCount * partnerWidth * 2;
 
-    // Set animation duration based on total width (larger width = longer scroll time)
-    const scrollDuration = totalWidth / 200; // Adjust this factor to control speed (smaller = faster)
+    const scrollDuration = totalWidth / 200;
 
     // Apply inline style to #partners element
     const partnerReelElement = document.getElementById('partners');
@@ -200,10 +182,9 @@ function adjustScrollSpeed(partnerCount) {
 
 // Initial update
 updateProducts();
-updatePartnerReel();  // Fetch and update partner reel on page load
+updatePartnerReel();
 
-// Update products every 10 seconds, rotating through cached products
-setInterval(updateProducts, 10000);
+// setInterval(updateProducts, 10000);
 
 
 
