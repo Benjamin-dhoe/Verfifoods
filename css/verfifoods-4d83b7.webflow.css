@@ -14,7 +14,8 @@
     border-color: var(--darker-background);
     background-color: #fff;
     display: flex;
-    width: 100%;
+    width: 300px;
+    max-width: 100%;
     height: 55px;
     margin-top: 20px;
     padding-left: 10px;
@@ -31,6 +32,10 @@
     color: var(--darkest-blue);
   border: 1px none #000;
 }
+
+.searchinput:focus {
+    outline: none;
+  }
 
 .productedselecteddiv {
     z-index: 10;
