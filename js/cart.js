@@ -89,6 +89,7 @@ function updateCartButton() {
     }
 }
 
+let popupZIndex = 10;
 // Function to show the popup
 function showPopup(item, quantity) {
     const language = getLanguage();
@@ -104,8 +105,10 @@ function showPopup(item, quantity) {
         fr: "Aller au panier"
     };
 
+    popupZIndex ++;
+
     const popupHTML = `
-        <div class="productedselecteddiv">
+        <div class="productedselecteddiv" style="z-index: ${popupZIndex};">
             <div class="bold-text">${popupText[language]}</div>
                 <button class="button intypeholder" id="goToCartBtn">${goToCartText[language]}</button>
             </div>
@@ -114,14 +117,14 @@ function showPopup(item, quantity) {
     // Append popup to body
     document.body.insertAdjacentHTML('beforeend', popupHTML);
 
-    // Add event listeners
-    document.getElementById('closepopup').addEventListener('click', () => {
-        document.querySelector('.popupholder').remove();
-    });
+    const popupElement = document.body.lastElementChild;
 
-    document.getElementById('continueShoppingBtn').addEventListener('click', () => {
-        document.querySelector('.popupholder').remove();
-    });
+    // Remove the popup after 6 seconds
+    setTimeout(() => {
+        if (popupElement) {
+            popupElement.remove();
+        }
+    }, 6000);
 
     document.getElementById('goToCartBtn').addEventListener('click', displayCart);
 }
