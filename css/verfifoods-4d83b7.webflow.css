@@ -485,12 +485,12 @@ td:hover .tooltip {
   z-index: 2;
   object-fit: contain;
   border-radius: 11px;
-  width: 70%;
+  width: auto;
   height: 70%;
   position: absolute;
   inset: 0%;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
 .thumbproductoverlay {
