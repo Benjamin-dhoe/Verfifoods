@@ -1529,7 +1529,7 @@ td:hover .tooltip {
 
 .productinfoinmenu {
   width: 65%;
-  height: 150px;
+  min-height: 150px;
 }
 
 .price {
