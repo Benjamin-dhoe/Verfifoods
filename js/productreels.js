@@ -71,6 +71,7 @@ function updateProductsOnPage(products, element, count, lang) {
 
             let productURL;
             let productName;
+            let productBeschrijving;
             if (lang === 'nl') {
                 productURL = `/nl/product/${product.id}`;
                 productName = product.naamNL;
