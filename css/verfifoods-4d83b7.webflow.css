@@ -514,7 +514,6 @@ td:hover .tooltip {
 
 .thumbproductoverlay {
   z-index: 3;
-  background-image: linear-gradient(135deg, #fffcf800, #fff);
   border-radius: 10px;
   justify-content: flex-end;
   align-items: flex-end;
