@@ -201,9 +201,8 @@ function getCookie(name) {
 // Function to handle the order button click
 async function handleOrderButtonClick() {
     const tokencookie = getCookie('token');
+    document.cookie = "winkelmand=true; max-age=3600";
     if (!tokencookie) {
-        // Set the cookie
-        document.cookie = "winkelmand=true; max-age=3600"; // expires in 1 hour
         
         // Show the login popup
         document.getElementById('popupgologin').style.opacity = 1;
