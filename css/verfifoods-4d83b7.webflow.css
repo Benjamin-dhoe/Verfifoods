@@ -1504,6 +1504,10 @@ td:hover .tooltip {
   margin-bottom: 60px;
 }
 
+.holderappresults.vertical {
+  flex-direction: column;
+}
+
 .holderappresults.spacebetween {
   justify-content: space-between;
 }
