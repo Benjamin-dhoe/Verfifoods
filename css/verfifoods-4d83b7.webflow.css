@@ -1547,11 +1547,12 @@ td:hover .tooltip {
   justify-content: space-between;
   align-items: center;
   width: 360px;
-  min-height: 125px;
   margin-bottom: 10px;
   margin-right: 10px;
   padding: 10px;
   display: flex;
+  background: radial-gradient(circle, white 80%, var(--darker-background) 100%);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menuitemimage {
