@@ -105,12 +105,19 @@ function showPopup(item, quantity) {
         fr: "Aller au panier"
     };
 
+    const cartLink = {
+        en: "/en/shopping-cart",
+        nl: "/nl/winkelmand",
+        fr: "/panier"
+    };
+
+
     popupZIndex ++;
 
     const popupHTML = `
         <div class="productedselecteddiv" style="z-index: ${popupZIndex};">
             <div class="bold-text">${popupText[language]}</div>
-                <button class="button intypeholder" id="goToCartBtn" style="color: #fff">${goToCartText[language]}</button>
+                <a class="button intypeholder" href="${cartLink[language]}" style="color: #fff">${goToCartText[language]}</a>
             </div>
     `;
 
