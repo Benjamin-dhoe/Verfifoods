@@ -41,10 +41,18 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
 
 // Function to add check icon
 function addCheckIcon(button) {
-    const checkIcon = document.createElement('img');
-    checkIcon.src = "/images/check.svg";
-    checkIcon.loading = "lazy";
-    checkIcon.classList.add("checkicon");
+    const language = getLanguage();
+    const checkText = {
+        en: `Product added to cart`,
+        nl: `Product toegevoegd aan winkelmand`,
+        fr: `Produit ajouté au panier.`
+    };
+    const checkIcon = document.createElement('div');
+    checkIcon.classList.add("alwaysflexhorizontal");
+    checkIcon.innerHtml = `
+        <img src="/images/check.svg" loading="lazy" class="checkicon">
+        <div class="small-text">${checkText[language]}</div>
+    `
     button.insertAdjacentElement('afterend', checkIcon);
 }
 
