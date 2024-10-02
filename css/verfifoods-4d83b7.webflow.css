@@ -2306,6 +2306,10 @@ select {
     display: none;
   }
 
+  .productinfoinmenu {
+    min-height: 0px;
+}
+
 
   input,
 textarea,
