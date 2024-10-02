@@ -1532,6 +1532,10 @@ td:hover .tooltip {
   margin-bottom: 60px;
 }
 
+.holderappresults.samecolor {
+  background-color: transparent;
+}
+
 .holderappresults.vertical {
   flex-direction: column;
 }
