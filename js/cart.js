@@ -49,7 +49,7 @@ function addCheckIcon(button) {
     };
     const checkIcon = document.createElement('div');
     checkIcon.classList.add("alwaysflexhorizontal");
-    checkIcon.innerHtml = `
+    checkIcon.innerHTML = `
         <img src="/images/check.svg" loading="lazy" class="checkicon">
         <div class="small-text">${checkText[language]}</div>
     `
