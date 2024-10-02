@@ -32,7 +32,7 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
         if (quantity >= 1) {
             addToCart(productId, quantity, productName);
             // Add the check icon if it wasn't there before
-            if (!button.nextElementSibling?.classList.contains("checkicon")) {
+            if (!button.nextElementSibling?.classList.contains("dummyclass")) {
                 addCheckIcon(button);
             }
         }
@@ -49,6 +49,7 @@ function addCheckIcon(button) {
     };
     const checkIcon = document.createElement('div');
     checkIcon.classList.add("alwaysflexhorizontal");
+    checkIcon.classList.add("dummyclass");
     checkIcon.innerHTML = `
         <img src="/images/check.svg" loading="lazy" class="checkicon">
         <div class="small-text">${checkText[language]}</div>
