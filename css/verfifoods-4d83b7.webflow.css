@@ -25,6 +25,10 @@
     background-color: var(--white);
 }
 
+.dummyclass {
+  margin-top: 10px;
+}
+
 .searchinput {
     height: 100%;
     border-radius: 9px;
