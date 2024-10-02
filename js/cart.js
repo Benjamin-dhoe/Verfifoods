@@ -43,9 +43,9 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
 function addCheckIcon(button) {
     const language = getLanguage();
     const checkText = {
-        en: `Product added to cart`,
-        nl: `Product toegevoegd aan winkelmand`,
-        fr: `Produit ajouté au panier.`
+        en: `Added to cart`,
+        nl: `Toegevoegd aan winkelmand`,
+        fr: `Ajouté au panier.`
     };
     const checkIcon = document.createElement('div');
     checkIcon.classList.add("alwaysflexhorizontal");
