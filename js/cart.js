@@ -141,7 +141,6 @@ function showPopup(item, quantity) {
         }
     }, 6000);
 
-    document.getElementById('goToCartBtn').addEventListener('click', displayCart);
 }
 
 // Function to get the appropriate language based on the URL
