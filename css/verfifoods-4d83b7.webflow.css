@@ -2312,6 +2312,10 @@ select {
     min-height: 90vh;
   }
 
+  .thumbproductimage {
+    max-width: 95%;
+}
+
   .invphone {
     display: none;
   }
