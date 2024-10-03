@@ -2480,7 +2480,7 @@ select {
     margin-bottom: 20px;
     height: 100px;
     width: auto;
-    max-height: auto;
+    max-height: 100px;
     max-width: 60%;
     object-fit: contain;
   }
