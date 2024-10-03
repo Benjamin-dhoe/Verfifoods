@@ -2478,10 +2478,8 @@ select {
 
   .menuitemimage {
     margin-bottom: 20px;
-    height: 100px;
     width: auto;
-    max-height: 100px;
-    max-width: 60%;
+    max-width: 50%;
     object-fit: contain;
   }
 
