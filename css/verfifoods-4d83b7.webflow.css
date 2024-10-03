@@ -531,7 +531,7 @@ td:hover .tooltip {
     object-fit: contain;
     width: auto;
     height: 70%;
-    max-width: 95%;
+    width: 95%;
     padding-top: 20px;
     margin-bottom: 40px;
 }
