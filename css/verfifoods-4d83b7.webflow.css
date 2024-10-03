@@ -2482,7 +2482,7 @@ select {
     width: auto;
     max-height: 100px;
     max-width: 60%;
-    object-fit: contain;
+    
   }
 
   .productinfoinmenu {
