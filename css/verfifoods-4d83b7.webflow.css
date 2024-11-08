@@ -17,6 +17,11 @@
     border: 2px transparent;
 }
 
+.product-item.dragging-over {
+    transform: translateY(20px); /* Move the item down slightly */
+    transition: transform 0.2s ease;
+}
+
 .product-list {
     border: 2px transparent;
 }
