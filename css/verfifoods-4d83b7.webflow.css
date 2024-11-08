@@ -1970,6 +1970,12 @@ td:hover .tooltip {
   inset: -15px -15px auto auto;
 }
 
+@media screen and (min-width: 1650px) {
+  .logofooter.nav {
+    padding-top: 2vw;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .body {
     font-size: 14px;
