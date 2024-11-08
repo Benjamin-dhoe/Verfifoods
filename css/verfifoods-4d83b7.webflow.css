@@ -16,6 +16,16 @@
     border-radius: 10px;
 }
 
+.product-item.dragging {
+    opacity: 0.5;
+    border: 2px dashed #ccc;
+}
+
+.product-list.dragover {
+    border: 2px solid #007bff;
+    background-color: #f1f1f1;
+}
+
 .close-x {
     position: absolute;
     inset: -8px -8px auto auto;
