@@ -9,6 +9,15 @@
   --darker-background: #fcf3e7;
 }
 
+.productprijsdiv {
+    padding: 10px;
+    background-color: var(--darker-background);
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .searchbox {
     margin-bottom: 20px;
     border-color: var(--darker-background);
