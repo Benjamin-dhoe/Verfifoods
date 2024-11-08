@@ -940,6 +940,7 @@ td:hover .tooltip {
   justify-content: flex-end;
   align-items: flex-start;
   display: flex;
+  flex-direction: row-reverse;
 }
 
 .filtermenusneak {
