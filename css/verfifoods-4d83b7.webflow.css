@@ -18,8 +18,7 @@
 }
 
 .product-item.dragging-over {
-    transform: translateY(20px); /* Move the item down slightly */
-    transition: transform 0.2s ease;
+   transition: margin-bottom 0.2s ease;
 }
 
 .product-list {
