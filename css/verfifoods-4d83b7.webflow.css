@@ -9,6 +9,13 @@
   --darker-background: #fcf3e7;
 }
 
+.product-item {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: var(--darker-background);
+    border-radius: 10px;
+}
+
 .close-x {
     position: absolute;
     inset: -8px -8px auto auto;
