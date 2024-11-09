@@ -15,11 +15,13 @@
     background-color: var(--darker-background);
     border-radius: 10px;
     border: 2px transparent;
+    cursor: grab;
 }
 
 .drag-ghost {
     opacity: 0.5;
     background-color: #e0e0e0;
+    cursor: grabbing;
 }
 
 .product-list {
