@@ -17,21 +17,13 @@
     border: 2px transparent;
 }
 
-.product-item.dragging-over {
-   transition: margin-bottom 0.2s ease;
+.drag-ghost {
+    opacity: 0.5;
+    background-color: #e0e0e0;
 }
 
 .product-list {
     border: 2px transparent;
-}
-
-.product-item.dragging {
-    opacity: 0.5;
-    border: 2px dashed #ccc;
-}
-
-.product-list.dragover {
-    border: 2px solid var(--brown);
 }
 
 .close-x {
