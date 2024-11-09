@@ -1140,6 +1140,7 @@ td:hover .tooltip {
   margin-bottom: 20px;
   margin-right: 20px;
   padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .holderdeliveryinfo.specs {
@@ -1715,6 +1716,7 @@ td:hover .tooltip {
   width: 35%;
   padding: 20px;
   background-color: var(--white);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .productinfo {
