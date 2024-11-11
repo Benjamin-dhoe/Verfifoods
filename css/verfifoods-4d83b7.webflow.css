@@ -669,6 +669,9 @@ td:hover .tooltip {
   background-color: var(--semi-grey);
   margin-right: 10px;
 }
+.button.intypeholder.notabs.easy {
+  background-color: var(--semi-grey);
+}
 
 .button.intypeholder.notabs.grey:hover {
   background-image: linear-gradient(90deg, var(--semi-grey), grey);
