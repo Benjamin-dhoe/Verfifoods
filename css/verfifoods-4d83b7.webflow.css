@@ -9,6 +9,11 @@
   --darker-background: #fcf3e7;
 }
 
+.disclaimer {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 .product-item {
     padding: 10px;
     margin-bottom: 5px;
