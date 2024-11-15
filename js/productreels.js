@@ -18,36 +18,37 @@ function getLanguageFromURL() {
     }
 }
 
-async function fetchProducts(type = null, supplier = null) {
-    let productsQuery = collection(db, 'Producten');
+const cloudFunctionURL = "https://<your-region>-<your-project-id>.cloudfunctions.net/getRandomProducts";
 
-    // If supplier is set, filter by supplier (leverancier)
-    if (supplier) {
-    productsQuery = query(
-        productsQuery,
-        where('leverancier', '==', supplier),
-        where('verwijderd', '==', false),
-        limit(18)
-    );
+let cachedProducts = {};
+let currentIndex = {};
+
+// Get language from URL
+function getLanguageFromURL() {
+    const url = window.location.href;
+    if (url.includes('/nl')) {
+        return 'nl';
+    } else if (url.includes('/en')) {
+        return 'en';
+    } else {
+        return 'fr';
     }
-    else if (type) {
-        productsQuery = query(
-            productsQuery,
-            where('type', '==', type),
-            where('verwijderd', '==', false),
-            limit(18)
-        );
-    } 
-    else {
-        productsQuery = query(
-            productsQuery,
-            where('verwijderd', '==', false),
-            limit(18)
-        );
+}
+
+async function fetchProductsFromCloudFunction(type = null, supplier = null) {
+    const params = new URLSearchParams();
+
+    if (type) params.append("type", type);
+    if (supplier) params.append("supplier", supplier);
+    params.append("limit", 18);
+
+    const response = await fetch(`${cloudFunctionURL}?${params.toString()}`);
+    if (!response.ok) {
+        console.error("Failed to fetch products:", response.statusText);
+        return [];
     }
 
-    const productsSnapshot = await getDocs(productsQuery);
-    return productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return await response.json();
 }
 
 function updateProductsOnPage(products, element, count, lang) {
@@ -115,7 +116,7 @@ async function updateProducts() {
         const cacheKey = supplier || type || 'all'; 
 
         if (!cachedProducts[cacheKey]) {
-            cachedProducts[cacheKey] = await fetchProducts(type, supplier);
+            cachedProducts[cacheKey] = await fetchProductsFromCloudFunction(type, supplier);
         }
 
         const products = cachedProducts[cacheKey];
