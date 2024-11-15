@@ -1,188 +1,161 @@
-// Import Firebase modules
-import { auth, app } from '/js/firebase.js';
-import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-import { onAuthStateChanged, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+const cloudFunctionURL = "https://europe-west1-your-project-id.cloudfunctions.net/getCart";
 
-const db = getFirestore(app);
-
-// Function to show the loading spinner
+// Show the loading spinner
 function showLoadingSpinner() {
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'flex';
 }
 
-// Function to hide the loading spinner
+// Hide the loading spinner
 function hideLoadingSpinner() {
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'none';
 }
 
-const urlPath = window.location.pathname;
-
-function getProductName(productData) {
-    
-    if (urlPath.includes('/nl/')) {
-        return productData.naamNL;
-    } else if (urlPath.includes('/en/')) {
-        return productData.naamEN; // Ensure you have naamEN in your Firestore
-    } else {
-        return productData.naamFR; // Default to naamFR
-    }
-}
-
-// Function to retrieve product details from Firestore
-async function getProductFromFirestore(productId) {
+// Fetch cart details from Cloud Function
+async function fetchCartDetailsFromCloudFunction(cart) {
     try {
-        showLoadingSpinner(); // Show spinner when fetching data
-        const productDoc = await getDoc(doc(db, 'Producten', productId));
-        hideLoadingSpinner(); // Hide spinner after fetching data
-        
-        if (productDoc.exists()) {
-            const productData = productDoc.data();
-            if (productData.verwijderd) {
-                console.error(`Product with ID ${productId} is marked as removed.`);
-                return null;
-            }
-            return {
-                naam: getProductName(productData), // Use the function to get the correct name
-                prijs: productData.prijs,
-                afbeeldingURL: productData.afbeeldingURL
-            };
-        } else {
-            console.error(`No product found with ID: ${productId}`);
-            return null;
+        const userId = localStorage.getItem('userId'); // Assuming userId is saved in localStorage post-login
+
+        if (!userId) {
+            console.error("User ID not found. User may not be logged in.");
+            return { success: false, message: "User not logged in" };
         }
+
+        // Prepare payload
+        const payload = {
+            userId,
+            cart
+        };
+
+        // Fetch cart details
+        const response = await fetch(cloudFunctionURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error fetching cart details: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            console.error("Cloud Function returned an error:", data.error);
+        }
+
+        return data;
     } catch (error) {
-        hideLoadingSpinner(); // Hide spinner in case of error
-        console.error(`Error fetching product with ID ${productId}:`, error);
-        return null;
+        console.error("Failed to fetch cart details:", error);
+        return { success: false, error: error.message };
     }
 }
 
-// Function to display the cart items
+// Display cart items
 async function displayCartItems() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     const selectedProductsEl = document.getElementById('selectedproducts');
     selectedProductsEl.innerHTML = ''; // Clear previous items
-    let totalPrice = 0;
 
-    for (let productId of Object.keys(cart)) {
-        const quantity = cart[productId];
-        
-        // Retrieve product information from Firestore
-        const productInfo = await getProductFromFirestore(productId);
-        if (!productInfo) {
-            console.error(`Product with ID ${productId} not found or removed.`);
-            
-            // Remove the product from the cart in local storage
-            delete cart[productId];
-            localStorage.setItem('cart', JSON.stringify(cart)); // Update local storage
-            
-            continue; // Skip to the next product
-        }
+    try {
+        showLoadingSpinner();
 
-        const productPrice = productInfo.prijs * quantity;
-        totalPrice += productPrice;
+        // Fetch cart details
+        const cartDetails = await fetchCartDetailsFromCloudFunction(cart);
 
-        // Create the HTML structure dynamically for each product
-        const productHTML = `
-            <div class="holderdeliveryinfo winkemanditem" data-product-id="${productId}">
-                <div class="winkelmanditem">
-                    <img src="${productInfo.afbeeldingURL}" loading="lazy" class="productcartimage">
-                    <div class="winkelmanditeminfo">
-                        <div class="bold-text">${productInfo.naam}</div>
-                        <div class="spacer10px"></div>
-                        <div class="alwaysflexhorizontal">
-                            <input class="w-input qtyinput" type="number" value="${quantity}" min="1">
-                            <img class="deleteicon" src="/images/deleteicon.svg" loading="lazy">
+        if (cartDetails.success) {
+            const { products, totalPrice } = cartDetails;
+
+            for (const product of products) {
+                // Generate product HTML dynamically
+                const productHTML = `
+                    <div class="holderdeliveryinfo winkemanditem" data-product-id="${product.productId}">
+                        <div class="winkelmanditem">
+                            <img src="${product.afbeeldingURL}" loading="lazy" class="productcartimage">
+                            <div class="winkelmanditeminfo">
+                                <div class="bold-text">${product.naam}</div>
+                                <div class="spacer10px"></div>
+                                <div class="alwaysflexhorizontal">
+                                    <input class="w-input qtyinput" type="number" value="${product.quantity}" min="1">
+                                    <img class="deleteicon" src="/images/deleteicon.svg" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="winkelmanditempriceholder">
+                                <div class="price">${product.totalProductPrice.toFixed(2)}€</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="winkelmanditempriceholder">
-                        <div class="price">${productPrice.toFixed(2)}€</div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
+                `;
+
+                selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
+            }
+
+            // Display the total price
+            document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
+
+            // Set up event listeners
+            setupCartEventListeners();
+        } else {
+            console.error("Failed to load cart items:", cartDetails.error || cartDetails.message);
+        }
+    } catch (error) {
+        console.error("Error displaying cart items:", error);
+    } finally {
+        hideLoadingSpinner();
     }
-
-    // Display the total price
-    document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
-
-    // Add event listeners for quantity changes and deleting items
-    setupCartEventListeners();
 }
 
-// Function to set up event listeners for quantity changes and delete buttons
+// Event listeners and UI interactions
 function setupCartEventListeners() {
-    // Quantity change event listener using blur
     document.querySelectorAll('.qtyinput').forEach(input => {
         input.addEventListener('blur', async (event) => {
             const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
             const newQuantity = parseInt(event.target.value);
 
             if (!isNaN(newQuantity) && newQuantity > 0) {
-                // Update the cart in localStorage if valid
                 await updateCartQuantity(productId, newQuantity);
             } else {
-                // Clear the input field for user to re-enter a value
-                event.target.value = ''; 
+                event.target.value = ''; // Reset invalid input
             }
 
-            // Recalculate the total price
-            recalculateTotalPrice();
+            displayCartItems();
         });
     });
 
-    // Delete button event listener
     document.querySelectorAll('.deleteicon').forEach(icon => {
         icon.addEventListener('click', (event) => {
             const productId = event.target.closest('.winkemanditem').getAttribute('data-product-id');
-            removeFromCart(productId); // Remove item from cart
+            removeFromCart(productId);
         });
     });
 }
 
-// Function to update the cart quantity in localStorage
+// Update cart quantity in localStorage
 async function updateCartQuantity(productId, newQuantity) {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    
+
     if (newQuantity > 0) {
         cart[productId] = newQuantity;
     } else {
-        delete cart[productId]; // Remove item if quantity is zero or less
+        delete cart[productId];
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    displayCartItems(); // Update the UI
+    displayCartItems();
 }
 
-// Function to remove an item from the cart
+// Remove an item from the cart
 function removeFromCart(productId) {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    delete cart[productId]; // Remove the item from the cart
+    delete cart[productId];
     localStorage.setItem('cart', JSON.stringify(cart));
-    displayCartItems(); // Update the UI
+    displayCartItems();
 }
 
-// Function to recalculate the total price
-async function recalculateTotalPrice() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    let totalPrice = 0;
-
-    const pricePromises = Object.keys(cart).map(async (productId) => {
-        const productInfo = await getProductFromFirestore(productId);
-        if (productInfo) {
-            totalPrice += productInfo.prijs * cart[productId];
-        }
-    });
-
-    await Promise.all(pricePromises);
-    document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
-}
-
-// Document Ready
+// Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
