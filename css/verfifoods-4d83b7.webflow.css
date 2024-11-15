@@ -9,6 +9,74 @@
   --darker-background: #fcf3e7;
 }
 
+.holdertoggleselect {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.holdertoggle {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hide default input */
+.toggle-switch input {
+  display: none;
+}
+
+/* Toggle Slider Background */
+.slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: linear-gradient(145deg, #ccc, #b3b3b3);
+  border-radius: 26px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Slider Knob */
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--lines);
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s, background-color 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Checked (Active) State for Background and Knob */
+input:checked + .slider {
+  background: linear-gradient(145deg, var(--verfi-blue), var(--dark-blue));
+}
+
+input:checked + .slider::before {
+  transform: translateX(24px);
+  background-color: var(--background-color);
+}
+
+/* Label Styling */
+.toggle-label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .disclaimer {
   font-weight: 700;
   margin-bottom: 20px;
