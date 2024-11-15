@@ -9,6 +9,12 @@
   --darker-background: #fcf3e7;
 }
 
+.uitstock {
+  font-size: 12px;
+  border-radius: 10px;
+  color: #da0000;
+}
+
 .labelcontainer {
   position: relative; /* Needed to position the tooltip */
   display: inline-block; /* Ensure the container fits tightly around the image */
