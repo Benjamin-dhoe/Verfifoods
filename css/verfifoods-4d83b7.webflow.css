@@ -63,7 +63,7 @@
 
 /* Checked (Active) State for Background and Knob */
 input:checked + .slider {
-  background: linear-gradient(145deg, var(--verfi-blue), var(--dark-blue));
+  background: linear-gradient(145deg, #c18732, #c18732);
 }
 
 input:checked + .slider::before {
