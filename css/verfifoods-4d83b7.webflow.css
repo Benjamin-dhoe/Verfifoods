@@ -19,6 +19,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   gap: 5px;
+  margin-top: 10px;
 }
 
 .uitstock {
