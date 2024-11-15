@@ -15,22 +15,10 @@ function getLanguageFromURL() {
     }
 }
 
-const cloudFunctionURL = "https://<your-region>-<your-project-id>.cloudfunctions.net/getRandomProducts";
+const cloudFunctionURL = "https://europe-west1-test-9efbe.cloudfunctions.net/getRandomProducts";
 
 let cachedProducts = {};
 let currentIndex = {};
-
-// Get language from URL
-function getLanguageFromURL() {
-    const url = window.location.href;
-    if (url.includes('/nl')) {
-        return 'nl';
-    } else if (url.includes('/en')) {
-        return 'en';
-    } else {
-        return 'fr';
-    }
-}
 
 async function fetchProductsFromCloudFunction(type = null, supplier = null) {
     const params = new URLSearchParams();
