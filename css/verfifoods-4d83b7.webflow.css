@@ -40,7 +40,7 @@
   position: relative;
   width: 50px;
   height: 26px;
-  background: linear-gradient(145deg, #ffffff, #c18732);
+  background: linear-gradient(145deg, #ffffff, #d3d3d3);
   border-radius: 26px;
   cursor: pointer;
   transition: background 0.3s;
