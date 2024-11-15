@@ -3,9 +3,6 @@ import { getFirestore, collection, getDocs, query, where, limit } from 'https://
 
 const db = getFirestore(app);
 
-let cachedProducts = {};
-let currentIndex = {};
-
 // Get language from URL
 function getLanguageFromURL() {
     const url = window.location.href;
