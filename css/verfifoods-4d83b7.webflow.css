@@ -9,6 +9,33 @@
   --darker-background: #fcf3e7;
 }
 
+.labelcontainer {
+  position: relative; /* Needed to position the tooltip */
+  display: inline-block; /* Ensure the container fits tightly around the image */
+}
+
+.tooltip {
+  position: absolute;
+  top: -30px; /* Adjust based on desired distance above the image */
+  left: 50%;
+  transform: translateX(-50%); /* Center the tooltip horizontally */
+  background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+  color: #fff; /* White text for contrast */
+  padding: 5px 10px; /* Space inside the tooltip */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 12px; /* Small font size */
+  white-space: nowrap; /* Prevent text from wrapping */
+  visibility: hidden; /* Hide the tooltip initially */
+  opacity: 0; /* Make it invisible */
+  transition: visibility 0s, opacity 0.3s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Show tooltip on hover */
+.labelcontainer:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 .holdertoggleselect {
   display: flex;
   gap: 10px;
