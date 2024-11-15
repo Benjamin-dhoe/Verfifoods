@@ -9,6 +9,17 @@
   --darker-background: #fcf3e7;
 }
 
+.label-logo {
+  height: 30px;
+  border-radius: 5px;
+}
+
+.holderlabels {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 .uitstock {
   font-size: 12px;
   border-radius: 10px;
