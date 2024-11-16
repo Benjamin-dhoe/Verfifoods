@@ -15,16 +15,9 @@ function hideLoadingSpinner() {
 // Fetch cart details from Cloud Function
 async function fetchCartDetailsFromCloudFunction(cart) {
     try {
-        const userId = localStorage.getItem('userId'); // Assuming userId is saved in localStorage post-login
-
-        if (!userId) {
-            console.error("User ID not found. User may not be logged in.");
-            return { success: false, message: "User not logged in" };
-        }
 
         // Prepare payload
         const payload = {
-            userId,
             cart
         };
 
