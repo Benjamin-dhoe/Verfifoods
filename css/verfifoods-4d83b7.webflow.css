@@ -1733,7 +1733,7 @@ td:hover .tooltip {
 .menuitemimage {
   float: right; /* Allow the image to float */
   width: 100px; /* Set a fixed width for the image */
-  margin: 0 10px 0px 20px;
+  margin: 0 0px 0px 20px;
   text-decoration: none;
 }
 
@@ -1756,7 +1756,7 @@ td:hover .tooltip {
 }
 
 .productinfoinmenu {
-    overflow: hidden;
+  
 }
 
 .price {
@@ -1861,6 +1861,9 @@ td:hover .tooltip {
 
 .productinfo {
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .holderlinkpath {
