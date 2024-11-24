@@ -1733,13 +1733,26 @@ td:hover .tooltip {
 .menuitemimage {
   float: right; /* Allow the image to float */
   width: 100px; /* Set a fixed width for the image */
-  margin: 0 10px 10px 0;
+  margin: 0 10px 0px 20px;
+  text-decoration: none;
 }
 
 .menuitemimage img {
     width: 100%; /* Make sure the image fits its container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: round the image corners */
+}
+
+.productcode {
+  adding: 1px;
+    font-size: 12Px;
+    text-decoration-line: none;
+    color: var(--white);
+    background-color: var(--verfi-blue);
+    border-radius: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 10px;
 }
 
 .productinfoinmenu {
