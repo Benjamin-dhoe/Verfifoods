@@ -9,6 +9,11 @@
   --darker-background: #fcf3e7;
 }
 
+.leveranciermenu {
+  font-size: 12px;
+  color: var(--brown);
+}
+
 .label-logo {
   height: 30px;
   border-radius: 5px;
