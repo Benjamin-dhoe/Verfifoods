@@ -1731,7 +1731,7 @@ td:hover .tooltip {
 }
 
 .menuitemimage {
-  float: left; /* Allow the image to float */
+  float: right; /* Allow the image to float */
   width: 100px; /* Set a fixed width for the image */
   margin: 0 10px 10px 0;
 }
