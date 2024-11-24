@@ -1735,6 +1735,10 @@ td:hover .tooltip {
   width: 100px; /* Set a fixed width for the image */
   margin: 0 10px 0px 20px;
   text-decoration: none;
+      display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .menuitemimage img {
