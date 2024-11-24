@@ -23,7 +23,7 @@
 }
 
 .uitstock {
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 10px;
   color: #da0000;
 }
@@ -1725,7 +1725,7 @@ td:hover .tooltip {
     padding: 10px;
     margin-bottom: 10px;
     margin-right: 10px;
-    overflow: hidden; /* Clear floats inside the menuitem */
+    min-height: 250px;
     position: relative;
   width: 350px;
 }
@@ -1767,8 +1767,10 @@ td:hover .tooltip {
 
 .holderqtyandaddbtn {
   flex-flow: wrap;
-  align-items: center;
-  display: flex;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
 }
 
 .qtycontrols {
