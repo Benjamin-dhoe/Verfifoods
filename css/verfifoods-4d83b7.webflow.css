@@ -1727,6 +1727,7 @@ td:hover .tooltip {
     margin-right: 10px;
     overflow: hidden; /* Clear floats inside the menuitem */
     position: relative;
+  width: 350px;
 }
 
 .menuitemimage {
