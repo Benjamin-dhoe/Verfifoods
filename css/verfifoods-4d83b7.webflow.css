@@ -1705,6 +1705,10 @@ td:hover .tooltip {
   margin-bottom: 60px;
 }
 
+.holderappresults.menu {
+  align-items: stretch;
+}
+
 .holderappresults.samecolor {
   background-color: transparent;
 }
@@ -1725,7 +1729,6 @@ td:hover .tooltip {
     padding: 10px;
     margin-bottom: 10px;
     margin-right: 10px;
-    min-height: 250px;
     position: relative;
   width: 350px;
 }
