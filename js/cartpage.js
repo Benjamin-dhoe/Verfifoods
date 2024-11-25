@@ -62,6 +62,7 @@ function hideLoadingSpinner() {
                 const { products, totalPrice } = cartDetails;
     
                 for (const product of products) {
+                    console.log(product);
                     // Generate product HTML dynamically
                     const productHTML = `
                         <div class="holderdeliveryinfo winkemanditem" data-product-id="${product.productId}">
