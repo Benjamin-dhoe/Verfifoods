@@ -25,38 +25,17 @@ function getCookie(name) {
 
 // Fetch cart details from Cloud Function
 async function fetchCartDetailsFromCloudFunction(cart) {
-    try {
-        const token = getCookie('token');
-        // Prepare payload
-        const payload = {
-            token,
-            cart
-        };
+    const params = new URLSearchParams();
 
-        // Fetch cart details
-        const response = await fetch(cloudFunctionURL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
+    if (cart) params.append("cart", cart);
 
-        if (!response.ok) {
-            throw new Error(`Error fetching cart details: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        if (!data.success) {
-            console.error("Cloud Function returned an error:", data.error);
-        }
-
-        return data;
-    } catch (error) {
-        console.error("Failed to fetch cart details:", error);
-        return { success: false, error: error.message };
+    const response = await fetch(`${cloudFunctionURL}?${params.toString()}`);
+    if (!response.ok) {
+        console.error("Failed to fetch products:", response.statusText);
+        return [];
     }
+
+    return await response.json();
 }
 
 // Display cart items
