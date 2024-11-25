@@ -99,7 +99,6 @@ function hideLoadingSpinner() {
             hideLoadingSpinner();
         }
     }
-}
 
 function getCookie(name) {
         const nameEQ = name + "=";
