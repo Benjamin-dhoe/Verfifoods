@@ -50,13 +50,14 @@ function hideLoadingSpinner() {
     async function displayCartItems() {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         const selectedProductsEl = document.getElementById('selectedproducts');
-        selectedProductsEl.innerHTML = ''; // Clear previous items
     
         try {
             showLoadingSpinner();
     
             // Fetch cart details
+            
             const cartDetails = await fetchCartDetailsFromCloudFunction(cart);
+            selectedProductsEl.innerHTML = '';
     
             if (cartDetails.success) {
                 const { products, totalPrice } = cartDetails;
