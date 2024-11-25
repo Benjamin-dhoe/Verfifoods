@@ -44,6 +44,13 @@ function applyFilters() {
       }
     });
 
+    // If the group has no visible items, hide the .apptop element above it
+    const groupTop = group.previousElementSibling;
+    if (groupTop && groupTop.classList.contains("apptop")) {
+      groupTop.style.display = hasVisibleItems ? "block" : "none";
+    }
+
+    // If the group has visible items, show it, else hide it
     group.style.display = hasVisibleItems ? "flex" : "none";
   });
 }
@@ -51,5 +58,6 @@ function applyFilters() {
 document.getElementById("filter-code").addEventListener("input", applyFilters);
 leverancierDropdown.addEventListener("change", applyFilters);
 document.getElementById("filter-naam").addEventListener("input", applyFilters);
+
 
 
