@@ -12,7 +12,7 @@
 .rightaligncart {
   width: 100%;
   display: flex;
-  
+  justify-content: flex-end;
 }
 
 .filter-container {
