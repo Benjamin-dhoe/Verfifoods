@@ -45,6 +45,7 @@ function hideLoadingSpinner() {
         console.error("Failed to fetch cart details:", error);
         return { success: false, error: error.message };
     }
+  }
 
     async function displayCartItems() {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
