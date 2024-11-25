@@ -4,7 +4,6 @@ import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/fireb
 const db = getFirestore(app);
 const leverancierDropdown = document.getElementById("filter-leverancier");
 
-// Populate Leverancier Dropdown
 const leverancierCollection = collection(db, "Leveranciers");
 getDocs(leverancierCollection).then((querySnapshot) => {
   querySnapshot.forEach((doc) => {
@@ -15,7 +14,6 @@ getDocs(leverancierCollection).then((querySnapshot) => {
   });
 });
 
-// Apply Filters
 function applyFilters() {
   const codeFilter = document.getElementById("filter-code").value.toLowerCase();
   const leverancierFilter = leverancierDropdown.value.toLowerCase();
@@ -44,13 +42,11 @@ function applyFilters() {
       }
     });
 
-    // If the group has no visible items, hide the .apptop element above it
     const groupTop = group.previousElementSibling;
     if (groupTop && groupTop.classList.contains("holderapptop")) {
       groupTop.style.display = hasVisibleItems ? "flex" : "none";
     }
 
-    // If the group has visible items, show it, else hide it
     group.style.display = hasVisibleItems ? "flex" : "none";
   });
 }
