@@ -46,8 +46,8 @@ function applyFilters() {
 
     // If the group has no visible items, hide the .apptop element above it
     const groupTop = group.previousElementSibling;
-    if (groupTop && groupTop.classList.contains("apptop")) {
-      groupTop.style.display = hasVisibleItems ? "block" : "none";
+    if (groupTop && groupTop.classList.contains("holderapptop")) {
+      groupTop.style.display = hasVisibleItems ? "flex" : "none";
     }
 
     // If the group has visible items, show it, else hide it
