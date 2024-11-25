@@ -77,7 +77,7 @@ function hideLoadingSpinner() {
                                     </div>
                                 </div>
                                 <div class="winkelmanditempriceholder">
-                                    <div class="price">${product.totalProductPrice.toFixed(2)}€</div>
+                                    <div class="price">${product.totalProductPrice}€</div>
                                 </div>
                             </div>
                         </div>
