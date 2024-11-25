@@ -1812,7 +1812,12 @@ td:hover .tooltip {
 }
 
 .productinfoinmenu {
-  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-around;
+    align-items: flex-start;
+    height: 100%;
 }
 
 .price {
