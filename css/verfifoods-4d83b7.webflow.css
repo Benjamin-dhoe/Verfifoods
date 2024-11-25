@@ -1783,12 +1783,12 @@ td:hover .tooltip {
     margin-bottom: 10px;
     margin-right: 10px;
     position: relative;
-  width: 350px;
+  width: 400px;
 }
 
 .menuitemimage {
   float: right; /* Allow the image to float */
-  width: 100px; /* Set a fixed width for the image */
+  width: 120px; /* Set a fixed width for the image */
   margin: 0 0px 0px 20px;
   text-decoration: none;
 }
