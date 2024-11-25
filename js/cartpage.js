@@ -38,59 +38,7 @@ async function fetchCartDetailsFromCloudFunction(cart) {
     return await response.json();
 }
 
-// Display cart items
-async function displayCartItems() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    const selectedProductsEl = document.getElementById('selectedproducts');
-    selectedProductsEl.innerHTML = ''; // Clear previous items
-
-    try {
-        showLoadingSpinner();
-
-        // Fetch cart details
-        const cartDetails = await fetchCartDetailsFromCloudFunction(cart);
-
-        if (cartDetails.success) {
-            const { products, totalPrice } = cartDetails;
-
-            for (const product of products) {
-                // Generate product HTML dynamically
-                const productHTML = `
-                    <div class="holderdeliveryinfo winkemanditem" data-product-id="${product.productId}">
-                        <div class="winkelmanditem">
-                            <img src="${product.afbeeldingURL}" loading="lazy" class="productcartimage">
-                            <div class="winkelmanditeminfo">
-                                <div class="bold-text">${product.naam}</div>
-                                <div class="spacer10px"></div>
-                                <div class="alwaysflexhorizontal">
-                                    <input class="w-input qtyinput" type="number" value="${product.quantity}" min="1">
-                                    <img class="deleteicon" src="/images/deleteicon.svg" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="winkelmanditempriceholder">
-                                <div class="price">${product.totalProductPrice.toFixed(2)}€</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
-            }
-
-            // Display the total price
-            document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
-
-            // Set up event listeners
-            setupCartEventListeners();
-        } else {
-            console.error("Failed to load cart items:", cartDetails.error || cartDetails.message);
-        }
-    } catch (error) {
-        console.error("Error displaying cart items:", error);
-    } finally {
-        hideLoadingSpinner();
-    }
-}
+fetchCartDetailsFromCloudFunction(null);
 
 // Event listeners and UI interactions
 function setupCartEventListeners() {
