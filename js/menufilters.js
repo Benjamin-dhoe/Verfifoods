@@ -24,10 +24,6 @@ function applyFilters() {
 
   const isAnyFilterActive = codeFilter || leverancierFilter || naamFilter;
 
-  document.querySelectorAll(".holderapptop").forEach((topElement) => {
-    topElement.style.display = isAnyFilterActive ? "none" : "block";
-  });
-
   document.querySelectorAll(".holderappresults").forEach((group) => {
     let hasVisibleItems = false;
 
