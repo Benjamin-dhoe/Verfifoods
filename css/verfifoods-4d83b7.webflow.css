@@ -9,6 +9,12 @@
   --darker-background: #fcf3e7;
 }
 
+.rightaligncart {
+  width: 100%;
+  display: flex;
+  
+}
+
 .filter-container {
   display: flex;
     flex-wrap: wrap;
