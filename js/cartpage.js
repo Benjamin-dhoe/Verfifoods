@@ -87,7 +87,7 @@ function hideLoadingSpinner() {
                 }
     
                 // Display the total price
-                document.getElementById('totalprice').textContent = `${totalPrice.toFixed(2)} €`;
+                document.getElementById('totalprice').textContent = `${totalPrice} €`;
     
                 // Set up event listeners
                 setupCartEventListeners();
