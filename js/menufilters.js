@@ -22,6 +22,12 @@ function applyFilters() {
   const naamFilter = document.getElementById("filter-naam").value.toLowerCase();
   const isLeverancierSelected = leverancierDropdown.selectedIndex > 0;
 
+  const isAnyFilterActive = codeFilter || leverancierFilter || naamFilter;
+
+  document.querySelectorAll(".holderapptop").forEach((topElement) => {
+    topElement.style.display = isAnyFilterActive ? "none" : "block";
+  });
+
   document.querySelectorAll(".holderappresults").forEach((group) => {
     let hasVisibleItems = false;
 
@@ -42,12 +48,12 @@ function applyFilters() {
       }
     });
 
-    group.style.display = hasVisibleItems ? "block" : "none";
+    group.style.display = hasVisibleItems ? "flex" : "none";
   });
 }
 
-// Add Event Listeners
 document.getElementById("filter-code").addEventListener("input", applyFilters);
 leverancierDropdown.addEventListener("change", applyFilters);
 document.getElementById("filter-naam").addEventListener("input", applyFilters);
+
 
