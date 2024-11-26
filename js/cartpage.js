@@ -61,6 +61,14 @@ function hideLoadingSpinner() {
     
             if (cartDetails.success) {
                 const { products, totalPrice, status } = cartDetails;
+
+                if (status === "waiting") {
+                    document.getElementById('checkoutdiv').style.display = "none";
+                    document.getElementById('offertediv').style.display = "none";
+                    document.getElementById('waitingdiv').style.display = "block";
+                    hideLoadingSpinner();
+                    return;
+                }
     
                 for (const product of products) {
                     console.log(product);
@@ -90,9 +98,11 @@ function hideLoadingSpinner() {
                 if (status === "unlogged") {
                     document.getElementById('checkoutdiv').style.display = "none";
                     document.getElementById('offertediv').style.display = "block";
+                    document.getElementById('waitingdiv').style.display = "none";
                 } else {
                     document.getElementById('checkoutdiv').style.display = "block";
                     document.getElementById('offertediv').style.display = "none";
+                    document.getElementById('waitingdiv').style.display = "none";
                 }
     
                 // Display the total price
