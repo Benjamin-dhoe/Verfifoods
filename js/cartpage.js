@@ -26,10 +26,12 @@ function getLanguageFromURL() {
   async function fetchCartDetailsFromCloudFunction(cart) {
     try {
         const token = getCookie('token');
+        const lang = getLanguageFromURL();
         // Prepare payload
         const payload = {
             token,
-            cart
+            cart,
+            lang
         };
 
         // Fetch cart details
