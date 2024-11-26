@@ -12,6 +12,17 @@ function hideLoadingSpinner() {
     loadingSpinner.style.display = 'none';
 }
 
+function getLanguageFromURL() {
+    const url = window.location.href;
+    if (url.includes('/nl')) {
+        return 'nl';
+    } else if (url.includes('/en')) {
+        return 'en';
+    } else {
+        return 'fr';
+    }
+}
+
   async function fetchCartDetailsFromCloudFunction(cart) {
     try {
         const token = getCookie('token');
@@ -68,6 +79,15 @@ function hideLoadingSpinner() {
                     document.getElementById('waitingdiv').style.display = "block";
                     hideLoadingSpinner();
                     return;
+                } else if (status === "redirect") {
+                    const lang = getLanguageFromURL();
+                     if (lang === 'nl') {
+                         window.location.href = "/nl/login";
+                    } else if (lang === 'en') {
+                         window.location.href = "/en/login";
+                    } else {
+                         window.location.href = "/se-connecter";
+                    }
                 }
     
                 for (const product of products) {
