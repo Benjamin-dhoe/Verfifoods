@@ -60,7 +60,7 @@ function hideLoadingSpinner() {
             selectedProductsEl.innerHTML = '';
     
             if (cartDetails.success) {
-                const { products, totalPrice } = cartDetails;
+                const { products, totalPrice, status } = cartDetails;
     
                 for (const product of products) {
                     console.log(product);
@@ -85,6 +85,14 @@ function hideLoadingSpinner() {
                     `;
     
                     selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
+                }
+
+                if (status === "unlogged") {
+                    document.getElementById('checkoutdiv').style.display = "none";
+                    document.getElementById('offertediv').style.display = "block";
+                } else {
+                    document.getElementById('checkoutdiv').style.display = "block";
+                    document.getElementById('offertediv').style.display = "none";
                 }
     
                 // Display the total price
@@ -165,30 +173,6 @@ function removeFromCart(productId) {
 document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
-
-// Function to handle the order button click
-async function handleOrderButtonClick() {
-    const tokencookie = getCookie('token');
-    document.cookie = "winkelmand=true; max-age=3600";
-    if (!tokencookie) {
-        
-        // Show the login popup
-        document.getElementById('popupgologin').style.opacity = 1;
-        document.getElementById('popupgologin').style.visibility = "visible";
-    } else {
-        console.log("User is logged in, proceed with order");
-        if (urlPath.includes('/nl/')) {
-            window.location.href = `/nl/checkout`;
-        } else if (urlPath.includes('/en/')) {
-            window.location.href = `/en/checkout`;
-        } else {
-            window.location.href = `/checkout`;
-        }
-    }
-}
-
-// Add event listener for the order button
-document.querySelector('[willorder]').addEventListener('click', handleOrderButtonClick);
 
 // Close popup functionality
 document.getElementById('closepopupgologin').addEventListener('click', () => {
