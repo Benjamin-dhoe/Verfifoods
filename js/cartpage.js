@@ -63,6 +63,7 @@ function getLanguageFromURL() {
     async function displayCartItems() {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         const selectedProductsEl = document.getElementById('selectedproducts');
+        let orderText;
     
         try {
             showLoadingSpinner();
@@ -114,9 +115,13 @@ function getLanguageFromURL() {
                             </div>
                         </div>
                     `;
+
+                    orderText += `${product.naam} x ${product.quantity}`;
     
                     selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
                 }
+
+                documentGetElementById("pass-order").value = orderText;
 
                 if (status === "unlogged") {
                     document.getElementById('checkoutdiv').style.display = "none";
