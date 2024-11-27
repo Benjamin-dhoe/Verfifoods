@@ -144,7 +144,7 @@ function getLanguageFromURL() {
                 console.error("Failed to load cart items:", cartDetails.error || cartDetails.message);
                 selectedProductsEl.innerHtml = `
                         <div class="holderdeliveryinfo error">
-                            `Error! ${cartDetails.message}`
+                            Error! ${cartDetails.message}
                         </div>
                     `
             }
