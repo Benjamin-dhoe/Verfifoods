@@ -1359,6 +1359,11 @@ td:hover .tooltip {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+.holderdeliveryinfo.error {
+  background-color: #a10000;;
+  color: var(--white);
+}
+
 .holderdeliveryinfo.specs {
   min-width: 80px;
   padding: 5px 10px;
