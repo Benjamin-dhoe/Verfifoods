@@ -214,12 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCartItems();
 });
 
-// Close popup functionality
-document.getElementById('closepopupgologin').addEventListener('click', () => {
-    document.getElementById('popupgologin').style.opacity = 0;
-    document.getElementById('popupgologin').style.visibility = "hidden";
-});
-
 
 
 
