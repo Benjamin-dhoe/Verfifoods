@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Winkelmand</title>
+  <title>Panier</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
   <link href="/css/webflow.css" rel="stylesheet" type="text/css">
@@ -16,20 +16,6 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="body">
-  <div class="popupholder" id="popupgologin">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupgologin">X</div>
-          <div class="leftalignflexvert">
-            <div>U bent momenteel niet ingelogd</div>
-            <div class="spacer10px"></div>
-            <a href="/nl/login" class="button intypeholder notabs w-button" >Inloggen</a>
-            <div class="spacer10px"></div>
-            <a href="/nl/klant-worden-bij-verfifoods.html" class="button intypeholder notabs w-button">Een account aanmaken</a>
-            <div class="spacer10px"></div>
-            <a href="/nl/checkout.html"  class="button intypeholder notabs w-button">Doorgaan als gast</a>
-          </div>
-    </div>
-  </div>
   <div class="loadingspin" id="loadingSpinner" style="display:none;">
     <img src="/images/logo-Verfifoods.png" loading="lazy" width="158" alt="">
     <div class="spacer10px"></div>
@@ -65,17 +51,47 @@
       </nav>
   <div class="section-product">
     <div class="containcenter">
+      <div class="rightaligncart">
+        <div class="checkoutdivcart">
+          <div class="flexhorizontalspaced">
+            <div class="brownundertitle blue">Totale:</div>
+            <div class="price" id="totalprice">€</div>
+          </div>
+          <a href="/nl/checkout" class="button intypeholder w-button" id="checkoutdiv">Ik ga bestellen</a>
+          <div id="offertediv">
+            <a href="#offerteformdiv" class="button intypeholder w-button">Offerte aanvragen</a>
+          </div>
+          <div id="waitingdiv">Uw account wordt zo spoedig mogelijk goedgekeurd, vanaf dan kan u een bestelling plaatsen.</div>
+        </div>
+      </div>
       <div class="brownundertitle">Winkelmand</div>
       <div class="spacer10px"></div>
       <div id="selectedproducts"></div>
-      
-      <div class="checkoutdivcart">
-        <div class="flexhorizontalspaced">
-          <div class="brownundertitle blue">Totaal:</div>
-          <div class="price" id="totalprice">€</div>
-        </div>
-        <button willorder class="button intypeholder w-button">Ik ga bestellen</a>
+      <div id="offerteformdiv" class="offerteformdiv" style="display:none;">
+        <div class="spacer10px"></div>
+        <div class="brownundertitle bold-text">Offerte aanvraag</div>
+        <form id="offerteForm" name="offerte-aanvragen" data-netlify="true">    
+          <label class="brownundertitle">Email</label>
+          <input class="text-field w-input" maxlength="256" type="email" name="email" required>
+          <label class="brownundertitle">Telefoon</label>
+          <input class="text-field w-input" maxlength="256" type="text" name="telephone" value="" required>
+            <label class="brownundertitle">Bedrijfsnaam</label>
+            <input class="text-field w-input" maxlength="256" type="text" name="companyname" value="" required>
+            <label class="brownundertitle">BTW nummer</label>
+            <input class="text-field w-input" maxlength="256" type="text" name="btwnr" value="" required">
+            <div class="spacer10px"></div>
+            <label class="brownundertitle">Straat en huisnummer</label>
+            <input class="text-field w-input" maxlength="256" type="text" name="streetnr" value="" required="">
+            <label class="brownundertitle">Postcode</label>
+            <input class="text-field w-input" maxlength="256" type="text" name="postcode" value="" required="">
+            <label class="brownundertitle">Plaats</label>
+            <input class="text-field w-input" maxlength="256" type="text" name="place" value="" required="">
+            <div class="spacer10px"></div>
+            <input type="hidden" id="pass-order" value="" name="bestelling">
+            <button type="submit" class="button intypeholder notabs w-button">Aanvraag indienen</button>
+        </form>
       </div>
+      
     </div>
   </div>
   <footer class="section-blue-parent">
@@ -86,17 +102,20 @@
           <div class="footerpart">
             <div class="brownundertitle white bold-text">Producten</div>
             <div class="spacer10px"></div>
-            <a href="/nl/productcategorieen/brood-leverancier.html" class="link-footer w-inline-block">
-              <div class="brownundertitle white">Brood</div>
+            <a href="/nl/productcategorieen/stokbrood-leverancier.html" class="link-footer w-inline-block">
+              <div class="brownundertitle white">Stokbrood</div>
             </a>
             <a href="/nl/productcategorieen/viennoiserie-leverancier.html" class="link-footer w-inline-block">
               <div class="brownundertitle white">Viennoiserie</div>
             </a>
-            <a href="/nl/productcategorieen/stokbrood-leverancier.html" class="link-footer w-inline-block">
-              <div class="brownundertitle white">Stokbrood</div>
-            </a>
             <a href="/nl/productcategorieen/gebak-leverancier.html" class="link-footer w-inline-block">
-              <div class="brownundertitle white">Gebak</div>
+              <div class="brownundertitle white">Patisserie</div>
+            </a>
+            <a href="/nl/productcategorieen/brood-leverancier.html" class="link-footer w-inline-block">
+              <div class="brownundertitle white">Brood</div>
+            </a>
+            <a href="/nl/productcategorieen/hartige-snacks-leverancier.html" class="link-footer w-inline-block">
+              <div class="brownundertitle white">Hartige snacks</div>
             </a>
             <a href="/nl/productcategorieen/ijsjes-leverancier.html" class="link-footer w-inline-block">
               <div class="brownundertitle white">Ijsjes</div>
@@ -105,7 +124,7 @@
               <div class="brownundertitle white">smoothies</div>
             </a>
             <div class="spacer10px"></div>
-            <a href="/nl/aanbod.html" class="button intypeholder notabs w-button">Bekijk volledige menu</a>
+            <a href="/nl/aanbod.html" class="button intypeholder notabs w-button">Bekijk volledige gamma</a>
           </div>
           <div class="footerpart">
             <a href="https://www.google.com/maps/place/Verfifoods/@50.7741454,4.5121968,597m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47c3d9eea77f6083:0xea68d0e7bb7c37fe!8m2!3d50.774142!4d4.5147717!16s%2Fg%2F1vlz9jcj?entry=ttu&amp;g_ep=EgoyMDI0MDkwNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="mapslink w-inline-block">
