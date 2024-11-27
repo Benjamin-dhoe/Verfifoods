@@ -701,8 +701,9 @@ select {
     cursor: pointer;
 }
 
-.styled-table tbody tr:hover > .copy-icon {
-    pointer-events: none;
+.styled-table tbody tr:hover .copy-icon:hover {
+    background-color: inherit; /* Remove hover background */
+    cursor: default; /* Change cursor to default */
 }
 
 .copy-icon {
