@@ -63,7 +63,7 @@ function getLanguageFromURL() {
     async function displayCartItems() {
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
         const selectedProductsEl = document.getElementById('selectedproducts');
-        let orderText;
+        let orderText = "";
     
         try {
             showLoadingSpinner();
