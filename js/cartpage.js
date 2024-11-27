@@ -121,7 +121,7 @@ function getLanguageFromURL() {
                     selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
                 }
 
-                documentGetElementById("pass-order").value = orderText;
+                document.getElementById("pass-order").value = orderText;
 
                 if (status === "unlogged") {
                     document.getElementById('checkoutdiv').style.display = "none";
