@@ -142,6 +142,11 @@ function getLanguageFromURL() {
                 setupCartEventListeners();
             } else {
                 console.error("Failed to load cart items:", cartDetails.error || cartDetails.message);
+                selectedProductsEl.innerHtml = `
+                        <div class="holderdeliveryinfo error">
+                            `Error! ${cartDetails.message}`
+                        </div>
+                    `
             }
         } catch (error) {
             console.error("Error displaying cart items:", error);
