@@ -701,6 +701,23 @@ select {
     cursor: pointer;
 }
 
+.styled-table tbody tr:hover > .copy-icon {
+    pointer-events: none;
+}
+
+.copy-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.copy-icon:hover {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
 .styled-table td {
     color: #050527;
 }
