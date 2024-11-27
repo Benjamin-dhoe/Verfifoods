@@ -78,6 +78,7 @@ function getLanguageFromURL() {
                 if (status === "waiting") {
                     document.getElementById('checkoutdiv').style.display = "none";
                     document.getElementById('offertediv').style.display = "none";
+                    document.getElementById('offerteformdiv').style.display = "none";
                     document.getElementById('waitingdiv').style.display = "block";
                     hideLoadingSpinner();
                     return;
@@ -120,10 +121,12 @@ function getLanguageFromURL() {
                 if (status === "unlogged") {
                     document.getElementById('checkoutdiv').style.display = "none";
                     document.getElementById('offertediv').style.display = "block";
+                    document.getElementById('offerteformdiv').style.display = "block";
                     document.getElementById('waitingdiv').style.display = "none";
                 } else {
                     document.getElementById('checkoutdiv').style.display = "block";
                     document.getElementById('offertediv').style.display = "none";
+                    document.getElementById('offerteformdiv').style.display = "none";
                     document.getElementById('waitingdiv').style.display = "none";
                 }
     
