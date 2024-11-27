@@ -16,20 +16,6 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="body">
-  <div class="popupholder" id="popupgologin">
-    <div class="popupcontainer vis">
-        <div class="closebtn" id="closepopupgologin">X</div>
-          <div class="leftalignflexvert">
-            <div>Vous n'êtes actuellement pas connecté</div>
-            <div class="spacer10px"></div>
-            <a href="/se-connecter.html" class="button intypeholder notabs w-button" >Se connecter</a>
-            <div class="spacer10px"></div>
-            <a href="/devenir-client-chez-verfifoods.html" class="button intypeholder notabs w-button">Créer un compte</a>
-            <div class="spacer10px"></div>
-            <a href="/checkout.html"  class="button intypeholder notabs w-button">Continuer en tant qu'invité</a>
-          </div>
-    </div>
-  </div>
   <div class="loadingspin" id="loadingSpinner" style="display:none;">
     <img src="/images/logo-Verfifoods.png" loading="lazy" width="158" alt="">
     <div class="spacer10px"></div>
@@ -81,7 +67,30 @@
       <div class="brownundertitle">Panier</div>
       <div class="spacer10px"></div>
       <div id="selectedproducts"></div>
-      
+      <div id="offerteformdiv" style="display:none;">
+        <div class="spacer10px"></div>
+        <div class="brownundertitle">Demander un devis</div>
+        <form id="offerteForm">    
+          <label class="brownundertitle">Email</label>
+          <input class="text-field w-input" maxlength="256" type="email" id="email" name="email" required>
+          <label class="brownundertitle">Telephone</label>
+          <input class="text-field w-input" maxlength="256" type="text" id="telephone" name="telephone" value="" required>
+            <label class="brownundertitle">Nom de l'entreprise</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="companyname" name="companyname" value="" required>
+            <label class="brownundertitle">Numéro de TVA</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="btwnr" name="btwnr" value="" required">
+            <div class="spacer10px"></div>
+            <label class="brownundertitle bold-text">Adresse</label>
+            <label class="brownundertitle">Rue et numéro de maison</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="streetnrfact" name="streetnrfact" value="" required="">
+            <label class="brownundertitle">Code postale</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="postcodefact" name="postcodefact" value="" required="">
+            <label class="brownundertitle">Lieu</label>
+            <input class="text-field w-input" maxlength="256" type="text" id="placefact" name="placefact" value="" required="">
+            <div class="spacer10px"></div>
+          <button type="submit" class="button intypeholder notabs w-button" id="submitform">Continuer</button>
+        </form>
+      </div>
       
     </div>
   </div>
