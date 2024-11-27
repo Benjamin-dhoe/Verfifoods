@@ -116,7 +116,7 @@ function getLanguageFromURL() {
                         </div>
                     `;
 
-                    orderText += `${product.naam} x ${product.quantity}`;
+                    orderText += `${product.naam} x ${product.quantity} -- `;
     
                     selectedProductsEl.insertAdjacentHTML('beforeend', productHTML);
                 }
