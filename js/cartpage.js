@@ -72,6 +72,7 @@ function getLanguageFromURL() {
             
             const cartDetails = await fetchCartDetailsFromCloudFunction(cart);
             selectedProductsEl.innerHTML = '';
+            const lang = getLanguageFromURL();
     
             if (cartDetails.success) {
                 const { products, totalPrice, status } = cartDetails;
@@ -84,7 +85,7 @@ function getLanguageFromURL() {
                     hideLoadingSpinner();
                     return;
                 } else if (status === "redirect") {
-                    const lang = getLanguageFromURL();
+                    
                      if (lang === 'nl') {
                          window.location.href = "/nl/login";
                     } else if (lang === 'en') {
@@ -97,12 +98,35 @@ function getLanguageFromURL() {
                 for (const product of products) {
                     console.log(product);
                     // Generate product HTML dynamically
+                    let typeDisclaimer = "";
+                    if (lang === 'nl') {
+                         if (product.type === "Ijsjes") {
+                            <div class="cartwarning">Opgelet, machine nodig om dit product te maken.</div>
+                        } else if (product.type === "Smoothies") {
+                            <div class="cartwarning">Blender vereist om product te maken.</div>
+                        }
+                    } else if (lang === 'en') {
+                        if (product.type === "Ijsjes") {
+                            <div class="cartwarning">Attention, machine needed for this product.</div>
+                        } else if (product.type === "Smoothies") {
+                            <div class="cartwarning">Blender needed for this product.</div>
+                        }
+                    } else {
+                         if (product.type === "Ijsjes") {
+                            <div class="cartwarning">Attention, machine nécessaire pour ce produit.</div>
+                        } else if (product.type === "Smoothies") {
+                            <div class="cartwarning">Mélangeur nécessaire pour ce produit.</div>
+                        }
+                    }
+                    
+                    
                     const productHTML = `
                         <div class="holderdeliveryinfo winkemanditem" data-product-id="${product.productId}">
                             <div class="winkelmanditem">
                                 <img src="${product.afbeeldingURL}" loading="lazy" class="productcartimage">
                                 <div class="winkelmanditeminfo">
                                     <div class="bold-text">${product.naam}</div>
+                                    ${typeDisclaimer}
                                     <div class="spacer10px"></div>
                                     <div class="alwaysflexhorizontal">
                                         <input class="w-input qtyinput" type="number" value="${product.quantity}" min="1">
