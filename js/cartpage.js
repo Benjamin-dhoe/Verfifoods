@@ -101,21 +101,21 @@ function getLanguageFromURL() {
                     let typeDisclaimer = "";
                     if (lang === 'nl') {
                          if (product.type === "Ijsjes") {
-                            typeDisclaimer = `<div class="cartwarning">Opgelet, machine nodig om dit product te maken.</div>`´;
+                            typeDisclaimer = `<div class="cartwarning">Opgelet, machine nodig om dit product te maken.</div>`;
                         } else if (product.type === "Smoothies") {
-                            typeDisclaimer = `<div class="cartwarning">Blender vereist om product te maken.</div>`
+                            typeDisclaimer = `<div class="cartwarning">Blender vereist om product te maken.</div>`;
                         }
                     } else if (lang === 'en') {
                         if (product.type === "Ijsjes") {
-                            typeDisclaimer = `<div class="cartwarning">Attention, machine needed for this product.</div>`
+                            typeDisclaimer = `<div class="cartwarning">Attention, machine needed for this product.</div>`;
                         } else if (product.type === "Smoothies") {
-                            typeDisclaimer = `<div class="cartwarning">Blender needed for this product.</div>`
+                            typeDisclaimer = `<div class="cartwarning">Blender needed for this product.</div>`;
                         }
                     } else {
                          if (product.type === "Ijsjes") {
-                            typeDisclaimer = `<div class="cartwarning">Attention, machine nécessaire pour ce produit.</div>`
+                            typeDisclaimer = `<div class="cartwarning">Attention, machine nécessaire pour ce produit.</div>`;
                         } else if (product.type === "Smoothies") {
-                            typeDisclaimer = `<div class="cartwarning">Mélangeur nécessaire pour ce produit.</div>`
+                            typeDisclaimer = `<div class="cartwarning">Mélangeur nécessaire pour ce produit.</div>`;
                         }
                     }
                     
