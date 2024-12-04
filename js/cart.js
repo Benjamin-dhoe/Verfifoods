@@ -85,7 +85,16 @@ function addToCart(productId, quantity, productName) {
 
 // Function to update the shopping cart button
 function updateCartButton() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let cart = {};
+    const cartData = localStorage.getItem('cart');
+    
+    if (cartData) {
+        try {
+            cart = JSON.parse(cartData);
+        } catch (e) {
+            console.error("Error parsing cart data", e);
+        }
+    }
     const uniqueItemsCount = Object.keys(cart).length;
 
     // Check if the cart button already exists
