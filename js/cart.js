@@ -18,7 +18,16 @@ document.querySelectorAll('.qtyhandlers').forEach(button => {
 document.querySelectorAll('[data-cartbtn]').forEach(button => {
     const productId = button.getAttribute('data-cartbtn');
     const productName = button.getAttribute('data-cartbtn-name');
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let cart = {};
+    const cartData = localStorage.getItem('cart');
+    
+    if (cartData) {
+        try {
+            cart = JSON.parse(cartData);
+        } catch (e) {
+            console.error("Error parsing cart data", e);
+        }
+    }
 
     // Check if the product is already in the cart
     if (cart[productId]) {
