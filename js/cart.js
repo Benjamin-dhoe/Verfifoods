@@ -68,7 +68,16 @@ function addCheckIcon(button) {
 
 // Function to add items to the cart
 function addToCart(productId, quantity, productName) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let cart = {};
+    const cartData = localStorage.getItem('cart');
+    
+    if (cartData) {
+        try {
+            cart = JSON.parse(cartData);
+        } catch (e) {
+            console.error("Error parsing cart data", e);
+        }
+    }
 
     // Update the cart with the new quantity
     cart[productId] = (cart[productId] || 0) + quantity;
