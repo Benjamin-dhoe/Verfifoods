@@ -9,6 +9,11 @@
   --darker-background: #fcf3e7;
 }
 
+.smalltext {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
 .offerteformdiv {
     width: 500px;
     max-width: 100%;
