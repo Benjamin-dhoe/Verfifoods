@@ -1885,6 +1885,7 @@ td:hover .tooltip {
     justify-content: space-between;
     align-content: space-around;
     align-items: flex-start;
+    height: 100%;
 }
 
 .price {
@@ -2801,6 +2802,7 @@ select {
 
   .productinfoinmenu {
     width: 100%;
+    height: auto;
   }
 
   .holdertexthero {
