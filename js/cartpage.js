@@ -77,6 +77,12 @@ function getLanguageFromURL() {
             if (cartDetails.success) {
                 const { products, totalPrice, status } = cartDetails;
 
+                const updatedCart = {};
+                for (const product of products) {
+                    updatedCart[product.productId] = product.quantity;
+                }
+                localStorage.setItem('cart', JSON.stringify(updatedCart));
+
                 if (status === "waiting") {
                     document.getElementById('checkoutdiv').style.display = "none";
                     document.getElementById('offertediv').style.display = "none";
