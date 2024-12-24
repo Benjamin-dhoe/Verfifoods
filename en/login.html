@@ -198,6 +198,10 @@
 
 function login(event) {
   event.preventDefault();
+  const loginBtn = document.getElementById('loginbtn');
+  const loginLoading = document.getElementById('loginloading');
+  loginBtn.style.display = "none";
+  loginLoading.style.display = "block";
 
   const email = document.getElementById('Email').value;
   const password = document.getElementById('Password').value;
