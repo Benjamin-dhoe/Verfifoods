@@ -1851,7 +1851,8 @@ td:hover .tooltip {
     margin-bottom: 10px;
     margin-right: 10px;
     position: relative;
-  width: 400px;
+    width: 45%;
+    min-width: 300px;
 }
 
 .menuitemimage {
