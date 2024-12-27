@@ -110,9 +110,9 @@ function updateCartButton() {
     let cartButton = document.querySelector('.shoppingcartbtn');
     if (!cartButton && uniqueItemsCount > 0) {
         // Create and append the cart button
-        cartButton = document.createElement('div');
+        cartButton = document.createElement('a');
         cartButton.className = "shoppingcartbtn opencart";
-        cartButton.innerHTML = `<a class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></a>`;
+        cartButton.innerHTML = `<div class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></div>`;
         document.body.appendChild(cartButton);
 
         // Add event listener to redirect to the cart
