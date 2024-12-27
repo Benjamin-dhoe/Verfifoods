@@ -22,6 +22,7 @@ function getLanguageFromURL() {
 }
 
   async function fetchCartDetailsFromCloudFunction(cart) {
+    const checkoutdiv = document.querySelector(".checkoutdivcart");
     try {
         const token = getCookie('token');
         const lang = getLanguageFromURL();
@@ -50,7 +51,6 @@ function getLanguageFromURL() {
 
         if (!data.success) {
             console.error("Cloud Function returned an error:", data.error);
-            const checkoutdiv = document.querySelector(".checkoutdivcart");
             checkoutdiv.innerHTML = `Error! Contact Verifoods`;
         }
 
@@ -58,6 +58,7 @@ function getLanguageFromURL() {
     } catch (error) {
         console.error("Failed to fetch cart details:", error);
         return { success: false, error: error.message };
+        checkoutdiv.innerHTML = `Error! Contact Verifoods`;
     }
   }
 
@@ -181,6 +182,7 @@ function getLanguageFromURL() {
             }
         } catch (error) {
             console.error("Error displaying cart items:", error);
+            checkoutdiv.innerHTML = `Error! Contact Verifoods`;
         } finally {
             hideLoadingSpinner();
         }
