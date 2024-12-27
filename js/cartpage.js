@@ -1,12 +1,10 @@
 const cloudFunctionURL = "https://europe-west1-test-9efbe.cloudfunctions.net/getCart";
 
-// Show the loading spinner
 function showLoadingSpinner() {
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'flex';
 }
 
-// Hide the loading spinner
 function hideLoadingSpinner() {
     const loadingSpinner = document.getElementById('loadingSpinner');
     loadingSpinner.style.display = 'none';
@@ -45,12 +43,15 @@ function getLanguageFromURL() {
 
         if (!response.ok) {
             throw new Error(`Error fetching cart details: ${response.statusText}`);
+            alert("Er is iets foutgelopen");
         }
 
         const data = await response.json();
 
         if (!data.success) {
             console.error("Cloud Function returned an error:", data.error);
+            const checkoutdiv = document.querySelector(".checkoutdivcart");
+            checkoutdiv.innerHTML = `Error! Contact Verifoods`;
         }
 
         return data;
