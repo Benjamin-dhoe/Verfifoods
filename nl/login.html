@@ -281,8 +281,8 @@ function login(event) {
       return user.getIdToken().then((idToken) => ({ idToken, userId: user.uid }));
     })
     .then(({ idToken, userId }) => {
-      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
-      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=3600`;
+      document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=86400`;
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=86400`;
 
       window.location.href = `/nl/users/${userId}`;
     })
