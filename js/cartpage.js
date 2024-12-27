@@ -25,12 +25,14 @@ function getLanguageFromURL() {
     const checkoutdiv = document.querySelector(".checkoutdivcart");
     try {
         const token = getCookie('token');
+        const adminOrder = getCookie('adminOrder');
         const lang = getLanguageFromURL();
         // Prepare payload
         const payload = {
             token,
             cart,
-            lang
+            lang,
+            adminOrder
         };
 
         // Fetch cart details
