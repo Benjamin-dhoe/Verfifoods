@@ -30,3 +30,22 @@ document.querySelectorAll('[openproducts]').forEach(element => {
       }
     });
   });
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+        const TWO_HOURS = 2 * 60 * 60 * 1000;
+        const pageKey = "pageLoadTimestamp";
+        const now = Date.now();
+        const lastLoad = localStorage.getItem(pageKey);
+
+        if (lastLoad) {
+            const elapsed = now - parseInt(lastLoad, 10);
+            if (elapsed > TWO_HOURS) {
+                localStorage.setItem(pageKey, now);
+                window.location.reload();
+            }
+        } else {
+            localStorage.setItem(pageKey, now);
+        }
+    }
+});
