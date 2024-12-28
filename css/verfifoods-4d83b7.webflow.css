@@ -2409,6 +2409,10 @@ select {
     font-size: 16px;
 }
 
+  .menuitem {
+    width: 100%;
+  }
+
   .section-doublepart.minfullheight.firsection, .section-doublepart.firstsection {
     padding-top: 40px;
   }
