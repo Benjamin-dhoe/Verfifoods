@@ -56,6 +56,10 @@ function getLanguageFromURL() {
             checkoutdiv.innerHTML = `Error! Contact Verifoods`;
         }
 
+        if (data.status === "redirectadm") {
+            window.location.href = data.redirectUrl;
+        }
+
         return data;
     } catch (error) {
         console.error("Failed to fetch cart details:", error);
