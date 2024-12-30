@@ -1373,6 +1373,11 @@ td:hover .tooltip {
   background-size: auto, cover;
 }
 
+.aanbodtypeimagediv.snacks {
+  background-image: linear-gradient(#0006, #0006), url('../images/Snacks-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
 .aanbodtypeimagediv.ijs {
   background-image: linear-gradient(#0006, #0006), url('../images/icecreamTypeAnbod.jpg');
 }
