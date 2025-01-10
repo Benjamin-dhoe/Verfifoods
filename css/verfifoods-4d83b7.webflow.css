@@ -9,6 +9,19 @@
   --darker-background: #fcf3e7;
 }
 
+.circle-number {
+  width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--brown);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+    color: white;
+    margin-right: 10px;
+}
+
 .min-width-cell {
   min-width: 160px;
 }
