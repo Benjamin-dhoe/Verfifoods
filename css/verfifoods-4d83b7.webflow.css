@@ -1878,13 +1878,10 @@ td:hover .tooltip {
 }
 
 .menuitemimage {
-      float: none;
-      width: 90%;
-      margin-bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      align-items: center;
+  float: right;
+  width: 120px;
+  margin: 0 0px 0px 20px;
+  text-decoration: none;
 }
 
 .menuitemimage img {
@@ -2418,7 +2415,7 @@ td:hover .tooltip {
   }
 }
 
-@media screen and (max-width: 767px) {
+@ and (max-width: 767px) {
   .holderthumbnailproduct {
     width: 200px;
     height: 200px;
@@ -2674,8 +2671,12 @@ select {
 
   .menuitemimage {
     float: none;
-    width: 100%;
-    margin-bottom: 40px;
+      width: 90%;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
 }
 
   .invphone {
