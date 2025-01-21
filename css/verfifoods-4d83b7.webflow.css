@@ -2668,6 +2668,12 @@ select {
     max-width: 95%;
 }
 
+  .menuitemimage {
+    float: none;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
   .invphone {
     display: none;
   }
