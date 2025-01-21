@@ -1878,10 +1878,13 @@ td:hover .tooltip {
 }
 
 .menuitemimage {
-  float: right; /* Allow the image to float */
-  width: 120px; /* Set a fixed width for the image */
-  margin: 0 0px 0px 20px;
-  text-decoration: none;
+      float: none;
+      width: 90%;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
 }
 
 .menuitemimage img {
@@ -1900,6 +1903,7 @@ td:hover .tooltip {
     padding-left: 8px;
     padding-right: 8px;
     margin-bottom: 10px;
+  min-width: 120px;
 }
 
 .productinfoinmenu {
