@@ -174,7 +174,9 @@ function getLanguageFromURL() {
                 }
     
                 // Display the total price
-                document.getElementById('totalprice').textContent = `${totalPrice} €`;
+                document.getElementById('exclprice').textContent = `${totalPrice} €`;
+                document.getElementById('vatprice').textContent = `${totalPrice * 0.06} €`;
+                document.getElementById('inclprice').textContent = `${totalPrice * 1.06} €`;
     
                 // Set up event listeners
                 setupCartEventListeners();
