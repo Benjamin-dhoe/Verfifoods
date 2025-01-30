@@ -2115,7 +2115,7 @@ td:hover .tooltip {
   justify-content: flex-start;
   align-items: stretch;
   width: 400px;
-  min-height: 120px;
+  min-height: 160px;
   padding: 20px;
   display: flex;
   position: relative;
