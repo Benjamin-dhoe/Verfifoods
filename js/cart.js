@@ -1,11 +1,10 @@
-// Function to handle quantity change
+
 document.querySelectorAll('.qtyhandlers').forEach(button => {
     button.addEventListener('click', (event) => {
         const action = event.target.getAttribute('data-action');
         const qtyElement = event.target.closest('.qtycontrols').querySelector('.qtyamount');
         let currentQty = parseInt(qtyElement.textContent);
 
-        // Update quantity based on the button clicked (plus or minus)
         if (action === 'plusitem') {
             qtyElement.textContent = currentQty + 1;
         } else if (action === 'minusitem' && currentQty > 1) {
@@ -14,7 +13,6 @@ document.querySelectorAll('.qtyhandlers').forEach(button => {
     });
 });
 
-// Function to handle adding to cart
 document.querySelectorAll('[data-cartbtn]').forEach(button => {
     const productId = button.getAttribute('data-cartbtn');
     const productName = button.getAttribute('data-cartbtn-name');
@@ -29,7 +27,6 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
         }
     }
 
-    // Check if the product is already in the cart
     if (cart[productId]) {
         addCheckIcon(button);
     }
@@ -40,7 +37,6 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
 
         if (quantity >= 1) {
             addToCart(productId, quantity, productName);
-            // Add the check icon if it wasn't there before
             if (!button.nextElementSibling?.classList.contains("dummyclass")) {
                 addCheckIcon(button);
             }
@@ -48,7 +44,6 @@ document.querySelectorAll('[data-cartbtn]').forEach(button => {
     });
 });
 
-// Function to add check icon
 function addCheckIcon(button) {
     const language = getLanguage();
     const checkText = {
@@ -66,7 +61,6 @@ function addCheckIcon(button) {
     button.insertAdjacentElement('afterend', checkIcon);
 }
 
-// Function to add items to the cart
 function addToCart(productId, quantity, productName) {
     let cart = {};
     const cartData = localStorage.getItem('cart');
@@ -79,20 +73,15 @@ function addToCart(productId, quantity, productName) {
         }
     }
 
-    // Update the cart with the new quantity
     cart[productId] = (cart[productId] || 0) + quantity;
 
-    // Save the updated cart back to localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Update shopping cart button
     updateCartButton();
 
-    // Show popup instead of alert
     showPopup(productName, quantity);
 }
 
-// Function to update the shopping cart button
 function updateCartButton() {
     let cart = {};
     const cartData = localStorage.getItem('cart');
@@ -106,17 +95,14 @@ function updateCartButton() {
     }
     const uniqueItemsCount = Object.keys(cart).length;
 
-    // Check if the cart button already exists
     let cartButton = document.querySelector('.shoppingcartbtn');
     if (!cartButton && uniqueItemsCount > 0) {
-        // Create and append the cart button
         cartButton = document.createElement('a');
         cartButton.className = "shoppingcartbtn opencart";
         cartButton.innerHTML = `<div class="cart-button"><img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt=""><div class="nritems">${uniqueItemsCount}</div></div>`;
         document.body.appendChild(cartButton);
 
-        // Add event listener to redirect to the cart
-        cartButton.querySelector('.cart-button').addEventListener('click', displayCart);
+        cartButton.addEventListener('click', displayCart);
     } else if (cartButton) {
         const nritems = cartButton.querySelector('.nritems')
         if (nritems) {
