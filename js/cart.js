@@ -79,7 +79,9 @@ function addToCart(productId, quantity, productName) {
 
     updateCartButton();
 
-    showPopup(productName, quantity);
+    const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+
+    showPopup(productName, quantity, totalItems);
 }
 
 function updateCartButton() {
@@ -113,12 +115,18 @@ function updateCartButton() {
 
 let popupZIndex = 10;
 // Function to show the popup
-function showPopup(item, quantity) {
+function showPopup(item, quantity, totalItemNr) {
     const language = getLanguage();
     const popupText = {
         en: `${quantity}x ${item} added to cart`,
         nl: `${quantity}x ${item} toegevoegd aan winkelmand`,
         fr: `${quantity}x ${item} ajouté au panier`
+    };
+
+    const popupUnderText = {
+        en: `You have currently selected ${totalItemNr} boxes in total`,
+        nl: `U heeft momenteel in totaal ${totalItemNr} dozen geselecteerd`,
+        fr: `Vous avez actuellement sélectionné ${totalItemNr} boîtes au total`
     };
 
     const goToCartText = {
@@ -139,7 +147,8 @@ function showPopup(item, quantity) {
     const popupHTML = `
         <div class="productedselecteddiv" style="z-index: ${popupZIndex};">
             <div class="bold-text">${popupText[language]}</div>
-                <a class="button intypeholder" href="${cartLink[language]}" style="color: #fff">${goToCartText[language]}</a>
+            <div class="small-text">${popupUnderText[language]}</div>
+            <a class="button intypeholder" href="${cartLink[language]}" style="color: #fff">${goToCartText[language]}</a>
             </div>
     `;
 
