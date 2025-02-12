@@ -1994,7 +1994,7 @@ td:hover .tooltip {
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  padding-top: 60px;
+  padding-top: 140px;
   padding-bottom: 60px;
   display: flex;
 }
