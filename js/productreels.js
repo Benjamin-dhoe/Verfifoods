@@ -36,7 +36,7 @@ async function fetchProductById(productId) {
         const response = await fetch("https://europe-west1-test-9efbe.cloudfunctions.net/getProduct", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: productId })
+            body: JSON.stringify({ productId: productId })
         });
 
         if (!response.ok) {
