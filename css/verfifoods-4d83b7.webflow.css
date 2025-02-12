@@ -802,6 +802,7 @@ td:hover .tooltip {
   padding-top: 60px;
   display: flex;
   position: relative;
+  min-height: 500px;
 }
 
 .iconspecs {
