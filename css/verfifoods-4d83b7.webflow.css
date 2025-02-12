@@ -798,11 +798,11 @@ td:hover .tooltip {
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  height: 500px;
   min-height: 90vh;
   padding-top: 60px;
   display: flex;
   position: relative;
-  min-height: 500px;
 }
 
 .iconspecs {
