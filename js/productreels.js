@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const popupHolder = document.getElementById("product-van-de-week");
     const closeBtn = document.getElementById("close-product-van-de-week");
-    const contentContainer = document.getElementById("content-product-week);
+    const contentContainer = document.getElementById("content-product-week");
 
     // Get last seen product ID from localStorage
     const lastSeenProductId = localStorage.getItem("lastSeenProductId");
