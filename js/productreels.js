@@ -21,8 +21,8 @@ function createPopup() {
         <div id="product-van-de-week" class="popupholder" style="opacity: 1">
             <div class="popupcontainer vis">
                 <div class="closebtn" id="close-product-van-de-week">X</div>
-                <div class="leftalignflexvert">
-                    <div class="brownundertitle">Product van de week</div>
+                <div>
+                    <div class="brownundertitle" style="text-align: center>Product van de week</div>
                 </div>
             </div>
         </div>
@@ -99,13 +99,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         productElement.className = "holderthumbnailproduct";
         productElement.href = productURL;
         productElement.innerHTML = `
-            <div class="shoppingcartbtn">
-                <img src="/images/8726224_shopping_cart_icon.svg" loading="lazy" alt="">
-            </div>
             <div class="thumbproductshowcases">
                 <img src="${product.afbeeldingURL}" loading="lazy" alt="" class="thumbproductimage">
                 <div class="bold-text">${productName}</div>
-                <p>${productBeschrijving}</p>
             </div>
         `;
 
