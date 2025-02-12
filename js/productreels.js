@@ -33,7 +33,7 @@ function createPopup() {
 // Fetch product details from our Cloud Function
 async function fetchProductById(productId) {
     try {
-        const response = await fetch("https://your-cloud-function-url/getProduct", {
+        const response = await fetch("https://europe-west1-test-9efbe.cloudfunctions.net/getProduct", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: productId })
