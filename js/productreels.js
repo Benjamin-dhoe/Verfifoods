@@ -1,5 +1,5 @@
 import { app } from '/js/firebase.js';
-import { getFirestore, doc, collection, getDocs, getDoc, query, where, limit } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
+import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
 
 const db = getFirestore(app);
 
@@ -30,6 +30,26 @@ function createPopup() {
     document.body.insertAdjacentHTML('beforeend', popupHTML);
 }
 
+// Fetch product details from our Cloud Function
+async function fetchProductById(productId) {
+    try {
+        const response = await fetch("https://your-cloud-function-url/getProduct", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: productId })
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch product details");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching product:", error);
+        return null;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
     createPopup(); // Add popup to the body
 
@@ -41,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const lastSeenProductId = localStorage.getItem("lastSeenProductId");
 
     try {
-        // Fetch the current product from Firebase
+        // Fetch the current product ID from Firebase
         const docRef = doc(db, "Other", "product-vd-week");
         const docSnap = await getDoc(docRef);
         if (!docSnap.exists()) return;
@@ -52,12 +72,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         // If the product hasn't changed and was seen, do nothing
         if (lastSeenProductId === currentProductId) return;
 
-        // Fetch product details
-        const productRef = doc(db, "Products", currentProductId);
-        const productSnap = await getDoc(productRef);
-        if (!productSnap.exists()) return;
-
-        const product = productSnap.data();
+        // Fetch product details using our Cloud Function
+        const product = await fetchProductById(currentProductId);
+        if (!product) return;
 
         // Detect language
         const lang = getLanguageFromURL();
