@@ -22,7 +22,7 @@ function createPopup() {
             <div class="popupcontainer vis">
                 <div class="closebtn" id="close-product-van-de-week">X</div>
                 <div id="content-product-week">
-                    <div class="brownundertitle" style="text-align: center>Product van de week</div>
+                    <div class="brownundertitle" style="text-align: center">Product van de week</div>
                 </div>
             </div>
         </div>
