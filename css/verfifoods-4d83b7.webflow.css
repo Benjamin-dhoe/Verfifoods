@@ -2215,7 +2215,7 @@ td:hover .tooltip {
   padding-right: 20px;
   display: flex;
   position: absolute;
-  top: 100px;
+  top: 110px;
   left: 47.5vw;
   width: 5vw;
 }
