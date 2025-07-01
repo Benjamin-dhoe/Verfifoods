@@ -9,6 +9,22 @@
   --darker-background: #fcf3e7;
 }
 
+.copyright-disclaimer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-weight: 500;
+}
+
+.codoolink {
+  color: var(--brown);
+  margin-left: 5px;
+}
+.codoolink:hover {
+  color: var(--darkest-blue);
+}
+
 .circle-number {
   width: 25px;
     height: 25px;
