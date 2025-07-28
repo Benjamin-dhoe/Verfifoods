@@ -17,33 +17,41 @@ function getLanguageFromURL() {
     }
 }
 
+async function loadPromoText() {
+  const div = document.getElementById("promotekstdiv");
+  if (!div) return;
 
-if (div) {
-    const lang = getLanguageFromURL();
-    const fieldMap = {
-        nl: 'textNl',
-        en: 'textEn',
-        fr: 'textFr'
-    };
+  const lang = getLanguageFromURL();
+  const fieldMap = {
+    nl: 'textNl',
+    en: 'textEn',
+    fr: 'textFr'
+  };
 
-    db.collection("Other").doc("promo-text").get().then((doc) => {
-        if (doc.exists) {
-            const data = doc.data();
-            const text = data[fieldMap[lang]];
-            if (text) {
-                div.textContent = text;
-                div.style.display = "flex";
-            } else {
-                div.style.display = "none";
-            }
-        } else {
-            div.style.display = "none";
-        }
-    }).catch((error) => {
-        console.error("Error getting document:", error);
+  try {
+    const docRef = doc(db, 'Other', 'promo-text');
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const text = data[fieldMap[lang]];
+      if (text) {
+        div.textContent = text;
+        div.style.display = "flex";
+      } else {
         div.style.display = "none";
-    });
+      }
+    } else {
+      div.style.display = "none";
+    }
+  } catch (error) {
+    console.error("Error getting promo text:", error);
+    div.style.display = "none";
+  }
 }
+
+// Call it
+loadPromoText();
 
 // Function to create and add the popup to the body
 function createPopup() {
