@@ -3,6 +3,8 @@ import { getFirestore, doc, getDoc, getDocs, collection } from 'https://www.gsta
 
 const db = getFirestore(app);
 
+const div = document.getElementById("promotekstdiv");
+
 // Get language from URL
 function getLanguageFromURL() {
     const url = window.location.href;
@@ -13,6 +15,33 @@ function getLanguageFromURL() {
     } else {
         return 'fr';
     }
+}
+
+
+if (div) {
+    const lang = getLanguageFromURL();
+    const fieldMap = {
+        nl: 'textNl',
+        en: 'textEn',
+        fr: 'textFr'
+    };
+
+    db.collection("Other").doc("promo-text").get().then((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            const text = data[fieldMap[lang]];
+            if (text) {
+                div.textContent = text;
+            } else {
+                div.style.display = "none";
+            }
+        } else {
+            div.style.display = "none";
+        }
+    }).catch((error) => {
+        console.error("Error getting document:", error);
+        div.style.display = "none";
+    });
 }
 
 // Function to create and add the popup to the body
