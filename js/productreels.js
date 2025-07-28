@@ -32,6 +32,7 @@ if (div) {
             const text = data[fieldMap[lang]];
             if (text) {
                 div.textContent = text;
+                div.style.display = "flex";
             } else {
                 div.style.display = "none";
             }
