@@ -9,6 +9,15 @@
   --darker-background: #fcf3e7;
 }
 
+.promo-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: var(--darker-background);
+  font-weight: 700;
+}
+
 .copyright-disclaimer {
   width: 100%;
   display: flex;
