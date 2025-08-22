@@ -132,6 +132,17 @@ function getLanguageFromURL() {
                             typeDisclaimer = `<div class="cartwarning">Mélangeur nécessaire pour ce produit.</div>`;
                         }
                     }
+                    let priceHtml = "";
+                    if (product.promoPercentage && Number(product.promoPercentage) > 0) {
+                        priceHtml = `
+                            <div class="price beforepromo">${product.totalProductPriceBeforePromo}€</div>
+                            <div class="price">${product.totalProductPrice}€</div>
+                        `;
+                    } else {
+                        priceHtml = `
+                            <div class="price">${product.totalProductPrice}€</div>
+                        `;
+                    }
                     
                     
                     const productHTML = `
@@ -148,7 +159,7 @@ function getLanguageFromURL() {
                                     </div>
                                 </div>
                                 <div class="winkelmanditempriceholder">
-                                    <div class="price">${product.totalProductPrice}€</div>
+                                    ${priceHtml}
                                 </div>
                             </div>
                         </div>
