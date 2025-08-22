@@ -1947,12 +1947,17 @@ td:hover .tooltip {
   font-weight: 700;
 }
 
+.price.beforepromo {
+  text-decoration: line-through;
+  color: #8B0000;
+}
+
 .holderqtyandaddbtn {
   flex-flow: wrap;
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
 }
 
 .qtycontrols {
