@@ -61,8 +61,11 @@
       </div>
     </div>
   </section>
-  <div id="promotekstdiv" class="promo-div">
-    
+  <div class="promo-div">
+    <div>Promotions</div>
+    <div id="promotions-div">
+      Loading promotions ...
+    </div>
   </div>
   <section class="section-doublepart">
     <div class="containcenter">
@@ -449,6 +452,27 @@ nextBtn.addEventListener('click', nextMember);
 
 updateMember(currentIndex);
 resetProgressBar();
+  </script>
+  <script>
+  async function loadPromotions() {
+    try {
+      const response = await fetch(
+        "https://europe-west1-test-9efbe.cloudfunctions.net/getPromos?lang=en",
+        {
+          method: "GET",
+        }
+      );
+
+      const html = await response.text();
+      document.getElementById("promotions-div").innerHTML = html;
+    } catch (error) {
+      console.error("Error loading promotions:", error);
+      document.getElementById("promotions-div").innerHTML =
+        "<div>Failed to load promotions</div>";
+    }
+  }
+
+  loadPromotions();
   </script>
 </body>
 </html>
