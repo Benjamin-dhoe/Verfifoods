@@ -1426,6 +1426,11 @@ td:hover .tooltip {
   background-image: linear-gradient(#0006, #0006), url('../images/icecreamTypeAnbod.jpg');
 }
 
+.aanbodtypeimagediv.four {
+  background-image: linear-gradient(#0006, #0006), url('../images/horecamateriaal.png');
+  background-size: auto, cover;
+}
+
 .holderdeliveryinfo {
   border: 1px solid var(--brown);
   background-color: var(--white);
