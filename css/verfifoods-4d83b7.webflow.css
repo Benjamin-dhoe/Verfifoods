@@ -1422,6 +1422,11 @@ td:hover .tooltip {
   background-size: auto, cover;
 }
 
+.aanbodtypeimagediv.pasta {
+  background-image: linear-gradient(#0006, #0006), url('../images/Pasta-Type-Aanbod.jpg');
+  background-size: auto, cover;
+}
+
 .aanbodtypeimagediv.ijs {
   background-image: linear-gradient(#0006, #0006), url('../images/icecreamTypeAnbod.jpg');
 }
